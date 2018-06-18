@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="linux系统用户以及用户组管理转载博客：http://www.92csz.com/study/linux/7.htm 登录文件passwd和shadow这两个文件是linux系统中最重要的文件之一。如果文件出错，则无法正常登陆。 /etc/passwd /etc/passwd由”:”分割成7个字段，每个字段的具体含义如下： 1) 用户名2) 存放账号的口令。之所以有是’x’，早期的unix系统口">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习(4)——系统用户&amp;磁盘&amp;vim">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/06/Linux学习-4/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="linux系统用户以及用户组管理转载博客：http://www.92csz.com/study/linux/7.htm 登录文件passwd和shadow这两个文件是linux系统中最重要的文件之一。如果文件出错，则无法正常登陆。 /etc/passwd /etc/passwd由”:”分割成7个字段，每个字段的具体含义如下： 1) 用户名2) 存放账号的口令。之所以有是’x’，早期的unix系统口">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-e2e8f354f50f1f98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-bb82e568ab862868.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-c2c1ece73f5e80e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-26b20cb924987c7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-196766d02ed8a830.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-29afac97fdad4e0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-1c19bf090a702e62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-0098a2d1e6c568f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-19b4e7ad53067318.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-fd92115153bae6fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-c46fcfbb035e093a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-09T13:15:59.510Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习(4)——系统用户&amp;磁盘&amp;vim">
+<meta name="twitter:description" content="linux系统用户以及用户组管理转载博客：http://www.92csz.com/study/linux/7.htm 登录文件passwd和shadow这两个文件是linux系统中最重要的文件之一。如果文件出错，则无法正常登陆。 /etc/passwd /etc/passwd由”:”分割成7个字段，每个字段的具体含义如下： 1) 用户名2) 存放账号的口令。之所以有是’x’，早期的unix系统口">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/8636110-e2e8f354f50f1f98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/06/Linux学习-4/"/>
+
+
+
+
+
+  <title>Linux学习(4)——系统用户&磁盘&vim | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/06/Linux学习-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习(4)——系统用户&磁盘&vim</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T22:01:10+08:00">
+                2018-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="linux系统用户以及用户组管理"><a href="#linux系统用户以及用户组管理" class="headerlink" title="linux系统用户以及用户组管理"></a>linux系统用户以及用户组管理</h1><p>转载博客：<a href="http://www.92csz.com/study/linux/7.htm" target="_blank" rel="noopener">http://www.92csz.com/study/linux/7.htm</a></p>
+<h2 id="登录文件"><a href="#登录文件" class="headerlink" title="登录文件"></a>登录文件</h2><p>passwd和shadow这两个文件是linux系统中最重要的文件之一。如果文件出错，则无法正常登陆。</p>
+<h3 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h3><p><img src="http://upload-images.jianshu.io/upload_images/8636110-e2e8f354f50f1f98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>/etc/passwd由”:”分割成7个字段，每个字段的具体含义如下：</p>
+<p>1) 用户名<br>2) 存放账号的口令。之所以有是’x’，早期的unix系统口令是存放在这里，但基于安全因素，后来就将其存放到/etc/shadow中了，在这里只用一个’x’代替。<br>3) 表示用户标识号，也称为uid。<br>4) 表示组标识号，也叫作gid。这个字段对应着/etc/group中的一条记录，其实/etc/group和/etc/passwd基本上类似。<br>5) 注释说明，通常记录该用户的一些属性，例如姓名、电话等等。<br>6) 用户的<strong>home目录</strong>。如root的home目录为/root，普通用户的为/home/username，该字段可自定义。比如我们建立一个test1用户，想让其home目录在/data目录下，只需修改/etc/passwd文件中test1该字段为/data。<br>7) shell。用户登录后启动一个进程，用来将用户下达的指令传给内核，这就是shell。Linux的shell有很多种sh, csh, ksh, tcsh, bash等，而Ubuntu的shell就是bash。查看/etc/passwd文件，该字段中除了/bin/bash外还有/sbin/nologin比较多，它表示不允许该账号登录。如果你想建立一个账号不让他登录，那么就可以把该字段改成/sbin/nologin，默认是/bin/bash。</p>
+<h3 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h3><p><img src="http://upload-images.jianshu.io/upload_images/8636110-bb82e568ab862868.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>与/etc/passwd类似，使用”;”分割为9个字段。此处大概记记即可。</p>
+<p>1) 用户名<br>2) 用户密码，不过已经过加密。为了安全，该文件属性设置为600，只允许root读写。<br>3) 上次更改密码的日期。这个数字是这样计算得来的，距离1970年1月1日到上次更改密码的日期，例如上次更改密码的日期为2012年1月1日，则这个值就是365*（2012-1970）+1=15331。<br>4) 要过多少天才可以更改密码，默认是0，即不限制。<br>5) 密码多少天后到期。即在多少天内必须更改密码，例如这里设置成30，则30天内必须更改一次密码，否则将不能登录系统，默认是99999，可以理解为永远不需要改。<br>6） 密码到期前的警告期限，若这个值设置成7，则表示当7天后密码过期时，系统就发出警告告诉用户，提醒用户他的密码将在7天后到期。<br>7) 账号失效期限。你可以这样理解，如果设置这个值为3，则表示：密码已经到期，然而用户并没有在到期前修改密码，那么再过3天，则这个账号就失效了，即锁定了。<br>8) 账号的生命周期，跟第三段一样，是按距离1970年1月1日多少天算的。它表示的含义是，账号在这个日期前可以使用，到期后账号作废。<br>9) 作为保留用的，没有什么意义。</p>
+<h2 id="新增-删除用户和用户组"><a href="#新增-删除用户和用户组" class="headerlink" title="新增/删除用户和用户组"></a>新增/删除用户和用户组</h2><ol>
+<li><p>新增一个组 groupadd [-g gid] groupname，-g选项可以自定义gid。</p>
+</li>
+<li><p>删除组groupdel groupname</p>
+</li>
+<li><p>增加用户 useradd [-u uid] [-g gid] [-d HOME] [-M] [-s] username，其中-u自定义uid，-g使其属于已经存在的某个GID，-d自定义用户家目录，-M不建立家目录，-s自定义shell</p>
+</li>
+</ol>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-c2c1ece73f5e80e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>创建test11时，加了-M选项，在/etc/passwd文件中home目录字段仍然有/home/test11，不过当ls查看该目录时，会提示该目录不存在。<img src="http://upload-images.jianshu.io/upload_images/8636110-26b20cb924987c7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ol start="4">
+<li>删除用户 userdel [-r] username，-r选项的作用是删除用户时连同家目录一起删除。</li>
+</ol>
+<h2 id="创建-修改用户的密码"><a href="#创建-修改用户的密码" class="headerlink" title="创建/修改用户的密码"></a>创建/修改用户的密码</h2><p>格式：passwd [username]<br>创建账户后默认是没有设置密码，但该账户同样无法登录系统，因此必须设置密码才可登录。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-196766d02ed8a830.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="用户身份切换"><a href="#用户身份切换" class="headerlink" title="用户身份切换"></a>用户身份切换</h2><p>切换用户，命令：su [-] username，不加username为切换至root用户。切换至root用户也可使用sudo su。</p>
+<h1 id="Linux磁盘管理"><a href="#Linux磁盘管理" class="headerlink" title="Linux磁盘管理"></a>Linux磁盘管理</h1><h2 id="查看磁盘或目录的容量"><a href="#查看磁盘或目录的容量" class="headerlink" title="查看磁盘或目录的容量"></a>查看磁盘或目录的容量</h2><p>df查看已挂载磁盘的总容量、使用容量、剩余容量等，可以不加任何参数，默认是按k为单位显示的。Filesystem表示扇区，Mounted on表示该分区所挂载的地方。其他选项则是修改blocks单位，如-m。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-29afac97fdad4e0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>du用来查看某个目录所占空间大小，默认k为单位。-a选项列出全部文件与目录大小，如果不加任何选项和参数只列出目录大小；-b以bytes为单位；-c为加总；等等。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-1c19bf090a702e62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="磁盘的分区和格式化"><a href="#磁盘的分区和格式化" class="headerlink" title="磁盘的分区和格式化"></a>磁盘的分区和格式化</h2><p>由于我并不考虑系统运维这方面，此块的学习暂时搁置。(其实是我懒，找时间会认真看的。)</p>
+<h1 id="文本编辑工具vim"><a href="#文本编辑工具vim" class="headerlink" title="文本编辑工具vim"></a>文本编辑工具vim</h1><p>心心念念，终于看到我最想学的内容了，就是vim工具。早期的Unix都是使用的vi作为系统默认的编辑器的，后来vim逐渐流行起来。</p>
+<p>博客作者认为，vi和vim最大的区别就是编辑一个文本时，vi不会显示颜色，而vim会显示颜色，显示颜色更易于用户进行编辑，其他功能基本一致。所以在linux系统下，使用vi还是vim完全取决你的个人爱好而已。我只学习vim。</p>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>vim有三种模式：一般模式、编辑模式、命令模式。</p>
+<ul>
+<li>一般模式：当你vim filename编辑一个文件时，进入该文件则为一般模式。在这个模式下，可以上下移动光标、删除某个字符；删除某行；复制、粘贴一行或多行。</li>
+<li>编辑模式：一般模式下，我们不可以修改某个字符，因此只能进入编辑模式。</li>
+<li>命令模式：在一般模式下，输入”:”或”/“即可进入命令模式。</li>
+</ul>
+<p>输入vim ex.txt后，进入一般模式。输入”i”，进入编辑模式。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-0098a2d1e6c568f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-19b4e7ad53067318.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>编辑完内容后，按ESC退出编辑模式，进入一般模式。此时左下方”insert”字样消失，按”:”进入命令模式。输入wq保存。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-fd92115153bae6fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>查看我们的内容：<br><img src="http://upload-images.jianshu.io/upload_images/8636110-c46fcfbb035e093a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="键盘操作"><a href="#键盘操作" class="headerlink" title="键盘操作"></a>键盘操作</h2><p>下面仅粘贴出常用操作。必须经常使用才能记得牢，现在我也只会特别基本的，下面很多都记不清楚。还是用得太少了。</p>
+<p>一般模式下还原操作：uu</p>
+<h3 id="一般模式下移动光标"><a href="#一般模式下移动光标" class="headerlink" title="一般模式下移动光标"></a>一般模式下移动光标</h3><p>（1）方向键移动<br>（2）ctrl+f屏幕向下移动一页；ctrl+b向上移动一页<br>（3）0或者shift+6移动到本行行首<br>（4）shift+4移动到本行行尾<br>（5）G光标移动到文本最末行<br>（6）nG（n为数字）移动到第n行<br>（7）gg移动到该文本的首行</p>
+<h3 id="一般模式下查找与替换"><a href="#一般模式下查找与替换" class="headerlink" title="一般模式下查找与替换"></a>一般模式下查找与替换</h3><p>（1）/word: 在光标之后查找字符串名为word的字符串，按”n”继续往后搜。<br>（2）?word: 在光标之前查找字符串名为word的字符串，按”n”继续往前搜。<br>（3）:n1,n2s/word1/word2: 在n1和n2行之间查找word1字符串并替换为word2.<br>（4）:1,$s/word1/word2: 所有行查找并替换。</p>
+<h3 id="一般模式下删除、复制、粘贴"><a href="#一般模式下删除、复制、粘贴" class="headerlink" title="一般模式下删除、复制、粘贴"></a>一般模式下删除、复制、粘贴</h3><p>（1）x,X分别为向后、向前删除一个字符<br>（2）dd: 删除光标所在行<br>（3）ndd(n为数字): 删除光标所在向下n行<br>（4）yy: 复制光标所在行<br>（5）nyy(n为数字): 复制从光标所在向下n行<br>（6）p,P: p复制的数据从光标下一行粘贴，P则从光标上一行粘贴</p>
+<h3 id="进入编辑模式"><a href="#进入编辑模式" class="headerlink" title="进入编辑模式"></a>进入编辑模式</h3><p>i: 在当前字符前插入字符<br>I: 在当前行行首插入字符<br>a: 在当前字符后插入字符<br>A: 在当前行行末插入字符<br>o: 在当前行下插入新的一行<br>O: 在当前行上插入新的一行</p>
+<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><p>:w 将编辑过的文本保存<br>:w! 若文本属性为只读时，强制保存<br>:q 退出<br>:q! 不管编辑或未编辑都不保存退出<br>:wq 保存并退出<br>:set nu 在每行的行首显示行号<br>:set nonu 取消行号</p>
+<p>至此，vim学习操作基本结束，更具体的指令操作可看<a href="http://www.92csz.com/study/linux/9.htm。" target="_blank" rel="noopener">http://www.92csz.com/study/linux/9.htm。</a></p>
+<p>下面贴一下博客作者给出的小作业，以及我对应的指令。由于没有iptables这个文件，因此我自己随便找了个文件进行复制。</p>
+<ol>
+<li><p>请把/etc/init.d/iptables复制到/root/目录下，并重命名为test.txt： cp /sublime_text/sublime.py test.txt</p>
+</li>
+<li><p>用vim打开test.txt并设置行号  vim test.txt / set nu</p>
+</li>
+<li><p>分别向下、向右、向左、向右移动5个字符  直接用方向键</p>
+</li>
+<li><p>分别向下、向上翻两页： 向下(ctrl+f) 向上(ctrl+b)</p>
+</li>
+<li><p>把光标移动到第49行： 49G</p>
+</li>
+<li><p>让光标移动到行末，再移动到行首：$ / 0</p>
+</li>
+<li><p>移动到test.txt文件的最后一行：G</p>
+</li>
+<li><p>移动到文件的首行：gg</p>
+</li>
+<li><p>搜索文件中出现的p并数一下一共出现多少个: /p(不数了，好多)</p>
+</li>
+<li><p>把从第一行到第三行出现的im 替换成ims :1,3s/im/ims/g</p>
+</li>
+<li><p>还原上一步操作: u</p>
+</li>
+<li><p>把整个文件中所有的iptables替换成iptable :1,$s/im/ims/g</p>
+</li>
+<li><p>把光标移动到50行，删除字符”$”(无)</p>
+</li>
+<li><p>还原上一步操作</p>
+</li>
+<li><p>删除第50行：光标移动到50行(50G)，再删除(dd)</p>
+</li>
+<li><p>还原上一步操作 (u)</p>
+</li>
+<li><p>删除从37行到42行的所有内容(移动到37行，再使用5dd)</p>
+</li>
+<li><p>还原上一步操作 (u)</p>
+</li>
+<li><p>复制48行并粘贴到52行下面</p>
+</li>
+<li><p>还原上一步操作（按两次u）</p>
+</li>
+<li><p>复制从37行到42行的内容并粘贴到44行上面</p>
+</li>
+<li><p>还原上一步操作（按两次u）</p>
+</li>
+<li><p>把37行到42行的内容移动到19行下面</p>
+</li>
+<li><p>还原上一步操作（按两次u）</p>
+</li>
+<li><p>光标移动到首行，把/bin/sh 改成 /bin/bash</p>
+</li>
+<li><p>在第一行下面插入新的一行，并输入”# Hello!” (光标移动到第一行，再o来建新行)</p>
+</li>
+<li><p>保存文档并退出 (wq)</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/04/Linux学习-3/" rel="next" title="Linux学习(3)——文件相关&命令介绍">
+                <i class="fa fa-chevron-left"></i> Linux学习(3)——文件相关&命令介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/07/Linux学习-5/" rel="prev" title="Linux学习(5)——文档压缩与打包">
+                Linux学习(5)——文档压缩与打包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux系统用户以及用户组管理"><span class="nav-number">1.</span> <span class="nav-text">linux系统用户以及用户组管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录文件"><span class="nav-number">1.1.</span> <span class="nav-text">登录文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-passwd"><span class="nav-number">1.1.1.</span> <span class="nav-text">/etc/passwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-shadow"><span class="nav-number">1.1.2.</span> <span class="nav-text">/etc/shadow</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增-删除用户和用户组"><span class="nav-number">1.2.</span> <span class="nav-text">新增/删除用户和用户组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-修改用户的密码"><span class="nav-number">1.3.</span> <span class="nav-text">创建/修改用户的密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户身份切换"><span class="nav-number">1.4.</span> <span class="nav-text">用户身份切换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux磁盘管理"><span class="nav-number">2.</span> <span class="nav-text">Linux磁盘管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看磁盘或目录的容量"><span class="nav-number">2.1.</span> <span class="nav-text">查看磁盘或目录的容量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘的分区和格式化"><span class="nav-number">2.2.</span> <span class="nav-text">磁盘的分区和格式化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文本编辑工具vim"><span class="nav-number">3.</span> <span class="nav-text">文本编辑工具vim</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单使用"><span class="nav-number">3.1.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键盘操作"><span class="nav-number">3.2.</span> <span class="nav-text">键盘操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般模式下移动光标"><span class="nav-number">3.2.1.</span> <span class="nav-text">一般模式下移动光标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般模式下查找与替换"><span class="nav-number">3.2.2.</span> <span class="nav-text">一般模式下查找与替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般模式下删除、复制、粘贴"><span class="nav-number">3.2.3.</span> <span class="nav-text">一般模式下删除、复制、粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入编辑模式"><span class="nav-number">3.2.4.</span> <span class="nav-text">进入编辑模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式"><span class="nav-number">3.2.5.</span> <span class="nav-text">命令模式</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

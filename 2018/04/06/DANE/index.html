@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="paper," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="RemarkI first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete v">
+<meta name="keywords" content="paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading report of Attributed Network Embedding for Learning in a Dynamic Environment">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/04/06/DANE/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="RemarkI first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete v">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8ca4d81ba7759b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b7cee8bd0ba382f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-321a64d7e490398e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-0730612e0942a453.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-82bf74e76f0b0771.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7f91610b1b1499b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-04-06T02:51:21.165Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reading report of Attributed Network Embedding for Learning in a Dynamic Environment">
+<meta name="twitter:description" content="RemarkI first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete v">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-8ca4d81ba7759b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/04/06/DANE/"/>
+
+
+
+
+
+  <title>Reading report of Attributed Network Embedding for Learning in a Dynamic Environment | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/04/06/DANE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Reading report of Attributed Network Embedding for Learning in a Dynamic Environment</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T10:05:45+08:00">
+                2018-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文阅读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Remark"><a href="#Remark" class="headerlink" title="Remark"></a>Remark</h1><p>I first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete version, please contact me at <a href="mailto:908660116@qq.com" target="_blank" rel="noopener">908660116@qq.com</a>.</p>
+<h1 id="Introduction-and-Contribution"><a href="#Introduction-and-Contribution" class="headerlink" title="Introduction and Contribution"></a>Introduction and Contribution</h1><p>Network structure often evolves over time with addition/deletion of links and nodes, which means the network is not static, but dynamic. It is valuable and necessary to learn about dynamic network embedding. But most of the existing famous network embedding approaches are limited to deal with plain networks. Therefore, we need to seek an effective embedding representation to capture network and attribute evolving patterns.</p>
+<p>In the paper, the authors propose a novel dynamic attributed network embedding framework – DANE, an unsupervised embedding algorithm, which can combine node attributes and network structure information at the same time in a dynamic environment. And they are the first one to tackle the following two challenges:<br>(1)the information in network might be noisy and incomplete, it necessitates a robust consensus representation to learn their characteristics; (2)the network embedding learning should be able to adapt to the change, which means to there should be an online pattern.</p>
+<h1 id="Main-Algorithm"><a href="#Main-Algorithm" class="headerlink" title="Main Algorithm"></a>Main Algorithm</h1><p>The algorithm contains two key steps:</p>
+<ol>
+<li>An offline method for a consensus embedding, and maximize the correlations between the embeddings of node attributes and node structure.</li>
+<li>Using matrix perturbation theory to update the online embedding results.</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-8ca4d81ba7759b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Offline-Model"><a href="#Offline-Model" class="headerlink" title="Offline Model"></a>Offline Model</h2><p>Network structure and node attributes in networks are presented in different representations. In this section, the authors learn a robust consensus embedding of two different representations to help solve the data sparsity problem.</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-b7cee8bd0ba382f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>Now the problem is to seek a consensus embedding. The authors propose to maximize their correlations. They seek two projection vectors $p_A^{(t)}$ and $p_X^{(t)}$ such that the correlation of $Y_A^{(t)}$ and $Y_X^{(t)}$ is maximized after projection. After some derivation about eigenvectors, the final consensus embedding representation can be computed as:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-321a64d7e490398e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Online-Model"><a href="#Online-Model" class="headerlink" title="Online Model"></a>Online Model</h2><p>In real-world networks often evolve smoothly in the temporal dimension between two consecutive time steps, therefor the authors use $\Delta A$ and $\Delta X$ to denote the perturbation of network structure and node attributes between two consecutive time steps t and t+1.</p>
+<p>The offline model focuses on finding the top eigenvectors corresponding to the smallest eigenvalues of the generalized eigen-problems. So the key idea to enable online update of the embeddings is to efficiently update the top eigenvectors and eigenvalues. Because the derivation process is long, here I skip this part and simply present the pseudo code and the final formula.</p>
+<p>The variation of the eigenvalue is as follows:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-0730612e0942a453.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>The perturbation of eigenvector a_i is as follows:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-82bf74e76f0b0771.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-7f91610b1b1499b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1><p>The authors use four datasets BlogCatalog, Flickr, Epinions and DBLP for experimental evaluation. And the baseline methods are Deepwalk, LINE, DANE-N, DANE-A, CCA, LCMF, LANE for different tasks. And the proposed DINE algorithm performs better than other methods.</p>
+<h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>The offline model in this paper mostly focus on finding the top eigenvectors to solve the problem, which I am not familiar with. Besides, the proposed method has two inherent constraints: (1)the node attributes are related to the formation of the network; (2) requiring that between different steps, the network node property of links change little or small. </p>
+<p>This algorithm is suitable for real time risk identification, which can rapidly update vector representation of high-dimensional information.</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>The authors first introduce the offline and online model of their algorithm, then analysis its computational complexity. Later comes the experimental part, and the tasks including network clustering and node classification. </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper/" rel="tag"><i class="fa fa-tag"></i> paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/05/A1073/" rel="next" title="PAT甲1073. Scientific Notation">
+                <i class="fa fa-chevron-left"></i> PAT甲1073. Scientific Notation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/24/如何正确学习一篇论文/" rel="prev" title="如何正确学习一篇论文">
+                如何正确学习一篇论文 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Remark"><span class="nav-number">1.</span> <span class="nav-text">Remark</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-and-Contribution"><span class="nav-number">2.</span> <span class="nav-text">Introduction and Contribution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Algorithm"><span class="nav-number">3.</span> <span class="nav-text">Main Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Offline-Model"><span class="nav-number">3.1.</span> <span class="nav-text">Offline Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Online-Model"><span class="nav-number">3.2.</span> <span class="nav-text">Online Model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experiment"><span class="nav-number">4.</span> <span class="nav-text">Experiment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#My-Idea"><span class="nav-number">5.</span> <span class="nav-text">My Idea</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-number">6.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

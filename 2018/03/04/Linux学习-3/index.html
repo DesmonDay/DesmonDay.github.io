@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Linux文件与目录管理参考博客：http://www.92csz.com/study/linux/6.htm 文件路径Linux系统中存在绝对路径和相对路径。  绝对路径：路径的写法一定由根目录”/“开始，如”/usr/src/linux-headers-4.10.0-28”  相对路径：路径的写法不是由根目录”/“开始。例如，首先用户进入到/然后再进入到home，命令为cd home；然后cd">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习(3)——文件相关&amp;命令介绍">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/04/Linux学习-3/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="Linux文件与目录管理参考博客：http://www.92csz.com/study/linux/6.htm 文件路径Linux系统中存在绝对路径和相对路径。  绝对路径：路径的写法一定由根目录”/“开始，如”/usr/src/linux-headers-4.10.0-28”  相对路径：路径的写法不是由根目录”/“开始。例如，首先用户进入到/然后再进入到home，命令为cd home；然后cd">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-55cf9f0e7520db5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-6a9f4578fe5ec374.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-5490a63941e60d0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-f030cef0a24c5238.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-61e5117f6ae2b8ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-c1bf7d5b44245a19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-89a26760e95444a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-c356d14261e74c62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-4171ae17c11015c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-27404a9291ccded0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-1de69d51755ebb5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-435438e0edbb7633.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-e10278e1b7396e64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-eddea213ba5ed4e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-28755e16d2bb0157.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-434f78190121f10d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-fb64773df5b5e399.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-102707cdb8530809.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-bf2b1ec537db30ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-413c2984eb166716.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-19894f432671f2f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-59a27374269d7a6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-e57653169117f59b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-aac581ade1691da3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-14cf9510d7cf9d3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-62d054c9e4bb0372.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-09T13:16:38.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习(3)——文件相关&amp;命令介绍">
+<meta name="twitter:description" content="Linux文件与目录管理参考博客：http://www.92csz.com/study/linux/6.htm 文件路径Linux系统中存在绝对路径和相对路径。  绝对路径：路径的写法一定由根目录”/“开始，如”/usr/src/linux-headers-4.10.0-28”  相对路径：路径的写法不是由根目录”/“开始。例如，首先用户进入到/然后再进入到home，命令为cd home；然后cd">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/8636110-55cf9f0e7520db5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/04/Linux学习-3/"/>
+
+
+
+
+
+  <title>Linux学习(3)——文件相关&命令介绍 | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/04/Linux学习-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习(3)——文件相关&命令介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-04T20:46:31+08:00">
+                2018-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux文件与目录管理"><a href="#Linux文件与目录管理" class="headerlink" title="Linux文件与目录管理"></a>Linux文件与目录管理</h1><p>参考博客：<a href="http://www.92csz.com/study/linux/6.htm" target="_blank" rel="noopener">http://www.92csz.com/study/linux/6.htm</a></p>
+<h2 id="文件路径"><a href="#文件路径" class="headerlink" title="文件路径"></a>文件路径</h2><p>Linux系统中存在绝对路径和相对路径。</p>
+<ul>
+<li><p>绝对路径：路径的写法一定由根目录”/“开始，如”/usr/src/linux-headers-4.10.0-28”<br><img src="http://upload-images.jianshu.io/upload_images/8636110-55cf9f0e7520db5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+</li>
+<li><p>相对路径：路径的写法不是由根目录”/“开始。例如，首先用户进入到/然后再进入到home，命令为cd home；然后cd test，此时用户所在的路径为 /home/desmon。第一个cd命令后跟 /home，第二个cd命令后跟desmon，并没有斜杠，这个desmon是相对于/home目录来讲的，所以叫做相对路径。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-6a9f4578fe5ec374.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+</li>
+</ul>
+<h2 id="命令介绍"><a href="#命令介绍" class="headerlink" title="命令介绍"></a>命令介绍</h2><p>pwd: 打印当前所在目录<br><img src="http://upload-images.jianshu.io/upload_images/8636110-5490a63941e60d0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>cd: 进入到某个目录。除了可进入绝对路径和相对路径外，./指当前目录，../指当前目录的上一级目录。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-f030cef0a24c5238.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>mkdir: 创建目录(make directories)。其语法为mkdir [-mp] [目录名称]，其中-m参数为指定要创建目录的权限，-p参数则为递归创建目录，即使上一级目录不存在。如果提示目录存在，那么加上-p参数则不会报错。如果为mkdir aa bb，则指创建aa和bb两个目录。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-61e5117f6ae2b8ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/8636110-c1bf7d5b44245a19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>rmdir: 删除目录(remove directories)。其-p参数与mkdir类似，其作用是将上级目录一起删除。例如，新建目录mkdir -p d1/d2/d3 ，rmdir -p d1/d2/d3相当于是删除了d1,d1/d2, d1/d2/d3。而如果要删除的目录中还有目录，则会提示该目录不为空不可删除。因此我们需要该用rm命令。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-89a26760e95444a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>rm: 删除目录或文件。rmdir命令只能删除目录而不能删除文件。</p>
+<ul>
+<li>-f参数：强制删除，如果不加此参数，则当删除一个不存在的文件时会报错。</li>
+<li>-i参数：当用户删除一个文件时提示用户是否真的删除。</li>
+<li>-r参数：当删除目录时，需要添加此选项。可删除不为空的目录。</li>
+<li>-rf参数：可合用，删除文件或目录。</li>
+</ul>
+<p>which: 用来查找一个命令的绝对路径。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-c356d14261e74c62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>alias: 用来设置指令的别名。语法alias [别名]=[指令名称]，例如 alias rm=’rm -i’。</p>
+<h2 id="环境变量PATH"><a href="#环境变量PATH" class="headerlink" title="环境变量PATH"></a>环境变量PATH</h2><p>我们从上面的which命令实例可以知道，命令是有绝对路径的。但是为什么我们输入很多命令时，都是直接打出命令，而没有去使用对应的绝对路径？这就是环境变量PATH在起作用。输入echo $PATH，echo为打印，PATH前的$表示后面接变量。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-4171ae17c11015c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果我们将ls移动到/root底下，在/root需要使用ls，但却无法使用，原因便是PATH没有/root目录。因此可以直接将/root的路径加入PATH当中: PATH=”$PATH”:/root；而是使用绝对路径来执行。</p>
+<h2 id="命令介绍-续"><a href="#命令介绍-续" class="headerlink" title="命令介绍(续)"></a>命令介绍(续)</h2><p>ls: 查看某个目录或某个文件，是list的缩写。其他参数可man ls查看。</p>
+<ul>
+<li>-a参数：列出全部档案，包括隐藏的。linux文件系统中同样也有隐藏文件。这些隐藏文件的文件名是以.开头的。</li>
+<li>-l参数：详细列出文件的属性信息，包括大小、创建日期、所属主所属组等等。ll命令等同ls -l。</li>
+</ul>
+<p>cp: copy的简写，即拷贝。格式为cp [选项] [来源文件] [目的文件]。</p>
+<ul>
+<li>-d参数：涉及到一个“连接”的概念。连接分为软连接和硬连接，软连接与windows中的快捷方式类似。如果不加这个-d 则拷贝软连接时会把软连接的目标文件拷贝过去，而加上后，其实只是拷贝了一个连接文件（即快捷方式）。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-27404a9291ccded0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+<li>-r参数：拷贝目录必须加。</li>
+<li>-i参数：如果遇到一个存在的文件，会问是否覆盖。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-1de69d51755ebb5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<p>touch: 看字面意思是摸一下，如果有这个文件，则会改变文件的访问时间，如果没有这个文件就会<strong>创建</strong>这个文件。</p>
+<p>echo: 打印。如上图，我们可以使用echo来写文件，比如上面所echo的内容”abc”和”edf”并没有显示在屏幕上，而是通过”&gt;”重定向到了文件111和222中(即把前面产生的输出写入到后面的文件)。</p>
+<p>mv: 移动，move的简写，格式为 mv [选项] [源文件] [目标文件]。</p>
+<ul>
+<li>-i参数：当目标文件存在时会问用户是否覆盖。</li>
+<li>-u参数：当目标文件存在时才会生效，如果源文件比目标文件新才会移动，否则不做任何动作。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-435438e0edbb7633.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/8636110-e10278e1b7396e64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<p>cat: 查看一个文件的内容并显示在屏幕上。-n参数显示行号，-A显示所有东西(包括特殊字符)。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-eddea213ba5ed4e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>注意”&gt;&gt;”和”&gt;”都是重定向，前者为追加内容，后者为覆盖。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-28755e16d2bb0157.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>tac: cat的反写，<strong>反向</strong>打印文件的内容到屏幕上。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-434f78190121f10d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>more: 阅读长文件，格式为more [文件名]，按空格读取下一页，按Q可退出阅读。更多内容可参考：<a href="https://linux.cn/article-2647-1.html" target="_blank" rel="noopener">https://linux.cn/article-2647-1.html</a></p>
+<p>less: 作用与more相同，但还可以上翻。空格键同样可以翻页，而按”j”键可以向下移动(按一下就向下移动一行)，按”k”键向上移动。</p>
+<p>head: head后直接跟文件名，则显示文件的前十行。如果加–n选项则显示文件前n行。</p>
+<p>tail: 和head一样，后面直接跟文件名，则显示文件最后十行。如果加-n选项则显示文件最后n行。-f选项动态显示文件的最后十行。</p>
+<p>切换为root用户: sudo su，输入密码后即可，退出输出exit。</p>
+<h2 id="文件的所有者以及所属组"><a href="#文件的所有者以及所属组" class="headerlink" title="文件的所有者以及所属组"></a>文件的所有者以及所属组</h2><p>一个linux目录或文件都有一个所有者和所属组。所有者，即文件的拥有者，而所属组，即该文件所属主所在的一个组。这样做可以保证文件的安全，即不同所有者所拥有的文件是不能相互查看的。那么，如果我们想要设置可以提供给usr1和usr2共同查看的文件test呢？此时，需要“所属组”。即创建群组users，使得usr1和usr2同属于该组，设置test的所属组为users，那么usr1和usr2都可以访问test。</p>
+<p>Linux文件属性不仅规定了所有者和所属组，还规定了所有者(user)、所属组(group)以及其他用户(others)对该文件的权限。通过ll可查看这些属性。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-fb64773df5b5e399.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="linux文件属性"><a href="#linux文件属性" class="headerlink" title="linux文件属性"></a>linux文件属性</h2><p>上图中，通过ll指令查看目录文件时，共显示了9列内容。</p>
+<p>第1列，包含的东西有该文件类型和所有者、所属组以及其他用户对该文件的权限，共十位。<br>(1)第一位用来描述文件类型。</p>
+<ul>
+<li>d表示该文件为目录；</li>
+<li>-表示该文件为普通文件；</li>
+<li>l表示连接文件(linux life)，例如软连接；<br><img src="http://upload-images.jianshu.io/upload_images/8636110-102707cdb8530809.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+<li>b表示块设备文件，比如磁盘分区；<br><img src="http://upload-images.jianshu.io/upload_images/8636110-bf2b1ec537db30ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+<li>c表示串行端口设备，例如键盘、鼠标；</li>
+<li>s表示套接字文件(socket)，用于进程间通信；<br>(2)后面9位，每三个为一组，均为rwx三个参数的组合。其中r代表可读，w代表可写，x代表可执行。前三位为所有者（user）的权限，中间三位为所属组（group）的权限，最后三位为其他非本群组（others）的权限。举例：<br>一个文件的属性为-rwxr-xr–，它代表的意思是，该文件为普通文件，文件所有者可读可写可执行，所属组可读不可写可执行，其他用户只可读。</li>
+</ul>
+<p>第2列，表示为连接占用的节点（inode），若为目录时，通常与该目录底下还有多少目录有关系。</p>
+<p>第3、4列分别表示文件所有者和所属组。</p>
+<p>第5列表示文件大小。(字节单位，ll -h可更清楚看文件大小)</p>
+<p>第6列、第7列和第8列为该文件的创建日期或者最近的修改日期，分别为月份日期以及时间。</p>
+<p>第9列，文件名。如果前面有一个. 则表示该文件为隐藏文件。</p>
+<h2 id="更改文件权限"><a href="#更改文件权限" class="headerlink" title="更改文件权限"></a>更改文件权限</h2><p>更改文件的权限，即更改所有者、所属组以及他们对应的读写执行权限。(应该root用户才可修改)</p>
+<h3 id="更改所属组chgrp"><a href="#更改所属组chgrp" class="headerlink" title="更改所属组chgrp"></a>更改所属组chgrp</h3><p>语法：chgrp [组名] [文件名]<br><img src="http://upload-images.jianshu.io/upload_images/8636110-413c2984eb166716.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="更改所有者chown"><a href="#更改所有者chown" class="headerlink" title="更改所有者chown"></a>更改所有者chown</h3><p>语法：chown [-R] 账户名 文件名 or chown [-R] 账户名：组名 文件名<br>这里的-R选项只作用于目录，作用是级联更改，即不仅更改当前目录，连目录里的目录或者文件全部更改。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-19894f432671f2f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/8636110-59a27374269d7a6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/8636110-e57653169117f59b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>聪明的你肯定知道了，原有的test文件夹是我在以desmon用户登录时创建的，因此其所有者和所属组都是desmon；而test2文件是root用户创建的，因此其所有者和所属组都是root；之后使用chown修改test文件夹，最后用-R选项级联修改到了test2。</p>
+<h3 id="改变读写执行权限chmod"><a href="#改变读写执行权限chmod" class="headerlink" title="改变读写执行权限chmod"></a>改变读写执行权限chmod</h3><p>在linux中为了方便更改这些权限，linux使用数字去代替rwx，具体规则为r: 4 w:2 x:1 -:0(二进制)。如，-rwxrwx—用数字表示就是770。</p>
+<p>chmod语法：chmod [-R] xyz 文件名（这里的xyz表示数字，-R表示级联修改）<br><img src="http://upload-images.jianshu.io/upload_images/8636110-aac581ade1691da3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>另外，chmod也可以支持显式的修改权限，基本上就九个属性分别是user/group/others三种，那么我们就可以用u/g/o来代表三种的属性。举例：<br><img src="http://upload-images.jianshu.io/upload_images/8636110-14cf9510d7cf9d3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>另外，其中的=也可以替换成+或-，表示增加或删除某个权限。</p>
+<h3 id="权限值限定"><a href="#权限值限定" class="headerlink" title="权限值限定"></a>权限值限定</h3><p>默认情况下，目录权限值为766，普通文件权限值为644。该值由umask限定。umask语法：umask xxx （这里的xxx代表三个数字），查看umask值只要输入umask然后回车。<br>root的umask预设是0022，含义规则如下：</p>
+<p>1）若用户建立为普通文件，则预设“没有可执行权限”，只有rw两个权限。最大为666（-rw-rw-rw-）<br>2）若用户建立为目录，则预设所有权限均开放，即777（drwxrwxrwx）</p>
+<p>umask数值代表的含义为，上边两条规则中的默认值（文件为666，目录为777）需要减掉的权限。所以目录的权限为(rwxrwxrwx) – (—-w–w-) = (rwxr-xr-x)，普通文件的权限为(rw-rw-rw-) – (—-w–w-) = (rw-r–r–)。</p>
+<p>umask的值可自定义修改，预设情况下，root的umask为022，而一般使用者则为002，因为可写的权限非常重要，因此预设会去掉写权限。</p>
+<h3 id="特殊属性相关指令"><a href="#特殊属性相关指令" class="headerlink" title="特殊属性相关指令"></a>特殊属性相关指令</h3><p>chattr：修改文件/目录的特殊属性<br>lsattr：列出文件/目录的特殊属性</p>
+<h2 id="linux下搜索文件"><a href="#linux下搜索文件" class="headerlink" title="linux下搜索文件"></a>linux下搜索文件</h2><p>which：用来查找可执行文件的绝对路径。需要注意的一点是，which只能用来查找PATH环境变量中出现的路径下的可执行文件。</p>
+<p>whereis：通过预先生成的一个文件列表库去查找跟给出的文件名相关的文件。</p>
+<p>locate：类似于whereis，也是通过查找预先生成的文件列表库来告诉用户要查找的文件在哪里。</p>
+<p>find：最为常用。语法：find [路径] [参数]。参数仅介绍根据文件名搜索对应的文件，如下：<br><img src="http://upload-images.jianshu.io/upload_images/8636110-62d054c9e4bb0372.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="linux文件系统"><a href="#linux文件系统" class="headerlink" title="linux文件系统"></a>linux文件系统</h2><p>windows的系统格式化硬盘时会指定格式，fat或者ntfs。目前的linux系统基本采用Ext3，为日志文件系统。Linux文件系统在windows中是不能识别的，但是在linux系统中可以挂载的windows的文件系统。</p>
+<p>有些linux发行版例如SuSE默认的文件系统为reiserFS，ReiserFS的优势在于，它是基于B*Tree快速平衡树高效算法的文件系统，具有高效的磁盘空间利用和独特的搜寻方式。</p>
+<h2 id="linux文件类型"><a href="#linux文件类型" class="headerlink" title="linux文件类型"></a>linux文件类型</h2><ul>
+<li>正规文件：一般类型文件，分为纯文字文件(可用cat,more,less直接查看)和二进制文件。</li>
+<li>目录</li>
+<li>连接档(link)：类似windows下的快捷方式。这种文件在linux中很常见，日常的系统运维工作中用的很多。</li>
+<li>设备档(device):与系统周边相关的一些档案，通常都集中在/dev这个目录之下。通常又分为两种：区块 (block) 设备档：储存数据，以提供系统存取的接口设备，简单的说就是硬盘。例如一号硬盘的代码是/dev/hda1，其第一个属性为”b”；字符(character) 设备档：即是一些串行端口的接口设备，例如键盘、鼠标等等，第一个属性为”c”。</li>
+</ul>
+<p>早期Unix系统文件名最多允许14个字符，而新的Unix或者linux系统中，文件名最长可以到达 256 个字符。</p>
+<h2 id="软连接和硬连接"><a href="#软连接和硬连接" class="headerlink" title="软连接和硬连接"></a>软连接和硬连接</h2><p>这块就不摘抄了，直接阅读原博客内容更为清晰。链接在最开头。涉及到的指令为ln。<br>语法： ln [-s] [来源文件] [目的文件]。ln 常用的选项就一个-s ，如果不加就是建立硬连接，加上就建立软连接。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/04/Linux学习-2/" rel="next" title="Linux学习(2)——初步学习">
+                <i class="fa fa-chevron-left"></i> Linux学习(2)——初步学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/06/Linux学习-4/" rel="prev" title="Linux学习(4)——系统用户&磁盘&vim">
+                Linux学习(4)——系统用户&磁盘&vim <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux文件与目录管理"><span class="nav-number">1.</span> <span class="nav-text">Linux文件与目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件路径"><span class="nav-number">1.1.</span> <span class="nav-text">文件路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令介绍"><span class="nav-number">1.2.</span> <span class="nav-text">命令介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量PATH"><span class="nav-number">1.3.</span> <span class="nav-text">环境变量PATH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令介绍-续"><span class="nav-number">1.4.</span> <span class="nav-text">命令介绍(续)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件的所有者以及所属组"><span class="nav-number">1.5.</span> <span class="nav-text">文件的所有者以及所属组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux文件属性"><span class="nav-number">1.6.</span> <span class="nav-text">linux文件属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改文件权限"><span class="nav-number">1.7.</span> <span class="nav-text">更改文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更改所属组chgrp"><span class="nav-number">1.7.1.</span> <span class="nav-text">更改所属组chgrp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改所有者chown"><span class="nav-number">1.7.2.</span> <span class="nav-text">更改所有者chown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变读写执行权限chmod"><span class="nav-number">1.7.3.</span> <span class="nav-text">改变读写执行权限chmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限值限定"><span class="nav-number">1.7.4.</span> <span class="nav-text">权限值限定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊属性相关指令"><span class="nav-number">1.7.5.</span> <span class="nav-text">特殊属性相关指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux下搜索文件"><span class="nav-number">1.8.</span> <span class="nav-text">linux下搜索文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux文件系统"><span class="nav-number">1.9.</span> <span class="nav-text">linux文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux文件类型"><span class="nav-number">1.10.</span> <span class="nav-text">linux文件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软连接和硬连接"><span class="nav-number">1.11.</span> <span class="nav-text">软连接和硬连接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

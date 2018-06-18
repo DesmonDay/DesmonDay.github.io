@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="paper," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="MotivationClassical clustering methods K-means and K-medoids find cluster centers by initially assigning cluster center(s) and iteratively update it(them). Because every data point is assigned to the">
+<meta name="keywords" content="paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading report of Clustering by fast search and find of density peaks">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/20/clustering-by-fast-search/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="MotivationClassical clustering methods K-means and K-medoids find cluster centers by initially assigning cluster center(s) and iteratively update it(them). Because every data point is assigned to the">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-59c822bc11e001f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a70d9521a8a128f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-671fe4f645ffd5b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b39162471428cd08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b7209009ad681c73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4399580d34e2186d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ea19feef45766ad7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-23T10:31:23.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reading report of Clustering by fast search and find of density peaks">
+<meta name="twitter:description" content="MotivationClassical clustering methods K-means and K-medoids find cluster centers by initially assigning cluster center(s) and iteratively update it(them). Because every data point is assigned to the">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-59c822bc11e001f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/20/clustering-by-fast-search/"/>
+
+
+
+
+
+  <title>Reading report of Clustering by fast search and find of density peaks | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/20/clustering-by-fast-search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Reading report of Clustering by fast search and find of density peaks</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-20T20:16:21+08:00">
+                2018-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文阅读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>Classical clustering methods K-means and K-medoids find cluster centers by initially assigning cluster center(s) and iteratively update it(them). Because every data point is assigned to the nearest cluster center(using distance), K-means and K-medoids can not detect nonspherical clusters. If we want to detect clusters with an arbitrary shape, we should perform density-based approaches. Although density-based spatial clustering of applications with noise(DBSCAN) can detect arbitrary shapes, we need to manually setting the density threshold, which is non-trivial. As for mean-shift clustering method, a cluster is defined as local maxima in the density of data points, which allows the findings of nonspherical clusters but requires embedding the data. </p>
+<p>In the paper, the authors propose a new simple and efficient algorithm, which combines the advantages of the above cluster methods, but also overcomes their shortcomings.</p>
+<h1 id="Main-algorithms"><a href="#Main-algorithms" class="headerlink" title="Main algorithms"></a>Main algorithms</h1><p>The algorithm is based on two principles, which reaches on the definition of a cluster.</p>
+<ol>
+<li>Cluster centers have higher local density, which means they are surrounded by neighbors with lower local density;</li>
+<li>Cluster centers are at a relatively large distance from points with a higher local density.</li>
+</ol>
+<h2 id="Computing-local-density-ρ-i"><a href="#Computing-local-density-ρ-i" class="headerlink" title="Computing local density ρ_i"></a>Computing local density ρ_i</h2><p>In the paper, the authors use two different methods to calculate the local density. In most of the datasets, using cutoff distance:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-59c822bc11e001f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>where χ(x) = 1 if x&lt;0 and χ(x) = 0 otherwise, and d_c is a cutoff distance. This algorithm is sensitively only to the relative magnitude of ρi, but robust to the choice of d_c.</p>
+<p>When applying approach on Olivetti Face Database, the authors use a Guassian kernal to calculate distance:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a70d9521a8a128f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And we can see that the first one is discrete value, the second one is continuous value, which means the former one is more easy to conflict.</p>
+<h2 id="Calculating-distance-δ-i"><a href="#Calculating-distance-δ-i" class="headerlink" title="Calculating distance δ_i"></a>Calculating distance δ_i</h2><p>δ_i is measured by the minimum distance between point i and other points with higher local density.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-671fe4f645ffd5b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>For the point with highest density, take δ_i=maxj(dij). Here we may jump in such dilemma, maybe point i and point j has the same density, and they happen to be in the same cluster. If we using the following cluster procedure, we may choose both two point as cluster centers, and takes one cluster apart. </p>
+<p>When I search some relevant information online, I find a better understanding of δ_i, which defines as followed:<br>Suppose {q_i }_(i=1)^N represents the descending index order of {ρ<em>i }\</em>(i=1)^N, which mean it satisfies:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b39162471428cd08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Cluster-procedure"><a href="#Cluster-procedure" class="headerlink" title="Cluster procedure"></a>Cluster procedure</h2><p>In order to choose the cluster center, the authors find such observation: the points of high δ and relatively high ρ are the cluster centers. In order to better visualize the result, they create a decision graph, which shown as followed:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b7209009ad681c73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>From the figure, we can clearly see that point 1 and 10 are clusters. In the paper, the isolated points are 26,27,28. (But in the paper, the authors did not clearly propose an exact way to find out the outliers, which I think needed consideration.) But one thing we should mention is that we define the cluster center in a qualitative analysis but not a quantitative analysis, which would cause puzzles.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4399580d34e2186d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>When we see figure A, the number of cluster centers is not clear and some may think different points as cluster centers. So as to determine the number of cluster centers, the authors gave a metric value:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ea19feef45766ad7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>In figure B, γ is pointed out. We can see that the higher γ is morely like the cluster center. And there is a clear different between cluster center and other points: the latter is relatively smooth, and there is a clear jump between cluster center and other points. In this way, we can see there are nine center clusters in the above figure.</p>
+<h1 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h1><p>This paper is the first one which combines local density and distance together. Besides, the algorithm it propose is easy and feasible, which I believe has inspired a lot of people.<br>Although from my perspective, it has some small problems. But this bran-new idea deserves our respect.</p>
+<h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>There are three points that I feel confused:<br>First, how to find the outliers? In this part the authors did not mention about it, maybe because this is not their main point.<br>Second, in the paper, the authors did not clearly how they elaborate the distance between two points, which means there is not specific distance formula.<br>Third, maybe the last metric value γ, we can normalize ρ and δ. </p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>In the paper, the authors propose a simple and robust algorithm of the choice of cluster centers. It is easy for us to understand and know how to realize. But the paper still has some questions to be solved. </p>
+<p>First, the authors declare two variables we need to calculate, then tell us how to use them to find the cluster center. In the experimental part, their algorithm shows great results on real datasets.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper/" rel="tag"><i class="fa fa-tag"></i> paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/19/算法笔记阅读1/" rel="next" title="算法笔记阅读1">
+                <i class="fa fa-chevron-left"></i> 算法笔记阅读1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/21/算法阅读笔记-日期处理/" rel="prev" title="算法阅读笔记--日期处理">
+                算法阅读笔记--日期处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-algorithms"><span class="nav-number">2.</span> <span class="nav-text">Main algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Computing-local-density-ρ-i"><span class="nav-number">2.1.</span> <span class="nav-text">Computing local density ρ_i</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Calculating-distance-δ-i"><span class="nav-number">2.2.</span> <span class="nav-text">Calculating distance δ_i</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cluster-procedure"><span class="nav-number">2.3.</span> <span class="nav-text">Cluster procedure</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Contribution"><span class="nav-number">3.</span> <span class="nav-text">Contribution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#My-Idea"><span class="nav-number">4.</span> <span class="nav-text">My Idea</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-number">5.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

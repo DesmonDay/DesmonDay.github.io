@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="lab," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="嵌入式系统Lab3实验报告   姓名 学号 班级 电话 邮箱     戴斯铭 15352071 M1(1504) 13727023544 908660116@qq.com    1、实验题目DOL实例分析及编程 2、实验要求任务： &amp;emsp;&amp;emsp;1、修改example1，使其输出3次方数 &amp;emsp;&amp;emsp;2、修改example2，让3个square模块变成2个 提示： &amp;emsp">
+<meta name="keywords" content="lab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验课">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/02/19/lab/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="嵌入式系统Lab3实验报告   姓名 学号 班级 电话 邮箱     戴斯铭 15352071 M1(1504) 13727023544 908660116@qq.com    1、实验题目DOL实例分析及编程 2、实验要求任务： &amp;emsp;&amp;emsp;1、修改example1，使其输出3次方数 &amp;emsp;&amp;emsp;2、修改example2，让3个square模块变成2个 提示： &amp;emsp">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-6f6db2b30e3fe5b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-da0984f6b672ffd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-e17c2c44f24ea2f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-597d69cbc49d30e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-486f4c1879cbdc92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-98524ba5f86a1215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-e17c2c44f24ea2f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-9c89f307d1fc8e95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-ba8fc434c7425c74.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-4335880d3fb4224b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-b18c03a616ef6f90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-a2e48aad4f5fe641.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-02-19T09:24:01.802Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实验课">
+<meta name="twitter:description" content="嵌入式系统Lab3实验报告   姓名 学号 班级 电话 邮箱     戴斯铭 15352071 M1(1504) 13727023544 908660116@qq.com    1、实验题目DOL实例分析及编程 2、实验要求任务： &amp;emsp;&amp;emsp;1、修改example1，使其输出3次方数 &amp;emsp;&amp;emsp;2、修改example2，让3个square模块变成2个 提示： &amp;emsp">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/8636110-6f6db2b30e3fe5b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/02/19/lab/"/>
+
+
+
+
+
+  <title>实验课 | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/02/19/lab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实验课</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-19T17:11:46+08:00">
+                2018-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="嵌入式系统Lab3实验报告"><a href="#嵌入式系统Lab3实验报告" class="headerlink" title="嵌入式系统Lab3实验报告"></a>嵌入式系统Lab3实验报告</h1><table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>学号</th>
+<th>班级</th>
+<th>电话</th>
+<th>邮箱</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>戴斯铭</td>
+<td>15352071</td>
+<td>M1(1504)</td>
+<td>13727023544</td>
+<td><a href="mailto:908660116@qq.com" target="_blank" rel="noopener">908660116@qq.com</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1、实验题目"><a href="#1、实验题目" class="headerlink" title="1、实验题目"></a>1、实验题目</h2><p>DOL实例分析及编程</p>
+<h2 id="2、实验要求"><a href="#2、实验要求" class="headerlink" title="2、实验要求"></a>2、实验要求</h2><p>任务：</p>
+<p>&emsp;&emsp;1、修改example1，使其输出3次方数</p>
+<p>&emsp;&emsp;2、修改example2，让3个square模块变成2个</p>
+<p>提示：</p>
+<p>&emsp;&emsp;修改代码之后，重新编译运行（sudo ant -f runexample.xml -Dnumber=XXX，其中XXX是指运行example的号码。）</p>
+<p>报告内容：</p>
+<p>&emsp;&emsp;1、改完的*.dot截图</p>
+<p>&emsp;&emsp;2、结合论文分析编译过程</p>
+<p>##3、实验原理<br>&emsp;&emsp;要想实现上述两个任务，首先需要了解实验中各个文件的主要内容以及各自代表的意义。接下来，让我们重温实验课件中的重要内容。</p>
+<p>&emsp;&emsp;接下来分析各个example文件夹中各个文件的含义，以example1为例：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-6f6db2b30e3fe5b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>&emsp;&emsp;可以看到example文件夹中有两个重要的文件，一是src文件夹，二是example1.xml。src文件夹中有各个进程（生产者，消费者，处理模块等）的功能定义，如图所示的generator以及consumer。而example1.xml文件，描述了系统的架构即模块连接方式的定义。</p>
+<p>&emsp;&emsp;接下来，让我们进入src文件探个究竟。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-da0984f6b672ffd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>&emsp;&emsp;/src文件夹中包含两种文件：.c和对应的.h，这些是*.dot对应生产者框和消费者框的功能描述。先将dot图贴在此处，以方便讲解：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-e17c2c44f24ea2f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="16.png"></p>
+<p>&emsp;&emsp;每个模块都需要实现两个接口，分别是xxx__init和xxx__fire函数，用于初始化这个模块需要做什么，以及模块在运作时做了什么；而./example*.xml文件则定义了模块之间的连接方式，从上图可以看到，定义的内容是具体使用哪种框、哪条线来将模块相连。而且，上述蓝框中的内容也对应src文件里的内容，其连线也由xml文件来决定。</p>
+<p>&emsp;&emsp;大致介绍了各个文件的具体内容后，接下来进入具体的实验过程。</p>
+<p>##4、实验过程<br>任务一：修改example1，使其输出3次方数</p>
+<p>&emsp;&emsp;由实验2时我们得知，example1原本输出的是平方数，那么我们进入其对应的src文件夹，寻找定义了平方这个计算方式的文件。很容易便可以进入square.c文件中进行查看。下面对其进行源码分析（当然，实验课上TA也对代码部分进行了详细的解读）：</p>
+<p>&emsp;&emsp;其内部共有两个函数，分别为square_init函数和square_fire函数，前者的源码如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-597d69cbc49d30e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>&emsp;&emsp;可以看到，这里对两个变量进行了初始化。其中，p-&gt;local-&gt;index表示当前位置，初始化为0；而p-&gt;local-&gt;len则代表生产者的长度即个数，初始化为常量LENGTH。（更具体的含义可以通过阅读generator以及consumer文件的源码来得知）</p>
+<p>&emsp;&emsp;接下来是square_fire函数中的内容。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-486f4c1879cbdc92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>&emsp;&emsp;从此函数中可以看到，若满足当前位置小于生产者的长度，则对变量i进行平方运算。实验要求我们输出i的三次方，毫无疑问，只需要将i = i <em> i修改为i = i </em> i * i即可。通过命令行指令删除main文件夹下的已存在的example文件，再重新进行编译运行即可。编译成功的截图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-98524ba5f86a1215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>&emsp;&emsp;其对应的*.dot文件与原来相比，并没有改变，如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-e17c2c44f24ea2f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="16.png"></p>
+<p>任务二：修改example2，让3个square模块变成2个</p>
+<p>&emsp;&emsp;从这个实验任务也可以推测，我们需要修改的是模块的连接方式，而不是修改模块内具体是怎么计算的。因此可以推测，需要我们修改的是example2.xml文件内的内容。</p>
+<p>&emsp;&emsp;当然，从所给的实验课件中我们也可以得知，example2的各个进程功能与example1相同，这也说明其消费者、生产者等进程的实现相同。而不同之处在于，example2架构中包含3个square进程，因此其相乘为产生的结果为i的八次方。因此，我们需要修改的，便是将3个square进程变为两个。</p>
+<p>&emsp;&emsp;打开example2.xml文件，分析源码。此外，课件中也给了相应的提示，需要修改iterator部分，因此我们很快便可以锁定关键位置。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-9c89f307d1fc8e95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>&emsp;&emsp;这里通过迭代，定义了3个square模块，因此我们只要将上图的value值由3改为2即可。其余更具体的连接方式方面的内容在实验课上已讲过，因此不再重复。在删除原main文件夹下的已存在的example文件后，通过执行指令sudo ant -f runexample.xml -Dnumber=2即可编译运行example2。其修改后输出的结果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-ba8fc434c7425c74.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两个square模块.PNG"></p>
+<p>&emsp;&emsp;可以看出，结果不再是i的八次方，而是i的四次方。同样的，贴出对应的.dot文件截图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-4335880d3fb4224b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>&emsp;&emsp;可以看到，如今只有两个square模块。至此，上述两个任务实现结束。</p>
+<p>##5、结合论文分析编译过程<br>&emsp;&emsp;首先可以明确的一点是，我们使用的环境是DOL编程环境，因此我直接阅读了该论文中的第三个部分：DOL PROGRAMMING ENVIRONMENT。下面对其内容进行具体分析。<br>&emsp;&emsp;DOL是一个平台独立的MPSoC编程环境，以实时为目标流和（阵列）信号处理应用程序。下面重点根据此图来对编译过程进行分析。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-b18c03a616ef6f90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>&emsp;&emsp;此图给我们展示了一个DOL环境的概述。而从图中也可以看到，我们实验中所涉及的修改example文件并进行编译的步骤，仅与”functional simulation generation有关。实验时，我们也知道，所接触到的代码文件均是xml和c文件。首先需要通过图中的三个步骤：</p>
+<blockquote>
+<p>application specification(XML &amp; C)<br>mapping specification(XML)<br>architecture specification(XML)</p>
+</blockquote>
+<p>&emsp;&emsp;经过上述三步后，接下来便是自动生成功能模拟应用程序。从论文中可以阅读到，功能模拟允许测试和调试并行应用程序代码与标准工作站上的标准调试工具。具体来说，是使用SystemC模拟引擎和gdb。这也是为什么我们需要下载systemC的压缩包进行安装。</p>
+<p>&emsp;&emsp;接下来就具体介绍功能模拟过程中所涉及的DOL以及SystemC的整个编译实现过程。</p>
+<p>&emsp;&emsp;首先是明确为何选择使用C语言和xml语言，在实现中，使用C/C++程序来编译Actors，选择XML来描述数据流过程的网络拓扑。选择这些语言具有务实的原因，因为使用C / C ++允许重用现有的旧代码，并且由于具有大量的可用工具，XML更易于处理。简单来说，编译过程可以描述为以下两个步骤：</p>
+<p>&emsp;&emsp;1. 处理XML过程网络描述和相关联的C源代码来生成可执行的SystemC模型；</p>
+<p>&emsp;&emsp;2. 可视化流程网络，即生成dot文件。</p>
+<p>&emsp;&emsp;更详细的过程，可参考下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-a2e48aad4f5fe641.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>&emsp;&emsp;以我们所编译的example1文件为例。首先由先前的实验过程可知，我们的编译是使用以下语句来进行的：</p>
+<blockquote>
+<p>ant -f runexample.xml -Dnumber=1</p>
+</blockquote>
+<p>&emsp;&emsp;这个runexample.xml文件用来触发指定实例的扁平化，C代码生成，编译和执行。这里的实例扁平化应该就是指将xml过程描述以及相关联的C源代码进行mapping，之后再进而生成可执行的SystemC模型，再进行编译执行即可。</p>
+<p>参考链接：<a href="https://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/#DOL-amp-SystemC-for-Functional-Simulation" target="_blank" rel="noopener">https://durant35.github.io/2016/10/01/TACouses_Embedded_System_2016/#DOL-amp-SystemC-for-Functional-Simulation</a></p>
+<p>##6、实验感想<br>&emsp;&emsp;这次实验任务完成就比较简单了，比较难的部分是需要分析黄凯老师的博士论文。当然，我在阅读的时候是有点偷懒成分的，直接阅读了涉及课程内容比较多的第三个部分。另外，从别的同学那里得知了一个助教的github地址，有着比较直观的解释吧，所以也借鉴了一下。</p>
+<p>&emsp;&emsp;当然，我觉得如果需要理解更深层面的内容，则需要具备比较深厚的专业知识才比较好。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/lab/" rel="tag"><i class="fa fa-tag"></i> lab</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/24/Implementaion-of-M-NMF/" rel="prev" title="Implementation of M-NMF">
+                Implementation of M-NMF <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#嵌入式系统Lab3实验报告"><span class="nav-number">1.</span> <span class="nav-text">嵌入式系统Lab3实验报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、实验题目"><span class="nav-number">1.1.</span> <span class="nav-text">1、实验题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、实验要求"><span class="nav-number">1.2.</span> <span class="nav-text">2、实验要求</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="paper,matlab," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文的主要目的是实现论文Community Preserving Network Embedding(Xiao Wang)中提到的M-NMF算法。在作者个人主页可以下载该论文，并且有论文算法的matlab版demo code提供下载。 算法简介算法背景Network Embedding，其主要目的是学习网络中结点的低维向量表示，而其基本的要求之一是能够保存网络的结构信息和内在信息。如今大多的网络嵌">
+<meta name="keywords" content="paper,matlab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Implementation of M-NMF">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/02/24/Implementaion-of-M-NMF/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="本文的主要目的是实现论文Community Preserving Network Embedding(Xiao Wang)中提到的M-NMF算法。在作者个人主页可以下载该论文，并且有论文算法的matlab版demo code提供下载。 算法简介算法背景Network Embedding，其主要目的是学习网络中结点的低维向量表示，而其基本的要求之一是能够保存网络的结构信息和内在信息。如今大多的网络嵌">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-54c4e4cf9ebe6fe0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-6ff27a945112d8a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-ec7b626a3b0aef6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-f388df802bd9b65a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-3ef0798c239513cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-6a87386a460bf2bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-1fa9bb4798b4eda6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-3df0d3bb42e122ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-5062fd134ea238ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-0653833181e0806d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-5062fd134ea238ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-637f18eb1abd9a81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-14T05:12:31.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Implementation of M-NMF">
+<meta name="twitter:description" content="本文的主要目的是实现论文Community Preserving Network Embedding(Xiao Wang)中提到的M-NMF算法。在作者个人主页可以下载该论文，并且有论文算法的matlab版demo code提供下载。 算法简介算法背景Network Embedding，其主要目的是学习网络中结点的低维向量表示，而其基本的要求之一是能够保存网络的结构信息和内在信息。如今大多的网络嵌">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/8636110-54c4e4cf9ebe6fe0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/02/24/Implementaion-of-M-NMF/"/>
+
+
+
+
+
+  <title>Implementation of M-NMF | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/02/24/Implementaion-of-M-NMF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Implementation of M-NMF</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-24T11:44:47+08:00">
+                2018-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文阅读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文的主要目的是实现论文Community Preserving Network Embedding(Xiao Wang)中提到的M-NMF算法。在<a href="https://sites.google.com/site/wangxiaotjucs/" target="_blank" rel="noopener">作者个人主页</a>可以下载该论文，并且有论文算法的matlab版demo code提供下载。</p>
+<h1 id="算法简介"><a href="#算法简介" class="headerlink" title="算法简介"></a>算法简介</h1><h2 id="算法背景"><a href="#算法背景" class="headerlink" title="算法背景"></a>算法背景</h2><p>Network Embedding，其主要目的是学习网络中结点的低维向量表示，而其基本的要求之一是能够保存网络的结构信息和内在信息。如今大多的网络嵌入方法主要保存网络的微观(microscopic)结构，如一阶亲密度和二阶亲密度（具体含义在之后进行介绍），而往往忽略了细观(mesoscopic)结构。具体来说，多数网络嵌入方法更关注网络的微观结构，即网络结点中成对的关系或者相似度，而往往忽略了社区结构描述这一重要性质。许多拥有多个社区的网络，往往在相同社区之间的结点有密集连通，而社区之间的连通则相对稀疏，因此社区之间的结构同样需要引起我们学习的关注。</p>
+<p>另外，细观社区结构在结点表达方面比微观结构有着更多的限制，比如在同一社区内的结点应该比在其他不同社区的结点更相似；在同一社区中的两个结点，即使他们在微观结构中为弱连接，他们的亲密度仍可通过社区结构而增强。</p>
+<p>为了解决社区结构被忽视的问题，本文作者提出了M-NMF算法，即模块化非负矩阵分解模型，能够同时保存网络的微观(microscopic)结构和细观(mesoscopic)结构。M-NMF是基于非负矩阵分解（NMF）框架的网络嵌入方法。具体而言，它通过最大化模块性来发现社区结构，并且通过NMF来学习结点的表示。</p>
+<h2 id="算法内容"><a href="#算法内容" class="headerlink" title="算法内容"></a>算法内容</h2><h3 id="对社区间结构进行建模——Modularity"><a href="#对社区间结构进行建模——Modularity" class="headerlink" title="对社区间结构进行建模——Modularity"></a>对社区间结构进行建模——Modularity</h3><p>作者在M-NMF算法中使用了模块度这一指标，用于建立社区结构。具体而言，给定具有两个社区的网络，其模块度定义如下(Newman 2006b):</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-54c4e4cf9ebe6fe0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>其中，Aij即为网络的矩阵表示，ki为结点i的度，而如果结点i属于第一个网络，那么hi=1，反之为-1。而(k_i*k_j)/2e则为结点i和j之间我们所期望的边的数量。作者使用模块度矩阵<strong>B</strong>来替代上述式中的项，即B_ij=A_ij-(k_i<em>k_j)/2e。因此我们有Q=1/4e**</em>h<strong>‘ </strong>Bh**，其中h=[h_i]∈R^n为社区成员指标。</p>
+<p>为了将两个社区拓展为多个社区，作者将社区成员指标扩展成H∈R^(n×k)，其中每一社区为一行，为了保证每个结点只能被划分到一个社区，因此添加了限制tr(H^T H)=n（tr(X)是指矩阵X的迹，即主对角线（从左上方至右下方的对角线）上各个元素的总和）。因此最终我们有新的模块度表达如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-6ff27a945112d8a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>我们要做的就是尽量最大化模块度，使得社区结构更为明显。</p>
+<h3 id="对社区内结构进行建模"><a href="#对社区内结构进行建模" class="headerlink" title="对社区内结构进行建模"></a>对社区内结构进行建模</h3><ul>
+<li>一阶亲密度</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-ec7b626a3b0aef6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>简单来说，即如果两个结点之间存在边，则亲密度为1，否则为0。因为一阶亲密度是网络最直接的信息，因此需要进行保存。然而，真实网络中的边往往是稀疏的，经常会出现两个结点共同连接许多相同的邻居，但却没有互相连通的情况，因此需要考虑二阶亲密度。</p>
+<ul>
+<li>二阶亲密度</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-f388df802bd9b65a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>作者使用矩阵<img src="http://upload-images.jianshu.io/upload_images/8636110-3ef0798c239513cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png">来保存结点i与其他结点之间的一阶亲密度。使用余弦相似度来计算二阶亲密度，可得如下公式：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-6a87386a460bf2bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>保存机制</li>
+</ul>
+<p>为了能够同时保存上述两个亲密度，作者使用最终的相似度矩阵<img src="http://upload-images.jianshu.io/upload_images/8636110-1fa9bb4798b4eda6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png">，其中η为二阶亲密度的权重。随后，作者使用非负矩阵分解框架NMF来对矩阵S进行分解，分解为基矩阵M和表达矩阵U，以达到降维的效果。因此得到以下损失函数：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-3df0d3bb42e122ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>该损失函数越小，则说明我们非负矩阵分解（降维）的效果越好。</p>
+<h3 id="统一化network-embedding模型"><a href="#统一化network-embedding模型" class="headerlink" title="统一化network embedding模型"></a>统一化network embedding模型</h3><p>由于我们需要将上述社区结构和社区内结构两种模型统一起来，因此需要提供一个中介。本文作者使用了一个辅助矩阵C，其中C的每一行是每个社区的表达。而在作者的观点来看，如果一个结点i的表达与某个社区r即为相似，那么该结点很可能就属于该社区，因此其将这种结点的社区倾向表示为U_iC_r（这里的U中的每一行是指通过非负矩阵分解后每个结点的表达）。</p>
+<p>如果结点表达与社区表达完全正交，说明两者完全不同。而我们在之前就已经介绍了社区成员指标<strong>H</strong>（指示结点属于哪个社区），因此需要尽可能使得UC’与H一致。最终，我们有以下目标函数：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-5062fd134ea238ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>整个M-NMF模型的简要概述可以用作者个人网页上的图进行描述：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-0653833181e0806d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>由于上述目标函数为非凸函数，因此作者将其分解为四个子问题来进行优化，并且使每个子问题收敛至最佳。此部分不进行具体解释。</p>
+<h2 id="个人看法"><a href="#个人看法" class="headerlink" title="个人看法"></a>个人看法</h2><p>我感觉这篇论文是很有价值的一篇论文，其不仅能够保存网络的社区内结构和社区结构，并且巧妙地使用辅助矩阵将两种模型结构结合起来。思路清晰简单，易于理解，在原有NMF框架上补充模块度这一度量指标，形成自己的新算法。这篇论文可以改进的地方是，它只使用了边连通性这一网络信息，而没有考虑结点属性。如果将结点属性也结合起来，社区划分效果应该会更好，当然是针对属性增强网络而言。</p>
+<p>（事后将论文阅读报告给导师看后，才知道实验室有个师姐在刚过去的年底已经投了上面的idea的论文，并且被录用了。晚了一步，哭哭~）</p>
+<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>在作者提供的数据集链接中，我选择使用Facebook数据集，因为其可以使用matlab直接打开，而其他数据集则是比较生疏的格式，暂且不理会。使用的Facebook数据集共包含4个大学的4个社交网络，具体的信息介绍如下：</p>
+<blockquote>
+<p>Particularly, we used four social networks in four universities,i.e., Amherst (2021 nodes, 81492 edges, 15 communities), Hamilton (2118 nodes, 87486 edges, 15 communities), Mich (2933 nodes, 54903 edges, 13 communities) and Rochester (4145 nodes, 145305 edges, 19 communities)</p>
+</blockquote>
+<p>通过下载数据集后进行研究，可知其每个网络的格式均相同，共有4个常量矩阵。包含adj/edge/edge2/gnd四个，顾名思义，adj为邻接矩阵，edge和edge2为边矩阵，而gnd则为社区分类。通过细究数据可以发现，facebook的社交网络实际上是有向图网络，而论文中需要的是有向图，因此单单根据adj是无法正确实现的，所以提供的数据集将边集也给出了，edge为原网络的边集合，而edge2则将其边进行了反向的复制，以便根据其完成无向图。</p>
+<p>因此接下来主要利用edge2来完成实验。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>其实作者基本在其demo中已提供算法实现，我们只需要初始化一些输入变量即可。本文的重点其实是掌握概念，同时能够了解如何实现论文的算法思路等。根据我们在算法原理中已知的目标函数，即：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-5062fd134ea238ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>我们可知需要有以下输入：S、M、U、C、H、B,其中，S为亲密度矩阵，需自行计算得出；而其他大部分则进行初始化即可。计算的过程以及初始化的过程也很简单，不进行具体的讨论。而作者所给的demo才是算法关键，不过由于matlab代码很简单，基本根据公式就可以写出代码了，因此也不进行具体解释了。</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>接下来的实验设置以m=100, alpha=0.5, beta=0.5, lambda=1e9，并且只验证一个社交网络：Amherst。</p>
+<h4 id="目标函数的收敛性"><a href="#目标函数的收敛性" class="headerlink" title="目标函数的收敛性"></a>目标函数的收敛性</h4><p>Amherst大学的Object value收敛性：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-637f18eb1abd9a81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="Node-clustering"><a href="#Node-clustering" class="headerlink" title="Node clustering"></a>Node clustering</h4><p>文中作者使用K-means进行结点聚类，并且使用了一篇论文里的adopted accuracy来进行评价。这个评价度量方式我不是很懂，也找不到相关的论文。按照我自己的理解，由于我们已知一个社交网络里有k个社区，因此在使用K-means聚类时，直接设置k为该值即可。然而我们已知所有结点所属于的社区，但在聚类后却无法得知结点对应的社区。</p>
+<pre><code>k = 15;
+[Idx, Ctrs, SumB, D] = kmeans(U,k);
+A = cell(k,1);
+for n = 1:k
+A{n} = find(Idx == n);
+end
+</code></pre><p>因此，我认为应该是采取比较简单的方式，即根据我们聚类得到的15个簇，根据簇内结点多数原则来确定该簇属于哪个社区，如此便可得知哪些簇聚类正确或错误。最终，可计算出一个总的正确率。（不知这样子做是否严谨，然而正确率的计算我只想出这个方法…）</p>
+<p>不知原作者在论文中的accuracy这一概念是如何得出的。</p>
+<h4 id="Node-classification"><a href="#Node-classification" class="headerlink" title="Node classification"></a>Node classification</h4><p>这里实际上就变为一个多分类的问题，作者采用的是一种LIBLINEAR的方法。直接在<a href="http://www.csie.ntu.edu.tw/~cjlin/liblinear" target="_blank" rel="noopener">对应网站</a>即可下载得到压缩包，解压后运行即可使用。注意需要改变当前路径，并且目前我所知的方法是只能在命令行输入执行命令。</p>
+<p>下面把基本分类步骤解释如下：</p>
+<p>我们由之前的M-NMF已知有结点的表达矩阵U，再加上原有的gnd数据保存各结点的分类，那么就需要将上述矩阵划分为训练集和验证集，来进行训练和分类。为了在随机排列结点时能够保持U和gnd的对应关系不变，因此需要我将两部分矩阵连接起来，形成统一的data矩阵。</p>
+<p>虽然，选取前80%为训练集，后20%为验证集。由于libinear需要原始数据为稀疏矩阵，因此首先将其转换成sparse矩阵，再进行模型训练，部分代码如下：(参考博客：<a href="http://blog.csdn.net/zouxy09/article/details/10947411）" target="_blank" rel="noopener">http://blog.csdn.net/zouxy09/article/details/10947411）</a></p>
+<pre><code>sp = sparse(train_data);
+model = train(group, sp,&apos;-c 1&apos;)
+% group保存数据标签，sp为稀疏后的训练数据矩阵
+</code></pre><p>由上述两行代码即可训练得出对应模型，再结合代码进行预测即可：</p>
+<pre><code>[predict_label, accuracy, dec_values] = predict(label, test, model);
+% label为验证集标签，test为稀疏后的验证数据矩阵
+</code></pre><p>流程如上，不再进行具体演示。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>由于我对matlab的使用很不熟练，一点点的小问题都需要上网搜索，所以时间基本就耗在这个部分了。除了对上面的node clustering之后的评判标准不太清楚外，其他部分都比较清晰了。附上代码：<a href="https://github.com/DesmonDay/Algorithm/tree/master/M-NMF">https://github.com/DesmonDay/Algorithm/tree/master/M-NMF</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper/" rel="tag"><i class="fa fa-tag"></i> paper</a>
+          
+            <a href="/tags/matlab/" rel="tag"><i class="fa fa-tag"></i> matlab</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/19/lab/" rel="next" title="实验课">
+                <i class="fa fa-chevron-left"></i> 实验课
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/26/Linux学习-1/" rel="prev" title="Linux学习(1)">
+                Linux学习(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法简介"><span class="nav-number">1.</span> <span class="nav-text">算法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法背景"><span class="nav-number">1.1.</span> <span class="nav-text">算法背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法内容"><span class="nav-number">1.2.</span> <span class="nav-text">算法内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对社区间结构进行建模——Modularity"><span class="nav-number">1.2.1.</span> <span class="nav-text">对社区间结构进行建模——Modularity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对社区内结构进行建模"><span class="nav-number">1.2.2.</span> <span class="nav-text">对社区内结构进行建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一化network-embedding模型"><span class="nav-number">1.2.3.</span> <span class="nav-text">统一化network embedding模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">1.2.4.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人看法"><span class="nav-number">1.3.</span> <span class="nav-text">个人看法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法实现"><span class="nav-number">1.4.</span> <span class="nav-text">算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集"><span class="nav-number">1.4.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体实现"><span class="nav-number">1.4.2.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验结果"><span class="nav-number">1.4.3.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目标函数的收敛性"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">目标函数的收敛性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-clustering"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">Node clustering</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-classification"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">Node classification</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

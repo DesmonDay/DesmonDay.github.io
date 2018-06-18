@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="新开了个目录，因为发现其他的目录似乎不太合适。就当记录自己平时的一些笔记好了，现在看晴神宝典，据说是PAT神级书，希望我甲级考高分啦！下面就是简单的记录一些自己不太知道，或者容易忘记的东西，以后也都是这样。下面记的是一些基础知识。 变量型 int: 一个整数占32bit，取值范围大致是-210^9~210^9(-2^31~2^31-1). long long: 一个整数占用64bit，取值-2^6">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法笔记阅读1">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/19/算法笔记阅读1/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="新开了个目录，因为发现其他的目录似乎不太合适。就当记录自己平时的一些笔记好了，现在看晴神宝典，据说是PAT神级书，希望我甲级考高分啦！下面就是简单的记录一些自己不太知道，或者容易忘记的东西，以后也都是这样。下面记的是一些基础知识。 变量型 int: 一个整数占32bit，取值范围大致是-210^9~210^9(-2^31~2^31-1). long long: 一个整数占用64bit，取值-2^6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-20T06:50:27.549Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法笔记阅读1">
+<meta name="twitter:description" content="新开了个目录，因为发现其他的目录似乎不太合适。就当记录自己平时的一些笔记好了，现在看晴神宝典，据说是PAT神级书，希望我甲级考高分啦！下面就是简单的记录一些自己不太知道，或者容易忘记的东西，以后也都是这样。下面记的是一些基础知识。 变量型 int: 一个整数占32bit，取值范围大致是-210^9~210^9(-2^31~2^31-1). long long: 一个整数占用64bit，取值-2^6">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/19/算法笔记阅读1/"/>
+
+
+
+
+
+  <title>算法笔记阅读1 | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/19/算法笔记阅读1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法笔记阅读1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-19T23:21:12+08:00">
+                2018-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>新开了个目录，因为发现其他的目录似乎不太合适。就当记录自己平时的一些笔记好了，现在看晴神宝典，据说是PAT神级书，希望我甲级考高分啦！下面就是简单的记录一些自己不太知道，或者容易忘记的东西，以后也都是这样。下面记的是一些基础知识。</p>
+<h1 id="变量型"><a href="#变量型" class="headerlink" title="变量型"></a>变量型</h1><ol>
+<li>int: 一个整数占32bit，取值范围大致是-2<em>10^9~2</em>10^9(-2^31~2^31-1).</li>
+<li>long long: 一个整数占用64bit，取值-2^63~2^63-1</li>
+<li>如果long long型赋大于2^31-1的初值，则需要在初值后面加上LL，否则会编译错误。</li>
+<li>对于浮点型，以后都是用double来存储。</li>
+<li>小写字母比大写字母的ASCII码大32。</li>
+<li><p>C的字符串常量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str1[<span class="number">25</span>] = <span class="string">"wo ai de ren bu ai wo"</span>;</span><br><span class="line">    <span class="keyword">char</span> str2[<span class="number">25</span>] = <span class="string">"so sad a story it is."</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s, %s"</span>, str1, str2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>整型常量在赋值给布尔型变量时会自动转换成true(非零)或者false(零)</p>
+</li>
+<li><p>常量定义</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 宏定义,符号常量</span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> pi 3.14</span></span><br><span class="line"><span class="comment">// const 常量</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="number">3.14</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>scanf(“格式控制”, 变量地址); 如scanf(“%d”, &amp;n); 另外要注意，数组名称本身代表了这个数组第一个元素的地址，所以不需要再加取地址运算符。在scanf中，除了char数组整个输入的情况不加&amp;s之外，其他变量类型都需要加&amp;。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">23</span>] = <span class="string">"23 sfs fsa"</span>;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%s"</span>, str);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>scanf对其他格式符(如%d)的输入是以空白符（空格、Tab）为结束判断标志；字符数组使用%s读入的时候以空格跟换行为读入结束标志。另外，scanf的%c格式是可以读入空格跟换行的。以下面为例子，c为空格：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">char</span> c, str[<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%s"</span>, &amp;a, &amp;c, str);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a=%d,c=%c,str=%s"</span>, a, c, str);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输入: 1 a bcd</span></span><br><span class="line"><span class="comment">//输出：a=1,c= ,str=a(在我的电脑上测试,str输出乱码)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>scanf的double类型变量为%lf，而在printf则为%f。</p>
+</li>
+</ol>
+<h1 id="三种实用的输出格式"><a href="#三种实用的输出格式" class="headerlink" title="三种实用的输出格式"></a>三种实用的输出格式</h1><p>(1) %md<br>%md可以使不足m位的int型变量以m位进行右对齐输出，其中高位用空格补齐；如果变量本身超过m位，则保持原样。实例：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">123</span>, b = <span class="number">1234567</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%5d\n"</span>, a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%5d\n"</span>, b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出:</span></span><br><span class="line"><span class="comment">  123   //不足5位，前面自动用两个空格填充</span></span><br><span class="line"><span class="comment">1234567 //大于5位，直接输出</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>(2)%0md<br>和%md唯一的不同点是，当变量不足m位时，将在前面补足够数量的0而不是空格。<strong>非常实用啊！</strong>以后就可以不用判断了，比如时间等。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">123</span>, b = <span class="number">1234567</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%05d\n"</span>, a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%05d\n"</span>, b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出：</span></span><br><span class="line"><span class="comment">00123</span></span><br><span class="line"><span class="comment">1234567</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>(3)%.mf<br>保留m位小数。如保留1位: be accurate to 1 decimal place.</p>
+<h1 id="继续"><a href="#继续" class="headerlink" title="继续"></a>继续</h1><ol>
+<li>getchar用来输入单个字符，putchar用来输出单个字符。另外注意，getchar()可以用来识别换行符。gets用来输入一行字符串(<strong>识别\n换行符作为输入结束，因此scanf完一个整数后，如果要使用gets，需要先用getchar接收整数后的换行符</strong>)。</li>
+<li>fabs(double x)用来对double型变量取绝对值，abs用于整型。</li>
+<li>floor(double x)和ceil(double)分别用于double型变量的向下取整和向上取整。</li>
+<li><p>sin(double x), cos(double x), tan(double x)参数要求是弧度制，示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> db1 = <span class="built_in">sin</span>(pi*<span class="number">45</span>/<span class="number">180</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>asin(double x), acos(double x), atan(double x)。</p>
+</li>
+<li>round(double x) 代表四舍五入取整。</li>
+<li>switch语句<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(表达式)&#123;</span><br><span class="line">    <span class="keyword">case</span> 常量表达式<span class="number">1</span>:</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> 常量表达式<span class="number">2</span>:</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        ...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>由于case本身默认把两个case之间的内容全部作为上一个case的内容，因此不需要加大括号。</p>
+<ol start="8">
+<li>break可强制退出switch语句和循环；continue在需要的地方临时结束循环的当前轮回，然后进入下一个轮回。</li>
+<li>对数组而言，如果不赋值，则系统会随机赋值；如果赋值但没有全部赋完，则没有赋值的位置一般为0。</li>
+<li>特别提醒：如果数组大小较大（大概10^6级别），则需要将其定义在主函数外面，否则会使程序异常退出。原因是函数内部申请的局部变量来自系统栈，允许申请的空间较小；而函数外部申请的全部变量来自静态存储区，允许申请的空间较大。</li>
+<li>memset(数组名, 值, sizeof(数组名)); 建议只能赋值0或-1，如果赋值其他值，使用fill，但速度慢。</li>
+</ol>
+<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><p>算法复杂度:O(n^2)<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">3</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>&#125;; </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=<span class="number">4</span>; i++)&#123; <span class="comment">//进行n-1趟排序</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">5</span>-i; j++)&#123; <span class="comment">//这里之所以是5-i，是因为到后面只需要比较前面的元素</span></span><br><span class="line">            <span class="keyword">if</span>(a[j] &gt; a[j+<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = a[j];</span><br><span class="line">                a[j] = a[j+<span class="number">1</span>];</span><br><span class="line">                a[j+<span class="number">1</span>] =  temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/19/1002-Polynomials/" rel="next" title="PAT甲1002. A+B for Polynomials">
+                <i class="fa fa-chevron-left"></i> PAT甲1002. A+B for Polynomials
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/20/clustering-by-fast-search/" rel="prev" title="Reading report of Clustering by fast search and find of density peaks">
+                Reading report of Clustering by fast search and find of density peaks <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#变量型"><span class="nav-number">1.</span> <span class="nav-text">变量型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三种实用的输出格式"><span class="nav-number">2.</span> <span class="nav-text">三种实用的输出格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#继续"><span class="nav-number">3.</span> <span class="nav-text">继续</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#冒泡排序"><span class="nav-number">4.</span> <span class="nav-text">冒泡排序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考博客：http://www.92csz.com/study/linux/11.htm 文档的压缩与打包在windows下常用的压缩文件是.rar格式，但该格式在linux下是不能识别的，它有自己所特有的压缩工具。而.zip格式则可以在两个系统下则都能使用。压缩既能节省磁盘空间，也可以在传输时节省网络带宽。 在linux下最常见的压缩文件通常都是以.tar.gz为结尾的，除此之外还有.tar,">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习(5)——文档压缩与打包">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/07/Linux学习-5/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="参考博客：http://www.92csz.com/study/linux/11.htm 文档的压缩与打包在windows下常用的压缩文件是.rar格式，但该格式在linux下是不能识别的，它有自己所特有的压缩工具。而.zip格式则可以在两个系统下则都能使用。压缩既能节省磁盘空间，也可以在传输时节省网络带宽。 在linux下最常见的压缩文件通常都是以.tar.gz为结尾的，除此之外还有.tar,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-84957bb6cfd495ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-e68887b0b147978e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-5e23468a6d07e594.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-554a7bbd1b82979d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-1bfdbca693014700.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-4d5d8addea533eb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-b6c509692b7b3f28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-0359730b4610fe56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-09T13:14:59.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习(5)——文档压缩与打包">
+<meta name="twitter:description" content="参考博客：http://www.92csz.com/study/linux/11.htm 文档的压缩与打包在windows下常用的压缩文件是.rar格式，但该格式在linux下是不能识别的，它有自己所特有的压缩工具。而.zip格式则可以在两个系统下则都能使用。压缩既能节省磁盘空间，也可以在传输时节省网络带宽。 在linux下最常见的压缩文件通常都是以.tar.gz为结尾的，除此之外还有.tar,">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/8636110-84957bb6cfd495ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/07/Linux学习-5/"/>
+
+
+
+
+
+  <title>Linux学习(5)——文档压缩与打包 | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/07/Linux学习-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习(5)——文档压缩与打包</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T11:12:25+08:00">
+                2018-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考博客：<a href="http://www.92csz.com/study/linux/11.htm" target="_blank" rel="noopener">http://www.92csz.com/study/linux/11.htm</a></p>
+<h1 id="文档的压缩与打包"><a href="#文档的压缩与打包" class="headerlink" title="文档的压缩与打包"></a>文档的压缩与打包</h1><p>在windows下常用的压缩文件是.rar格式，但该格式在linux下是不能识别的，它有自己所特有的压缩工具。而.zip格式则可以在两个系统下则都能使用。压缩既能节省磁盘空间，也可以在传输时节省网络带宽。</p>
+<p>在linux下最常见的压缩文件通常都是以.tar.gz为结尾的，除此之外还有.tar, .gz, .bz2, .zip等等。对于压缩文件来讲，后缀名必须要带上。这是为了判断压缩文件是由哪种压缩工具所压缩，而后才能去正确的解压缩这个文件。以下介绍常见的后缀名所对应的压缩工具。</p>
+<p>（1）.gz gzip 压缩工具压缩的文件<br>（2）.bz2 bzip2 压缩工具压缩的文件<br>（3）.tar tar 打包程序打包的文件(<strong>tar并没有压缩功能，只是把一个目录合并成一个文件</strong>)<br>（4）.tar.gz    先用tar打包，然后再gzip压缩<br>（5）.tar.bz2 同上，先用tar打包，然后再bzip2压缩</p>
+<h2 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h2><p>语法：gzip [-d#] filename<br>其中，-d为解压缩时使用,-#为压缩等级，1至9，压缩效果递增</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-84957bb6cfd495ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>需要注意的是，gzip不可以压缩目录。解压缩用-d。</p>
+<h2 id="bzip2"><a href="#bzip2" class="headerlink" title="bzip2"></a>bzip2</h2><p>语法：bzip2 [-dz] filename，其中-d为解压缩，-z为压缩。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-e68887b0b147978e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>同样不可压缩目录。</p>
+<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><p>语法：tar [-zjxcvfpP] filename</p>
+<ul>
+<li>-z: 是否同时用gzip压缩</li>
+<li>-j: 是否同时用bzip2压缩</li>
+<li>-x: 解包或者解压缩</li>
+<li>-t: 查看tar包里面的文件</li>
+<li>-c: 建立一个tar包或者压缩文件包</li>
+<li>-v: 可视化</li>
+<li>-f: 后面跟文件名，压缩时跟-f文件名(压缩后文件名为filename)；解压时跟-f文件名，意思是解压filename。（注意，如果有多个参数，-f写在最后面)</li>
+<li>–exclude filename: 在打包或者压缩时，不要将filename文件包含在内。</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-5e23468a6d07e594.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>打包的同时使用gzip压缩<br><img src="http://upload-images.jianshu.io/upload_images/8636110-554a7bbd1b82979d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>-tf查看：<br><img src="http://upload-images.jianshu.io/upload_images/8636110-1bfdbca693014700.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>用tar -zxvf来解压tar.gz的压缩包；用tar -jxvf来解压.tar.bz2的压缩包。–exclude参数用来过滤文件，如果需要过滤多个，则需要使用多个–exclude filename。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-4d5d8addea533eb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h1 id="Linux软件安装包"><a href="#Linux软件安装包" class="headerlink" title="Linux软件安装包"></a>Linux软件安装包</h1><p>我们常用的Linux软件包为deb、rpm、tar.gz三种软件安装包。<br>rpm包-在红帽LINUX、SUSE、Fedora可以直接进行安装，但在Ubuntu中却无法识别；<br>deb包-是Ubuntu的专利，在Ubuntu中双击deb包就可以进入自动安装进程；<br>tar.gz包-在所有的Linux版本中都能使用，但安装过程也最麻烦。<br>（二水马的原话）</p>
+<p>此处软件包的安装就不详细讲了，需要的时候再百度谷歌即可。</p>
+<h2 id="安装源码包-tar-gz"><a href="#安装源码包-tar-gz" class="headerlink" title="安装源码包(.tar.gz)"></a>安装源码包(.tar.gz)</h2><p>这部分我直接摘抄学习。</p>
+<p>在linux下面安装一个源码包是最常用的，博客作者在日常的管理工作中，大部分软件都是通过源码安装的。安装一个源码包，是需要我们自己把源代码编译成二进制的可执行文件。如果读得懂这些源代码，那么就可以去修改这些源代码自定义功能，然后再去编译成我们想要的。使用源码包的好处除了可以自定义修改源代码外还可以定制相关的功能，因为源码包在编译的时候是可以附加额外的选项的。</p>
+<p>源码包的编译用到了linux系统里的编译器，常见的源码包一般都是用C语言开发的，这也是因为C语言为linux上最标准的程序语言。Linux上的C语言编译器叫做gcc，利用它就可以把C语言变成可执行的二进制文件。</p>
+<p>安装一个源码包，通常需要三个步骤：</p>
+<ol>
+<li><p>./config 在这一步可以定制功能，加上相应的选项即可，具有有什么选项可以通过”./config –help”命令来查看。在这一步会自动检测你的linux系统与相关的套件是否有编译该源码包时需要的库，因为一旦缺少某个库就不能完成编译。只有检测通过后才会生成一个Makefile文件。</p>
+</li>
+<li><p>make    使用这个命令会根据Makefile文件中预设的参数进行编译，这一步其实就是gcc在工作了。</p>
+</li>
+<li><p>make install 安装步骤，生成相关的软件存放目录和配置文件的过程。</p>
+</li>
+</ol>
+<p>而日常的源码包安装时，并不一定是依照上面的步骤进行安装。因此这就需要我们拿到源码包解压后，然后进入到目录找相关的帮助文档，通常会以INSTALL或者README为文件名。下面会编译安装一个源码包来帮你更深刻的去理解如何安装源码包。</p>
+<p>由于作者提供的网址无法访问，因此选择其他Aphache版本进行安装。</p>
+<p>（1）下载一个源码包，建议把所有下载的源码包放到/usr/local/src/目录下。wget为下载命令，后面跟下载地址。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-b6c509692b7b3f28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>（2）解压：tar zxvf http…(包名)</p>
+<p>（3）配置相关选项，并生成Makefile</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-0359730b4610fe56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>(很明显看到，缺少APR，配置失败，无法生成Makefile文件。)</p>
+<p>解压后进入对应目录，./config –help可以查看可用选项，一般常用的有”–prefix=PREFIX”，这个选项的意思是定义软件包安装到哪里。通常源码包都是安装在/usr/local/目录下的。比如，我们把apache安装在/usr/local/apache2下，那么这里就应该这样写”–prefix=/usr/local/apache2”。</p>
+<p>解决方法：Apache在安装时需要一些准备环境，这里需要安装另外一个东西 APR（Apache Portable Runtime）。同样需要下载和解压。过程如下：</p>
+<ol>
+<li>wget <a href="http://archive.apache.org/dist/apr/apr-1.6.3.tar.gz" target="_blank" rel="noopener">http://archive.apache.org/dist/apr/apr-1.6.3.tar.gz</a></li>
+<li>tar -zxvf apr-1.6.3.tar.gz</li>
+<li>编译：<br>./configure –prefix=/usr/local/apr<br>make<br>make install</li>
+</ol>
+<p>完成之后，居然还差APR-util。。。疯了。后面Apache的安装过程与上面步骤类似，不再具体贴图了。现在只管安好它。。</p>
+<p>（4）除了查看有没有生成Makefile文件来判定有没有完成./config 的操作外，还可以通过这个命令”echo $?”来判定，如果是0，则表示上一步操作成功完成，否则就是没有成功。</p>
+<p>configure命令修改为：./configure</p>
+<p>（5）make编译，把源代码编译成二进制的可执行文件。</p>
+<p>（6）make install安装。</p>
+<p>最终各种各样的问题，没耐心了，结束。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/06/Linux学习-4/" rel="next" title="Linux学习(4)——系统用户&磁盘&vim">
+                <i class="fa fa-chevron-left"></i> Linux学习(4)——系统用户&磁盘&vim
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/08/论文idea/" rel="prev" title="论文idea">
+                论文idea <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文档的压缩与打包"><span class="nav-number">1.</span> <span class="nav-text">文档的压缩与打包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gzip"><span class="nav-number">1.1.</span> <span class="nav-text">gzip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bzip2"><span class="nav-number">1.2.</span> <span class="nav-text">bzip2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar"><span class="nav-number">1.3.</span> <span class="nav-text">tar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux软件安装包"><span class="nav-number">2.</span> <span class="nav-text">Linux软件安装包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装源码包-tar-gz"><span class="nav-number">2.1.</span> <span class="nav-text">安装源码包(.tar.gz)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

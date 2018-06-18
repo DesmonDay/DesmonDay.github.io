@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考教程：http://www.92csz.com/study/linux/12.htm内容基本一致，本博客仅仅是用于个人摘抄记忆。 Shell脚本基础知识什么是shell首先shell的英文含义是“壳”；它是相对于内核来说的，因为它是建立在内核的基础上，面向于用户的一种表现形式，比如我们看到一个球，见到的是它的壳，而非核。Linux中的shell，是指一个面向用户的命令接口，表现形式就是一个可以">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习(6)——shell基础知识">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/09/Linux学习-6/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="参考教程：http://www.92csz.com/study/linux/12.htm内容基本一致，本博客仅仅是用于个人摘抄记忆。 Shell脚本基础知识什么是shell首先shell的英文含义是“壳”；它是相对于内核来说的，因为它是建立在内核的基础上，面向于用户的一种表现形式，比如我们看到一个球，见到的是它的壳，而非核。Linux中的shell，是指一个面向用户的命令接口，表现形式就是一个可以">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-5ffd0cdcf1d872e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-74866ddf2066a712.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-5422783955894691.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-03a172e1e8f239d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-cff9433124827d3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-bcaf0cc0695484c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b54b6e1991e36389.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7b085bb394f21430.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-13T12:20:53.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习(6)——shell基础知识">
+<meta name="twitter:description" content="参考教程：http://www.92csz.com/study/linux/12.htm内容基本一致，本博客仅仅是用于个人摘抄记忆。 Shell脚本基础知识什么是shell首先shell的英文含义是“壳”；它是相对于内核来说的，因为它是建立在内核的基础上，面向于用户的一种表现形式，比如我们看到一个球，见到的是它的壳，而非核。Linux中的shell，是指一个面向用户的命令接口，表现形式就是一个可以">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-5ffd0cdcf1d872e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/09/Linux学习-6/"/>
+
+
+
+
+
+  <title>Linux学习(6)——shell基础知识 | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/09/Linux学习-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习(6)——shell基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T14:51:55+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考教程：<a href="http://www.92csz.com/study/linux/12.htm" target="_blank" rel="noopener">http://www.92csz.com/study/linux/12.htm</a><br>内容基本一致，本博客仅仅是用于个人摘抄记忆。</p>
+<h1 id="Shell脚本基础知识"><a href="#Shell脚本基础知识" class="headerlink" title="Shell脚本基础知识"></a>Shell脚本基础知识</h1><h2 id="什么是shell"><a href="#什么是shell" class="headerlink" title="什么是shell"></a>什么是shell</h2><p>首先shell的英文含义是“壳”；它是相对于内核来说的，因为它是建立在内核的基础上，面向于用户的一种表现形式，比如我们看到一个球，见到的是它的壳，而非核。Linux中的shell，是指一个面向用户的命令接口，表现形式就是一个可以由用户录入的界面，这个界面也可以反馈运行信息。</p>
+<h2 id="shell在Linux中的存在形式"><a href="#shell在Linux中的存在形式" class="headerlink" title="shell在Linux中的存在形式"></a>shell在Linux中的存在形式</h2><p>由于Linux不同于Windows，Linux是内核与界面分离的，它可以脱离图形界面而单独运行，同样也可以在内核的基础上运行图形化的桌面。这样，在Linux系统中，就出现了两种shell表现形式，一种是在无图形界面下的终端运行环境下的shell，另一种是桌面上运行的类似Windows的MS-DOS运行窗口，前者我们一般习惯性地简称为终端，后者一般直接称为shell。</p>
+<h2 id="shell如何执行用户的指令"><a href="#shell如何执行用户的指令" class="headerlink" title="shell如何执行用户的指令"></a>shell如何执行用户的指令</h2><p>shell有两种执行指令的方式。</p>
+<p>第一种方法是用户事先编写一个sh脚本文件，内含shell脚本，而后使用shell程序执行该脚本，这种方式，我们习惯称为shell编程。</p>
+<p>第二种形式，则是用户直接在shell界面上执行shell命令，由于shell界面的关系，大家都习惯一行行的书写，很少写出成套的程序来一起执行，所以也称命令行。</p>
+<p>一般我们关注Bash，即Bourne Again Shell，因为其易用和免费，Bash 在日常工作中被广泛使用。（当然还有其他Shell，如Korn Shell等）</p>
+<p>总结：shell可以说只是为用户与机器之间搭建成的一个桥梁，让我们能够通过shell来对计算机进行操作和交互，从而达到让计算机为我们服务的目的。</p>
+<h2 id="相关前置知识"><a href="#相关前置知识" class="headerlink" title="相关前置知识"></a>相关前置知识</h2><h3 id="记录命令历史"><a href="#记录命令历史" class="headerlink" title="记录命令历史"></a>记录命令历史</h3><p>我们敲过的命令，Linux是有记录的，预设可记录1000条历史命令，保存在用户的家目录中的.bash_history文件中。有一点需要注意的是，只有当用户正常退出当前shell时，在当前shell中运行的命令才会保存至.bash_history文件中。</p>
+<p>与命令历史相关的字符是”!”。常用的有三个：<br>（1）!! （连续两个”!”），表示执行上一条指令；<br>（2）!n（这里的n是数字），表示执行命令历史中第n条指令，例如”!100”表示执行命令历史中第100个命令；<br>（3）!字符串，例如!ta，表示执行命令历史中最近一次以ta为开头的指令。</p>
+<h3 id="指令和文件名补全"><a href="#指令和文件名补全" class="headerlink" title="指令和文件名补全"></a>指令和文件名补全</h3><p>tab补全</p>
+<h3 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h3><p>alias是bash所特有的功能。我们可以通过alias把一个常用并且较长的指令别名为一个简洁易记的指令。如果要取消，直接用unalias即可。直接输入alias可以看到系统中使用了alias别名的指令。</p>
+<p>alias语法很简单，alias [命令别名]=[’具体的命令’]。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-5ffd0cdcf1d872e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p>在bash下，可以使用*来匹配零个或多个字符，用？匹配一个字符。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-74866ddf2066a712.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>图中，由于?无法匹配0个字符，因此找不到对应文件。</p>
+<h3 id="输入输出重定向"><a href="#输入输出重定向" class="headerlink" title="输入输出重定向"></a>输入输出重定向</h3><p>输入重定向用于改变命令的输入，输出重定向用于改变命令的输出。输出重定向更为常用，它经常用于将命令的结果输入到文件中，而不是屏幕上。输入重定向的命令是&lt;，输出重定向的命令是&gt;，另外还有错误重定向2&gt;，以及追加重定向&gt;&gt;。</p>
+<h3 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h3><p>|是管道符,把前面的命令执行结果输送到管道符后的命令作为参数执行。</p>
+<h3 id="作业控制"><a href="#作业控制" class="headerlink" title="作业控制"></a>作业控制</h3><p>当运行一个进程时，你可以使它暂停（ctrl+z），然后使用fg命令恢复它，利用bg命令使他到后台运行，你也可以使它终止（ctrl+c）。</p>
+<p>##变量</p>
+<h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>在前面的博文中，我们有接触过环境变量PATH，这个环境变量就是shell预设的一个变量，通常shell预设的变量都是大写的。变量，说简单点就是使用一个较简单的字符串来替代某些具有特殊意义的设定以及数据。</p>
+<p>就拿PATH来讲，这个PATH就代替了所有常用命令的绝对路径的设定。因为有了PATH这个变量，所以我们运行某个命令时不再去输入全局路径，直接敲命令名即可。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-5422783955894691.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>使用env指令，可以列出系统预设的全部系统变量。不过登录的用户不同，这些环境变量的值也不一样。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-03a172e1e8f239d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>（后面还有好多）</p>
+<p>常见环境变量：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-cff9433124827d3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>env命令显示的变量只是环境变量，系统预设的变量其实还有很多，你可以使用set命令把系统预设的全部变量都显示出来。set不仅可以显示系统预设的变量，也可以连同用户自定义的变量显示出来。用户自定义变量如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bcaf0cc0695484c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>不过，该变量只能在当前shell中生效。如果要想设置的变量一直生效，有两种方法：</p>
+<ul>
+<li><p>希望系统内所有用户登录后都能使用该变量，需要在/etc/profile文件最末行加入”export myname=Aming”，然后运行”source /etc/profile”就可以生效了。此时你再运行bash命令或者直接su - test账户看看。</p>
+</li>
+<li><p>只想让当前用户使用该变量，需要在用户主目录下的.bashrc文件最后一行加入”export myname=Aming”然后运行”source .bashrc”就可以生效了。这时候再登录test账户，myname变量则不会生效了。上面用的source命令的作用是，将目前设定的配置刷新，即不用注销再登录也能生效。</p>
+</li>
+</ul>
+<h3 id="Linux自定义变量规则"><a href="#Linux自定义变量规则" class="headerlink" title="Linux自定义变量规则"></a>Linux自定义变量规则</h3><ul>
+<li>设定变量的格式为”a=b”，其中a为变量名，b为变量的内容，等号两边不能有空格；</li>
+<li>变量名只能由英、数字以及下划线组成，而且不能以数字开头；</li>
+<li>当变量内容带有特殊字符（如空格）时，需要加上单引号；</li>
+<li>如果变量内容中本身带有单引号，需要使用双引号；</li>
+<li>如果变量内容中需要用到其他命令运行结果则可以使用反引号`；</li>
+<li>变量内容可以累加其他变量的内容，需要加双引号；<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b54b6e1991e36389.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ul>
+<h2 id="系统环境变量与个人环境变量的配置文件"><a href="#系统环境变量与个人环境变量的配置文件" class="headerlink" title="系统环境变量与个人环境变量的配置文件"></a>系统环境变量与个人环境变量的配置文件</h2><p>/etc/profile: 这个文件预设了几个重要的变量，例如PATH, USER, LOGNAME, MAIL, INPUTRC, HOSTNAME, HISTSIZE, umas等等<br>/etc/bashrc: 这个文件主要预设umask以及PS1。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7b085bb394f21430.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>（并不懂，按照作者的意思，这里是\u就是用户，\h 主机名， \W 则是当前目录，\$就是那个’#’了，如果是普通用户则显示为’$’（即画红线部分），其他部分的字符我就不明白了。</p>
+<p>除了两个系统级别的配置文件外，每个用户的主目录下还有几个这样的隐藏文件：<br>.bash_profile: 定义了用户的个人化路径与环境变量的文件名称。每个用户都可使用该文件输入用于自己使用的shell信息，当用户登录时，该文件仅执行一次。<br>.bashrc: 该文件包含专用于你的shell的bash信息，当登录时以及每次打开新的shell时,该文件被读取。例如你可以将用户自定义的alias或者自定义变量写到这个文件中。<br>.bash_history: 记录命令历史。<br>.bash_logout: 当退出shell时，会执行该文件。可以把清理工作放到这个文件中。</p>
+<h2 id="linux-shell中的特殊符号"><a href="#linux-shell中的特殊符号" class="headerlink" title="linux shell中的特殊符号"></a>linux shell中的特殊符号</h2><ol>
+<li>*：代表零个或多个字符或数字</li>
+<li>?：只代表一个任意的字符</li>
+<li>#：这个符号在linux中表示注释说明的意思，即”#”后面的内容linux忽略掉。(相当于注释啦)</li>
+<li>\：转义字符</li>
+<li>|：管道符。它的作用在于将符号前面命令的结果丢给符号后面的命令。</li>
+<li>$：用于变量前面的标识符。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/08/论文idea/" rel="next" title="论文idea">
+                <i class="fa fa-chevron-left"></i> 论文idea
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/11/1002-写出这个数/" rel="prev" title="PAT乙 1002.写出这个数">
+                PAT乙 1002.写出这个数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell脚本基础知识"><span class="nav-number">1.</span> <span class="nav-text">Shell脚本基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是shell"><span class="nav-number">1.1.</span> <span class="nav-text">什么是shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell在Linux中的存在形式"><span class="nav-number">1.2.</span> <span class="nav-text">shell在Linux中的存在形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell如何执行用户的指令"><span class="nav-number">1.3.</span> <span class="nav-text">shell如何执行用户的指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关前置知识"><span class="nav-number">1.4.</span> <span class="nav-text">相关前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录命令历史"><span class="nav-number">1.4.1.</span> <span class="nav-text">记录命令历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令和文件名补全"><span class="nav-number">1.4.2.</span> <span class="nav-text">指令和文件名补全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#别名"><span class="nav-number">1.4.3.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符"><span class="nav-number">1.4.4.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入输出重定向"><span class="nav-number">1.4.5.</span> <span class="nav-text">输入输出重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道符"><span class="nav-number">1.4.6.</span> <span class="nav-text">管道符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作业控制"><span class="nav-number">1.4.7.</span> <span class="nav-text">作业控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单介绍"><span class="nav-number">1.4.8.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux自定义变量规则"><span class="nav-number">1.4.9.</span> <span class="nav-text">Linux自定义变量规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统环境变量与个人环境变量的配置文件"><span class="nav-number">1.5.</span> <span class="nav-text">系统环境变量与个人环境变量的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-shell中的特殊符号"><span class="nav-number">1.6.</span> <span class="nav-text">linux shell中的特殊符号</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

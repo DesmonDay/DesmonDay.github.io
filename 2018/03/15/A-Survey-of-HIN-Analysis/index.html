@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="paper," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="IntroductionInformation network has always been popular in the field of data mining. But most of the contemporary information network analyses only focus on homogeneous network(the type of objects or">
+<meta name="keywords" content="paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reading report of A Survey of Heterogeneous Information Network Analysis">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/15/A-Survey-of-HIN-Analysis/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="IntroductionInformation network has always been popular in the field of data mining. But most of the contemporary information network analyses only focus on homogeneous network(the type of objects or">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-16T06:42:32.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reading report of A Survey of Heterogeneous Information Network Analysis">
+<meta name="twitter:description" content="IntroductionInformation network has always been popular in the field of data mining. But most of the contemporary information network analyses only focus on homogeneous network(the type of objects or">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/15/A-Survey-of-HIN-Analysis/"/>
+
+
+
+
+
+  <title>Reading report of A Survey of Heterogeneous Information Network Analysis | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/15/A-Survey-of-HIN-Analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Reading report of A Survey of Heterogeneous Information Network Analysis</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T19:35:23+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文阅读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Information network has always been popular in the field of data mining. But most of the contemporary information network analyses only focus on homogeneous network(the type of objects or links is unique), or simply ignore the heterogeneity of objects and links. However, heterogeneous information network can contain more information and richer semantics compared with homogeneous network. In the paper, the authors present a comprehensive survey of the heterogeneous information network(HIN) analysis in recent years, and also point out some future directions.</p>
+<h1 id="Basic-Definitions"><a href="#Basic-Definitions" class="headerlink" title="Basic Definitions"></a>Basic Definitions</h1><p>In this part, the authors introduce some basic concepts in HIN. Here I simply note down the terminologies, but will not give the concrete definitions here.</p>
+<h2 id="Basic-Concepts"><a href="#Basic-Concepts" class="headerlink" title="Basic Concepts"></a>Basic Concepts</h2><p>Information network, Heterogeneous/Homogeneous information network, Network schema(specify type constraints on the sets of objects and relationships among the objects), Meta path.</p>
+<h2 id="Comparisions"><a href="#Comparisions" class="headerlink" title="Comparisions"></a>Comparisions</h2><p>The paper also gives comparisons heterogeneous network with other related concepts, including: multi-relation network(has only one type of objects, but more then one kind of relationships beween objects), multi-dimensional/mode network(same as multi-relation network), composite network(same as multi-relation network), and complex network(a network with non-trivial topological features and patterns of connection between its elements that are neither purely regular nor purely random). All these kind of networks are heterogeneous networks.</p>
+<h2 id="Example-Datasets"><a href="#Example-Datasets" class="headerlink" title="Example Datasets"></a>Example Datasets</h2><p>Heterogeneous networks can be constructed from three types of data: Structured data, semi-structured data and non-structured data. Some widely used heterogeneous networks: Multi-relational network with single-typed object(Facebook and Xiaonei), Bipartite network(user-item, document-word, k-partite graphs), Star-schema nework(IMDB, patent data, bibliographic information network), Multiple-hub network(bioinformatics network, Douban dataset), etc.</p>
+<h2 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h2><p>Some real data are too complex to be modeled as meaningful HINs; sometimes difficult to analyze some networked data with an HIN perspective.</p>
+<h1 id="Research-Development"><a href="#Research-Development" class="headerlink" title="Research Development"></a>Research Development</h1><p>In this section, the authors give us several parts of research developments and each part contains relevant different researches. Here I do not mention the research but only give a basic definition and the direction of reseach.</p>
+<h2 id="Similarity-Measure"><a href="#Similarity-Measure" class="headerlink" title="Similarity Measure"></a>Similarity Measure</h2><p>To evaluate the similarity of objects, and can be categorized into feature based approaches and link based approaches. Recently many researchers consider similarity measure on HINs and more works begin to integrate the network structure and other information to measure similarity of objects. </p>
+<h2 id="Clustering"><a href="#Clustering" class="headerlink" title="Clustering"></a>Clustering</h2><p>The process of partitioning a set of data objects into a set of clusters. And compared with homogeneous networks, HIN integrate multi-typed objects, which brings new challenges to clustering. Usually, attribute information, text information and user guide information are integrated into clustering analysis. Besides, clustering can be integrated with other mining tasks to improve performances through mutual enhancing, like RankClus and NetClus, etc.</p>
+<h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><p>A data analysis task where a model or classifier is constructed to predict class (categorical) labels. In HIN, we have multiple types of objects. so we can perform multi-label classification; besides, label knowledge can spread through various links among diffenrent-typed objects. Meta path, a unique characteristic in HIN, is also widely used in classification on HIN, like GNetMine and HetPathMine.</p>
+<h2 id="Link-Prediction"><a href="#Link-Prediction" class="headerlink" title="Link Prediction"></a>Link Prediction</h2><p>Attempts to estimate the likelihood of the existence of a linke between two nodes, based on observed linkd and the attributes of nodes. In HIN, the linkds to be predicted are of different types, and there are dependencies existing among multiple types of links. Many works utilize the meta path to help link prediction, like PathPredict. In addition, probabilistic models are also widely applied for link prediction tasks in HIN.</p>
+<p>Most of the available works on link prediction are designed for static networks, but dynamic link prediction is also very important and needed to be solved.</p>
+<h2 id="Ranking"><a href="#Ranking" class="headerlink" title="Ranking"></a>Ranking</h2><p>Evaluate object importance or popularity based on some ranking functions. Ranking in HIN faces many challenges duet to HIN’s heterogeneity. Some works propose path based ranking methods considering the characteristics of meta path on HIN. And now, ranking problem is also extended to HIN constructed by social media network.</p>
+<h2 id="Recommendation"><a href="#Recommendation" class="headerlink" title="Recommendation"></a>Recommendation</h2><p>Recommendation system helps consumers to search products that they might be interested in. Tradictional researches use collaborative filtering and matrix factorization in homogeneous network. Heterogeneous information is important for recommendation, and meta path is well used to explore the semantics and extract relations among objects.</p>
+<h2 id="Information-Fusion"><a href="#Information-Fusion" class="headerlink" title="Information Fusion"></a>Information Fusion</h2><p>The process of merging information from heterogeneous sources with differing conceptual, contextual and typographical representations. To fuse information from different HINs, an important prerequiste is to align the HINs via shared common entities.</p>
+<p>By transferring the available heterogeneous information to other aligned networks, we can help solve data sparsity, and improve the result of link prediction, community detection, recommendaion, etc.</p>
+<h2 id="Other-Applications"><a href="#Other-Applications" class="headerlink" title="Other Applications"></a>Other Applications</h2><p>Influence propagation and privacy risk problem in HINs.</p>
+<h1 id="Advanced-Topics-and-Future-Research-Directions"><a href="#Advanced-Topics-and-Future-Research-Directions" class="headerlink" title="Advanced Topics and Future Research Directions"></a>Advanced Topics and Future Research Directions</h1><p>The heterogeneous information network is still a young and promising research. In this section, the authors illustrate some advanced topics and point out some future directions of HIN.</p>
+<ul>
+<li>More complex network construction</li>
+<li>More powerful mining methods</li>
+<li>Bigger networked data</li>
+<li>More applications: online analytical processing, information diffusion, etc.</li>
+</ul>
+<h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>Most of the networks in our real life are heterogeous, so the analysis of heterogeneous information network is very important and imperative. Combined with network representation, it may be useful if we can think of a generic method to represent HIN. Besides, we also need to know how to due with big data network, making use of distributed platform.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper/" rel="tag"><i class="fa fa-tag"></i> paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/14/1010-一元多项式求导/" rel="next" title="PAT乙1010.一元多项式求导">
+                <i class="fa fa-chevron-left"></i> PAT乙1010.一元多项式求导
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/15/1011-A-B和C/" rel="prev" title="PAT乙1011和1012">
+                PAT乙1011和1012 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Definitions"><span class="nav-number">2.</span> <span class="nav-text">Basic Definitions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Concepts"><span class="nav-number">2.1.</span> <span class="nav-text">Basic Concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparisions"><span class="nav-number">2.2.</span> <span class="nav-text">Comparisions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Datasets"><span class="nav-number">2.3.</span> <span class="nav-text">Example Datasets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Limitations"><span class="nav-number">2.4.</span> <span class="nav-text">Limitations</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Research-Development"><span class="nav-number">3.</span> <span class="nav-text">Research Development</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Similarity-Measure"><span class="nav-number">3.1.</span> <span class="nav-text">Similarity Measure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clustering"><span class="nav-number">3.2.</span> <span class="nav-text">Clustering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Classification"><span class="nav-number">3.3.</span> <span class="nav-text">Classification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link-Prediction"><span class="nav-number">3.4.</span> <span class="nav-text">Link Prediction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ranking"><span class="nav-number">3.5.</span> <span class="nav-text">Ranking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recommendation"><span class="nav-number">3.6.</span> <span class="nav-text">Recommendation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-Fusion"><span class="nav-number">3.7.</span> <span class="nav-text">Information Fusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Other-Applications"><span class="nav-number">3.8.</span> <span class="nav-text">Other Applications</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Advanced-Topics-and-Future-Research-Directions"><span class="nav-number">4.</span> <span class="nav-text">Advanced Topics and Future Research Directions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#My-Idea"><span class="nav-number">5.</span> <span class="nav-text">My Idea</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="opengl," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="OpenGL学习实验室师兄有项目是做3D虚拟环境，而我对这一方面也比MRCP强烈许多（捂脸）。现在所在的无人系统实验室，我所在的方向是脑电方向。但发现我对这一块其实并没有太大兴趣，而更偏向具有实质性效果的研究，比如机器学习、大数据这块。废话一下说了好多，现在就开始学习吧。 我所使用的学习教程是https://learnopengl-cn.github.io，据说很不错。和Linux学习一样，同样基">
+<meta name="keywords" content="opengl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenGL学习(1)">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/03/21/opengl1/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="OpenGL学习实验室师兄有项目是做3D虚拟环境，而我对这一方面也比MRCP强烈许多（捂脸）。现在所在的无人系统实验室，我所在的方向是脑电方向。但发现我对这一块其实并没有太大兴趣，而更偏向具有实质性效果的研究，比如机器学习、大数据这块。废话一下说了好多，现在就开始学习吧。 我所使用的学习教程是https://learnopengl-cn.github.io，据说很不错。和Linux学习一样，同样基">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-21T16:05:34.929Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenGL学习(1)">
+<meta name="twitter:description" content="OpenGL学习实验室师兄有项目是做3D虚拟环境，而我对这一方面也比MRCP强烈许多（捂脸）。现在所在的无人系统实验室，我所在的方向是脑电方向。但发现我对这一块其实并没有太大兴趣，而更偏向具有实质性效果的研究，比如机器学习、大数据这块。废话一下说了好多，现在就开始学习吧。 我所使用的学习教程是https://learnopengl-cn.github.io，据说很不错。和Linux学习一样，同样基">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/21/opengl1/"/>
+
+
+
+
+
+  <title>OpenGL学习(1) | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/21/opengl1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenGL学习(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T23:58:33+08:00">
+                2018-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenGL学习/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenGL学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="OpenGL学习"><a href="#OpenGL学习" class="headerlink" title="OpenGL学习"></a>OpenGL学习</h1><p>实验室师兄有项目是做3D虚拟环境，而我对这一方面也比MRCP强烈许多（捂脸）。现在所在的无人系统实验室，我所在的方向是脑电方向。但发现我对这一块其实并没有太大兴趣，而更偏向具有实质性效果的研究，比如机器学习、大数据这块。废话一下说了好多，现在就开始学习吧。</p>
+<p>我所使用的学习教程是<a href="https://learnopengl-cn.github.io，据说很不错。和Linux学习一样，同样基本按照教程走，记录自己觉得重要的地方，有时候全部摘抄。" target="_blank" rel="noopener">https://learnopengl-cn.github.io，据说很不错。和Linux学习一样，同样基本按照教程走，记录自己觉得重要的地方，有时候全部摘抄。</a></p>
+<h2 id="OpenGL"><a href="#OpenGL" class="headerlink" title="OpenGL"></a>OpenGL</h2><p>OpenGL一般被认为是一个API(Application Programming Inerface，应用程序编程接口)，包括了一系列可以操作图形、图像的函数。然而，OpenGL本身并不是API，而仅仅是一个由Khronos组织制定并维护的规范(Specification)。</p>
+<p>OpenGL规范严格规定了每个函数该如何执行，以及它们的输出值。而内部具体每个函数的实现，则是由OpenGL库的开发者自行决定。实际的OpenGL库的开发者通常是显卡的生产商。比如Apple系统、Linux系统，均由不同开发商维护。由于OpenGL的大多数实现都是由显卡厂商编写的，当产生一个bug时通常可以通过升级显卡驱动来解决。这些驱动会包括你的显卡能支持的最新版本的OpenGL。</p>
+<h2 id="核心模式与立即渲染模式"><a href="#核心模式与立即渲染模式" class="headerlink" title="核心模式与立即渲染模式"></a>核心模式与立即渲染模式</h2><p>早期OpenGL使用立即渲染模式（固定渲染管线），这个模式下绘制图形很方便。但由于随着时间推移，开发者对绘图细节有了更多掌控，而立即渲染模式效率太低，因此如今规范文档鼓励开发者在核心模式下进行开发。</p>
+<p>当使用OpenGL的核心模式时，OpenGL迫使我们使用现代的函数。现代函数要求使用者真正理解OpenGL和图形编程，它有一些难度，然而提供了更多的灵活性，更高的效率，更重要的是可以更深入的理解图形编程。</p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>OpenGL的一大特性是对扩展的支持。当一个显卡公司提出一个新特性或者渲染上的优化，通常以<strong>扩展</strong>的方式在驱动中实现。使用扩展的代码大多看上去如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(GL_ARB_extension_name)&#123;</span><br><span class="line">    <span class="comment">//使用硬件支持的全新的现代特性</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//不支持此扩展，用旧的方式去做。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h2><p>OpenGL自身是一个巨大的状态机：一系列的变量描述OpenGL此刻应当如何运行。OpenGL的状态通常被称为OpenGL上下文(Context)。我们通常使用如下途径来更改OpenGL状态：设置选项，操作缓冲。最后，使用当前OpenGL上下文来渲染。</p>
+<p>假设我们想告诉OpenGL画线段而不是三角形时，通过改变上下文变量来改变OpenGL状态，从而告知其如何绘图。一旦我们改变了OpenGL状态为绘制线段，下一个绘制命令就会绘制线段而不是三角形。</p>
+<p>当使用OpenGL的时候，我们会遇到一些状态设置函数(State-changing Function)，这类函数将会改变上下文。以及状态使用函数(State-using Function)，这类函数会根据当前OpenGL的状态执行一些操作。</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>OpenGL库是用C语言写的，同时也支持多种语言的派生，但其内核仍然是一个C库。由于C的一些语言结构不易被翻译到其他高级语言，因此OpenGL开发时引入抽象层，如对象(Object)。</p>
+<p>在OpenGL中一个对象是指一些选项的集合，它代表OpenGL状态的一个子集。比如，我们可以用一个对象来代表绘图窗口的设置，之后就可以设置其大小、支持的颜色位数等等，可以把对象看作一个C风格的结构体（Struct):</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">object_name</span>&#123;</span></span><br><span class="line">    <span class="keyword">float</span> option1;</span><br><span class="line">    <span class="keyword">int</span> option2;</span><br><span class="line">    <span class="keyword">char</span>[] name;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当我们使用一个对象时，通常看起来如下（把OpenGL上下文看作一个大的结构体）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//OpenGL的状态</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">OpenGL_Context</span>&#123;</span></span><br><span class="line">    ...</span><br><span class="line">    object* object_window_Target;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建对象</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> objectId=<span class="number">0</span>;</span><br><span class="line">glGenObject(<span class="number">1</span>, &amp;objectId);</span><br><span class="line"><span class="comment">//绑定对象至上下文</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, objectId);</span><br><span class="line"><span class="comment">//设置当前绑定到 GL_WINDOW_TARGET 的对象的一些选项</span></span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_WIDTH, <span class="number">800</span>);</span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, <span class="number">600</span>);</span><br><span class="line"><span class="comment">// 将上下文对象设回默认</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>上面代码展示了OpenGL常见工作流：首先创建一个对象，然后用一个id保存它的引用（实际数据被储存在后台）；随后将对象绑定至上下文目标位置（例子中窗口对象目标的位置被定义成GL_WINDOW_TARGET）；接下来设置窗口选项；最后将目标位置id设回0，解绑对象。</p>
+<p>设置的选项将被保存在objectId所引用的对象中，一旦我们重新绑定这个对象到GL_WINDOW_TARGET位置，这些选项就会重新生效。</p>
+<p>使用对象的好处是，在程序中我们可以定义多个对象，并且设置它们的选项，每个对象都可以是不同的设置。在我们执行一个使用OpenGL状态的操作时，只需要绑定含有需要的设置的对象即可。比如说我们有一些作为3D模型数据（一栋房子或一个人物）的容器对象，在我们想绘制其中任何一个模型的时候，只需绑定一个包含对应模型数据的对象就可以了（当然，我们需要先创建并设置对象的选项）。</p>
+<p>理论知识基本介绍完毕。</p>
+<p><a href="http://blog.csdn.net/wangdingqiaoit/article/category/2107037/2" target="_blank" rel="noopener">http://blog.csdn.net/wangdingqiaoit/article/category/2107037/2</a> 这个博客可留作补充学习。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/opengl/" rel="tag"><i class="fa fa-tag"></i> opengl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/21/算法阅读笔记-日期处理/" rel="next" title="算法阅读笔记--日期处理">
+                <i class="fa fa-chevron-left"></i> 算法阅读笔记--日期处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/23/RCC/" rel="prev" title="Reading report of Robust continuous clustering">
+                Reading report of Robust continuous clustering <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenGL学习"><span class="nav-number">1.</span> <span class="nav-text">OpenGL学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenGL"><span class="nav-number">1.1.</span> <span class="nav-text">OpenGL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心模式与立即渲染模式"><span class="nav-number">1.2.</span> <span class="nav-text">核心模式与立即渲染模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">1.3.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态机"><span class="nav-number">1.4.</span> <span class="nav-text">状态机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">1.5.</span> <span class="nav-text">对象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

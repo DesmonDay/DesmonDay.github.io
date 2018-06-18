@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="学习mnist.py– 构建图表跟着教程步骤将代码打一遍，这样更容易记住。 Builds the MNIST network.Implements the inference/loss/training pattern for model building.  inference() – Builds the model as far as required for running the net">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow运作方式入门">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/06/07/Tensorflow运作方式入门/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="学习mnist.py– 构建图表跟着教程步骤将代码打一遍，这样更容易记住。 Builds the MNIST network.Implements the inference/loss/training pattern for model building.  inference() – Builds the model as far as required for running the net">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-07T13:35:23.071Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow运作方式入门">
+<meta name="twitter:description" content="学习mnist.py– 构建图表跟着教程步骤将代码打一遍，这样更容易记住。 Builds the MNIST network.Implements the inference/loss/training pattern for model building.  inference() – Builds the model as far as required for running the net">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/06/07/Tensorflow运作方式入门/"/>
+
+
+
+
+
+  <title>Tensorflow运作方式入门 | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/06/07/Tensorflow运作方式入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tensorflow运作方式入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T18:41:34+08:00">
+                2018-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="学习mnist-py–-构建图表"><a href="#学习mnist-py–-构建图表" class="headerlink" title="学习mnist.py– 构建图表"></a>学习mnist.py– 构建图表</h1><p>跟着教程步骤将代码打一遍，这样更容易记住。</p>
+<p>Builds the MNIST network.<br>Implements the inference/loss/training pattern for model building.</p>
+<ol>
+<li>inference() – Builds the model as far as required for running the network<br>forward to make predictions.</li>
+<li>loss() – Adds to the inference model the layers required to generate loss.</li>
+<li>training() – Adds to the loss model the Ops required to generate and<br>apply gradients.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line">NUM_CLASSES = <span class="number">10</span></span><br><span class="line">IMAGE_SIZE = <span class="number">28</span></span><br><span class="line">IMAGE_PIXELS = IMAGE_SIZE * IMAGE_SIZE</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inference</span><span class="params">(images, hidden1_units, hidden2_units)</span>:</span></span><br><span class="line">    <span class="comment"># inference()函数会尽可能地构建图表，做到返回包含了预测结果（output prediction）的Tensor。</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        images: Images placeholder, from inputs().</span></span><br><span class="line"><span class="string">        hidden1_units: Size of the first hidden layer.</span></span><br><span class="line"><span class="string">        hidden2_units: Size of the second hidden layer.</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        softmax_linear: Output tensor with the computed logits.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># Hidden 1</span></span><br><span class="line">    <span class="comment"># 当这些层是在hidden1作用域下生成时，赋予权重变量的独特名称将会是"hidden1/weights"。</span></span><br><span class="line">    <span class="keyword">with</span> tf.name_scope(<span class="string">'hidden1'</span>):</span><br><span class="line">        weights = tf.Variable(</span><br><span class="line">            tf.truncated_normal([IMAGE_PIXELS, hidden1_units],</span><br><span class="line">                                stddev=<span class="number">1.0</span> / math.sqrt(float(IMAGE_PIXELS))),</span><br><span class="line">            name=<span class="string">'weights'</span>) <span class="comment"># truncated_normal(shape, mean, stddev)函数产生正态分布,初始化权重</span></span><br><span class="line">        biases = tf.Variable(tf.zeros([hidden1_units]),</span><br><span class="line">                             name=<span class="string">'biases'</span>)</span><br><span class="line">        hidden1 = tf.nn.relu(tf.matmul(images, weights) + biases)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Hidden 2</span></span><br><span class="line">    <span class="keyword">with</span> tf.name_scope(<span class="string">'hidden2'</span>):</span><br><span class="line">        weights = tf.Variable(</span><br><span class="line">            tf.truncated_normal([hidden1_units, hidden2_units],</span><br><span class="line">                            stddev=<span class="number">1.0</span> / math.sqrt(float(hidden1_units))),</span><br><span class="line">            name=<span class="string">'weights'</span>)</span><br><span class="line">        biases = tf.Variable(tf.zeros([hidden2_units]),</span><br><span class="line">                             name=<span class="string">'biases'</span>)</span><br><span class="line">        hidden2 = tf.nn.relu(tf.matmul(hidden1, weights) + biases)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Linear</span></span><br><span class="line">    <span class="keyword">with</span> tf.name_scope(<span class="string">'softmax_linear'</span>):</span><br><span class="line">        weights = tf.Variable(</span><br><span class="line">            tf.truncated_normal([hidden2_units, NUM_CLASSES],</span><br><span class="line">                                stddev=<span class="number">1.0</span>/math.sqrt(float(hidden2_units))),</span><br><span class="line">            name = <span class="string">'weights'</span>)</span><br><span class="line">        biases = tf.Variable(tf.zeros([NUM_CLASSES]),</span><br><span class="line">                             name=<span class="string">'biases'</span>)</span><br><span class="line">        logits = tf.matmul(hidden2, weights) + biases</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> logits <span class="comment"># 返回包含了输出结果的logits Tensor</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(logits, labels)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Calculates the loss from the logits and the labels.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        logits: Logits tensor, float - [batch_size, NUM_CLASSES].</span></span><br><span class="line"><span class="string">        labels: Labels tensor, int32 - [batch_size].</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        loss: Loss tensor of type float</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    labels = tf.to_int64(labels)</span><br><span class="line">    <span class="keyword">return</span> tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">training</span><span class="params">(loss, learning_rate)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Sets up the training Ops.</span></span><br><span class="line"><span class="string">    Creates a summarizer to track the loss over time in TensorBoard.</span></span><br><span class="line"><span class="string">    Creates an optimizer and applies the gradients to all trainable variables.</span></span><br><span class="line"><span class="string">    The Op returned by this function is what must be passed to the `sess.run()` call to cause the model to train.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        loss: Loss tensor, from loss().</span></span><br><span class="line"><span class="string">        learning_rate: The learning rate to use for gradient descent.</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        train_op: The Op for training.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 该函数从loss()函数中获取损失Tensor，将其交给tf.scalar_summary，后者在与</span></span><br><span class="line">    <span class="comment"># SummaryWriter（见下文）配合使用时，可以向事件文件（events file）中生成汇总值（summary values）</span></span><br><span class="line">    tf.summary.scalar(<span class="string">'loss'</span>, loss) </span><br><span class="line">    <span class="comment"># 应用梯度下降法</span></span><br><span class="line">    Optimizer = tf.train.GradientDescentOptimizer(learning_rate)</span><br><span class="line">    <span class="comment"># 生成一个变量用于保存全局训练步骤（global training step）的数值</span></span><br><span class="line">    <span class="comment"># 使用minimize()函数更新系统中的三角权重（triangle weights), 增加全局步骤的操作</span></span><br><span class="line">    global_step = tf.Variable(<span class="number">0</span>, name=<span class="string">"global_step"</span>, trainable=<span class="keyword">False</span>)</span><br><span class="line">    train_op = optimizer.minimize(loss, global_step=global_step)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> train_op <span class="comment"># 返回包含了训练操作（training op）输出结果的Tensor</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evaluation</span><span class="params">(logits, labels)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Evaluate the quality of the logits at predicting the label.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        logits: Logits tensor, float - [batch_size, NUM_CLASSES].</span></span><br><span class="line"><span class="string">        labels: Labels tensor, int32 - [batch_size], with values in the</span></span><br><span class="line"><span class="string">        range [0, NUM_CLASSES).</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        A scalar int32 tensor with the number of examples (out of batch_size)</span></span><br><span class="line"><span class="string">        that were predicted correctly.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    correct = tf.nn.in_top_k(logis, labels, <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># Return the number of true entries.</span></span><br><span class="line">    <span class="keyword">return</span> tf.reduce_sum(tf.cast(correct, tf.int32))</span><br></pre></td></tr></table></figure>
+<h1 id="学习fully-connected-feed-py–-训练模型"><a href="#学习fully-connected-feed-py–-训练模型" class="headerlink" title="学习fully_connected_feed.py– 训练模型"></a>学习fully_connected_feed.py– 训练模型</h1><p>上一节的mnist.py起到构建图表的作用。一旦图表构建完毕，就通过fully_connected_feed.py文件中的用户代码进行循环地迭代式训练和评估。</p>
+<p>Trains and Evaluates the MNIST network using a feed dictionary.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> input_data <span class="comment"># 生成数据集</span></span><br><span class="line"><span class="keyword">import</span> mnist</span><br><span class="line"></span><br><span class="line">FLAGS = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># placeholder_inputs()函数将生成两个tf.placeholder操作，定义传入图表中的shape参数，shape参数中包括batch_size值，后续还会将实际的训练用例传入图表</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在训练循环（training loop）的后续步骤中，传入的整个图像和标签数据集会被切片，以符合每一个操作所设置的batch_size值，占位符操作将会填补以符合这个batch_size值。然后使用feed_dict参数，将数据传入sess.run()函数。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">placeholder_inputs</span><span class="params">(batch_size)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Generate placeholder variables to represent the input tensors.</span></span><br><span class="line"><span class="string">    These placeholders are used as inputs by the rest of the model building</span></span><br><span class="line"><span class="string">  code and will be fed from the downloaded data in the .run() loop, below.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        batch_size: The batch size will be baked into both placeholders.</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        images_placeholder: Images placeholder.</span></span><br><span class="line"><span class="string">        labels_placeholder: Labels placeholder.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    images_placeholder = tf.placeholder(tf.float32, shape=(batch_size, mnist.IMAGE_PIXELS))</span><br><span class="line">    labels_placeholder = tf.placeholder(tf.int32, shape=(batch_size))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> images_placeholder, labels_placeholder</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fill_feed_dict</span><span class="params">(data_set, images_pl, labels_pl)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Fills the feed_dict for training the given step.</span></span><br><span class="line"><span class="string">    A feed_dict takes the form of:</span></span><br><span class="line"><span class="string">        feed_dict = &#123;</span></span><br><span class="line"><span class="string">            &lt;placeholder&gt;: &lt;tensor of values to be passed for placeholder&gt;,</span></span><br><span class="line"><span class="string">            ....</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        data_set: The set of images and labels, from input_data.read_data_sets()</span></span><br><span class="line"><span class="string">        images_pl: The images placeholder, from placeholder_inputs().</span></span><br><span class="line"><span class="string">        labels_pl: The labels placeholder, from placeholder_inputs().</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        feed_dict: The feed dictionary mapping from placeholders to values.</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 索要下一批次batch_size的图像和标签，与占位符相匹配的Tensor则会包含下一批次的图像和标签。</span></span><br><span class="line">    images_feed, labels_feed = data_set.next_batch(FLAGS.batch_size, FLAGS.fake_data)</span><br><span class="line">    feed_dict = &#123;</span><br><span class="line">        images_pl: images_feed,</span><br><span class="line">        labels_pl: labels_feed,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> feed_dict</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_eval</span><span class="params">(sess, eval_correct, images_placeholder, labels_placeholder, data_set)</span>:</span></span><br><span class="line">    <span class="comment"># Runs one evaluation against the full epoch of data.</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">    sess: The session in which the model has been trained.</span></span><br><span class="line"><span class="string">    eval_correct: The Tensor that returns the number of correct predictions.</span></span><br><span class="line"><span class="string">    images_placeholder: The images placeholder.</span></span><br><span class="line"><span class="string">    labels_placeholder: The labels placeholder.</span></span><br><span class="line"><span class="string">    data_set: The set of images and labels to evaluate, from</span></span><br><span class="line"><span class="string">      input_data.read_data_sets().</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    true_count = <span class="number">0</span> <span class="comment"># Counts the number of correct predictions.</span></span><br><span class="line">    steps_per_epoch = data_set.num_examples <span class="comment"># FLAGS.batch_size</span></span><br><span class="line">    num_examples = steps_per_epoch * FLAGS.batch_size</span><br><span class="line">    <span class="keyword">for</span> step <span class="keyword">in</span> range(steps_per_epoch):</span><br><span class="line">        feed_dict = fill_feed_dict(data_set, images_placeholder, labels_placeholder)</span><br><span class="line">        true_count += sess.run(eval_correct, feed_dict=feed_dict)</span><br><span class="line">    precision = float(true_count) / num_examples</span><br><span class="line">    print(<span class="string">'Num examples: %d  Num correct: %d  Precision @ 1: %0.04f'</span> % (num_examples, true_count, precision))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_training</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""Train MNIST for a number of steps."""</span></span><br><span class="line">    data_sets = input_data.read_data_sets(FLAGS.input_data_dir, FLAGS.fake_data)</span><br><span class="line">    <span class="keyword">with</span> tf.Graph().as_default(): </span><br><span class="line">    <span class="comment"># 这个命令表明所有已经构建的操作都要与默认的tf.Graph全局实例关联起来。</span></span><br><span class="line">        <span class="comment"># Generate placeholders for the images and labels.</span></span><br><span class="line">        images_placeholder, labels_placeholder = placeholder_inputs(FLAGS.batch_size)</span><br><span class="line">        <span class="comment"># Build a Graph that computes predictions from the inference model.</span></span><br><span class="line">        logits = mnist.inference(images_placeholder, FLAGS.hidden1, FLAGS.hidden2)</span><br><span class="line">        <span class="comment"># Add to the Graph the Ops for loss calculation.</span></span><br><span class="line">        loss = mnist.loss(logits, labels_placeholder)</span><br><span class="line">        <span class="comment"># Add to the Graph the Ops that calculate and apply gradients.</span></span><br><span class="line">        train_op = mnist.training(loss, FLAGS.learning_rate)</span><br><span class="line">        <span class="comment"># Add the Op to compare the logits to the labels during evaluation.</span></span><br><span class="line">        eval_correct = mnist.evaluation(logits, labels_placeholder)</span><br><span class="line">        <span class="comment"># Build the summary Tensor based on the TF collection of Summaries.</span></span><br><span class="line">        summary = tf.summary.merge_all()</span><br><span class="line">        <span class="comment"># Add the variable initializer Op.</span></span><br><span class="line">        init = tf.global_variables_initializer()</span><br><span class="line">        <span class="comment"># Create a saver for writing training checkpoints.</span></span><br><span class="line">        sess = tf.Session()</span><br><span class="line">        <span class="comment"># Instantiate a SummaryWriter to output summaries and the Graph.</span></span><br><span class="line">        summary_writer = tf.summary.FileWriter(FLAGS.log_dir, sess.graph)</span><br><span class="line"></span><br><span class="line">        sess.run(init)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Start training</span></span><br><span class="line">        <span class="keyword">for</span> step <span class="keyword">in</span> range(FLAGS.max_steps):</span><br><span class="line">            start_time = time.time()</span><br><span class="line">            feed_dict = fill_feed_dict(data_set.train, images_placeholder, labels_placeholder)</span><br><span class="line">            _, loss_value = sess.run([train_op,loss], feed_dict=feed_dict)</span><br><span class="line">            duration = time.time() - start_time</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> step % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">                print(<span class="string">'Step %d: loss = %.2f (%.3f sec)'</span> % (step, loss_value, duration))</span><br><span class="line">                <span class="comment"># Update the events file.</span></span><br><span class="line">                summary_str = sess.run(summary, feed_dict=feed_dict)</span><br><span class="line">                summary_writer.add_summary(summary_str, step)</span><br><span class="line">                summary_writer.flush()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (step+<span class="number">1</span>)%<span class="number">1000</span>==<span class="number">0</span> <span class="keyword">or</span> (step+<span class="number">1</span>)==FLAGS.max_steps:</span><br><span class="line">                checkpoint_file = os.path.join(FLAGS.log_dir, <span class="string">'model.ckpt'</span>)</span><br><span class="line">                saver.save(ses, checkpoint_file, global_step=step)</span><br><span class="line">                <span class="comment"># saver.restore(sess, FLAGS.train_dir)可重载模型参数，继续训练</span></span><br><span class="line">                <span class="comment"># Evaluate against the training set.</span></span><br><span class="line">                print(<span class="string">'Training Data Eval:'</span>)</span><br><span class="line">                do_eval(sess,</span><br><span class="line">                        eval_correct,</span><br><span class="line">                        images_placeholder,</span><br><span class="line">                        labels_placeholder,</span><br><span class="line">                        data_sets.train)</span><br><span class="line">                print(<span class="string">'Validation Data Eval:'</span>)</span><br><span class="line">                do_eval(sess,</span><br><span class="line">                        eval_correct,</span><br><span class="line">                        images_placeholder,</span><br><span class="line">                        labels_placeholder,</span><br><span class="line">                        data_sets.validation)</span><br><span class="line">                <span class="comment"># Evaluate against the test set.</span></span><br><span class="line">                print(<span class="string">'Test Data Eval:'</span>)</span><br><span class="line">                do_eval(sess,</span><br><span class="line">                        eval_correct,</span><br><span class="line">                        images_placeholder,</span><br><span class="line">                        labels_placeholder,</span><br><span class="line">                        data_sets.test)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> tf.gfile.Exists(FLAGS.log_dir):</span><br><span class="line">        tf.gfile.DeleteRecursively(FLAGS.log_dir)</span><br><span class="line">    tf.gfile.MakeDirs(FLAGS.log_dir)</span><br><span class="line">    run_training()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    parser = argparse.ArgumentParser() <span class="comment">#参数设置</span></span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--learning_rate'</span>,</span><br><span class="line">        type=float,</span><br><span class="line">        default=<span class="number">0.01</span>,</span><br><span class="line">        help=<span class="string">'Initial learning_rate'</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--max_steps'</span>,</span><br><span class="line">         type=int,</span><br><span class="line">        default=<span class="number">200</span>,</span><br><span class="line">        help=<span class="string">'Number of steps to run trainer.'</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--hidden1'</span>,</span><br><span class="line">        type=int,</span><br><span class="line">        default=<span class="number">128</span>,</span><br><span class="line">        help=<span class="string">'Number of units in hidden layer 1.'</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--hidden2'</span>,</span><br><span class="line">        type=int,</span><br><span class="line">        default=<span class="number">32</span>,</span><br><span class="line">        help=<span class="string">'Number of units in hidden layer 2.'</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--batch_size'</span>,</span><br><span class="line">        type=int,</span><br><span class="line">        default=<span class="number">100</span>,</span><br><span class="line">        help=<span class="string">'Batch size.  Must divide evenly into the dataset sizes.'</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--input_data_dir'</span>,</span><br><span class="line">        type=str,</span><br><span class="line">        default=os.path.join(os.getenv(<span class="string">'TEST_TMPDIR'</span>, <span class="string">'/tmp'</span>),</span><br><span class="line">                           <span class="string">'tensorflow/mnist/input_data'</span>),</span><br><span class="line">        help=<span class="string">'Directory to put the input data.'</span>)</span><br><span class="line">    parser.add_argument(</span><br><span class="line">        <span class="string">'--fake_data'</span>,</span><br><span class="line">        default=<span class="keyword">False</span>,</span><br><span class="line">        help=<span class="string">'If true, uses fake data for unit testing.'</span>,</span><br><span class="line">        action=<span class="string">'store_true'</span>)</span><br><span class="line">    FLAGS, unparsed = parser.parse_known_args()</span><br><span class="line">    tf.app.run(main=main, argv=[sys.argv[<span class="number">0</span>]] + unparsed)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/05/Tensorflow-识别手写数字/" rel="next" title="Tensorflow_识别手写数字">
+                <i class="fa fa-chevron-left"></i> Tensorflow_识别手写数字
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/18/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习mnist-py–-构建图表"><span class="nav-number">1.</span> <span class="nav-text">学习mnist.py– 构建图表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习fully-connected-feed-py–-训练模型"><span class="nav-number">2.</span> <span class="nav-text">学习fully_connected_feed.py– 训练模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

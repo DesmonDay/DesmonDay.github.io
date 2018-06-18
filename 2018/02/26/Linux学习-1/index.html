@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言自从搭了个博客后，学习的欲望特别强烈。恰好这次赶上春招了，而实习岗位的要求基本都是需要熟练操作Linux。虽然我在一些课程中有接触过linux的操作，但是都是简单的基本操作，算不上所谓熟练。因此就索性从头开始学习，并且将学习过程记录于此。 参考资料是我偶然发现的一个博客，本是打算从鸟哥的私房菜看起，但毕竟书本看起来不免乏味，而且内容也有些陈旧了。恰巧发现此博客也是根据鸟哥来学习，并且也比较精炼">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习(1)">
+<meta property="og:url" content="https://github.com/DesmonDay/2018/02/26/Linux学习-1/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="前言自从搭了个博客后，学习的欲望特别强烈。恰好这次赶上春招了，而实习岗位的要求基本都是需要熟练操作Linux。虽然我在一些课程中有接触过linux的操作，但是都是简单的基本操作，算不上所谓熟练。因此就索性从头开始学习，并且将学习过程记录于此。 参考资料是我偶然发现的一个博客，本是打算从鸟哥的私房菜看起，但毕竟书本看起来不免乏味，而且内容也有些陈旧了。恰巧发现此博客也是根据鸟哥来学习，并且也比较精炼">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-4315fe7c38a4b6aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/8636110-f478841221a36101.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-04T11:12:59.884Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习(1)">
+<meta name="twitter:description" content="前言自从搭了个博客后，学习的欲望特别强烈。恰好这次赶上春招了，而实习岗位的要求基本都是需要熟练操作Linux。虽然我在一些课程中有接触过linux的操作，但是都是简单的基本操作，算不上所谓熟练。因此就索性从头开始学习，并且将学习过程记录于此。 参考资料是我偶然发现的一个博客，本是打算从鸟哥的私房菜看起，但毕竟书本看起来不免乏味，而且内容也有些陈旧了。恰巧发现此博客也是根据鸟哥来学习，并且也比较精炼">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/8636110-4315fe7c38a4b6aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2018/02/26/Linux学习-1/"/>
+
+
+
+
+
+  <title>Linux学习(1) | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/02/26/Linux学习-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-26T00:14:14+08:00">
+                2018-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>自从搭了个博客后，学习的欲望特别强烈。恰好这次赶上春招了，而实习岗位的要求基本都是需要熟练操作Linux。虽然我在一些课程中有接触过linux的操作，但是都是简单的基本操作，算不上所谓熟练。因此就索性从头开始学习，并且将学习过程记录于此。</p>
+<p>参考资料是我偶然发现的一个<a href="http://www.92csz.com/study/linux/1.htm" target="_blank" rel="noopener">博客</a>，本是打算从鸟哥的私房菜看起，但毕竟书本看起来不免乏味，而且内容也有些陈旧了。恰巧发现此博客也是根据鸟哥来学习，并且也比较精炼，索性根据此博客来学习。特此感谢该博主。下面开始正式学习啦！每次的学习不会刻意分哪一次学什么，基本就是学了什么就记什么，比较随性。(估计也没人能看得到我写的，哈哈哈哈)</p>
+<h1 id="Linux历史发展"><a href="#Linux历史发展" class="headerlink" title="Linux历史发展"></a>Linux历史发展</h1><p>Linux是一套可免费使用和自由传播的类UNIX操作系统。1991年，芬兰赫尔辛基大学学生Linus开发了Linux内核。此后，一大批程序爱好者、软件技术专家对Linux进行修改和完善。Linux操作系统从诞生到现在，其开放、安全、稳定的特性得到越来越多用户的认可，又由于其低成本、自由开发以及安全可靠等优势，促使各国政府和企业纷纷对Linux提供强有力的支持。更详细历史发展可自行百度或谷歌。</p>
+<h1 id="Linux相关准备工作"><a href="#Linux相关准备工作" class="headerlink" title="Linux相关准备工作"></a>Linux相关准备工作</h1><p>由于在之前的课程中有使用虚拟机安装过Ubuntu，因此索性就使用原有的Ubuntu系统。云计算课程中有使用过3个来进行hadoop的相关操作，因此为了不影响其内部的设置(不容易啊)，便使用在嵌入式课堂上安装的具有图形界面的系统。不过，为了使学习能够有更好的效果，因此本次学习基本只在终端进行相关操作。</p>
+<h1 id="Linux初步学习"><a href="#Linux初步学习" class="headerlink" title="Linux初步学习"></a>Linux初步学习</h1><p>PS.由于这块偏理论，文字很多，因此还是自行阅读比较好。因此这个部分我基本看着博主的内容来学习，下面仅摘抄一些关键点。附上链接：<a href="http://www.92csz.com/study/linux/4.htm" target="_blank" rel="noopener">http://www.92csz.com/study/linux/4.htm</a></p>
+<h2 id="Linux系统启动过程"><a href="#Linux系统启动过程" class="headerlink" title="Linux系统启动过程"></a>Linux系统启动过程</h2><p>Linux的启动与Windows类似，但Windows我们无法看到启动信息，而Linux则可以看到。Linux系统的启动过程大体分为5个部分：内核的引导、运行init、系统初始化、建立终端、用户登录系统。由于这部分涉及较为底层的知识，与后台维护的联系比较紧密，而我所意向的职业与之关联不大，因此此处也只是做简单了解。</p>
+<h3 id="内核引导"><a href="#内核引导" class="headerlink" title="内核引导"></a>内核引导</h3><p>当计算机打开电源后，首先是<strong>BIOS开机自检</strong>，按照BIOS中设置的启动设备（通常是硬盘）来启动。紧接着由启动设备上的<strong>grub程序</strong>开始引导linux，当引导程序成功完成引导任务后，Linux从它们手中接管了CPU的控制权，然后CPU就开始执行Linux的核心映象代码，开始了Linux启动过程**。也就是所谓的内核引导开始了，在内核引导过程中其实是很复杂的，我们就当它是一个黑匣子，反正是linux内核做了一些列工作，最后内核调用加载了init程序，至此内核引导的工作就完成了。</p>
+<h3 id="运行init"><a href="#运行init" class="headerlink" title="运行init"></a>运行init</h3><p>init进程是系统所有进程的起点，没有此进程，系统中任何进程都不会启动。而如今init进程也有了不同的发展。</p>
+<p>在博客作者所介绍的centos7系统中，其使用的是较早的init系统，首先读取的配置文件为/etc/inittab。（博客链接：<a href="http://www.92csz.com/study/linux/4.htm）" target="_blank" rel="noopener">http://www.92csz.com/study/linux/4.htm）</a></p>
+<p>而由于旧版本的init系统存在一些问题，因此Ubuntu开发人员重新开发了init系统，称为Upstart的一种新型init系统。（参考博客链接：<a href="http://blog.csdn.net/darling757267/article/details/52356354）" target="_blank" rel="noopener">http://blog.csdn.net/darling757267/article/details/52356354）</a></p>
+<p>由于时间较紧张，而上述的两个init系统在短时间内是无法解释清楚的，并且目前也没有耐心看完，因此init系统的研读暂且告一段落，之后闲暇时应该会重新整理学习。</p>
+<p>旧init系统相关重要概念：id(入口标识符)、runlevel(init所处于的运行级别的标识)、action(描述其后的process的运行方式)、process(具体执行程序)。</p>
+<p>ps.这里有两个init启动系统的对比，写得很好，下次重点研读：<a href="http://www.cnblogs.com/cassvin/archive/2011/12/25/ubuntu_init_analysis.html" target="_blank" rel="noopener">http://www.cnblogs.com/cassvin/archive/2011/12/25/ubuntu_init_analysis.html</a></p>
+<h3 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h3><p>此块针对博客作者所介绍的System V initialization的init方式进行学习。（基本照抄）</p>
+<p>在init的配置文件中有这么一行：si::sysinit:/etc/rc.d/rc.sysinit，它调用执行了/etc/rc.d/rc.sysinit，而rc.sysinit是一个bash shell脚本，它主要是完成一些系统初始化的工作，rc.sysinit是每一个运行级别都要首先运行的重要脚本。其主要完成工作有：激活交换分区，检查磁盘，加载硬件模块以及其他一些需要优先执行任务。</p>
+<p>当rc.sysinit程序执行完毕后，将返回init继续下一步。通常接下来会执行到/etc/rc.d/rc程序。以运行级别3为例，init将执行配置文件inittab中的以下这行：<br>　　l5:5:wait:/etc/rc.d/rc 5</p>
+<p>这一行表示以5为参数运行/etc/rc.d/rc，/etc/rc.d/rc是一个Shell脚本，它接受5作为参数，去执行/etc/rc.d/rc5.d/目录下的所有的rc启动脚本，/etc/rc.d/rc5.d/目录中的这些启动脚本实际上都是一些连接文件，而不是真正的rc启动脚本，真正的rc启动脚本实际上都是放在/etc/rc.d/init.d/目录下。而这些rc启动脚本有着类似的用法，它们一般能接受start、stop、restart、status等参数。</p>
+<p>/etc/rc.d/rc5.d/中的rc启动脚本通常是K或S开头的连接文件，对于以S开头的启动脚本，将以start参数来运行。而如果发现存在相应的脚本也存在K打头的连接，而且已经处于运行态了(以/var/lock/subsys/下的文件作为标志)，则将首先以stop为参数停止这些已经启动了的守护进程，然后再重新运行。这样做是为了保证是当init改变运行级别时，所有相关的守护进程都将重启。</p>
+<p>（这里就是该init系统的一个缺点了，System V init需要“拐弯抹角”转好多圈才到达目的地，而Upstart init只需要/etc/init这么一个目录，性能更快更优）</p>
+<h3 id="建立终端"><a href="#建立终端" class="headerlink" title="建立终端"></a>建立终端</h3><p>init系统初始化结束后，此时基本系统环境已经配置好了，各种初始进程也已经启动。init接下来会打开6个终端，以便用户登录系统。运行mingetty程序能打开终端、设置模式，同时它会显示一个文本登录界面。在该登录界面中会提示用户输入用户名（如有登录密码也需输入），用户输入的用户名将作为参数传给login程序来验证身份。</p>
+<h3 id="用户登录系统"><a href="#用户登录系统" class="headerlink" title="用户登录系统"></a>用户登录系统</h3><p>当我们看到mingetty的登录界面时，我们就可以输入用户名和密码来登录系统了。Linux的账号验证程序是login，login会接收mingetty传来的用户名作为用户名参数。</p>
+<h2 id="命令行界面与图形界面切换"><a href="#命令行界面与图形界面切换" class="headerlink" title="命令行界面与图形界面切换"></a>命令行界面与图形界面切换</h2><p>以我使用的Ubuntu为例。其默认进入图形界面，如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-4315fe7c38a4b6aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>命令窗口切换的快捷键为Ctrl+Alt+F1~F6，可切换至tty1~tty6的命令行窗口。例如：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8636110-f478841221a36101.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果想切换为图形界面，对应快捷键为Ctrl+Alt+F7。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/24/Implementaion-of-M-NMF/" rel="next" title="Implementation of M-NMF">
+                <i class="fa fa-chevron-left"></i> Implementation of M-NMF
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/04/Linux-init方式对比/" rel="prev" title="Linux init方式对比">
+                Linux init方式对比 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux历史发展"><span class="nav-number">2.</span> <span class="nav-text">Linux历史发展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux相关准备工作"><span class="nav-number">3.</span> <span class="nav-text">Linux相关准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux初步学习"><span class="nav-number">4.</span> <span class="nav-text">Linux初步学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux系统启动过程"><span class="nav-number">4.1.</span> <span class="nav-text">Linux系统启动过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内核引导"><span class="nav-number">4.1.1.</span> <span class="nav-text">内核引导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行init"><span class="nav-number">4.1.2.</span> <span class="nav-text">运行init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统初始化"><span class="nav-number">4.1.3.</span> <span class="nav-text">系统初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立终端"><span class="nav-number">4.1.4.</span> <span class="nav-text">建立终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户登录系统"><span class="nav-number">4.1.5.</span> <span class="nav-text">用户登录系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行界面与图形界面切换"><span class="nav-number">4.2.</span> <span class="nav-text">命令行界面与图形界面切换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
