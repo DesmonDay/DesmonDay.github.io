@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="shell特殊符号">
-<meta name="keywords" content="linux">
+<meta name="description" content="题目描述用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 思路分析题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。 代码如下： 123456789101112131415161718192021222324252627">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux学习(7)——shell基础知识(续)">
-<meta property="og:url" content="https://github.com/DesmonDay/2018/03/13/Linux学习-7/index.html">
+<meta property="og:title" content="剑指Offer-用两个栈实现队列">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/01/14/剑指Offer-用两个栈实现队列/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="shell特殊符号">
+<meta property="og:description" content="题目描述用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 思路分析题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。 代码如下： 123456789101112131415161718192021222324252627">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-13T12:25:44.086Z">
+<meta property="og:updated_time" content="2019-01-14T13:32:00.722Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux学习(7)——shell基础知识(续)">
-<meta name="twitter:description" content="shell特殊符号">
+<meta name="twitter:title" content="剑指Offer-用两个栈实现队列">
+<meta name="twitter:description" content="题目描述用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 思路分析题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。 代码如下： 123456789101112131415161718192021222324252627">
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/13/Linux学习-7/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-用两个栈实现队列/"/>
 
 
 
 
 
-  <title>Linux学习(7)——shell基础知识(续) | DesmonDay's Blog</title>
+  <title>剑指Offer-用两个栈实现队列 | DesmonDay's Blog</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/13/Linux学习-7/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-用两个栈实现队列/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Desmon Day">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux学习(7)——shell基础知识(续)</h1>
+          <h1 class="post-title" itemprop="name headline">剑指Offer-用两个栈实现队列</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-13T20:23:47+08:00">
-                2018-03-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T21:27:27+08:00">
+                2019-01-14
               </time>
             
 
@@ -327,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux学习/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux学习</span>
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
                   </a>
                 </span>
 
@@ -364,7 +364,10 @@
       
 
       
-        <h1 id="shell特殊符号"><a href="#shell特殊符号" class="headerlink" title="shell特殊符号"></a>shell特殊符号</h1>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。</p>
+<p>代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">if</span>(!stack2.empty())&#123;</span><br><span class="line">            result = stack2.top();</span><br><span class="line">            stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack1.empty())&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = stack1.top();</span><br><span class="line">                stack1.pop();</span><br><span class="line">                stack2.push(temp);</span><br><span class="line">            &#125;</span><br><span class="line">            result = stack2.top();</span><br><span class="line">            stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack1;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -381,7 +384,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           
         </div>
       
@@ -394,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/12/1007-素数对猜想/" rel="next" title="PAT乙1007.素数对猜想">
-                <i class="fa fa-chevron-left"></i> PAT乙1007.素数对猜想
+              <a href="/2019/01/14/剑指Offer-重建二叉树/" rel="next" title="剑指Offer-重建二叉树">
+                <i class="fa fa-chevron-left"></i> 剑指Offer-重建二叉树
               </a>
             
           </div>
@@ -403,10 +406,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/13/1008-数组元素循环移位/" rel="prev" title="PAT乙1008.数组元素循环移位">
-                PAT乙1008.数组元素循环移位 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -560,7 +559,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#shell特殊符号"><span class="nav-number">1.</span> <span class="nav-text">shell特殊符号</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li></ol></div>
             
 
           </div>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-01-14T13:05:18.678Z</updated>
+  <updated>2019-01-14T13:32:00.722Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-用两个栈实现队列</title>
+    <link href="https://github.com/DesmonDay/2019/01/14/%E5%89%91%E6%8C%87Offer-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/"/>
+    <id>https://github.com/DesmonDay/2019/01/14/剑指Offer-用两个栈实现队列/</id>
+    <published>2019-01-14T13:27:27.000Z</published>
+    <updated>2019-01-14T13:32:00.722Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</p><h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。</p><p>代码如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">if</span>(!stack2.empty())&#123;</span><br><span class="line">            result = stack2.top();</span><br><span class="line">            stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack1.empty())&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = stack1.top();</span><br><span class="line">                stack1.pop();</span><br><span class="line">                stack2.push(temp);</span><br><span class="line">            &#125;</span><br><span class="line">            result = stack2.top();</span><br><span class="line">            stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack1;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。&lt;/p&gt;
+&lt;h1 id=&quot;思路分析&quot;&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指Offer-重建二叉树</title>
@@ -479,31 +505,6 @@
     
     
       <category term="c++" scheme="https://github.com/DesmonDay/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Reading report of Robust continuous clustering</title>
-    <link href="https://github.com/DesmonDay/2018/03/23/RCC/"/>
-    <id>https://github.com/DesmonDay/2018/03/23/RCC/</id>
-    <published>2018-03-23T10:32:09.000Z</published>
-    <updated>2018-03-23T10:45:38.978Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Movitivation"><a href="#Movitivation" class="headerlink" title="Movitivation"></a>Movitivation</h1><p>Clustering has been studied for decades, but the existing clustering algorithms still have many shortcomings, like having limited effectiveness in high dimensions and often requiring tuning parameters for different domains and datasets. In order to solve the above problems, the authors present a new clustering algorithm called RCC(Robust continuous clustering), which achieves high accuracy across multiple domains and scales efficiently to high dimensions and large datasets.</p><h1 id="Main-Algorithm"><a href="#Main-Algorithm" class="headerlink" title="Main Algorithm"></a>Main Algorithm</h1><h2 id="RCC"><a href="#RCC" class="headerlink" title="RCC"></a>RCC</h2><p>The fundamental principle of the algorithm is to find the appropriate representatives U for the corresponding data point X. And we need to operate the optimization on U.<br>The RCC objective 1 has the following form:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7c0c6a468f18d5b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>The funtion ρ(∙) is a robust penalty function on the regularization terms, which is central to the method. There are two expectations on this term: (1)we want representative ui from the same latent cluster to collapse into a single point; (2) we want the penalty function to be robust enough. Therefore, the authors decided to use robust estimators. The weight wp,q and λ are the balance factors, and ε is the set of edges in the graph.</p><p>The second term in the objective is related to the mean shift objective. Later, the authors provide a reformulated objective 2.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d1fdb418c410e3ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>The new objective adds an auxiliary variable lp,q for each connection in ε, and together optimize both the representative U and the line process L, where   is a penalty on the connection. Why the authors use objective 2 is because its form enables efficient and scalable optimization by iterative solution of linear least-square systems, which yields a general approach, for three reasons:</p><ol><li>accommodate many robust nonconvex functions ρ.</li><li>reduce clustering to the application of linear system solvers.</li><li>easily scale to high dimensions and large datasets.</li></ol><p>In the paper, ρ(y) uses the Geman-McClure estimater, and μ is a scale parameter:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bcf4c033c6361d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And the corresponding penalty function that equals objective 1 and 2 is :<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1275f793248fb51f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>Later, the authors give the optimization of the above objectives, which I don’t introduce much here. When U are fixed, the optimal value of each lp,q is given by:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-537d8030574c405b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And when L are fixed, we can rewrite the expression to solve U, which turns into a linear least-squares problem:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d9e71d1ae4186bc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>The pseudo code of RCC is followed:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2d85d77f4677aac3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><h2 id="RCC-DR"><a href="#RCC-DR" class="headerlink" title="RCC-DR"></a>RCC-DR</h2><p>In RCC, the dimensionality of the embedding U is the same as the dimensionality of the data X. And since RCC optimizes a continuous and differentiable objective, it can be used within end-to-end feature learning pipelines. In this section, the authors extend RCC to perform joint clustering and dimensionality reduction, called RCC-DR.<br>The final formulation of the RCC-DR objective is:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-36cad4727653cc6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>Where D∈R(Dxd) is a dictionary, zi∈R(Dxd) is a sparse code corresponding to the ith data sample, and ui∈R(d) is the low dimensional embedding of xi. The optimization is performed by block coordinate descent over U, Z, D, L1 and L2. The variables U are updated by solving linear system.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-901c888b05dd6a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8636110-b62da3b876e8f103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And the dictionary D and codes Z are initialized using PCA and updated by different methods.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f1389587eba8f7d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8636110-db8ef58d51f0fb2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><h1 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h1><p>In the paper, the authors propose an algorthm called RCC, which optimizes a continuous objective based on robust estimation. And its end-to-end feature learning pipelines allow it to perform joint clustering and dimensionality reduction. This method achieves high accuracy across multiple domains and scales efficiently to high dimensions and large datasets. </p><h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>Actually, I don’t quite understand about this paper. I don’t know how the authors comp up with such wonderful idea about robust estimators, and how can they smartly turn a complicated optimization problem into linear least-squares solvers. Maybe it will be better if we can get the code of the Algorithm to study. </p><h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>The authors first give us the principle of RCC, and then extend it by to perform joint clustering and dimensionality reduction, called RCC-DR. And most of the thesis is talking about the objectives of the algorithm, and the optimization method they use. In the final part, they do a lot of experiments compared with RCC, RCC-DR and other 13 baselines about the results and running time on different datasets.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Movitivation&quot;&gt;&lt;a href=&quot;#Movitivation&quot; class=&quot;headerlink&quot; title=&quot;Movitivation&quot;&gt;&lt;/a&gt;Movitivation&lt;/h1&gt;&lt;p&gt;Clustering has been studied fo
-      
-    
-    </summary>
-    
-      <category term="论文阅读" scheme="https://github.com/DesmonDay/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-    
-      <category term="paper" scheme="https://github.com/DesmonDay/tags/paper/"/>
     
   </entry>
   
