@@ -83,6 +83,8 @@
 
 
 
+  
+
 
   <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
 
@@ -96,22 +98,22 @@
 
 
 
-<meta name="description" content="之前曾经学习过一阵子，但是时间赶，并没有懂得什么东西，甚至于当时由于在C盘跑深度学习程序而把电脑的重要文件给误删了。这阵子打算重新开始学习Tensorflow，主要基于《Tensorflow实战Google深度学习框架》这本书。 最开始的简单程序：  通过TensorBoard可视化向量相加的计算图：（matrix1对应a, matrix2对应b，product对应add) #Tensorflow">
+<meta name="description" content="之前曾经学习过一阵子，但是时间赶，并没有懂得什么东西，甚至于当时由于在C盘跑深度学习程序而把电脑的重要文件给误删了。这阵子打算重新开始学习Tensorflow，主要基于《Tensorflow实战Google深度学习框架》这本书。 最开始的简单程序：  通过TensorBoard可视化向量相加的计算图：（matrix1对应a, matrix2对应b，product对应add) Tensorflow三">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tensorflow重新开始-1">
 <meta property="og:url" content="https://github.com/DesmonDay/2019/01/11/Tensorflow1/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="之前曾经学习过一阵子，但是时间赶，并没有懂得什么东西，甚至于当时由于在C盘跑深度学习程序而把电脑的重要文件给误删了。这阵子打算重新开始学习Tensorflow，主要基于《Tensorflow实战Google深度学习框架》这本书。 最开始的简单程序：  通过TensorBoard可视化向量相加的计算图：（matrix1对应a, matrix2对应b，product对应add) #Tensorflow">
+<meta property="og:description" content="之前曾经学习过一阵子，但是时间赶，并没有懂得什么东西，甚至于当时由于在C盘跑深度学习程序而把电脑的重要文件给误删了。这阵子打算重新开始学习Tensorflow，主要基于《Tensorflow实战Google深度学习框架》这本书。 最开始的简单程序：  通过TensorBoard可视化向量相加的计算图：（matrix1对应a, matrix2对应b，product对应add) Tensorflow三">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b0027e3f3b6ed3be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-757943af22bd3113.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b0027e3f3b6ed3be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-803f460a7f4808fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-01-11T08:52:46.850Z">
+<meta property="og:updated_time" content="2019-01-14T04:43:41.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow重新开始-1">
-<meta name="twitter:description" content="之前曾经学习过一阵子，但是时间赶，并没有懂得什么东西，甚至于当时由于在C盘跑深度学习程序而把电脑的重要文件给误删了。这阵子打算重新开始学习Tensorflow，主要基于《Tensorflow实战Google深度学习框架》这本书。 最开始的简单程序：  通过TensorBoard可视化向量相加的计算图：（matrix1对应a, matrix2对应b，product对应add) #Tensorflow">
+<meta name="twitter:description" content="之前曾经学习过一阵子，但是时间赶，并没有懂得什么东西，甚至于当时由于在C盘跑深度学习程序而把电脑的重要文件给误删了。这阵子打算重新开始学习Tensorflow，主要基于《Tensorflow实战Google深度学习框架》这本书。 最开始的简单程序：  通过TensorBoard可视化向量相加的计算图：（matrix1对应a, matrix2对应b，product对应add) Tensorflow三">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-b0027e3f3b6ed3be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -373,15 +375,14 @@
 <p>最开始的简单程序：</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/8636110-b0027e3f3b6ed3be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>通过TensorBoard可视化向量相加的计算图：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-757943af22bd3113.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png">（matrix1对应a, matrix2对应b，product对应add)</p>
-<p>#Tensorflow三大模型</p>
-<p>包括计算模型、数据模型和运行模型</p>
-<p>##Tensorflow计算模型：计算图</p>
-<p>Tensorflow是一个通过计算图的形式来表述计算的编程系统。Tensorflow中的每一个计算都是计算图上的一个节点，而节点之间的边描述了计算之间的依赖关系。如上图，所有Tensorflow的程序都可以通过类似上图的计算图的形式来表示，这便是TensorFlow的基本计算模型。</p>
-<p>###计算图的使用<br>两个阶段：定义计算阶段，执行计算阶段</p>
+<h1 id="Tensorflow三大模型"><a href="#Tensorflow三大模型" class="headerlink" title="Tensorflow三大模型"></a>Tensorflow三大模型</h1><p>包括计算模型、数据模型和运行模型</p>
+<h2 id="Tensorflow计算模型：计算图"><a href="#Tensorflow计算模型：计算图" class="headerlink" title="Tensorflow计算模型：计算图"></a>Tensorflow计算模型：计算图</h2><p>Tensorflow是一个通过计算图的形式来表述计算的编程系统。Tensorflow中的每一个计算都是计算图上的一个节点，而节点之间的边描述了计算之间的依赖关系。如上图，所有Tensorflow的程序都可以通过类似上图的计算图的形式来表示，这便是TensorFlow的基本计算模型。</p>
+<h3 id="计算图的使用"><a href="#计算图的使用" class="headerlink" title="计算图的使用"></a>计算图的使用</h3><p>两个阶段：定义计算阶段，执行计算阶段</p>
 <p>计算阶段：</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/8636110-b0027e3f3b6ed3be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>通过tf.get_default_graph函数可以获取当前默认的计算图：</p>
+<p>通过tf.get_default_graph函数可以获取当前默认的计算图：（通过a.graph可以查看张量所属的计算图。由于没有特意指定，所以这个计算图等于当前默认的计算图，因此输出为True）</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/8636110-803f460a7f4808fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>除默认的计算图，Tensorflow支持通过tf.Graph函数来生成新的计算图。<strong>不同计算图上的张量和运算不会共享。</strong></p>
 
       
     </div>
@@ -421,6 +422,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/14/剑指Offer-二维数组中的查找/" rel="prev" title="剑指Offer-二维数组中的查找">
+                剑指Offer-二维数组中的查找 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -472,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -488,7 +502,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -499,7 +513,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -510,7 +524,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -555,6 +569,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow三大模型"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow三大模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow计算模型：计算图"><span class="nav-number">1.1.</span> <span class="nav-text">Tensorflow计算模型：计算图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算图的使用"><span class="nav-number">1.1.1.</span> <span class="nav-text">计算图的使用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

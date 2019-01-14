@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="c++," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -96,18 +96,20 @@
 
 
 
-<meta name="description" content="题目让我们定义 dn 为：dn = pn+1 - pn，其中 pi 是第i个素数。显然有 d1=1 且对于n&amp;gt;1有 dn 是偶数。“素数对猜想”认为“存在无穷多对相邻且差为2的素数”。 现给定任意正整数N (&amp;lt; 105)，请计算不超过N的满足猜想的素数对的个数。 输入格式：每个测试输入包含1个测试用例，给出正整数N。 输出格式：每个测试用例的输出占一行，不超过N的满足猜想的素数对的个数">
-<meta name="keywords" content="c++">
+<meta name="description" content="题目描述在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。  解题思路参考github: https://github.com/CyC2018/CS-Notes 一开始的想法就是很直接的，直接一行行的查找，因此时间复杂度也相对会大一些，尽管也能够通过，但却是最笨的方法。下面写写时间复">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PAT乙1007.素数对猜想">
-<meta property="og:url" content="https://github.com/DesmonDay/2018/03/12/1007-素数对猜想/index.html">
+<meta property="og:title" content="剑指Offer-二维数组中的查找">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/01/14/剑指Offer-二维数组中的查找/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="题目让我们定义 dn 为：dn = pn+1 - pn，其中 pi 是第i个素数。显然有 d1=1 且对于n&amp;gt;1有 dn 是偶数。“素数对猜想”认为“存在无穷多对相邻且差为2的素数”。 现给定任意正整数N (&amp;lt; 105)，请计算不超过N的满足猜想的素数对的个数。 输入格式：每个测试输入包含1个测试用例，给出正整数N。 输出格式：每个测试用例的输出占一行，不超过N的满足猜想的素数对的个数">
+<meta property="og:description" content="题目描述在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。  解题思路参考github: https://github.com/CyC2018/CS-Notes 一开始的想法就是很直接的，直接一行行的查找，因此时间复杂度也相对会大一些，尽管也能够通过，但却是最笨的方法。下面写写时间复">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-12T15:54:04.108Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-24b13e76cd83fd16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-14T04:49:21.387Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PAT乙1007.素数对猜想">
-<meta name="twitter:description" content="题目让我们定义 dn 为：dn = pn+1 - pn，其中 pi 是第i个素数。显然有 d1=1 且对于n&amp;gt;1有 dn 是偶数。“素数对猜想”认为“存在无穷多对相邻且差为2的素数”。 现给定任意正整数N (&amp;lt; 105)，请计算不超过N的满足猜想的素数对的个数。 输入格式：每个测试输入包含1个测试用例，给出正整数N。 输出格式：每个测试用例的输出占一行，不超过N的满足猜想的素数对的个数">
+<meta name="twitter:title" content="剑指Offer-二维数组中的查找">
+<meta name="twitter:description" content="题目描述在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。  解题思路参考github: https://github.com/CyC2018/CS-Notes 一开始的想法就是很直接的，直接一行行的查找，因此时间复杂度也相对会大一些，尽管也能够通过，但却是最笨的方法。下面写写时间复">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-24b13e76cd83fd16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -136,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/12/1007-素数对猜想/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-二维数组中的查找/"/>
 
 
 
 
 
-  <title>PAT乙1007.素数对猜想 | DesmonDay's Blog</title>
+  <title>剑指Offer-二维数组中的查找 | DesmonDay's Blog</title>
   
 
 
@@ -275,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/12/1007-素数对猜想/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-二维数组中的查找/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Desmon Day">
@@ -292,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PAT乙1007.素数对猜想</h1>
+          <h1 class="post-title" itemprop="name headline">剑指Offer-二维数组中的查找</h1>
         
 
         <div class="post-meta">
@@ -304,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T22:01:53+08:00">
-                2018-03-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T12:42:32+08:00">
+                2019-01-14
               </time>
             
 
@@ -327,8 +329,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PAT乙/" itemprop="url" rel="index">
-                    <span itemprop="name">PAT乙</span>
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
                   </a>
                 </span>
 
@@ -364,14 +366,12 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>让我们定义 dn 为：dn = pn+1 - pn，其中 pi 是第i个素数。显然有 d1=1 且对于n&gt;1有 dn 是偶数。“素数对猜想”认为“存在无穷多对相邻且差为2的素数”。</p>
-<p>现给定任意正整数N (&lt; 105)，请计算不超过N的满足猜想的素数对的个数。</p>
-<p>输入格式：每个测试输入包含1个测试用例，给出正整数N。</p>
-<p>输出格式：每个测试用例的输出占一行，不超过N的满足猜想的素数对的个数。</p>
-<p>输入样例：<br>20<br>输出样例：<br>4</p>
-<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>一开始以为自己不会做的，因此大一大二的时候经常卡，现在看是比较简单了。代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//素数 </span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sqr = <span class="built_in">sqrt</span>(n); <span class="comment">//开始写成了sqrt(n)+1，后来二水马说不用加1也可以</span></span><br><span class="line">    <span class="keyword">int</span> divider = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">bool</span> result = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">while</span>(divider &lt;= sqr)&#123; <span class="comment">//这里需要加等于号</span></span><br><span class="line">        <span class="keyword">if</span>(n % divider == <span class="number">0</span>)&#123;</span><br><span class="line">            result = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        divider ++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span> || n==<span class="number">2</span>)&#123; <span class="comment">//一开始错了一部分,立马想到这里得判断,主要是针对1</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cnt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=n<span class="number">-2</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(judge(i) == <span class="literal">true</span> &amp;&amp; judge(i+<span class="number">2</span>) == <span class="literal">true</span>)&#123;</span><br><span class="line">                cnt ++; <span class="comment">//这里我原本是手动用了i+=2,所以一直错,其实顶多加个i+=1就好了。</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cnt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另外，二水马的建议是，for循环里面不要手动i++之类的，容易出错。如果要手动，可以用while循环。这题还是很简单的，但是我总是有很多小错误。。。</p>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-24b13e76cd83fd16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>参考github: <a href="https://github.com/CyC2018/CS-Notes">https://github.com/CyC2018/CS-Notes</a></p>
+<p>一开始的想法就是很直接的，直接一行行的查找，因此时间复杂度也相对会大一些，尽管也能够通过，但却是最笨的方法。下面写写时间复杂度为O(M+N)+O(1)的写法。</p>
+<p>从右上角开始查找。矩阵中的一个数，它左边的数都比它小，下边的数都比它大。因此，从右上角开始查找，就可以根据 target 和当前元素的大小关系来缩小查找区间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/*bool Find(int target, vector&lt;vector&lt;int&gt; &gt; array) &#123;</span></span><br><span class="line"><span class="comment">        for(int i=0; i&lt;array.size(); i++)&#123;</span></span><br><span class="line"><span class="comment">            for(int j=0; j&lt;array[0].size(); j++)&#123;</span></span><br><span class="line"><span class="comment">                if(array[i][j] == target) return 1;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return 0;</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> target, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">array</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rows = <span class="built_in">array</span>.size(), cols = <span class="built_in">array</span>[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>, c = cols<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(r &lt;= rows<span class="number">-1</span> &amp;&amp; c &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(target == <span class="built_in">array</span>[r][c]) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(target &gt; <span class="built_in">array</span>[r][c]) r++;</span><br><span class="line">            <span class="keyword">else</span> c--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -389,7 +389,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a>
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           
         </div>
       
@@ -402,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/11/1006-换个格式输出整数/" rel="next" title="PAT乙1006.换个格式输出整数">
-                <i class="fa fa-chevron-left"></i> PAT乙1006.换个格式输出整数
+              <a href="/2019/01/11/Tensorflow1/" rel="next" title="Tensorflow重新开始-1">
+                <i class="fa fa-chevron-left"></i> Tensorflow重新开始-1
               </a>
             
           </div>
@@ -411,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/13/Linux学习-7/" rel="prev" title="Linux学习(7)——shell基础知识(续)">
-                Linux学习(7)——shell基础知识(续) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -568,7 +564,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考"><span class="nav-number">2.</span> <span class="nav-text">思考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li></ol></div>
             
 
           </div>
