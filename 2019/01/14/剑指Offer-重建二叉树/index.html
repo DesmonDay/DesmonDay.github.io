@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="c++," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="题目设计函数求一元多项式的导数。（注：xn（n为整数）的一阶导数为n*xn-1。） 输入格式：以指数递降方式输入多项式非零项系数和指数（绝对值均为不超过1000的整数）。数字间以空格分隔。 输出格式：以与输入相同的格式输出导数多项式非零项的系数和指数。数字间以空格分隔，但结尾不能有多余空格。注意“零多项式”的指数和系数都是0，但是表示为“0 0”。 输入样例：3 4 -5 2 6 1 -2 0输出">
-<meta name="keywords" content="c++">
+<meta name="description" content="题目描述输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。 解题思路这题不应该写不出来，要记住的是，不仅仅中序遍历的序列要划分为左右子树的部分，前序遍历也需要划分为左右子树！！用递归来做，因为自己在举例子时把前序遍">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PAT乙1010.一元多项式求导">
-<meta property="og:url" content="https://github.com/DesmonDay/2018/03/14/1010-一元多项式求导/index.html">
+<meta property="og:title" content="剑指Offer-重建二叉树">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/01/14/剑指Offer-重建二叉树/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="题目设计函数求一元多项式的导数。（注：xn（n为整数）的一阶导数为n*xn-1。） 输入格式：以指数递降方式输入多项式非零项系数和指数（绝对值均为不超过1000的整数）。数字间以空格分隔。 输出格式：以与输入相同的格式输出导数多项式非零项的系数和指数。数字间以空格分隔，但结尾不能有多余空格。注意“零多项式”的指数和系数都是0，但是表示为“0 0”。 输入样例：3 4 -5 2 6 1 -2 0输出">
+<meta property="og:description" content="题目描述输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。 解题思路这题不应该写不出来，要记住的是，不仅仅中序遍历的序列要划分为左右子树的部分，前序遍历也需要划分为左右子树！！用递归来做，因为自己在举例子时把前序遍">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-24T15:48:36.560Z">
+<meta property="og:updated_time" content="2019-01-14T13:05:18.678Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PAT乙1010.一元多项式求导">
-<meta name="twitter:description" content="题目设计函数求一元多项式的导数。（注：xn（n为整数）的一阶导数为n*xn-1。） 输入格式：以指数递降方式输入多项式非零项系数和指数（绝对值均为不超过1000的整数）。数字间以空格分隔。 输出格式：以与输入相同的格式输出导数多项式非零项的系数和指数。数字间以空格分隔，但结尾不能有多余空格。注意“零多项式”的指数和系数都是0，但是表示为“0 0”。 输入样例：3 4 -5 2 6 1 -2 0输出">
+<meta name="twitter:title" content="剑指Offer-重建二叉树">
+<meta name="twitter:description" content="题目描述输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。 解题思路这题不应该写不出来，要记住的是，不仅仅中序遍历的序列要划分为左右子树的部分，前序遍历也需要划分为左右子树！！用递归来做，因为自己在举例子时把前序遍">
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/14/1010-一元多项式求导/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-重建二叉树/"/>
 
 
 
 
 
-  <title>PAT乙1010.一元多项式求导 | DesmonDay's Blog</title>
+  <title>剑指Offer-重建二叉树 | DesmonDay's Blog</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/14/1010-一元多项式求导/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-重建二叉树/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Desmon Day">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PAT乙1010.一元多项式求导</h1>
+          <h1 class="post-title" itemprop="name headline">剑指Offer-重建二叉树</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T23:27:52+08:00">
-                2018-03-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T19:44:33+08:00">
+                2019-01-14
               </time>
             
 
@@ -327,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PAT乙/" itemprop="url" rel="index">
-                    <span itemprop="name">PAT乙</span>
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
                   </a>
                 </span>
 
@@ -364,24 +364,17 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>设计函数求一元多项式的导数。（注：xn（n为整数）的一阶导数为n*xn-1。）</p>
-<p>输入格式：以指数递降方式输入多项式非零项系数和指数（绝对值均为不超过1000的整数）。数字间以空格分隔。</p>
-<p>输出格式：以与输入相同的格式输出导数多项式非零项的系数和指数。数字间以空格分隔，但结尾不能有多余空格。注意“零多项式”的指数和系数都是0，但是表示为“0 0”。</p>
-<p>输入样例：<br>3 4 -5 2 6 1 -2 0<br>输出样例：<br>12 3 -10 1 6 0</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这一题，一开始我把所有的数字和空格当成一个字符串来输入，之后又要麻烦地处理字符串… 如此麻烦的方法，再加上这一题奇奇怪怪的，当然没得过。看了一下别人的题解，是把系数和指数当做一对数来输入的，并且边读边处理。（<a href="https://www.cnblogs.com/xzt6/p/5759181.html）" target="_blank" rel="noopener">https://www.cnblogs.com/xzt6/p/5759181.html）</a></p>
-<p>学习后，我的代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m, n;</span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;m,&amp;n)!=EOF)&#123;</span><br><span class="line">		<span class="comment">//flag = 1;</span></span><br><span class="line">		<span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">			flag = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(cnt == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; m*n &lt;&lt; <span class="string">" "</span> &lt;&lt; n<span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;		</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; m*n &lt;&lt; <span class="string">" "</span> &lt;&lt; n<span class="number">-1</span>;</span><br><span class="line">			&#125;		</span><br><span class="line">		&#125;	</span><br><span class="line">		cnt+=<span class="number">1</span>;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(flag == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"0 0"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>比较奇葩的地方是，一开始我把flag=1写在while循环最开始的地方，但是却有三个测试点没有通过；修改到if语句里面后，却可以了。哎，这里我真的不懂，如果有具体的测试数据就好了。</p>
-<p>另外，也可以不需要cnt，直接用flag来判断。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m, n;</span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;m,&amp;n)!=EOF)&#123;</span><br><span class="line">		<span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(flag == <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; m*n &lt;&lt; <span class="string">" "</span> &lt;&lt; n<span class="number">-1</span>;</span><br><span class="line">				flag = <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; m*n &lt;&lt; <span class="string">" "</span> &lt;&lt; n<span class="number">-1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(flag == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"0 0"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>感觉，坑点就是在零多项式上，但是我不知道咋回事了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>不说这一题，二水马对我的告诫是：</p>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这题不应该写不出来，要记住的是，不仅仅中序遍历的序列要划分为左右子树的部分，前序遍历也需要划分为左右子树！！用递归来做，因为自己在举例子时把前序遍历写错了，导致一开始难以理解，很不应该！！要理解这样做的原因，并且会举一反三。</p>
+<p>此题注意点：</p>
 <ol>
-<li>以后做题，一看到题目我们就会有最开始的想法，但是不要那么快就开始动笔，而是要先思考，思考还有哪些地方可以改进，再开始写。</li>
-<li>多练，只有积累到一定数目了，才有一定能力思考这些题目的范围或者考点等等。</li>
-<li>vector.size()是unsigned int类型的，如果在vector为空即为0的时候，对其实行减操作，将会导致得出来的结果是个很大的正数。</li>
+<li>必须要加递归结束条件！！即判断序列是否为空，若为空，说明到了叶结点，返回NULL；</li>
+<li>根据根节点划分左右子树序列，这个是个基础知识点；</li>
+<li>做题时遇到很奇怪的问题，见以下代码</li>
 </ol>
-<p>记于2018.3.24<br>后来看了算法笔记，回忆了一下这道题，是可以用数组来存储的！上面我的做法，是边输入边处理，而另一种做法是可以用数组，下标为指数，数组对应值为系数。这样相对来说也会比较容易理解和实现！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for binary tree</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125; </span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">reConstructBinaryTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vin)</span> </span>&#123;       </span><br><span class="line">        <span class="comment">/*static int j=0;</span></span><br><span class="line"><span class="comment">        int temp = pre[j++];*/</span> <span class="comment">//这样做不对，前序遍历的序列也要进行左右子树的划分</span></span><br><span class="line">        <span class="keyword">if</span>(pre.empty() || vin.empty()) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="comment">//if(vsize == 0) return NULL;</span></span><br><span class="line">        TreeNode *head = <span class="keyword">new</span> TreeNode(pre[<span class="number">0</span>]); <span class="comment">//TreeNode的构造函数</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre1, pre2, vin1, vin2;<span class="comment">//划分左右子树的前中遍历序列</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        int mid;</span></span><br><span class="line"><span class="comment">        for(int i=0; i&lt;vin.size(); i++)&#123;//在中序遍历中找对应的根结点</span></span><br><span class="line"><span class="comment">            if(pre[0] == vin[i]) //这里没有加括号，导致错误！</span></span><br><span class="line"><span class="comment">                mid = i;</span></span><br><span class="line"><span class="comment">                break;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">int</span> mid;</span><br><span class="line">        <span class="keyword">for</span>(mid=<span class="number">0</span>; mid&lt;vin.size(); mid++)&#123;<span class="comment">//在中序遍历中找对应的根结点</span></span><br><span class="line">            <span class="keyword">if</span>(pre[<span class="number">0</span>] == vin[mid]) </span><br><span class="line">                <span class="comment">//mid = i;</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;vin.size(); j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(j &lt; mid)&#123;</span><br><span class="line">                vin1.push_back(vin[j]);</span><br><span class="line">                pre1.push_back(pre[j+<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(j &gt; mid)&#123;</span><br><span class="line">                vin2.push_back(vin[j]);</span><br><span class="line">                pre2.push_back(pre[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        head-&gt;left = reConstructBinaryTree(pre1, vin1);</span><br><span class="line">        head-&gt;right = reConstructBinaryTree(pre2, vin2);</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到，注释部分的功能是为了得到mid，注释下方的代码也是一样。但若是用注释部分的代码，结果却是错误的！！</p>
+<p>后序：是自己白痴了！！唉，注释那里，if判断语句，没有加大括号。教训：就算括号体内只有一句，也要加括号，避免以后要添加语句时忘记加。</p>
 
       
     </div>
@@ -399,7 +392,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a>
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           
         </div>
       
@@ -412,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/14/1009-说反话/" rel="next" title="PAT乙1009.说反话">
-                <i class="fa fa-chevron-left"></i> PAT乙1009.说反话
+              <a href="/2019/01/14/剑指Offer-从尾到头打印链表/" rel="next" title="剑指Offer-从尾到头打印链表">
+                <i class="fa fa-chevron-left"></i> 剑指Offer-从尾到头打印链表
               </a>
             
           </div>
@@ -421,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/15/A-Survey-of-HIN-Analysis/" rel="prev" title="Reading report of A Survey of Heterogeneous Information Network Analysis">
-                Reading report of A Survey of Heterogeneous Information Network Analysis <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -578,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li></ol></div>
             
 
           </div>
