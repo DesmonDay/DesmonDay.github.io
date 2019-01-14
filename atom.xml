@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-01-14T04:49:21.387Z</updated>
+  <updated>2019-01-14T08:52:24.366Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-替换空格</title>
+    <link href="https://github.com/DesmonDay/2019/01/14/%E5%89%91%E6%8C%87Offer-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/"/>
+    <id>https://github.com/DesmonDay/2019/01/14/剑指Offer-替换空格/</id>
+    <published>2019-01-14T04:53:10.000Z</published>
+    <updated>2019-01-14T08:52:24.366Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>将一个字符串中的空格替换成 “%20”。</p><p>Input:<br>“We Are Happy”</p><p>Output:<br>“We%20Are%20Happy”</p><h1 id="C-求长度相关知识"><a href="#C-求长度相关知识" class="headerlink" title="C++求长度相关知识"></a>C++求长度相关知识</h1><p>在C/C++中常用的获取字符串长度或者字符串数组长度的函数有：sizeof(), length(), strlen(), size().其中strlen(str)和str.length()和str.size()都可以用来求字符串的长度。str.length()和str.size()是用于求string类对象的成员函数，strlen(str) 是用于求字符串数组的长度，其参数是char*。</p><h2 id="strlen-和sizeof-的区别。"><a href="#strlen-和sizeof-的区别。" class="headerlink" title="strlen()和sizeof()的区别。"></a>strlen()和sizeof()的区别。</h2><p>strlen(char*):函数求是字符串的实际长度，它可以用来获取动态实际字符数组的长度，是从开始到遇到第一个“\0”，如果只是定义没有赋予初始值，这个结果是不确定的，它会从数组的首地址开始一直找下去，直到遇到”\0”停止查找。</p><p>sizeof(): 求所占总空间的字节数，<strong>静态</strong>的，跟初始状态字符数组的大小有关系，大小等于初始时字符数组的大小或者等于初始时字符数组的大小+1。<br>在C++中，如果定义的是字符串数组的话，那么如果想获取数组的长度，只能用sizeof(数组名)，而不能用strlen(str)。</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这一题我不知道是否可以直接修改char数组，使增加长度。做了两种方法都不对，因此直接看了答案。第一种是牛客网上的形式，根据其给出的函数包装形式来写成答案。比较好理解。</p><p>思路为：先记录空格数目，确定新的数组长度，再从后向前进行替换。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">replaceSpace</span><span class="params">(<span class="keyword">char</span> *str,<span class="keyword">int</span> length)</span> </span>&#123; <span class="comment">//这里的length是指最大长度！</span></span><br><span class="line">        <span class="keyword">if</span>(!str || length&lt;<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>, oldlen=<span class="number">0</span>, count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(str[i] != <span class="string">'\0'</span>)&#123; <span class="comment">//从头到尾遍历，根据'\0'判断到达末尾，而不需要知道长度</span></span><br><span class="line">            oldlen++;</span><br><span class="line">            <span class="keyword">if</span>(str[i] == <span class="string">' '</span>)</span><br><span class="line">                count++;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> newlen = oldlen + count*<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(newlen &gt; length) <span class="keyword">return</span>; </span><br><span class="line">        i = oldlen;</span><br><span class="line">        <span class="keyword">int</span> j = newlen;</span><br><span class="line">        <span class="keyword">while</span>(i &gt;=<span class="number">0</span> &amp;&amp; j &gt; i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(str[i] == <span class="string">' '</span>)&#123;</span><br><span class="line">                str[j--] = <span class="string">'0'</span>;</span><br><span class="line">                str[j--] = <span class="string">'2'</span>;</span><br><span class="line">                str[j--] = <span class="string">'%'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                str[j--] = str[i];</span><br><span class="line">            &#125;</span><br><span class="line">            i--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;将一个字符串中的空格替换成 “%20”。&lt;/p&gt;
+&lt;p&gt;Input:&lt;br&gt;“We Are Happy”&lt;/p&gt;
+&lt;p&gt;Ou
+      
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="c++" scheme="https://github.com/DesmonDay/tags/c/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指Offer-二维数组中的查找</title>
@@ -476,31 +503,6 @@
     
     
       <category term="c++" scheme="https://github.com/DesmonDay/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Reading report of Clustering by fast search and find of density peaks</title>
-    <link href="https://github.com/DesmonDay/2018/03/20/clustering-by-fast-search/"/>
-    <id>https://github.com/DesmonDay/2018/03/20/clustering-by-fast-search/</id>
-    <published>2018-03-20T12:16:21.000Z</published>
-    <updated>2018-03-23T10:31:23.642Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>Classical clustering methods K-means and K-medoids find cluster centers by initially assigning cluster center(s) and iteratively update it(them). Because every data point is assigned to the nearest cluster center(using distance), K-means and K-medoids can not detect nonspherical clusters. If we want to detect clusters with an arbitrary shape, we should perform density-based approaches. Although density-based spatial clustering of applications with noise(DBSCAN) can detect arbitrary shapes, we need to manually setting the density threshold, which is non-trivial. As for mean-shift clustering method, a cluster is defined as local maxima in the density of data points, which allows the findings of nonspherical clusters but requires embedding the data. </p><p>In the paper, the authors propose a new simple and efficient algorithm, which combines the advantages of the above cluster methods, but also overcomes their shortcomings.</p><h1 id="Main-algorithms"><a href="#Main-algorithms" class="headerlink" title="Main algorithms"></a>Main algorithms</h1><p>The algorithm is based on two principles, which reaches on the definition of a cluster.</p><ol><li>Cluster centers have higher local density, which means they are surrounded by neighbors with lower local density;</li><li>Cluster centers are at a relatively large distance from points with a higher local density.</li></ol><h2 id="Computing-local-density-ρ-i"><a href="#Computing-local-density-ρ-i" class="headerlink" title="Computing local density ρ_i"></a>Computing local density ρ_i</h2><p>In the paper, the authors use two different methods to calculate the local density. In most of the datasets, using cutoff distance:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-59c822bc11e001f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>where χ(x) = 1 if x&lt;0 and χ(x) = 0 otherwise, and d_c is a cutoff distance. This algorithm is sensitively only to the relative magnitude of ρi, but robust to the choice of d_c.</p><p>When applying approach on Olivetti Face Database, the authors use a Guassian kernal to calculate distance:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a70d9521a8a128f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And we can see that the first one is discrete value, the second one is continuous value, which means the former one is more easy to conflict.</p><h2 id="Calculating-distance-δ-i"><a href="#Calculating-distance-δ-i" class="headerlink" title="Calculating distance δ_i"></a>Calculating distance δ_i</h2><p>δ_i is measured by the minimum distance between point i and other points with higher local density.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-671fe4f645ffd5b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>For the point with highest density, take δ_i=maxj(dij). Here we may jump in such dilemma, maybe point i and point j has the same density, and they happen to be in the same cluster. If we using the following cluster procedure, we may choose both two point as cluster centers, and takes one cluster apart. </p><p>When I search some relevant information online, I find a better understanding of δ_i, which defines as followed:<br>Suppose {q_i }_(i=1)^N represents the descending index order of {ρ<em>i }\</em>(i=1)^N, which mean it satisfies:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b39162471428cd08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><h2 id="Cluster-procedure"><a href="#Cluster-procedure" class="headerlink" title="Cluster procedure"></a>Cluster procedure</h2><p>In order to choose the cluster center, the authors find such observation: the points of high δ and relatively high ρ are the cluster centers. In order to better visualize the result, they create a decision graph, which shown as followed:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b7209009ad681c73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>From the figure, we can clearly see that point 1 and 10 are clusters. In the paper, the isolated points are 26,27,28. (But in the paper, the authors did not clearly propose an exact way to find out the outliers, which I think needed consideration.) But one thing we should mention is that we define the cluster center in a qualitative analysis but not a quantitative analysis, which would cause puzzles.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4399580d34e2186d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>When we see figure A, the number of cluster centers is not clear and some may think different points as cluster centers. So as to determine the number of cluster centers, the authors gave a metric value:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ea19feef45766ad7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>In figure B, γ is pointed out. We can see that the higher γ is morely like the cluster center. And there is a clear different between cluster center and other points: the latter is relatively smooth, and there is a clear jump between cluster center and other points. In this way, we can see there are nine center clusters in the above figure.</p><h1 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h1><p>This paper is the first one which combines local density and distance together. Besides, the algorithm it propose is easy and feasible, which I believe has inspired a lot of people.<br>Although from my perspective, it has some small problems. But this bran-new idea deserves our respect.</p><h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>There are three points that I feel confused:<br>First, how to find the outliers? In this part the authors did not mention about it, maybe because this is not their main point.<br>Second, in the paper, the authors did not clearly how they elaborate the distance between two points, which means there is not specific distance formula.<br>Third, maybe the last metric value γ, we can normalize ρ and δ. </p><h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>In the paper, the authors propose a simple and robust algorithm of the choice of cluster centers. It is easy for us to understand and know how to realize. But the paper still has some questions to be solved. </p><p>First, the authors declare two variables we need to calculate, then tell us how to use them to find the cluster center. In the experimental part, their algorithm shows great results on real datasets.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Motivation&quot;&gt;&lt;a href=&quot;#Motivation&quot; class=&quot;headerlink&quot; title=&quot;Motivation&quot;&gt;&lt;/a&gt;Motivation&lt;/h1&gt;&lt;p&gt;Classical clustering methods K-means a
-      
-    
-    </summary>
-    
-      <category term="论文阅读" scheme="https://github.com/DesmonDay/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-    
-      <category term="paper" scheme="https://github.com/DesmonDay/tags/paper/"/>
     
   </entry>
   
