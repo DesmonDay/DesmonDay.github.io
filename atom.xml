@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-01-15T12:38:27.133Z</updated>
+  <updated>2019-01-15T12:46:43.701Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-变态跳台阶</title>
+    <link href="https://github.com/DesmonDay/2019/01/15/%E5%89%91%E6%8C%87Offer-%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6/"/>
+    <id>https://github.com/DesmonDay/2019/01/15/剑指Offer-变态跳台阶/</id>
+    <published>2019-01-15T12:42:36.000Z</published>
+    <updated>2019-01-15T12:46:43.701Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>经过之前的跳台阶一题，我也有了一定的经验教训，直接采用数学归纳法来做这题。很快便得到了递推的公式，result = 2^(number-1)。不再赘述，这题的关键便是找到规律，根据数学归纳法总结公式。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">jumpFloorII</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">pow</span>(<span class="number">2</span>,number<span class="number">-1</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//int a=1; return a&lt;&lt;(number-1);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>看到有人说用移位操作更快，但其实比我直接调用pow来写慢了1ms。哈哈哈~</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。&lt;/p&gt;
+&lt;h
+      
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指Offer-跳台阶</title>
@@ -479,31 +505,6 @@
     
     
       <category term="c++" scheme="https://github.com/DesmonDay/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Reading report of Multi-view Intact Space Learning</title>
-    <link href="https://github.com/DesmonDay/2018/03/29/Multi-view-Intact-Space-Learning/"/>
-    <id>https://github.com/DesmonDay/2018/03/29/Multi-view-Intact-Space-Learning/</id>
-    <published>2018-03-29T15:25:15.000Z</published>
-    <updated>2018-03-29T15:31:00.327Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Most of the objects have different views, so it is suitable to assume that an individual view is more likely to be insufficient for our learning. Therefore, integration of multi-view information is necessary and useful. In the paper, the authors propose the Multi-view Intact Space Learning(MISL) algorithm to integrate the information from multiple views. </p><p>Exisiting multi-view learning methods have some limitations: the issue of single-view insufficiency is not clearly addressed, fail to discover latent intact spaces, no theoratical supports to guarantee their performance. </p><h1 id="Main-Algorithm"><a href="#Main-Algorithm" class="headerlink" title="Main Algorithm"></a>Main Algorithm</h1><p>The authors assume “view insufficiency” that each view only captures partial information. In multi-view learning, each view zv is a particular reflection of the object x, and we can obtain the view generation function fv on x:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-c21e0af3cd69929d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And fv(x)=Wvx, since the function is non-invertible, Wv is not column full-rank. The object is to learn a series of view generation functions 〖{Wv}〗_(v=1)^mto generate multi-view data points from a latent intact space. It is clear to see that a straightforward approach is to minimize the empirical risk using the L1 or L2 loss. But the authors found that both two losses were not robust to outliers, therefore they deploy Cauchy estimator in MISL:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f574d66e3f17dec8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And the upper bounded influence function is:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ae434aec01fe8bdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><h2 id="MISL"><a href="#MISL" class="headerlink" title="MISL"></a>MISL</h2><p>Using the Cauchy loss and regularization terms, the resulting objective function is:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-94e0ab78424c0e19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>Given an input of multiple insuffiency views, the latent intact space and view generation funtions can be found. And we can infer the new data point x with optimal Wv. When the view space Z is in an infinite-dimensional space, we need to extense the kernal:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ec0f25e4661e2c0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>(not quite understand)</p><h2 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a>Optimization</h2><p>The authors develop an IRR algorithm to optimize the sub-problems over the view generation function and the latent intact space X. The process is simple. Take finding the latent intact space X as an example. </p><p>First, we given fixed view generation functions 〖{Wv}〗_(v=1)^m. After the simplification of the objective, setting the gradient of the expression with respect to x to 0, and then using the residual of the example x on each view, we can gain weight function. Finally, we have the resulting formula:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d2096ff8b1e8d299.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>The calculation of W is almost the same. Following is the pseudo code of IRR algorithm:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-afb74e4f211724e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><h1 id="Theoretical-Analysis"><a href="#Theoretical-Analysis" class="headerlink" title="Theoretical Analysis"></a>Theoretical Analysis</h1><p>In this section, the authors give three analysis: convergence analysis, view sufficiency analysis and the generalization error analysis. Convergence analysis mainly analyze the convergence of  IRR algorithm, and I will focus on the latter two analysis.</p><h2 id="View-insufficiency-analysis"><a href="#View-insufficiency-analysis" class="headerlink" title="View insufficiency analysis"></a>View insufficiency analysis</h2><p>The authors use the information theory to explain the view insufficiency assumption, which can be described as:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b38ba0a595897466.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>From proposition 1, we can know:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-15e46f71dfcda846.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>which is very clear. And we can also obtain that more views will bring in more information. And later the authors use an information theoretical framwork developed by Sridharan and Kakade to analyze multi-view learning algorithms. </p><h2 id="Generalization-Error-Analysis"><a href="#Generalization-Error-Analysis" class="headerlink" title="Generalization Error Analysis"></a>Generalization Error Analysis</h2><p>In this section, the authors propose a new definition of multi-view stability.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d511170661f6b39b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And this stability has an implicit connection with robustness. Besides, the authors use Rademacher complexity. Finally, they give the calculated multi-view stability and Rademacher complexity of their algorithm, which is also the generalization error bound of MISL. </p><h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>To my best knowledge, the objective function of MISL algorithm is a bit simple compared with other papers (Although I do not quite understand about the kernel extension part). In the paper, the authors seem not to clearly explain about the view generation function W, which I think needed consideration. Maybe there is better way to give the clear definition of this part. And I think we can draw lessons from the heterogeneous network embedding.</p><h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>The authors first introduce their proposed algorithm and their optimization method, and then give three kinds of analysis of the algorithms, including convergence analysis, view sufficiency analysis and the generalization error analysis. Finally, comes the experiment part.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h1&gt;&lt;p&gt;Most of the objects have diffe
-      
-    
-    </summary>
-    
-      <category term="论文阅读" scheme="https://github.com/DesmonDay/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/"/>
-    
-    
-      <category term="paper" scheme="https://github.com/DesmonDay/tags/paper/"/>
     
   </entry>
   
