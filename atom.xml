@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-01-15T12:01:19.374Z</updated>
+  <updated>2019-01-15T12:12:20.105Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-斐波那契数列</title>
+    <link href="https://github.com/DesmonDay/2019/01/15/%E5%89%91%E6%8C%87Offer-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/"/>
+    <id>https://github.com/DesmonDay/2019/01/15/剑指Offer-斐波那契数列/</id>
+    <published>2019-01-15T12:04:57.000Z</published>
+    <updated>2019-01-15T12:12:20.105Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。<br>n&lt;=39</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>根据以往经验可以知道，计算斐波那契数列不适合用递归的写法，因此我并没有考虑写递归，而是书写了for循环的版本来替代。最开始的写法如下。这样的写法也对，但是相比另一种for循环版本而言，需要耗费一点点的存储空间，因此也有了第二种写法。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp[<span class="number">40</span>];</span><br><span class="line">        temp[<span class="number">0</span>] = <span class="number">0</span>, temp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=n; i++)&#123;</span><br><span class="line">            temp[i] = temp[i<span class="number">-1</span>] + temp[i<span class="number">-2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> first = <span class="number">0</span>, second = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> result=n; <span class="comment">//!!!</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=n; i++)&#123;</span><br><span class="line">            result = first + second;</span><br><span class="line">            first = second;</span><br><span class="line">            second = result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>这里需要注意的是，result应该要初始化，因为n可能等于0或1，而导致无法进入for循环。而n=0时result为0，n=1时result为1，因此比较适合于将result初始值设置为n。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。&lt;br&gt;n&amp;lt;=3
+      
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>旋转数组的最小数字</title>
@@ -477,31 +502,6 @@
     </summary>
     
       <category term="PAT乙" scheme="https://github.com/DesmonDay/categories/PAT%E4%B9%99/"/>
-    
-    
-      <category term="c++" scheme="https://github.com/DesmonDay/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PAT甲1065.A+B and C (64bit)</title>
-    <link href="https://github.com/DesmonDay/2018/03/24/A1065/"/>
-    <id>https://github.com/DesmonDay/2018/03/24/A1065/</id>
-    <published>2018-03-24T14:56:06.000Z</published>
-    <updated>2018-03-24T15:39:22.390Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Given three integers A, B and C in [-2^63, 2^63], you are supposed to tell whether A+B &gt; C.</p><p>Input Specification:</p><p>The first line of the input gives the positive number of test cases, T (&lt;=10). Then T test cases follow, each consists of a single line containing three integers A, B and C, separated by single spaces.</p><p>Output Specification:</p><p>For each test case, output in one line “Case #X: true” if A+B&gt;C, or “Case #X: false” otherwise, where X is the case number (starting from 1).</p><p>Sample Input:<br>3<br>1 2 3<br>2 3 4<br>9223372036854775807 -9223372036854775808 0<br>Sample Output:<br>Case #1: false<br>Case #2: true<br>Case #3: false</p><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>之前我在乙题那里也做过类似的题，不过它是32位的，只要用long long就可以了。今天这道题我吸取了教训，然后就直接用double来存储数据，然而发现，结果不对？？是的，不管我怎么测试，感觉double的范围就是比long long大啊，但是结果都是错的。无奈之下，只能用long long加溢出判断了。</p><p>特殊情况：</p><ol><li>当A+B&gt;=2^63，显然有A+B&gt;C成立。然而因为相加后溢出，导致相加后的结果为负，需要处理;</li><li>与1相反，当A+B&lt;=-2^63时，显然不成立，但相加后溢出结果大于等于0，需要处理。</li></ol><p>依稀觉得这题很熟悉！！记住了！！不能忘记！！代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> a, b, c;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=t; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld"</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">        <span class="keyword">if</span>(a+b&lt;<span class="number">0</span> &amp;&amp; a&gt;<span class="number">0</span> &amp;&amp; b&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: true\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a&lt;<span class="number">0</span> &amp;&amp; b&lt;<span class="number">0</span> &amp;&amp; a+b&gt;=<span class="number">0</span>)&#123; <span class="comment">//&gt;=</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: false\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a+b &gt; c)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: true\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a+b &lt;= c)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: false\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>以后还是乖乖按题目要求做题好了。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h1&gt;&lt;p&gt;Given three integers A, B and C in [-2^63, 2^63], you are supposed to 
-      
-    
-    </summary>
-    
-      <category term="PAT甲" scheme="https://github.com/DesmonDay/categories/PAT%E7%94%B2/"/>
     
     
       <category term="c++" scheme="https://github.com/DesmonDay/tags/c/"/>
