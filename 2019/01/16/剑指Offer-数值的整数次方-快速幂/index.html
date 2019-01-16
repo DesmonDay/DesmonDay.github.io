@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
 <meta property="og:description" content="题目描述给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。 思路分析参考博客：https://www.cnblogs.com/lca1826/p/6748372.html 惭愧，第一个想到的方法居然是调用pow()函数，而且也过了。实际上这道题目是要考察快速幂的知识。快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-16T12:11:46.610Z">
+<meta property="og:updated_time" content="2019-01-16T12:14:57.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="剑指Offer-数值的整数次方(快速幂)">
 <meta name="twitter:description" content="题目描述给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。 思路分析参考博客：https://www.cnblogs.com/lca1826/p/6748372.html 惭愧，第一个想到的方法居然是调用pow()函数，而且也过了。实际上这道题目是要考察快速幂的知识。快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连">
@@ -371,7 +371,7 @@
 <p>由于是二进制，很自然想到使用位运算：&amp;和&gt;&gt;。&amp;运算通常用于二进制取位操作，例如一个数&amp;1的结果就是取二进制的最末位。还可以判断奇偶x&amp;1==0为偶，x&amp;1==1为奇。&gt;&gt;运算比较单纯,二进制去掉最后一位。</p>
 <p>代码如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poww</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>,base=a;</span><br><span class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>!=<span class="number">0</span>)</span><br><span class="line">        　　ans*=base;</span><br><span class="line">        base*=base;</span><br><span class="line">        b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">　 &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然而需要注意的是，上面的b仅仅针对正数而言，因此在做题时需要考虑负数的情况，最终算法的书写结果如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">Power</span><span class="params">(<span class="keyword">double</span> base, <span class="keyword">int</span> exponent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> p = <span class="built_in">abs</span>((<span class="keyword">long</span> <span class="keyword">long</span>) exponent);</span><br><span class="line">        <span class="keyword">double</span> res = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">while</span>(p)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p &amp; <span class="number">1</span>) </span><br><span class="line">                res *= base;</span><br><span class="line">            base *= base;</span><br><span class="line">            p &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> exponent&gt;<span class="number">0</span> ? res : <span class="number">1</span>/res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然而需要注意的是，上面的b仅仅针对正数而言，因此在做题时需要考虑负数的情况，最终算法的书写结果如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">Power</span><span class="params">(<span class="keyword">double</span> base, <span class="keyword">int</span> exponent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> p = <span class="built_in">abs</span>((<span class="keyword">long</span> <span class="keyword">long</span>) exponent);</span><br><span class="line">        <span class="keyword">double</span> res = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">while</span>(p)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p &amp; <span class="number">1</span>) </span><br><span class="line">                res *= base;</span><br><span class="line">            base *= base;</span><br><span class="line">            p &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> exponent&gt;<span class="number">0</span> ? res : <span class="number">1</span>/res; <span class="comment">// 判断正负</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -411,6 +411,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/16/剑指Offer-调整数组顺序使奇数位于偶数前面/" rel="prev" title="剑指Offer-调整数组顺序使奇数位于偶数前面">
+                剑指Offer-调整数组顺序使奇数位于偶数前面 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -487,7 +491,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

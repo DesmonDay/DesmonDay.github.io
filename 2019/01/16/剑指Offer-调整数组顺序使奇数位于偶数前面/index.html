@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="paper," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="在老师All Minable的实验室里，我却觉得自己一点minable的潜力都没有。看了那么多篇论文，能想到的idea却发现已经有人实现了。真不知道该怎么办好了。另外，对自己很失望的一点是，绩点太低了，连保研资格都没有，平时也没参加比赛，加分少得可怜。该想想其他出路了。 这篇博文就用来记录和老师discuss的总结和接下来的方向吧。如果可能的话，也会把自己的一些新想法写于此处。 20180308讨">
-<meta name="keywords" content="paper">
+<meta name="description" content="题目描述输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。 解题思路一开始把题目看错了，没有看到要求相对位置不变，因此使用了类似于快排的方法来做（这个也应该是一个可能的考点）。由于要求相对位置不变，我的想法很简单，将奇数和偶数分别按顺序存储在两个vector中，再修改原始vecto">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="论文idea">
-<meta property="og:url" content="https://github.com/DesmonDay/2018/03/08/论文idea/index.html">
+<meta property="og:title" content="剑指Offer-调整数组顺序使奇数位于偶数前面">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/01/16/剑指Offer-调整数组顺序使奇数位于偶数前面/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="在老师All Minable的实验室里，我却觉得自己一点minable的潜力都没有。看了那么多篇论文，能想到的idea却发现已经有人实现了。真不知道该怎么办好了。另外，对自己很失望的一点是，绩点太低了，连保研资格都没有，平时也没参加比赛，加分少得可怜。该想想其他出路了。 这篇博文就用来记录和老师discuss的总结和接下来的方向吧。如果可能的话，也会把自己的一些新想法写于此处。 20180308讨">
+<meta property="og:description" content="题目描述输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。 解题思路一开始把题目看错了，没有看到要求相对位置不变，因此使用了类似于快排的方法来做（这个也应该是一个可能的考点）。由于要求相对位置不变，我的想法很简单，将奇数和偶数分别按顺序存储在两个vector中，再修改原始vecto">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-09T05:22:18.678Z">
+<meta property="og:updated_time" content="2019-01-16T14:05:23.661Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="论文idea">
-<meta name="twitter:description" content="在老师All Minable的实验室里，我却觉得自己一点minable的潜力都没有。看了那么多篇论文，能想到的idea却发现已经有人实现了。真不知道该怎么办好了。另外，对自己很失望的一点是，绩点太低了，连保研资格都没有，平时也没参加比赛，加分少得可怜。该想想其他出路了。 这篇博文就用来记录和老师discuss的总结和接下来的方向吧。如果可能的话，也会把自己的一些新想法写于此处。 20180308讨">
+<meta name="twitter:title" content="剑指Offer-调整数组顺序使奇数位于偶数前面">
+<meta name="twitter:description" content="题目描述输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。 解题思路一开始把题目看错了，没有看到要求相对位置不变，因此使用了类似于快排的方法来做（这个也应该是一个可能的考点）。由于要求相对位置不变，我的想法很简单，将奇数和偶数分别按顺序存储在两个vector中，再修改原始vecto">
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/08/论文idea/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/16/剑指Offer-调整数组顺序使奇数位于偶数前面/"/>
 
 
 
 
 
-  <title>论文idea | DesmonDay's Blog</title>
+  <title>剑指Offer-调整数组顺序使奇数位于偶数前面 | DesmonDay's Blog</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/08/论文idea/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/16/剑指Offer-调整数组顺序使奇数位于偶数前面/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Desmon Day">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">论文idea</h1>
+          <h1 class="post-title" itemprop="name headline">剑指Offer-调整数组顺序使奇数位于偶数前面</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T19:44:09+08:00">
-                2018-03-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-16T22:01:16+08:00">
+                2019-01-16
               </time>
             
 
@@ -314,6 +314,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -342,13 +364,11 @@
       
 
       
-        <p>在老师All Minable的实验室里，我却觉得自己一点minable的潜力都没有。看了那么多篇论文，能想到的idea却发现已经有人实现了。真不知道该怎么办好了。另外，对自己很失望的一点是，绩点太低了，连保研资格都没有，平时也没参加比赛，加分少得可怜。该想想其他出路了。</p>
-<p>这篇博文就用来记录和老师discuss的总结和接下来的方向吧。如果可能的话，也会把自己的一些新想法写于此处。</p>
-<h1 id="20180308讨论结果"><a href="#20180308讨论结果" class="headerlink" title="20180308讨论结果"></a>20180308讨论结果</h1><p>一、个人倾向于研究动态异构网络嵌入，另外今晚发现一篇与动态网络嵌入相关的文章：Arributed Network Embedding for Learning in a Dynamic Environment，之后再细看，接下来也会再找找相关的文章进行研读；</p>
-<p>二、应该会与陈德和同学合作论文；（其实我个人觉得短时间内发论文的可能是挺小的，感觉急不来啦，哈哈哈）</p>
-<p>三、对于那篇KDD2017基于Geo-Tagged Tweet Streams来进行的online local event detection，其实我比较在意的是它的online算法检测，对于细节还没有太注意，我想看看能不能对这篇论文有所改进或者提出新的替代算法。</p>
-<h1 id="20180309心情"><a href="#20180309心情" class="headerlink" title="20180309心情"></a>20180309心情</h1><p>在上交和浙大之间权衡许久之后，最终选择考研浙大。浙大的计算机需要考数一、英一、政治、408，不过我比较慌的应该是复试的机试，因为机试一向是我比较薄弱的地方。曾记得，大一大二机试成绩都惨不忍睹。</p>
-<p>今天在淘宝买了李永乐的数一复习全套，下定决心开始考研复习了。不过，Linux以及论文之类的还是会看。如果有一样的研友，欢迎一起监督，一起学习，共同进步。</p>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。</p>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>一开始把题目看错了，没有看到要求相对位置不变，因此使用了类似于快排的方法来做（这个也应该是一个可能的考点）。由于要求相对位置不变，我的想法很简单，将奇数和偶数分别按顺序存储在两个vector中，再修改原始vector数组中的数字，但这样就占用了存储空间。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reOrderArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;<span class="built_in">array</span>)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a1;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="built_in">array</span>.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">array</span>[i] % <span class="number">2</span> != <span class="number">0</span>)&#123; <span class="comment">//奇数</span></span><br><span class="line">                a1.push_back(<span class="built_in">array</span>[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> a2.push_back(<span class="built_in">array</span>[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;a1.size(); i++)&#123;</span><br><span class="line">            <span class="built_in">array</span>[i] = a1[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=a1.size(); i&lt;<span class="built_in">array</span>.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> j = i-a1.size();</span><br><span class="line">            <span class="built_in">array</span>[i] = a2[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在牛客网上看到一个短小精悍的代码，有点类似冒泡排序。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reOrderArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;<span class="built_in">array</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="built_in">array</span>.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="built_in">array</span>.size()<span class="number">-1</span>; j&gt;i; j--)&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">array</span>[j]%<span class="number">2</span>==<span class="number">1</span> &amp;&amp; <span class="built_in">array</span>[j<span class="number">-1</span>]%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">                    swap(<span class="built_in">array</span>[j], <span class="built_in">array</span>[j<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>多学学！！同时，尽量熟悉使用vector来答题。</p>
 
       
     </div>
@@ -366,7 +386,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/paper/" rel="tag"><i class="fa fa-tag"></i> paper</a>
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           
         </div>
       
@@ -379,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/07/Linux学习-5/" rel="next" title="Linux学习(5)——文档压缩与打包">
-                <i class="fa fa-chevron-left"></i> Linux学习(5)——文档压缩与打包
+              <a href="/2019/01/16/剑指Offer-数值的整数次方-快速幂/" rel="next" title="剑指Offer-数值的整数次方(快速幂)">
+                <i class="fa fa-chevron-left"></i> 剑指Offer-数值的整数次方(快速幂)
               </a>
             
           </div>
@@ -388,10 +408,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/09/Linux学习-6/" rel="prev" title="Linux学习(6)——shell基础知识">
-                Linux学习(6)——shell基础知识 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#20180308讨论结果"><span class="nav-number">1.</span> <span class="nav-text">20180308讨论结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#20180309心情"><span class="nav-number">2.</span> <span class="nav-text">20180309心情</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li></ol></div>
             
 
           </div>
