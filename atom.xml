@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-01-16T09:00:05.925Z</updated>
+  <updated>2019-01-16T12:11:46.610Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-数值的整数次方(快速幂)</title>
+    <link href="https://github.com/DesmonDay/2019/01/16/%E5%89%91%E6%8C%87Offer-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9-%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
+    <id>https://github.com/DesmonDay/2019/01/16/剑指Offer-数值的整数次方-快速幂/</id>
+    <published>2019-01-16T09:15:57.000Z</published>
+    <updated>2019-01-16T12:11:46.610Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</p><h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>参考博客：<a href="https://www.cnblogs.com/lca1826/p/6748372.html" target="_blank" rel="noopener">https://www.cnblogs.com/lca1826/p/6748372.html</a></p><p>惭愧，第一个想到的方法居然是调用pow()函数，而且也过了。实际上这道题目是要考察快速幂的知识。快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连乘b次，这样一来时间复杂度是O(b)也即是O(n)级别，快速幂能做到O(logn)，快了很多。</p><p>其原理如下： 假设我们要求a^b，那么其实b是可以拆成二进制的，该二进制数第i位的权为2^(i-1)，例如当b==11时，a^11=a^(2^0+2^1+2^3)，11的二进制是1011，11 = 2³×1 + 2²×0 + 2¹×1 + 2º×1，因此，我们将a¹¹转化为算 a^(2^0)*a^(2^1)*a^(2^3) ，看出来快的多了吧原来算11次，现在算三次。</p><p>由于是二进制，很自然想到使用位运算：&amp;和&gt;&gt;。&amp;运算通常用于二进制取位操作，例如一个数&amp;1的结果就是取二进制的最末位。还可以判断奇偶x&amp;1==0为偶，x&amp;1==1为奇。&gt;&gt;运算比较单纯,二进制去掉最后一位。</p><p>代码如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poww</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>,base=a;</span><br><span class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>!=<span class="number">0</span>)</span><br><span class="line">        　　ans*=base;</span><br><span class="line">        base*=base;</span><br><span class="line">        b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">　 &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然而需要注意的是，上面的b仅仅针对正数而言，因此在做题时需要考虑负数的情况，最终算法的书写结果如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">Power</span><span class="params">(<span class="keyword">double</span> base, <span class="keyword">int</span> exponent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> p = <span class="built_in">abs</span>((<span class="keyword">long</span> <span class="keyword">long</span>) exponent);</span><br><span class="line">        <span class="keyword">double</span> res = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">while</span>(p)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p &amp; <span class="number">1</span>) </span><br><span class="line">                res *= base;</span><br><span class="line">            base *= base;</span><br><span class="line">            p &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> exponent&gt;<span class="number">0</span> ? res : <span class="number">1</span>/res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。&lt;/p&gt;
+&lt;h
+      
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指Offer-二进制中1的个数</title>
@@ -481,31 +507,6 @@
     
     
       <category term="matlab" scheme="https://github.com/DesmonDay/tags/matlab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何正确学习一篇论文</title>
-    <link href="https://github.com/DesmonDay/2018/04/24/%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E5%AD%A6%E4%B9%A0%E4%B8%80%E7%AF%87%E8%AE%BA%E6%96%87/"/>
-    <id>https://github.com/DesmonDay/2018/04/24/如何正确学习一篇论文/</id>
-    <published>2018-04-23T16:05:38.000Z</published>
-    <updated>2018-04-23T16:21:47.027Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近好多人问我，你保不保研。说实话，我当然想保研，但是发现自己加分项特别少。绩点排名级六十，而参加的比赛项目却极少，直接导致我在保研这一块基本是不利的。特别是参加美赛，只得了个可怜的S奖，更加是令保研的希望很渺茫。当然，现在是坚定了考研的路了，但同时也会担心，自己的项目经历真的是等于零。</p><p>今天询问二水马，如果我跟着机器之心（一个公众号）上面的项目学习，即一般是直接跟着论文项目学习，这样子好不好。他是这么说的：你说的过一遍流程，除了看完论文，对应代码和论文的公式，跑一下论文的实验，那满分有一百分，只能给六十分。</p><p>这里得记录一下二水马提出的三个学习步骤：</p><ol><li>除了过一遍流程之外，要分析，分析论文中的优缺点，代码中的实现的细节，原因。</li><li>拓展实验，除了论文的实验，自己想几个感兴趣的点，找数据集，或者对现有的修改，然后进行新的实验，并分析结果。</li><li>论文中提出的难点哪些他已经解决了，怎么解决的，哪些没解决的，你自己的想法是什么，论文的future work里面提到的那些自己想想，可以尝试一下。</li></ol><p>通过上面三步，深入探索之后，面试官问起，就算没有很明显的创新，但起码有自己的思考在里面。其实真的很有道理，我一直想着，要参加实验室，要打比赛，要参加项目，这样才算积累经历，但是自己深入自学，这又何尝不是经历。当然，能够有实力打比赛之类的，也是极好的。</p><p>其实，我一直是缺乏自信的。文锋说，“一定要记得，厚积薄发，从知识的积累中找回你的自信，这是你今年的首要任务。之前的挫折都过去了，以后还可能会有更多，要让自己变得越来越强。”（文锋即二水马~）</p><p>是的，我要加油啊！以二水马为榜样，努力向前！今年的任务，就是找回自信！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;最近好多人问我，你保不保研。说实话，我当然想保研，但是发现自己加分项特别少。绩点排名级六十，而参加的比赛项目却极少，直接导致我在保研这一块基本是不利的。特别是参加美赛，只得了个可怜的S奖，更加是令保研的希望很渺茫。当然，现在是坚定了考研的路了，但同时也会担心，自己的项目经历
-      
-    
-    </summary>
-    
-      <category term="杂想" scheme="https://github.com/DesmonDay/categories/%E6%9D%82%E6%83%B3/"/>
-    
-    
-      <category term="paper" scheme="https://github.com/DesmonDay/tags/paper/"/>
     
   </entry>
   
