@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="paper," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -96,25 +96,18 @@
 
 
 
-<meta name="description" content="RemarkI first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete v">
-<meta name="keywords" content="paper">
+<meta name="description" content="题目描述输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。 解题思路想不到自己做对了，没遇到什么因为指针而错误的坑！算是一个小小的进步吧。虽然有个地方，因为我不知道动态内存怎么申请的，所以一开始有点卡，struct申请：ListNode* head = new ListNode(0); 这是在有构造函数的情况下，若没有，则直接new再加上结构体的名称。 至">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Reading report of Attributed Network Embedding for Learning in a Dynamic Environment">
-<meta property="og:url" content="https://github.com/DesmonDay/2018/04/06/DANE/index.html">
+<meta property="og:title" content="剑指Offer-合并两个排序的链表">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/01/18/剑指Offer-合并两个排序的链表/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="RemarkI first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete v">
+<meta property="og:description" content="题目描述输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。 解题思路想不到自己做对了，没遇到什么因为指针而错误的坑！算是一个小小的进步吧。虽然有个地方，因为我不知道动态内存怎么申请的，所以一开始有点卡，struct申请：ListNode* head = new ListNode(0); 这是在有构造函数的情况下，若没有，则直接new再加上结构体的名称。 至">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8ca4d81ba7759b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b7cee8bd0ba382f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-321a64d7e490398e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-0730612e0942a453.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-82bf74e76f0b0771.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7f91610b1b1499b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-04-06T02:51:21.165Z">
+<meta property="og:updated_time" content="2019-01-18T09:15:27.448Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Reading report of Attributed Network Embedding for Learning in a Dynamic Environment">
-<meta name="twitter:description" content="RemarkI first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete v">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-8ca4d81ba7759b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="剑指Offer-合并两个排序的链表">
+<meta name="twitter:description" content="题目描述输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。 解题思路想不到自己做对了，没遇到什么因为指针而错误的坑！算是一个小小的进步吧。虽然有个地方，因为我不知道动态内存怎么申请的，所以一开始有点卡，struct申请：ListNode* head = new ListNode(0); 这是在有构造函数的情况下，若没有，则直接new再加上结构体的名称。 至">
 
 
 
@@ -143,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2018/04/06/DANE/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/18/剑指Offer-合并两个排序的链表/"/>
 
 
 
 
 
-  <title>Reading report of Attributed Network Embedding for Learning in a Dynamic Environment | DesmonDay's Blog</title>
+  <title>剑指Offer-合并两个排序的链表 | DesmonDay's Blog</title>
   
 
 
@@ -282,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/04/06/DANE/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/18/剑指Offer-合并两个排序的链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Desmon Day">
@@ -299,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Reading report of Attributed Network Embedding for Learning in a Dynamic Environment</h1>
+          <h1 class="post-title" itemprop="name headline">剑指Offer-合并两个排序的链表</h1>
         
 
         <div class="post-meta">
@@ -311,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T10:05:45+08:00">
-                2018-04-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T17:04:28+08:00">
+                2019-01-18
               </time>
             
 
@@ -334,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/论文阅读/" itemprop="url" rel="index">
-                    <span itemprop="name">论文阅读</span>
+                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指Offer</span>
                   </a>
                 </span>
 
@@ -371,27 +364,11 @@
       
 
       
-        <h1 id="Remark"><a href="#Remark" class="headerlink" title="Remark"></a>Remark</h1><p>I first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete version, please contact me at <a href="mailto:908660116@qq.com" target="_blank" rel="noopener">908660116@qq.com</a>.</p>
-<h1 id="Introduction-and-Contribution"><a href="#Introduction-and-Contribution" class="headerlink" title="Introduction and Contribution"></a>Introduction and Contribution</h1><p>Network structure often evolves over time with addition/deletion of links and nodes, which means the network is not static, but dynamic. It is valuable and necessary to learn about dynamic network embedding. But most of the existing famous network embedding approaches are limited to deal with plain networks. Therefore, we need to seek an effective embedding representation to capture network and attribute evolving patterns.</p>
-<p>In the paper, the authors propose a novel dynamic attributed network embedding framework – DANE, an unsupervised embedding algorithm, which can combine node attributes and network structure information at the same time in a dynamic environment. And they are the first one to tackle the following two challenges:<br>(1)the information in network might be noisy and incomplete, it necessitates a robust consensus representation to learn their characteristics; (2)the network embedding learning should be able to adapt to the change, which means to there should be an online pattern.</p>
-<h1 id="Main-Algorithm"><a href="#Main-Algorithm" class="headerlink" title="Main Algorithm"></a>Main Algorithm</h1><p>The algorithm contains two key steps:</p>
-<ol>
-<li>An offline method for a consensus embedding, and maximize the correlations between the embeddings of node attributes and node structure.</li>
-<li>Using matrix perturbation theory to update the online embedding results.</li>
-</ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/8636110-8ca4d81ba7759b69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h2 id="Offline-Model"><a href="#Offline-Model" class="headerlink" title="Offline Model"></a>Offline Model</h2><p>Network structure and node attributes in networks are presented in different representations. In this section, the authors learn a robust consensus embedding of two different representations to help solve the data sparsity problem.</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/8636110-b7cee8bd0ba382f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>Now the problem is to seek a consensus embedding. The authors propose to maximize their correlations. They seek two projection vectors $p_A^{(t)}$ and $p_X^{(t)}$ such that the correlation of $Y_A^{(t)}$ and $Y_X^{(t)}$ is maximized after projection. After some derivation about eigenvectors, the final consensus embedding representation can be computed as:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-321a64d7e490398e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h2 id="Online-Model"><a href="#Online-Model" class="headerlink" title="Online Model"></a>Online Model</h2><p>In real-world networks often evolve smoothly in the temporal dimension between two consecutive time steps, therefor the authors use $\Delta A$ and $\Delta X$ to denote the perturbation of network structure and node attributes between two consecutive time steps t and t+1.</p>
-<p>The offline model focuses on finding the top eigenvectors corresponding to the smallest eigenvalues of the generalized eigen-problems. So the key idea to enable online update of the embeddings is to efficiently update the top eigenvectors and eigenvalues. Because the derivation process is long, here I skip this part and simply present the pseudo code and the final formula.</p>
-<p>The variation of the eigenvalue is as follows:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-0730612e0942a453.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>The perturbation of eigenvector a_i is as follows:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-82bf74e76f0b0771.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/8636110-7f91610b1b1499b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1><p>The authors use four datasets BlogCatalog, Flickr, Epinions and DBLP for experimental evaluation. And the baseline methods are Deepwalk, LINE, DANE-N, DANE-A, CCA, LCMF, LANE for different tasks. And the proposed DINE algorithm performs better than other methods.</p>
-<h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>The offline model in this paper mostly focus on finding the top eigenvectors to solve the problem, which I am not familiar with. Besides, the proposed method has two inherent constraints: (1)the node attributes are related to the formation of the network; (2) requiring that between different steps, the network node property of links change little or small. </p>
-<p>This algorithm is suitable for real time risk identification, which can rapidly update vector representation of high-dimensional information.</p>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>The authors first introduce the offline and online model of their algorithm, then analysis its computational complexity. Later comes the experimental part, and the tasks including network clustering and node classification. </p>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。</p>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>想不到自己做对了，没遇到什么因为指针而错误的坑！算是一个小小的进步吧。虽然有个地方，因为我不知道动态内存怎么申请的，所以一开始有点卡，struct申请：ListNode* head = new ListNode(0); 这是在有构造函数的情况下，若没有，则直接new再加上结构体的名称。</p>
+<p>至于算法本身，直接根据大小进行合并即可，下面这个是非递归的版本。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) :</span></span><br><span class="line"><span class="comment">            val(x), next(NULL) &#123;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 单调递增</span></span><br><span class="line">    <span class="function">ListNode* <span class="title">Merge</span><span class="params">(ListNode* pHead1, ListNode* pHead2)</span></span>&#123;</span><br><span class="line">        ListNode* head = <span class="keyword">new</span> ListNode(<span class="number">0</span>);<span class="comment">//记住！</span></span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        <span class="keyword">while</span>(pHead1 &amp;&amp; pHead2)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pHead1-&gt;val &lt;= pHead2-&gt;val)&#123;</span><br><span class="line">                p-&gt;next = pHead1;</span><br><span class="line">                pHead1 = pHead1-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                p-&gt;next = pHead2;</span><br><span class="line">                pHead2 = pHead2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pHead1) p-&gt;next = pHead1;</span><br><span class="line">        <span class="keyword">if</span>(pHead2) p-&gt;next = pHead2;</span><br><span class="line">        ListNode* temp = head;</span><br><span class="line">        head = head-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(temp);</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>下面这个是学习别人的递归版本。其实，递归写起来是比较短小精悍的，但关键就是要明白，结束条件是什么，怎么写递归，这也始终是我的一个短板。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 单调递增</span></span><br><span class="line">    <span class="function">ListNode* <span class="title">Merge</span><span class="params">(ListNode* pHead1, ListNode* pHead2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pHead1 == <span class="literal">NULL</span>) <span class="keyword">return</span> pHead2;</span><br><span class="line">        <span class="keyword">if</span>(pHead2 == <span class="literal">NULL</span>) <span class="keyword">return</span> pHead1;</span><br><span class="line">        ListNode* head = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">if</span>(pHead1-&gt;val &lt; pHead2-&gt;val)&#123;</span><br><span class="line">            head = pHead1;</span><br><span class="line">            head-&gt;next = Merge(pHead1-&gt;next, pHead2);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            head = pHead2;</span><br><span class="line">            head-&gt;next = Merge(pHead1, pHead2-&gt;next);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -409,7 +386,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/paper/" rel="tag"><i class="fa fa-tag"></i> paper</a>
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           
         </div>
       
@@ -422,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/05/A1073/" rel="next" title="PAT甲1073. Scientific Notation">
-                <i class="fa fa-chevron-left"></i> PAT甲1073. Scientific Notation
+              <a href="/2019/01/18/剑指Offer-反转链表/" rel="next" title="剑指Offer-反转链表">
+                <i class="fa fa-chevron-left"></i> 剑指Offer-反转链表
               </a>
             
           </div>
@@ -431,10 +408,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/24/如何正确学习一篇论文/" rel="prev" title="如何正确学习一篇论文">
-                如何正确学习一篇论文 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Remark"><span class="nav-number">1.</span> <span class="nav-text">Remark</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-and-Contribution"><span class="nav-number">2.</span> <span class="nav-text">Introduction and Contribution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Algorithm"><span class="nav-number">3.</span> <span class="nav-text">Main Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Offline-Model"><span class="nav-number">3.1.</span> <span class="nav-text">Offline Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Online-Model"><span class="nav-number">3.2.</span> <span class="nav-text">Online Model</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experiment"><span class="nav-number">4.</span> <span class="nav-text">Experiment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#My-Idea"><span class="nav-number">5.</span> <span class="nav-text">My Idea</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-number">6.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li></ol></div>
             
 
           </div>
