@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="题目描述用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 思路分析题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。 代码如下： 123456789101112131415161718192021222324252627">
+<meta name="description" content="题目描述输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 思路分析思路参考《剑指Offer》一书。 12345678struct TreeNode &amp;#123;    int val;    struct TreeNode *left;    struct TreeNode *right;    TreeNode(int x) :            v">
 <meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer-用两个栈实现队列">
-<meta property="og:url" content="https://github.com/DesmonDay/2019/01/14/剑指Offer-用两个栈实现队列/index.html">
+<meta property="og:title" content="剑指Offer-树的子结构(难)">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/01/18/剑指Offer-树的子结构/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="题目描述用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 思路分析题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。 代码如下： 123456789101112131415161718192021222324252627">
+<meta property="og:description" content="题目描述输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 思路分析思路参考《剑指Offer》一书。 12345678struct TreeNode &amp;#123;    int val;    struct TreeNode *left;    struct TreeNode *right;    TreeNode(int x) :            v">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-14T13:32:00.722Z">
+<meta property="og:updated_time" content="2019-01-18T14:54:52.555Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剑指Offer-用两个栈实现队列">
-<meta name="twitter:description" content="题目描述用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 思路分析题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。 代码如下： 123456789101112131415161718192021222324252627">
+<meta name="twitter:title" content="剑指Offer-树的子结构(难)">
+<meta name="twitter:description" content="题目描述输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 思路分析思路参考《剑指Offer》一书。 12345678struct TreeNode &amp;#123;    int val;    struct TreeNode *left;    struct TreeNode *right;    TreeNode(int x) :            v">
 
 
 
@@ -136,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-用两个栈实现队列/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/18/剑指Offer-树的子结构/"/>
 
 
 
 
 
-  <title>剑指Offer-用两个栈实现队列 | DesmonDay's Blog</title>
+  <title>剑指Offer-树的子结构(难) | DesmonDay's Blog</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/14/剑指Offer-用两个栈实现队列/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/18/剑指Offer-树的子结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Desmon Day">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">剑指Offer-用两个栈实现队列</h1>
+          <h1 class="post-title" itemprop="name headline">剑指Offer-树的子结构(难)</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-14T21:27:27+08:00">
-                2019-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T17:16:23+08:00">
+                2019-01-18
               </time>
             
 
@@ -364,10 +364,18 @@
       
 
       
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</p>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>题目简单，但是我和之前在考研复习时所做的一题弄混了。王道书上的栈是用顺序表实现的，有长度的规定，而这道题是用STL模板库的栈，栈没有元素数目的限制，因此在入栈时直接入栈即可，不需要考虑其他情况。</p>
-<p>代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result;</span><br><span class="line">        <span class="keyword">if</span>(!stack2.empty())&#123;</span><br><span class="line">            result = stack2.top();</span><br><span class="line">            stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack1.empty())&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = stack1.top();</span><br><span class="line">                stack1.pop();</span><br><span class="line">                stack2.push(temp);</span><br><span class="line">            &#125;</span><br><span class="line">            result = stack2.top();</span><br><span class="line">            stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack1;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>思路参考《剑指Offer》一书。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">right</span>;</span></span><br><span class="line">    TreeNode(<span class="keyword">int</span> x) :</span><br><span class="line">            val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这道题，我不会，一点思路都没有，只能直接看答案了。。。 哎，还是要多多练练。要在树A中找到和树B的根节点的值一样的节点R；第二步，判断树A中以R为根节点的子树是不是包含和树B一样的结构。</p>
+<p>第一步在树A中查找与根节点的值一样的节点，实际上就是树的遍历，采用递归的方式，对应代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">HasSubtree</span><span class="params">(TreeNode* pRoot1, TreeNode* pRoot2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> result = <span class="literal">false</span>; <span class="comment">//检查空指针</span></span><br><span class="line">        <span class="comment">// 第一步在在树A中查找与根节点的值一样的节点</span></span><br><span class="line">        <span class="keyword">if</span>(pRoot1 &amp;&amp; pRoot2)&#123; <span class="comment">//类似前序遍历</span></span><br><span class="line">            <span class="keyword">if</span>(pRoot1-&gt;val == pRoot2-&gt;val)&#123;</span><br><span class="line">                result = IsSubtree(pRoot1, pRoot2);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!result)&#123;</span><br><span class="line">                result = HasSubtree(pRoot1-&gt;left, pRoot2);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!result)&#123;</span><br><span class="line">                result = HasSubtree(pRoot1-&gt;right, pRoot2);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在面试的时候，一定要注意边界条件的检查，即检查空指针。当树A或树B为空的时候，定义相应的输出。如果没有检查并进行相应的处理，则程序非常容易崩溃，这是面试的大忌。</p>
+<p>在上述代码中，我们调用HasSubtree遍历二叉树A。如果发现某一节点的值和树B的头节点的值相同，则调用IsSubtree，进行第二步判断。</p>
+<p>第二步是判断树A中以R为根节点的子树是不是和树B具有相同的结构。同样，也可以用递归的思路考虑：如果节点R的值和树B的根节点不相同，则以R为根节点的子树和树B肯定不同；如果值相同，则递归地判断他们各自的左右节点的值是不是相同。递归的终止条件是我们到达了树A或者树B的节点。对应代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsSubtree</span><span class="params">(TreeNode* p1, TreeNode* p2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p2 == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(p1 == <span class="literal">NULL</span> &amp;&amp; p2) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(p1-&gt;val != p2-&gt;val) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> IsSubtree(p1-&gt;left, p2-&gt;left) &amp; IsSubtree(p1-&gt;right, p2-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码有多处判断一个指针是不是空，这样做是为了避免试图访问空指针而造成陈旭崩溃，同时也设置了递归调用的退出条件。在写遍历树的代码时要高度警惕，在每一处需要访问地址的时候询问自己这个地址有没有可能是NULL，如果是该如何。</p>
+<p>若树的结构中val的类型是double，则不能用==直接判断相等，而要设置如下判断函数：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Equal</span><span class="params">(<span class="keyword">double</span> num1, <span class="keyword">double</span> num2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((num1-num2 &gt; <span class="number">-0.0000001</span>) &amp;&amp; (num1-num2 &lt; <span class="number">0.0000001</span>))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -397,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/14/剑指Offer-重建二叉树/" rel="next" title="剑指Offer-重建二叉树">
-                <i class="fa fa-chevron-left"></i> 剑指Offer-重建二叉树
+              <a href="/2019/01/18/剑指Offer-合并两个排序的链表/" rel="next" title="剑指Offer-合并两个排序的链表">
+                <i class="fa fa-chevron-left"></i> 剑指Offer-合并两个排序的链表
               </a>
             
           </div>
@@ -406,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/15/剑指Offer-旋转数组的最小数字/" rel="prev" title="剑指Offer-旋转数组的最小数字">
-                剑指Offer-旋转数组的最小数字 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
