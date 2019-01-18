@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-01-16T14:05:23.661Z</updated>
+  <updated>2019-01-18T08:47:32.584Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指Offer-反转链表</title>
+    <link href="https://github.com/DesmonDay/2019/01/18/%E5%89%91%E6%8C%87Offer-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
+    <id>https://github.com/DesmonDay/2019/01/18/剑指Offer-反转链表/</id>
+    <published>2019-01-18T07:44:27.000Z</published>
+    <updated>2019-01-18T08:47:32.584Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入一个链表，反转链表后，输出新链表的表头。</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>哎，惭愧，这题我没有做出来。然而，本应该是一道很基础的题目。我现在会两种写法，一是利用栈，二是利用头插法。这里就各自重写一次。另外，链表题要特别注意为空的情况。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) :</span></span><br><span class="line"><span class="comment">            val(x), next(NULL) &#123;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 利用栈</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">ReverseList1</span><span class="params">(ListNode* pHead)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pHead==<span class="literal">NULL</span> || pHead-&gt;next==<span class="literal">NULL</span>) <span class="keyword">return</span> pHead;</span><br><span class="line">        ListNode* p = pHead;</span><br><span class="line">        <span class="built_in">stack</span>&lt;ListNode*&gt; s;</span><br><span class="line">        <span class="keyword">while</span>(p-&gt;next)&#123;</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* NewHead = p;</span><br><span class="line">        <span class="keyword">while</span>(!s.empty())&#123;</span><br><span class="line">            p-&gt;next = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        p-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> NewHead;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode* <span class="title">ReverseList2</span><span class="params">(ListNode* pHead)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pHead==<span class="literal">NULL</span> || pHead-&gt;next==<span class="literal">NULL</span>) <span class="keyword">return</span> pHead;</span><br><span class="line">        ListNode* p = pHead;</span><br><span class="line">        ListNode* q = pHead-&gt;next;</span><br><span class="line">        pHead-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode* r = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(q)&#123;</span><br><span class="line">            r = q-&gt;next;</span><br><span class="line">            q-&gt;next = p;</span><br><span class="line">            p = q;</span><br><span class="line">            q = r;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>最后还看到一种递归的写法，但是不太懂，就不写了。链表题通常要注意以下两点：</p><ol><li>如果输入的头结点是 NULL，或者整个链表只有一个结点的时候</li><li>链表断裂的考虑</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;输入一个链表，反转链表后，输出新链表的表头。&lt;/p&gt;
+&lt;h1 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class
+      
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指Offer-调整数组顺序使奇数位于偶数前面</title>
@@ -484,29 +510,6 @@
     
     
       <category term="python" scheme="https://github.com/DesmonDay/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构笔记(1)</title>
-    <link href="https://github.com/DesmonDay/2018/06/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0-1/"/>
-    <id>https://github.com/DesmonDay/2018/06/01/数据结构笔记-1/</id>
-    <published>2018-06-01T07:03:26.000Z</published>
-    <updated>2018-06-01T16:55:12.328Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>一般用计算机解决问题，需经过以下几个步骤：首先要从具体问题抽象成一个适当的数学模型，然后设计一个解此数学模型的算法，最后编出程序，进行测试、调整直至得到最终解答。</p><ul><li>数据是对客观事物的符号表示。</li><li>数据元素是数据的基本单位，一个数据元素可由若干个数据项组成。</li><li>数据对象是性质相同的数据元素的集合，是数据的一个子集。</li><li>数据结构是相互之间存在一种或多种特定关系的数据元素的集合。通常有下列4类基本结构：集合、线性结构、树形结构、图状结构或网状结构。</li></ul><p>数据结构的形式定义为：数据结构是一个二元组Data_Strucutre=(D,S)，其中D是数据元素的有限集，S是D上关系的有限集。而结构定义中的“关系”描述的是数据元素之间的逻辑关系，因此又称为数据的逻辑结构。</p><p>数据结构在计算机中的表示称为数据的物理结构，又称存储结构。在计算机中表示信息的最小单位是位(bit)。数据元素之间的关系在计算机中有两种不同的表示方法：顺序映象和非顺序映象，并由此得到两种不同的存储结构：顺序存储结构和链式存储结构。</p><ul><li>顺序映象的特点是借助元素在存储器中的相对位置来表示数据元素之间的逻辑关系。</li><li>非顺序映象的特点是借助指示元素存储地址的指针数据元素之间的逻辑关系。</li></ul><p>数据类型是一个值的集合和定义在这个值集上的一组操作的总称，如C中的整型变量，其值集为某个区间上的整数，定义在其上的操作为加、减、乘、除和取模等算术运算。 高级程序语言中的数据类型可分为两类：一类是非结构的原子类型，另一类是结构类型。</p><p>抽象数据类型是指一个数学模型以及定义在该模型上的一组操作，其不再局限于处理器已定义并实现的数据类型，还包括用户在设计软件系统时自己定义的数据类型。和数据结构的形式定义相对应，抽象数据类型可用以下三元组表示：(D,S,P)，其中D是数据对象，S是D上的关系集，P是对D的基本操作集。</p><h1 id="算法和算法分析"><a href="#算法和算法分析" class="headerlink" title="算法和算法分析"></a>算法和算法分析</h1><p>算法是对特定问题求解步骤的一种描述，它是指令的有限序列，其中每一条指令表示一个或多个操作。另外，算法还具有5个重要特性：有穷性、确定性、可行性、输入、输出。</p><p>算法设计的要求你：正确性、可读性、健壮性、效率与低存储量需求。</p><p>算法效率的度量：</p><ul><li>(1)事后统计的方法</li><li>(2)事前分析估算的方法: 依据的算法选用何种策略、问题的规模(求100以内还是1000以内的素数)、书写程序的语言、编译程序所产生的机器代码的质量、机器执行指令的速度。<br>一般来说，认定一个特定算法“运行工作量”的大小，只依赖于问题的规模，即为问题规模的函数。算法中基本操作重复执行的次数是问题规模n的某个函数f(n)，算法的时间量度记作: T(n) = O(f(n))。它表示随问题规模n的增大，算法执行时间的增长率和f(n)的增长率相同，称作算法的时间复杂度。</li></ul><p>常见的时间复杂度大小比较：O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)。</p><p>算法的存储空间需求，类似算法的时间复杂度，我们以空间复杂度作为算法所需存储空间的量度，记作 S(n) = O(f(n))。若输入数据所占的空间只取决于问题本身，和算法无关，则只需要分析除输入和程序之外的额外空间，否则应同时考虑输入本身所需空间。如果额外空间相对于输入数据量来说是常数，则称此算法为原地工作。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;数据结构&quot;&gt;&lt;a href=&quot;#数据结构&quot; class=&quot;headerlink&quot; title=&quot;数据结构&quot;&gt;&lt;/a&gt;数据结构&lt;/h1&gt;&lt;p&gt;一般用计算机解决问题，需经过以下几个步骤：首先要从具体问题抽象成一个适当的数学模型，然后设计一个解此数学模型的算法，最后编出
-      
-    
-    </summary>
-    
-    
-      <category term="考研" scheme="https://github.com/DesmonDay/tags/%E8%80%83%E7%A0%94/"/>
     
   </entry>
   
