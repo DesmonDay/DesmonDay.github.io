@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-01-20T09:35:56.881Z</updated>
+  <updated>2019-01-23T13:35:22.161Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CVTE电话面试</title>
+    <link href="https://github.com/DesmonDay/2019/01/23/CVTE%E7%94%B5%E8%AF%9D%E9%9D%A2%E8%AF%95/"/>
+    <id>https://github.com/DesmonDay/2019/01/23/CVTE电话面试/</id>
+    <published>2019-01-23T13:33:12.000Z</published>
+    <updated>2019-01-23T13:35:22.161Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="CVTE"><a href="#CVTE" class="headerlink" title="CVTE"></a>CVTE</h1><h2 id="计网"><a href="#计网" class="headerlink" title="计网"></a>计网</h2><p>一个客户端和服务端通信，如果客户端突然关机，服务端能检测到吗？</p><p>在浏览器上方输入一个域名，之后会产生什么请求？(HTTP协议)</p><p>TCP和UDP的区别</p><p>TCP的滑动窗口协议</p><p>有尝试过网络编程吗？</p><h2 id="操作系统："><a href="#操作系统：" class="headerlink" title="操作系统："></a>操作系统：</h2><p>多线程和多进程的区别</p><p>线程进程哪个切换花销大，为什么</p><p>死锁的概念，如何避免死锁，在编程中如何设置一个死锁的例子</p><p>举一点同步的例子</p><p>有在编程中用过进程同步之类的吗？（我回答，C++11有，但是我不太记得了）</p><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><p>用过共享指针吗？它的作用是什么？</p><p>多态了解吗？</p><p>假设一个基类有虚函数，派生类对其进行重写，是怎么调用到自己实现的函数的？（虚函数表）</p><p>一个类A，一个类B，类C继承A、B，那么类C有多少个虚函数表，表里的内容有什么？</p><h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p>哪个最满意，遇到了什么困难？</p><p>还有吗？我讲了安卓项目，然后他帮我总结，噢~你就是参考别人的代码进行修改，实现对应的功能</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;CVTE&quot;&gt;&lt;a href=&quot;#CVTE&quot; class=&quot;headerlink&quot; title=&quot;CVTE&quot;&gt;&lt;/a&gt;CVTE&lt;/h1&gt;&lt;h2 id=&quot;计网&quot;&gt;&lt;a href=&quot;#计网&quot; class=&quot;headerlink&quot; title=&quot;计网&quot;&gt;&lt;/a&gt;计网&lt;/h
+      
+    
+    </summary>
+    
+      <category term="找工作" scheme="https://github.com/DesmonDay/categories/%E6%89%BE%E5%B7%A5%E4%BD%9C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>剑指Offer-二叉搜索树的后序遍历序列</title>
+    <link href="https://github.com/DesmonDay/2019/01/20/%E5%89%91%E6%8C%87Offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97/"/>
+    <id>https://github.com/DesmonDay/2019/01/20/剑指Offer-二叉搜索树的后序遍历序列/</id>
+    <published>2019-01-20T13:52:48.000Z</published>
+    <updated>2019-01-20T13:57:46.494Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。</p><h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>这道题又是没有思路，只能看看提示。自己也是够蠢，居然忘记了后序遍历根的特性！！！BST(Binary-Search-Tree)的后序序列的合法序列是，对于一个序列S，最后一个元素是x(也就是根)，如果去掉最后一个元素的序列为T，那么T满足：T可以分成两段，前一段（左子树）小于x，后一段（右子树）大于x，且这两段（子树）都是合法的后序序列。使用递归即可解决。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">VerifySquenceOfBST</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; sequence)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sequence.size()==<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(sequence.size()==<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;   </span><br><span class="line">        <span class="keyword">return</span> verifybst(sequence, <span class="number">0</span>, sequence.size()<span class="number">-1</span>);<span class="comment">//相信自己的第一直觉</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">verifybst</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; bst, <span class="keyword">int</span> begin, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = begin;</span><br><span class="line">        <span class="keyword">while</span>(bst[i] &lt; bst[end]) <span class="comment">// 左半部分</span></span><br><span class="line">            i++;</span><br><span class="line">        <span class="keyword">int</span> j = i;</span><br><span class="line">        <span class="keyword">for</span>(; j&lt;end; j++) <span class="comment">// 右半部分</span></span><br><span class="line">            <span class="keyword">if</span>(bst[j] &lt; bst[end]) </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(j == end) <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">//！这里是教训</span></span><br><span class="line">        <span class="keyword">return</span> verifybst(bst, begin, i<span class="number">-1</span>) &amp; verifybst(bst, i, end);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>记住，不一定只能使用一个函数，在必要的时候可能定义其他函数。另外，必须要有结束的条件，因此必定有return false和return true两种情况，吸取教训！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数
+      
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指Offer-边界条件的判断</title>
@@ -473,59 +521,6 @@
     
     
       <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指Offer-从尾到头打印链表</title>
-    <link href="https://github.com/DesmonDay/2019/01/14/%E5%89%91%E6%8C%87Offer-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/"/>
-    <id>https://github.com/DesmonDay/2019/01/14/剑指Offer-从尾到头打印链表/</id>
-    <published>2019-01-14T09:21:07.000Z</published>
-    <updated>2019-01-14T09:27:26.986Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>思路很简单，直接利用栈即可。比较坑的是，我在判断是否到达链表末尾那里出了点问题，因此总是导致段错误。以后就记住了，如果在while循环里不需要对p-&gt;next进行操作之类的，则直接循环条件为p!=next。</p><pre><code class="cpp"><span class="comment">/**</span><span class="comment">*  struct ListNode {</span><span class="comment">*        int val;</span><span class="comment">*        struct ListNode *next;</span><span class="comment">*        ListNode(int x) :</span><span class="comment">*              val(x), next(NULL) {</span><span class="comment">*        }</span><span class="comment">*  };</span><span class="comment">*/</span><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> {</span><span class="keyword">public</span>:    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; printListFromTailToHead(ListNode* head) {        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;        ListNode *p = head;        <span class="keyword">while</span>(p != <span class="literal">NULL</span>){            s.push(p-&gt;val);            p = p-&gt;next;        }        <span class="keyword">int</span> temp;        <span class="keyword">while</span>(!s.empty()){            temp = s.top();            s.pop();            v.push_back(temp);        }        <span class="keyword">return</span> v;    }};</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。&lt;/p&gt;
-&lt;h1 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解
-      
-    
-    </summary>
-    
-      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
-    
-    
-      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指Offer-替换空格</title>
-    <link href="https://github.com/DesmonDay/2019/01/14/%E5%89%91%E6%8C%87Offer-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/"/>
-    <id>https://github.com/DesmonDay/2019/01/14/剑指Offer-替换空格/</id>
-    <published>2019-01-14T04:53:10.000Z</published>
-    <updated>2019-01-14T08:57:58.875Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>将一个字符串中的空格替换成 “%20”。</p><p>Input:<br>“We Are Happy”</p><p>Output:<br>“We%20Are%20Happy”</p><h1 id="C-求长度相关知识"><a href="#C-求长度相关知识" class="headerlink" title="C++求长度相关知识"></a>C++求长度相关知识</h1><p>在C/C++中常用的获取字符串长度或者字符串数组长度的函数有：sizeof(), length(), strlen(), size().其中strlen(str)和str.length()和str.size()都可以用来求字符串的长度。str.length()和str.size()是用于求string类对象的成员函数，strlen(str) 是用于求字符串数组的长度，其参数是char*。</p><h2 id="strlen-和sizeof-的区别。"><a href="#strlen-和sizeof-的区别。" class="headerlink" title="strlen()和sizeof()的区别。"></a>strlen()和sizeof()的区别。</h2><p>strlen(char*):函数求是字符串的实际长度，它可以用来获取动态实际字符数组的长度，是从开始到遇到第一个“\0”，如果只是定义没有赋予初始值，这个结果是不确定的，它会从数组的首地址开始一直找下去，直到遇到”\0”停止查找。</p><p>sizeof(): 求所占总空间的字节数，<strong>静态</strong>的，跟初始状态字符数组的大小有关系，大小等于初始时字符数组的大小或者等于初始时字符数组的大小+1。<br>在C++中，如果定义的是字符串数组的话，那么如果想获取数组的长度，只能用sizeof(数组名)，而不能用strlen(str)。</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这一题我不知道是否可以直接修改char数组，使增加长度。做了两种方法都不对，因此直接看了答案。第一种是牛客网上的形式，根据其给出的函数包装形式来写成答案。比较好理解。</p><p>思路为：先记录空格数目，确定新的数组长度，再从后向前进行替换。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">replaceSpace</span><span class="params">(<span class="keyword">char</span> *str,<span class="keyword">int</span> length)</span> </span>&#123; <span class="comment">//这里的length是指最大长度！</span></span><br><span class="line">        <span class="keyword">if</span>(!str || length&lt;<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>, oldlen=<span class="number">0</span>, count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(str[i] != <span class="string">'\0'</span>)&#123; <span class="comment">//从头到尾遍历，根据'\0'判断到达末尾，而不需要知道长度</span></span><br><span class="line">            oldlen++;</span><br><span class="line">            <span class="keyword">if</span>(str[i] == <span class="string">' '</span>)</span><br><span class="line">                count++;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> newlen = oldlen + count*<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(newlen &gt; length) <span class="keyword">return</span>; </span><br><span class="line">        i = oldlen;</span><br><span class="line">        <span class="keyword">int</span> j = newlen;</span><br><span class="line">        <span class="keyword">while</span>(i &gt;=<span class="number">0</span> &amp;&amp; j &gt; i)&#123;</span><br><span class="line">            <span class="keyword">if</span>(str[i] == <span class="string">' '</span>)&#123;</span><br><span class="line">                str[j--] = <span class="string">'0'</span>;</span><br><span class="line">                str[j--] = <span class="string">'2'</span>;</span><br><span class="line">                str[j--] = <span class="string">'%'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                str[j--] = str[i];</span><br><span class="line">            &#125;</span><br><span class="line">            i--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;将一个字符串中的空格替换成 “%20”。&lt;/p&gt;
-&lt;p&gt;Input:&lt;br&gt;“We Are Happy”&lt;/p&gt;
-&lt;p&gt;Ou
-      
-    
-    </summary>
-    
-      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
-    
-    
-      <category term="c++" scheme="https://github.com/DesmonDay/tags/c/"/>
     
   </entry>
   
