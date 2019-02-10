@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="C文件的有关基础知识什么是文件程序文件、数据文件。操作系统把各种设备都统一作为文件来处理。通常将输入输出形象地称为流，即数据流。一个输入输出流就是一个字符流或字节（内容为二进制数据）流。 文件名文件标识包括3部分：文件路径，文件名主干，文件后缀。 文件的分类数据文件可分为ASCII文件和二进制文件。字符一律以ASCII形式存储，数值型数据既可以用ASCII形式存储，也可以用二进制形式存储。 用AS">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对文件的输入输出(C语言)">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/02/10/对文件的输入输出/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="C文件的有关基础知识什么是文件程序文件、数据文件。操作系统把各种设备都统一作为文件来处理。通常将输入输出形象地称为流，即数据流。一个输入输出流就是一个字符流或字节（内容为二进制数据）流。 文件名文件标识包括3部分：文件路径，文件名主干，文件后缀。 文件的分类数据文件可分为ASCII文件和二进制文件。字符一律以ASCII形式存储，数值型数据既可以用ASCII形式存储，也可以用二进制形式存储。 用AS">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-10T15:42:58.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对文件的输入输出(C语言)">
+<meta name="twitter:description" content="C文件的有关基础知识什么是文件程序文件、数据文件。操作系统把各种设备都统一作为文件来处理。通常将输入输出形象地称为流，即数据流。一个输入输出流就是一个字符流或字节（内容为二进制数据）流。 文件名文件标识包括3部分：文件路径，文件名主干，文件后缀。 文件的分类数据文件可分为ASCII文件和二进制文件。字符一律以ASCII形式存储，数值型数据既可以用ASCII形式存储，也可以用二进制形式存储。 用AS">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/02/10/对文件的输入输出/"/>
+
+
+
+
+
+  <title>对文件的输入输出(C语言) | DesmonDay's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/02/10/对文件的输入输出/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Desmon Day">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对文件的输入输出(C语言)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-10T20:56:55+08:00">
+                2019-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="C文件的有关基础知识"><a href="#C文件的有关基础知识" class="headerlink" title="C文件的有关基础知识"></a>C文件的有关基础知识</h1><h2 id="什么是文件"><a href="#什么是文件" class="headerlink" title="什么是文件"></a>什么是文件</h2><p>程序文件、数据文件。操作系统把各种设备都统一作为文件来处理。通常将输入输出形象地称为流，即数据流。一个输入输出流就是一个字符流或字节（内容为二进制数据）流。</p>
+<h2 id="文件名"><a href="#文件名" class="headerlink" title="文件名"></a>文件名</h2><p>文件标识包括3部分：文件路径，文件名主干，文件后缀。</p>
+<h2 id="文件的分类"><a href="#文件的分类" class="headerlink" title="文件的分类"></a>文件的分类</h2><p>数据文件可分为ASCII文件和二进制文件。字符一律以ASCII形式存储，数值型数据既可以用ASCII形式存储，也可以用二进制形式存储。</p>
+<p>用ASCII码形式输出时字节与字符一一对应，一个字节代表一个字符。</p>
+<h2 id="文件缓冲区"><a href="#文件缓冲区" class="headerlink" title="文件缓冲区"></a>文件缓冲区</h2><p>ANSI C标准采用”缓冲文件系统”处理数据文件，指系统自动地在内存区为程序中每一个正在使用的文件开辟一个文件缓冲区。</p>
+<h2 id="文件类型指针"><a href="#文件类型指针" class="headerlink" title="文件类型指针"></a>文件类型指针</h2><p>文件类型指针简称文件指针。每个被使用的文件都在内存中开辟一个相应的文件信息区，用来存放文件的有关信息，这些信息保存在一个结构体变量中，取名为FILE，在stdio.h文件中声明。</p>
+<p>一般不定义FILE类型的变量命名，也就是不通过变量的名字来引用这些变量，而是设置一个指向FILE类型变量的指针变量，然后通过它来引用这些FILE类型变量。如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FILE *fp;</span><br></pre></td></tr></table></figure></p>
+<p>通过文件指针变量能够找到与它关联的文件。</p>
+<h1 id="打开与关闭文件"><a href="#打开与关闭文件" class="headerlink" title="打开与关闭文件"></a>打开与关闭文件</h1><h2 id="用fopen函数打开数据文件"><a href="#用fopen函数打开数据文件" class="headerlink" title="用fopen函数打开数据文件"></a>用fopen函数打开数据文件</h2><p>fopen函数的调用方式为：fopen(文件名，使用文件方式)。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FILE *fp;</span><br><span class="line">fp = fopen(<span class="string">"a1"</span>, <span class="string">"r"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>使用文件方式还包括：只读(r), 只写(w), 等等。常用以下方法打开一个文件：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>((fp == fopen(<span class="string">"file1"</span>, <span class="string">"r"</span>)) == <span class="literal">NULL</span>)&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"cannot open this file\n"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="用fclose函数关闭数据文件"><a href="#用fclose函数关闭数据文件" class="headerlink" title="用fclose函数关闭数据文件"></a>用fclose函数关闭数据文件</h2><p>关闭文件用fclose函数，fclose函数调用的一般形式为：fclose(文件指针)。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fclose(fp);</span><br></pre></td></tr></table></figure></p>
+<p>该函数也带回一个值，当成功地执行了关闭操作，则返回值为0，否则返回EOF(-1)。</p>
+<h1 id="顺序读写数据文件"><a href="#顺序读写数据文件" class="headerlink" title="顺序读写数据文件"></a>顺序读写数据文件</h1><h2 id="向文件读写字符"><a href="#向文件读写字符" class="headerlink" title="向文件读写字符"></a>向文件读写字符</h2><ol>
+<li>函数名：fgetc，调用方式：fgetc(fp)，功能：从fp指向的文件读入一个字符，返回值：读成功，带回所读的字符，失败则返回文件结束标志EOF(即-1)。</li>
+<li>函数名：fputc，调用方式：fputc(ch,fp)，功能：把字符ch写到文件指针变量fp所指向的文件中，返回值：输出成功，返回值就是输出的字符，失败则返回EOF。</li>
+</ol>
+<p>举例：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    FILE *in, *out;</span><br><span class="line">    <span class="keyword">char</span> ch, infile[<span class="number">10</span>], outfile[<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"输入读入文件的名字："</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>, infile);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"输入输出文件的名字："</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>, outfile);</span><br><span class="line">    <span class="keyword">if</span>((in=fopen(infile,<span class="string">"r"</span>))==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"无法打开文件\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>((out=fopen(outfile,<span class="string">"w"</span>))==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"无法打开文件\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ch = fgetc(in);</span><br><span class="line">    <span class="keyword">while</span>(!feof(in))&#123; <span class="comment">//如果未达到输入文件的结束标志</span></span><br><span class="line">        fputc(ch,out); <span class="comment">//将ch写到输出文件</span></span><br><span class="line">        <span class="built_in">putchar</span>(ch);   <span class="comment">//将ch显示到屏幕上</span></span><br><span class="line">        ch = fgetc(in); <span class="comment">//再从输入文件读入一个字符，赋给变量ch</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">putchar</span>(<span class="number">10</span>);</span><br><span class="line">    fclose(in);</span><br><span class="line">    fclose(out);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="向文件读写字符串"><a href="#向文件读写字符串" class="headerlink" title="向文件读写字符串"></a>向文件读写字符串</h2><ol>
+<li>函数名：fgets，调用形式：fgets(str,n,fp)，功能：从fp指向的文件读入一个长度为n-1的字符串(最后会加上一个’\0’结束符)，存放到字符数组str中，返回值：读成功，返回地址str，失败则返回NULL。</li>
+</ol>
+<p>函数原型：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">fgets</span><span class="params">(<span class="keyword">char</span>* str, <span class="keyword">int</span> n, FILE* fp)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>函数名：fputs，调用形式：fputs(str,fp)，功能：把str所指向的字符串写到文件指针变量fp所指向的文件中，返回值：输出成功，返回0，否则返回非0值。</li>
+</ol>
+<p>函数原型：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">char</span> *str, FILE *fp)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>举例：从键盘读入若干个字符串，对它们按字母大小的顺序排序，然后把排好序的字符串送到磁盘文件中保存。<br>具体分为以下步骤：</p>
+<ol>
+<li>从键盘中读入n个字符串，存放在一个二维字符数组中，每个以为数组存放一个字符串；</li>
+<li>对字符数组中的n个字符串按字母顺序排序，排好序的字符串仍存放在字符数组中；</li>
+<li>将字符数组中的字符串顺序输出。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">3</span>][<span class="number">10</span>], temp[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> i,j,k,n=<span class="number">3</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Enter strings:\n"</span>);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        gets(str[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 用选择法对字符串排序</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        k = i;</span><br><span class="line">        <span class="keyword">for</span>(j=i+<span class="number">1</span>; j&lt;n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">strcmp</span>(str[k],str[j])&gt;<span class="number">0</span>) k = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(k != i)&#123;</span><br><span class="line">            <span class="built_in">strcpy</span>(temp, str[i]);</span><br><span class="line">            <span class="built_in">strcpy</span>(str[i],str[k]);</span><br><span class="line">            <span class="built_in">strcpy</span>(str[k], temp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    fp = fopen(<span class="string">"sfd.txt"</span>, <span class="string">"w"</span>);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        <span class="built_in">fputs</span>(str[i], fp); <span class="comment">// 将str[i]所指的字符串写入文件</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="用格式化的方式读写文本文件"><a href="#用格式化的方式读写文本文件" class="headerlink" title="用格式化的方式读写文本文件"></a>用格式化的方式读写文本文件</h2><p>对文件进行格式化输入输出要用fprintf函数和fscanf函数，从函数名可以看到，它们只是在printf和scanf的前面加了一个f。它们的作用与printf和scanf函数相仿，都是格式化读写函数。不同点是，fprintf和fscanf函数的读写对象不是终端，而是文件。</p>
+<p>一般调用方式为：<br>fprintf(文件指针，格式字符串，输出表列);<br>fscanf(文件指针，格式字符串，输入表列);</p>
+<p>例如:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fprintf</span>(fp, <span class="string">"%d,%6.2f"</span>, i, f);</span><br><span class="line"><span class="built_in">fscanf</span>(fp, <span class="string">"%d,%f"</span>, &amp;i, &amp;f);</span><br></pre></td></tr></table></figure></p>
+<p>在内存与磁盘频繁交换数据的情况下，最好不用fprintf和fscanf函数，而用下面介绍的fread和fwrite函数进行二进制的读写。</p>
+<h2 id="用二进制方法向文件读写一组数据"><a href="#用二进制方法向文件读写一组数据" class="headerlink" title="用二进制方法向文件读写一组数据"></a>用二进制方法向文件读写一组数据</h2><p>一般调用形式为：<br>fread(buffer, size, count, fp): </p>
+<p>buffer是一个地址，对fread来说，它是用来存放从文件读入的数据的存储区的地址；对fwrite来说，是把此地址开始的存储区中的数据向文件输出。<br>size：要读写的字节数<br>count:要读写多少个数据项（每个数据项长度为size）<br>fp: FILE类型指针。</p>
+<p>例如: fread(f, 4, 10, fp)表示f是一个float型数组名(代表数组首元素地址)，该函数从fp所指向的文件读入10个4个字节的数据，存储到数组f中。</p>
+<h1 id="随机读写数据文件"><a href="#随机读写数据文件" class="headerlink" title="随机读写数据文件"></a>随机读写数据文件</h1><h2 id="文件位置标记及其定位"><a href="#文件位置标记及其定位" class="headerlink" title="文件位置标记及其定位"></a>文件位置标记及其定位</h2><p>为了对读写进行控制，系统为每个文件设置了一个文件读写位置标记（简称文件位置标记或文件标记），用来指示“接下来要读写的下一个字符的位置。</p>
+<p>一般情况下，在对字符文件进行顺序读写时，文件位置标记指向文件开头，这时如果对文件进行读操作，就读1个字符，然后文件位置标记向后移一个位置。</p>
+<p>我们可以根据读写的需要，人为地移动文件位置标记的位置，这时便是随机读写。</p>
+<h2 id="文件位置标记的定位"><a href="#文件位置标记的定位" class="headerlink" title="文件位置标记的定位"></a>文件位置标记的定位</h2><p>可以强制使文件位置标记指向人们指定的对象。可以用以下函数实现：</p>
+<ol>
+<li>用rewind函数使文件标记位置指向文件开头，无返回值，同时feof函数的值会恢复为0: rewind(fp);</li>
+<li>用fseek函数改变文件位置标记，调用形式为：fseek(文件类型指针，位移量，起始点) 其中，起始点用0，1,或2代替，0表示文件开始位置，1表示当前位置，2表示文件末尾位置。“位移量”指以起始点为基点，向前移动的字节数，位移量应是long型数据(在数字的末尾加一个字母L，就表示是long型)。</li>
+<li>ftell函数可测定文件位置标记的当前位置，即用于得到文件位置指针当前位置相对于文件首的偏移字节数。</li>
+</ol>
+<p>举例：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student_type</span>&#123;</span></span><br><span class="line">    <span class="keyword">char</span> name[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">char</span> addr[<span class="number">15</span>];</span><br><span class="line">&#125;stud[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="keyword">if</span>((fp=fopen(<span class="string">"stu.dat"</span>,<span class="string">"rb"</span>))==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"cannot open file\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i+=<span class="number">2</span>)&#123;</span><br><span class="line">        fseek(fp,i*<span class="keyword">sizeof</span>(struct Student_type),<span class="number">0</span>);  <span class="comment">//移动文件位置标记</span></span><br><span class="line">        fread(&amp;stud[i],<span class="keyword">sizeof</span>(struct Student_type),<span class="number">1</span>,fp); <span class="comment">//读一个数据块到结构体变量</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%-10s %4d %4d %-15s\n"</span>, stud[i].name, stud[i].num, stud[i].age, stud[i].addr);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="文件读写的出错检测"><a href="#文件读写的出错检测" class="headerlink" title="文件读写的出错检测"></a>文件读写的出错检测</h1><h2 id="ferror函数"><a href="#ferror函数" class="headerlink" title="ferror函数"></a>ferror函数</h2><p>在调用各种输入输出函数时如果出现错误，除了函数返回值有所反映外，还可以用ferror函数检查。其一般调用形式为ferror(fp)。如果ferror返回值为0，表示未出错。</p>
+<h2 id="chearerr函数"><a href="#chearerr函数" class="headerlink" title="chearerr函数"></a>chearerr函数</h2><p>作用是使文件出错标记和文件结束标记置为0。假设在盗用一个输入输出函数时出现错误，ferror函数值为一个非零值，应该立即调用clearerr(fp)，使ferror(fp)的值变为0，以便再进行下一次的检测。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/03/剑指Offer-二叉树中和为某一值的路径/" rel="next" title="剑指Offer-二叉树中和为某一值的路径">
+                <i class="fa fa-chevron-left"></i> 剑指Offer-二叉树中和为某一值的路径
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Desmon Day" />
+          <p class="site-author-name" itemprop="name">Desmon Day</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：大数据、社交网络</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C文件的有关基础知识"><span class="nav-number">1.</span> <span class="nav-text">C文件的有关基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是文件"><span class="nav-number">1.1.</span> <span class="nav-text">什么是文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件名"><span class="nav-number">1.2.</span> <span class="nav-text">文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件的分类"><span class="nav-number">1.3.</span> <span class="nav-text">文件的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件缓冲区"><span class="nav-number">1.4.</span> <span class="nav-text">文件缓冲区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件类型指针"><span class="nav-number">1.5.</span> <span class="nav-text">文件类型指针</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开与关闭文件"><span class="nav-number">2.</span> <span class="nav-text">打开与关闭文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用fopen函数打开数据文件"><span class="nav-number">2.1.</span> <span class="nav-text">用fopen函数打开数据文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用fclose函数关闭数据文件"><span class="nav-number">2.2.</span> <span class="nav-text">用fclose函数关闭数据文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#顺序读写数据文件"><span class="nav-number">3.</span> <span class="nav-text">顺序读写数据文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#向文件读写字符"><span class="nav-number">3.1.</span> <span class="nav-text">向文件读写字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#向文件读写字符串"><span class="nav-number">3.2.</span> <span class="nav-text">向文件读写字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用格式化的方式读写文本文件"><span class="nav-number">3.3.</span> <span class="nav-text">用格式化的方式读写文本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用二进制方法向文件读写一组数据"><span class="nav-number">3.4.</span> <span class="nav-text">用二进制方法向文件读写一组数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随机读写数据文件"><span class="nav-number">4.</span> <span class="nav-text">随机读写数据文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件位置标记及其定位"><span class="nav-number">4.1.</span> <span class="nav-text">文件位置标记及其定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件位置标记的定位"><span class="nav-number">4.2.</span> <span class="nav-text">文件位置标记的定位</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件读写的出错检测"><span class="nav-number">5.</span> <span class="nav-text">文件读写的出错检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ferror函数"><span class="nav-number">5.1.</span> <span class="nav-text">ferror函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chearerr函数"><span class="nav-number">5.2.</span> <span class="nav-text">chearerr函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Desmon Day</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<script type="text/javascript" src="/js/src/love.js"></script>
+
