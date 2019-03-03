@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-03-02T08:20:31.076Z</updated>
+  <updated>2019-03-03T13:55:30.980Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python爬虫学习-day3-BeautifulSoup</title>
+    <link href="https://github.com/DesmonDay/2019/03/03/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0-day3/"/>
+    <id>https://github.com/DesmonDay/2019/03/03/python爬虫学习-day3/</id>
+    <published>2019-03-03T13:12:55.000Z</published>
+    <updated>2019-03-03T13:55:30.980Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天学习BeautifulSoup，并且利用此工具爬取丁香园跟帖。BeautifulSoup官方教程：<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html" target="_blank" rel="noopener">https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html</a></p><p>由于教程本身很详细，这里不再进行细讲，直接开始任务的实现。进入给定的网站<a href="http://3g.dxy.cn/bbs/topic/509959#!_id=626626" target="_blank" rel="noopener">http://3g.dxy.cn/bbs/topic/509959#!_id=626626</a> ，可以发现此网站需要登录才能够阅览完整信息，因此我们需要设置Cookie。参考：<a href="https://blog.csdn.net/eye_water/article/details/78484217" target="_blank" rel="noopener">https://blog.csdn.net/eye_water/article/details/78484217</a></p><p>在爬取网页时没有传入Cookie，服务器不能识别用户身份，网页不能显示给没有用户身份的请求，所以网页源码会被隐藏。如何获取Cookie？如下方步骤所示，使用一个txt文件进行保存：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> http.cookiejar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置文件来存储Cookie</span></span><br><span class="line">filename = <span class="string">'cookie.txt'</span></span><br><span class="line"><span class="comment"># 创建一个MozillaCookieJar()对象实例来保存Cookie</span></span><br><span class="line">cookie = http.cookiejar.MozillaCookieJar(filename)</span><br><span class="line"><span class="comment"># 创建Cookie处理器</span></span><br><span class="line">handler = urllib.request.HTTPCookieProcessor(cookie)</span><br><span class="line"><span class="comment"># 构建opener</span></span><br><span class="line">opener = urllib.request.build_opener(handler)</span><br><span class="line">response = opener.open(<span class="string">"http://3g.dxy.cn/bbs/"</span>)</span><br><span class="line">cookie.save(ignore_discard=<span class="keyword">True</span>, ignore_expires=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p><p>打开Cookie文件，可以发现对应的内容：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-c1599bf6814c57ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>接下来，在访问论坛时，从文件中读取Cookie，在进行网页请求时添加Cookie即可。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> http.cookiejar</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup <span class="keyword">as</span> bs</span><br><span class="line">cookie = http.cookiejar.MozillaCookieJar()</span><br><span class="line"><span class="comment">#加载Cookie</span></span><br><span class="line">cookie.load(<span class="string">'cookie.txt'</span>, ignore_discard=<span class="keyword">True</span>, ignore_expires=<span class="keyword">True</span>)</span><br><span class="line">url = <span class="string">'http://3g.dxy.cn/bbs/topic/509959#!_id=626626'</span></span><br><span class="line">res = requests.get(url, cookies=cookie)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用BeautifulSoup解析这段代码,能够得到一个 BeautifulSoup 的对象,并能按照标准的缩进格式的结构输出:</span></span><br><span class="line">soup = bs(res.text, <span class="string">'html.parser'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找到对应的元素位置</span></span><br><span class="line">name = soup.select(<span class="string">".auth"</span>)</span><br><span class="line">cont = soup.select(<span class="string">".postbody"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(name)<span class="number">-1</span>):</span><br><span class="line">    print(<span class="string">"用户:&#123;&#125;"</span>.format(name[i].get_text()))</span><br><span class="line">    print(<span class="string">"跟帖:&#123;&#125;"</span>.format(cont[i].get_text()))</span><br></pre></td></tr></table></figure></p><p>比较奇怪的是，我登录丁香园后获取到的Cookie仍然显示是游客身份，因此对应的网页中无法发现需要的内容。因此，还需要进一步实现，时间关系，先进行打卡操作。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天学习BeautifulSoup，并且利用此工具爬取丁香园跟帖。BeautifulSoup官方教程：&lt;a href=&quot;https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html&quot; target=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="https://github.com/DesmonDay/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>python爬虫学习-day2正则表达式</title>
@@ -480,31 +503,6 @@
       
         &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。&lt;/p&gt;
 &lt;h1 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解
-      
-    
-    </summary>
-    
-      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
-    
-    
-      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指Offer-矩阵覆盖</title>
-    <link href="https://github.com/DesmonDay/2019/01/15/%E5%89%91%E6%8C%87Offer-%E7%9F%A9%E9%98%B5%E8%A6%86%E7%9B%96/"/>
-    <id>https://github.com/DesmonDay/2019/01/15/剑指Offer-矩阵覆盖/</id>
-    <published>2019-01-15T12:57:09.000Z</published>
-    <updated>2019-01-15T12:58:57.082Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？</p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>类似跳台阶的题目，同样是根据数学归纳法来做。这也启示我，当遇到当n=?时的题目时，一般采用数学归纳法来做，找出归纳公式。此题为斐波那契数列。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rectCover</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> first = <span class="number">1</span>, second = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> result = number;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>; i&lt;=number; i++)&#123;</span><br><span class="line">            result = first + second;</span><br><span class="line">            first = second;</span><br><span class="line">            second = result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方
       
     
     </summary>
