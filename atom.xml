@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-03-04T14:43:59.431Z</updated>
+  <updated>2019-03-05T14:15:27.164Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python爬虫学习-day5-selenium</title>
+    <link href="https://github.com/DesmonDay/2019/03/05/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0-day5-selenium/"/>
+    <id>https://github.com/DesmonDay/2019/03/05/python爬虫学习-day5-selenium/</id>
+    <published>2019-03-05T13:25:03.000Z</published>
+    <updated>2019-03-05T14:15:27.164Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Selenium学习-待补充"><a href="#Selenium学习-待补充" class="headerlink" title="Selenium学习(待补充)"></a>Selenium学习(待补充)</h1><p>安装selenium并学习，使用该工具模拟登陆163邮箱。</p><p>首先需要下载GoogleDriver，需要与自己的Chrome版本对应。由于某些原因，官网<a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" target="_blank" rel="noopener">https://sites.google.com/a/chromium.org/chromedriver/downloads</a> 无法下载，于是我去国内镜像找，<a href="http://npm.taobao.org/mirrors/chromedriver/" target="_blank" rel="noopener">http://npm.taobao.org/mirrors/chromedriver/</a> ，然而没有找到与自己对应的版本（好奇怪。。）迫不得已，下了个当前版本后缀最新的一个。另外，要将下载后的exe放入Chrome安装目录，同时修改环境变量。</p><p>测试成功：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7b0d96ab09585c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p><img src="https://upload-images.jianshu.io/upload_images/8636110-cad0b552a7d76251.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><h1 id="利用Selenium登录163邮箱"><a href="#利用Selenium登录163邮箱" class="headerlink" title="利用Selenium登录163邮箱"></a>利用Selenium登录163邮箱</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">bs = webdriver.Chrome()</span><br><span class="line">url = <span class="string">'http://mail.163.com'</span></span><br><span class="line">bs.maximize_window()</span><br><span class="line">bs.get(url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里需要注意，163邮箱账号密码区域的id是自动生成的，无法用于定位标签。</span></span><br><span class="line"><span class="comment"># 使用网上看来的方法：https://www.cnblogs.com/wxjly/p/7920391.html</span></span><br><span class="line"></span><br><span class="line">bs.switch_to.frame(<span class="number">0</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">bs.find_element_by_name(<span class="string">"email"</span>).send_keys(<span class="string">"***@163.com"</span>)<span class="comment">#输入邮箱</span></span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">bs.find_element_by_name(<span class="string">"password"</span>).send_keys(<span class="string">"***"</span>)<span class="comment">#输入密码</span></span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">bs.find_element_by_id(<span class="string">"dologin"</span>).click()</span><br></pre></td></tr></table></figure><p>成功！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Selenium学习-待补充&quot;&gt;&lt;a href=&quot;#Selenium学习-待补充&quot; class=&quot;headerlink&quot; title=&quot;Selenium学习(待补充)&quot;&gt;&lt;/a&gt;Selenium学习(待补充)&lt;/h1&gt;&lt;p&gt;安装selenium并学习，使用该工具模
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="https://github.com/DesmonDay/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>python爬虫学习-day4-Xpath</title>
@@ -475,32 +498,6 @@
       
       
         &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保
-      
-    
-    </summary>
-    
-      <category term="剑指Offer" scheme="https://github.com/DesmonDay/categories/%E5%89%91%E6%8C%87Offer/"/>
-    
-    
-      <category term="C++" scheme="https://github.com/DesmonDay/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指Offer-数值的整数次方(快速幂)</title>
-    <link href="https://github.com/DesmonDay/2019/01/16/%E5%89%91%E6%8C%87Offer-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9-%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
-    <id>https://github.com/DesmonDay/2019/01/16/剑指Offer-数值的整数次方-快速幂/</id>
-    <published>2019-01-16T09:15:57.000Z</published>
-    <updated>2019-01-16T12:14:57.420Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</p><h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>参考博客：<a href="https://www.cnblogs.com/lca1826/p/6748372.html" target="_blank" rel="noopener">https://www.cnblogs.com/lca1826/p/6748372.html</a></p><p>惭愧，第一个想到的方法居然是调用pow()函数，而且也过了。实际上这道题目是要考察快速幂的知识。快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连乘b次，这样一来时间复杂度是O(b)也即是O(n)级别，快速幂能做到O(logn)，快了很多。</p><p>其原理如下： 假设我们要求a^b，那么其实b是可以拆成二进制的，该二进制数第i位的权为2^(i-1)，例如当b==11时，a^11=a^(2^0+2^1+2^3)，11的二进制是1011，11 = 2³×1 + 2²×0 + 2¹×1 + 2º×1，因此，我们将a¹¹转化为算 a^(2^0)*a^(2^1)*a^(2^3) ，看出来快的多了吧原来算11次，现在算三次。</p><p>由于是二进制，很自然想到使用位运算：&amp;和&gt;&gt;。&amp;运算通常用于二进制取位操作，例如一个数&amp;1的结果就是取二进制的最末位。还可以判断奇偶x&amp;1==0为偶，x&amp;1==1为奇。&gt;&gt;运算比较单纯,二进制去掉最后一位。</p><p>代码如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poww</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>,base=a;</span><br><span class="line">    <span class="keyword">while</span>(b!=<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(b&amp;<span class="number">1</span>!=<span class="number">0</span>)</span><br><span class="line">        　　ans*=base;</span><br><span class="line">        base*=base;</span><br><span class="line">        b&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">　 &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然而需要注意的是，上面的b仅仅针对正数而言，因此在做题时需要考虑负数的情况，最终算法的书写结果如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">Power</span><span class="params">(<span class="keyword">double</span> base, <span class="keyword">int</span> exponent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> p = <span class="built_in">abs</span>((<span class="keyword">long</span> <span class="keyword">long</span>) exponent);</span><br><span class="line">        <span class="keyword">double</span> res = <span class="number">1.0</span>;</span><br><span class="line">        <span class="keyword">while</span>(p)&#123;</span><br><span class="line">            <span class="keyword">if</span>(p &amp; <span class="number">1</span>) </span><br><span class="line">                res *= base;</span><br><span class="line">            base *= base;</span><br><span class="line">            p &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> exponent&gt;<span class="number">0</span> ? res : <span class="number">1</span>/res; <span class="comment">// 判断正负</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h1&gt;&lt;p&gt;给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。&lt;/p&gt;
-&lt;h
       
     
     </summary>
