@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="paper," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -96,31 +96,25 @@
 
 
 
-<meta name="description" content="MovitivationClustering has been studied for decades, but the existing clustering algorithms still have many shortcomings, like having limited effectiveness in high dimensions and often requiring tunin">
-<meta name="keywords" content="paper">
+<meta name="description" content="下面进入神经网络基础的学习，这部分大多已经学过了，这里就当作是一次复习。 二元分类-Binary Classification图片用红绿蓝三个通道，通过这些输入预测是否是猫。 将这张猫的图片表示成输入的特征向量： 对应的记号： 需要注意的是X是每个样本列向量的堆叠。 Logistic回归-Logistic Regressionlogistic回归用于解决二元分类问题。这里要注意，P(y=1|x)指">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Reading report of Robust continuous clustering">
-<meta property="og:url" content="https://github.com/DesmonDay/2018/03/23/RCC/index.html">
+<meta property="og:title" content="第二周-神经网络基础">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/04/01/deep-learningw2/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="MovitivationClustering has been studied for decades, but the existing clustering algorithms still have many shortcomings, like having limited effectiveness in high dimensions and often requiring tunin">
+<meta property="og:description" content="下面进入神经网络基础的学习，这部分大多已经学过了，这里就当作是一次复习。 二元分类-Binary Classification图片用红绿蓝三个通道，通过这些输入预测是否是猫。 将这张猫的图片表示成输入的特征向量： 对应的记号： 需要注意的是X是每个样本列向量的堆叠。 Logistic回归-Logistic Regressionlogistic回归用于解决二元分类问题。这里要注意，P(y=1|x)指">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7c0c6a468f18d5b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d1fdb418c410e3ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-bcf4c033c6361d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1275f793248fb51f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-537d8030574c405b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d9e71d1ae4186bc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2d85d77f4677aac3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-36cad4727653cc6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-901c888b05dd6a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b62da3b876e8f103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-f1389587eba8f7d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-db8ef58d51f0fb2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-23T10:45:38.978Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-58570aa3a16bf715.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d344493c07cb5f2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-075f444ce29f4d83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-32b12b2fb0f2047d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-afc4b3675c063183.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-f81af276c1811d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-01T12:38:09.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Reading report of Robust continuous clustering">
-<meta name="twitter:description" content="MovitivationClustering has been studied for decades, but the existing clustering algorithms still have many shortcomings, like having limited effectiveness in high dimensions and often requiring tunin">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-7c0c6a468f18d5b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="第二周-神经网络基础">
+<meta name="twitter:description" content="下面进入神经网络基础的学习，这部分大多已经学过了，这里就当作是一次复习。 二元分类-Binary Classification图片用红绿蓝三个通道，通过这些输入预测是否是猫。 将这张猫的图片表示成输入的特征向量： 对应的记号： 需要注意的是X是每个样本列向量的堆叠。 Logistic回归-Logistic Regressionlogistic回归用于解决二元分类问题。这里要注意，P(y=1|x)指">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-58570aa3a16bf715.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -149,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/23/RCC/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/04/01/deep-learningw2/"/>
 
 
 
 
 
-  <title>Reading report of Robust continuous clustering | DesmonDay's Blog</title>
+  <title>第二周-神经网络基础 | DesmonDay's Blog</title>
   
 
 
@@ -288,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/23/RCC/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/04/01/deep-learningw2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Desmon Day">
@@ -305,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Reading report of Robust continuous clustering</h1>
+          <h1 class="post-title" itemprop="name headline">第二周-神经网络基础</h1>
         
 
         <div class="post-meta">
@@ -317,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T18:32:09+08:00">
-                2018-03-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-01T17:26:58+08:00">
+                2019-04-01
               </time>
             
 
@@ -340,8 +334,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/论文阅读/" itemprop="url" rel="index">
-                    <span itemprop="name">论文阅读</span>
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -377,20 +371,18 @@
       
 
       
-        <h1 id="Movitivation"><a href="#Movitivation" class="headerlink" title="Movitivation"></a>Movitivation</h1><p>Clustering has been studied for decades, but the existing clustering algorithms still have many shortcomings, like having limited effectiveness in high dimensions and often requiring tuning parameters for different domains and datasets. In order to solve the above problems, the authors present a new clustering algorithm called RCC(Robust continuous clustering), which achieves high accuracy across multiple domains and scales efficiently to high dimensions and large datasets.</p>
-<h1 id="Main-Algorithm"><a href="#Main-Algorithm" class="headerlink" title="Main Algorithm"></a>Main Algorithm</h1><h2 id="RCC"><a href="#RCC" class="headerlink" title="RCC"></a>RCC</h2><p>The fundamental principle of the algorithm is to find the appropriate representatives U for the corresponding data point X. And we need to operate the optimization on U.<br>The RCC objective 1 has the following form:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7c0c6a468f18d5b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>The funtion ρ(∙) is a robust penalty function on the regularization terms, which is central to the method. There are two expectations on this term: (1)we want representative ui from the same latent cluster to collapse into a single point; (2) we want the penalty function to be robust enough. Therefore, the authors decided to use robust estimators. The weight wp,q and λ are the balance factors, and ε is the set of edges in the graph.</p>
-<p>The second term in the objective is related to the mean shift objective. Later, the authors provide a reformulated objective 2.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d1fdb418c410e3ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>The new objective adds an auxiliary variable lp,q for each connection in ε, and together optimize both the representative U and the line process L, where   is a penalty on the connection. Why the authors use objective 2 is because its form enables efficient and scalable optimization by iterative solution of linear least-square systems, which yields a general approach, for three reasons:</p>
+        <p>下面进入神经网络基础的学习，这部分大多已经学过了，这里就当作是一次复习。</p>
+<h1 id="二元分类-Binary-Classification"><a href="#二元分类-Binary-Classification" class="headerlink" title="二元分类-Binary Classification"></a>二元分类-Binary Classification</h1><p>图片用红绿蓝三个通道，通过这些输入预测是否是猫。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-58570aa3a16bf715.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>将这张猫的图片表示成输入的特征向量：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d344493c07cb5f2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>对应的记号：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-075f444ce29f4d83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>需要注意的是X是每个样本列向量的堆叠。</p>
+<h1 id="Logistic回归-Logistic-Regression"><a href="#Logistic回归-Logistic-Regression" class="headerlink" title="Logistic回归-Logistic Regression"></a>Logistic回归-Logistic Regression</h1><p>logistic回归用于解决二元分类问题。这里要注意，P(y=1|x)指训练样本为x时，y为1的概率。在下图写的Output那里，最初我们是直接用一个线性分类器，但是因为我们希望输出的是概率，而w^T+b可能大于1，可能小于0，因此要添加sigmoid函数将其值域压缩到(0,1)。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-32b12b2fb0f2047d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>另外，红色部分那里是另一种表示形式，将b作为其中一个参数theta_0。在实现神经网络时，最好用蓝色部分的符号表示。</p>
+<p>更清晰的表示如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-afc4b3675c063183.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h1 id="logistic回归损失函数"><a href="#logistic回归损失函数" class="headerlink" title="logistic回归损失函数"></a>logistic回归损失函数</h1><p><img src="https://upload-images.jianshu.io/upload_images/8636110-f81af276c1811d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>具体公式推导可以见上图。我们可以发现，最开始我们写的损失函数L是误差平方公式，然而这个函数的优化形式是非凸函数，如果求解会有多个局部最优解。使用梯度下降可能就找不到全局最优解。因此需要进一步地对损失函数进行研究。</p>
 <ol>
-<li>accommodate many robust nonconvex functions ρ.</li>
-<li>reduce clustering to the application of linear system solvers.</li>
-<li>easily scale to high dimensions and large datasets.</li>
+<li>损失函数(loss function)定义为 L(y’, y) = -(ylogy’+(1-y)log(1-y’))，并且当y=1时，希望y’尽量大；当y=0时，希望y’尽量小。损失函数仅适用于单个的训练样本。</li>
+<li>代价函数(cost function)如上图中所写，并且适用于整个数据集。</li>
 </ol>
-<p>In the paper, ρ(y) uses the Geman-McClure estimater, and μ is a scale parameter:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bcf4c033c6361d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And the corresponding penalty function that equals objective 1 and 2 is :<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1275f793248fb51f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>Later, the authors give the optimization of the above objectives, which I don’t introduce much here. When U are fixed, the optimal value of each lp,q is given by:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-537d8030574c405b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And when L are fixed, we can rewrite the expression to solve U, which turns into a linear least-squares problem:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d9e71d1ae4186bc7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>The pseudo code of RCC is followed:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2d85d77f4677aac3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h2 id="RCC-DR"><a href="#RCC-DR" class="headerlink" title="RCC-DR"></a>RCC-DR</h2><p>In RCC, the dimensionality of the embedding U is the same as the dimensionality of the data X. And since RCC optimizes a continuous and differentiable objective, it can be used within end-to-end feature learning pipelines. In this section, the authors extend RCC to perform joint clustering and dimensionality reduction, called RCC-DR.<br>The final formulation of the RCC-DR objective is:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-36cad4727653cc6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>Where D∈R(Dxd) is a dictionary, zi∈R(Dxd) is a sparse code corresponding to the ith data sample, and ui∈R(d) is the low dimensional embedding of xi. The optimization is performed by block coordinate descent over U, Z, D, L1 and L2. The variables U are updated by solving linear system.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-901c888b05dd6a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8636110-b62da3b876e8f103.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And the dictionary D and codes Z are initialized using PCA and updated by different methods.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f1389587eba8f7d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8636110-db8ef58d51f0fb2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h1 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h1><p>In the paper, the authors propose an algorthm called RCC, which optimizes a continuous objective based on robust estimation. And its end-to-end feature learning pipelines allow it to perform joint clustering and dimensionality reduction. This method achieves high accuracy across multiple domains and scales efficiently to high dimensions and large datasets. </p>
-<h1 id="My-Idea"><a href="#My-Idea" class="headerlink" title="My Idea"></a>My Idea</h1><p>Actually, I don’t quite understand about this paper. I don’t know how the authors comp up with such wonderful idea about robust estimators, and how can they smartly turn a complicated optimization problem into linear least-squares solvers. Maybe it will be better if we can get the code of the Algorithm to study. </p>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>The authors first give us the principle of RCC, and then extend it by to perform joint clustering and dimensionality reduction, called RCC-DR. And most of the thesis is talking about the objectives of the algorithm, and the optimization method they use. In the final part, they do a lot of experiments compared with RCC, RCC-DR and other 13 baselines about the results and running time on different datasets.</p>
 
       
     </div>
@@ -408,7 +400,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/paper/" rel="tag"><i class="fa fa-tag"></i> paper</a>
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           
         </div>
       
@@ -421,8 +413,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/21/opengl1/" rel="next" title="OpenGL学习(1)">
-                <i class="fa fa-chevron-left"></i> OpenGL学习(1)
+              <a href="/2019/04/01/deep-learningw1/" rel="next" title="第一周-深度学习概论">
+                <i class="fa fa-chevron-left"></i> 第一周-深度学习概论
               </a>
             
           </div>
@@ -430,10 +422,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/24/A1042和1046/" rel="prev" title="PAT甲1042和1046">
-                PAT甲1042和1046 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -587,7 +575,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Movitivation"><span class="nav-number">1.</span> <span class="nav-text">Movitivation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Algorithm"><span class="nav-number">2.</span> <span class="nav-text">Main Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RCC"><span class="nav-number">2.1.</span> <span class="nav-text">RCC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RCC-DR"><span class="nav-number">2.2.</span> <span class="nav-text">RCC-DR</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Contribution"><span class="nav-number">3.</span> <span class="nav-text">Contribution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#My-Idea"><span class="nav-number">4.</span> <span class="nav-text">My Idea</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-number">5.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二元分类-Binary-Classification"><span class="nav-number">1.</span> <span class="nav-text">二元分类-Binary Classification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logistic回归-Logistic-Regression"><span class="nav-number">2.</span> <span class="nav-text">Logistic回归-Logistic Regression</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logistic回归损失函数"><span class="nav-number">3.</span> <span class="nav-text">logistic回归损失函数</span></a></li></ol></div>
             
 
           </div>
