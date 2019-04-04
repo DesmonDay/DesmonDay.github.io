@@ -108,7 +108,13 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-08d351090e1131ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-fe5a64b67e9273f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-42f3688fd171800f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-03T18:19:22.391Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-901146b4df18ad31.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7f01ef2229759bbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b59d08b05b300678.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a4c6d5572ef3ea5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e18af2b5b92895ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-35353f2a739253f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-04T14:30:38.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三周-浅层神经网络">
 <meta name="twitter:description" content="下面进入第三周的学习内容。 神经网络概述 这里将神经网络与Logistic回归进行了一个简单的对比，即神经网络也需要前向传播和后向传播。另外，每一层的参数用右上标的一个方括号表示，即方括号用来区分不同的层；如果右上标是圆括号，则指具体的一个样本。 神经网络表示下图是一个简单的双层神经网络的表示（即单隐层网络），其中也包括了一些通用的符号标记方法。 计算神经网络的输出图中给出了第一层隐藏层的输入和输">
@@ -375,7 +381,21 @@
 <h1 id="神经网络表示"><a href="#神经网络表示" class="headerlink" title="神经网络表示"></a>神经网络表示</h1><p>下图是一个简单的双层神经网络的表示（即单隐层网络），其中也包括了一些通用的符号标记方法。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-08d351090e1131ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <h1 id="计算神经网络的输出"><a href="#计算神经网络的输出" class="headerlink" title="计算神经网络的输出"></a>计算神经网络的输出</h1><p>图中给出了第一层隐藏层的输入和输出过程，我们可以通过将参数w进行堆叠化，再与X向量相乘，与b向量相加，得到对应的输出Z^[1]和a^[1]。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-fe5a64b67e9273f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>更简单的一个解释如下图，可以看到W,a,b,z的维度的相同点与不同点。我们固定输入特征为列向量，则隐藏层参数的维数则为（隐藏层结点个数，特征总数）。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-42f3688fd171800f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h1 id="多个样本"><a href="#多个样本" class="headerlink" title="多个样本"></a>多个样本</h1>
+<h1 id="多个样本的向量化"><a href="#多个样本的向量化" class="headerlink" title="多个样本的向量化"></a>多个样本的向量化</h1><p>如果没有进行向量化，那么我们要用如下的一个for循环来实现神经网络的前向传播：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-901146b4df18ad31.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果进行向量化，就像下图红框中标出的，这是就不需要使用for循环了，而是一次性就可以计算所有样本。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7f01ef2229759bbd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>下面我们横向看A矩阵，矩阵A会扫过不同的训练样本，而竖向则经过当前隐藏层的不同单元；再以X矩阵为例，横向对应不同的训练样本，竖向则对应同一样本的不同输入特征（相当于输入层的不同单元）。</p>
+<h2 id="形象解释"><a href="#形象解释" class="headerlink" title="形象解释"></a>形象解释</h2><p>接下来，对于Z^[1] = W^[1]X + b^[1]这样的向量化做了一个形象的解释。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b59d08b05b300678.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>简单的回顾，可以看到右下角的公式可以一次性计算所有的样本，而不需要使用for循环。但是我们会注意到，仍然有地方需要使用到for循环，即遍历所有的隐藏层来计算对应的输出。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a4c6d5572ef3ea5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h1 id="激活函数-Activation-functions"><a href="#激活函数-Activation-functions" class="headerlink" title="激活函数-Activation functions"></a>激活函数-Activation functions</h1><p>神经网络常见的几种激活函数：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e18af2b5b92895ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>这里有几点需要注意的，以及来自经验者的一些经验法则：</p>
+<ol>
+<li>如果是做二元分类，即输出值为0或1，则Sigmoid函数可以用作输出层的激活函数，其他情况下都不要使用Sigmoid函数。</li>
+<li>一般的默认激活函数为ReLu(线性修正单元)，不过它的一个小缺点是当z小于0时，导数为0，因此有人提出了Leaky ReLu，不过挺少人使用的。</li>
+<li>搭建神经网络时面临很多选择，如隐藏层单元数、激活函数、如何初始化权重等，当我们不确定哪些选择更有效时，可以使用交叉验证集尝试不同的选择，然后再找到最合适的来使用。</li>
+</ol>
+<h2 id="为什么神经网络需要非线性激活函数"><a href="#为什么神经网络需要非线性激活函数" class="headerlink" title="为什么神经网络需要非线性激活函数"></a>为什么神经网络需要非线性激活函数</h2><p><img src="https://upload-images.jianshu.io/upload_images/8636110-35353f2a739253f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如图，如果我们的隐藏层激活函数都使用恒等激活函数（线性激活函数），那么我们最终得到的只是输入的线性组合，即线性隐藏层毫无作用，因为两个线性函数的组合就是线性组合。因此，我们需要使用非线性激活函数才能使神经网络有效。当然，如果我们需要的真实输出y属于实数，那么我们可以在输出层使用线性激活函数，但是隐藏层则绝对不可以（例外是有关于一些压缩机制）。</p>
+
       
     </div>
     
@@ -571,7 +591,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络概述"><span class="nav-number">1.</span> <span class="nav-text">神经网络概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络表示"><span class="nav-number">2.</span> <span class="nav-text">神经网络表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算神经网络的输出"><span class="nav-number">3.</span> <span class="nav-text">计算神经网络的输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多个样本"><span class="nav-number">4.</span> <span class="nav-text">多个样本</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络概述"><span class="nav-number">1.</span> <span class="nav-text">神经网络概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络表示"><span class="nav-number">2.</span> <span class="nav-text">神经网络表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算神经网络的输出"><span class="nav-number">3.</span> <span class="nav-text">计算神经网络的输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多个样本的向量化"><span class="nav-number">4.</span> <span class="nav-text">多个样本的向量化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形象解释"><span class="nav-number">4.1.</span> <span class="nav-text">形象解释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#激活函数-Activation-functions"><span class="nav-number">5.</span> <span class="nav-text">激活函数-Activation functions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么神经网络需要非线性激活函数"><span class="nav-number">5.1.</span> <span class="nav-text">为什么神经网络需要非线性激活函数</span></a></li></ol></li></ol></div>
             
 
           </div>
