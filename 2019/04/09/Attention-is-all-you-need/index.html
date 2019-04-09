@@ -109,7 +109,9 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7d91ff435291706d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-3b4189ca93f4b58a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d671a2e5ca27c7de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-09T08:23:07.307Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-bca7113e475bae14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e18a7a0c36bf8da2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-09T09:09:24.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention is all you need">
 <meta name="twitter:description" content="阅读的第一篇NLP文章，大名鼎鼎的Transformer。由于缺乏较多的基础，因此这里也会参考别人的读书笔记进行阅读。 seq2seq是根据一个输入序列x，来生成另一个输出序列y。seq2seq有很多的应用，例如机器翻译，文档摘取，问答系统以及语音识别等等。在翻译中，输入序列是待翻译的文本，输出序列是翻译后的文本；在问答系统中，输入序列是提出的问题，而输出序列是答案；在语音识别中输入序列是一段语音">
@@ -384,6 +386,9 @@
 <p>所谓注意力机制，就是说在生成每个词的时候，对不同的输入词给予不同的关注权重。我们可以看一下上面👆这幅图——通过注意力机制，我们将输入句子编码为一个向量序列，并自适应地选择这些向量的一个子集，同时对译文进行译码，例如where are you——&gt;你在哪？现在我们在翻译“你”的时候给”you”更多的权重，那么就可以有效的解决对齐问题。</p>
 <h1 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h1><p><img src="https://upload-images.jianshu.io/upload_images/8636110-d671a2e5ca27c7de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>Neural machine translation by jointly learning to align and translate这篇论文首先将注意力机制运用在NLP上，提出了soft Attention Model，并将其应用到机器翻译上面。其中，Soft是在求注意力分配概率分布的时候，对于输入句子X中任意一个单词都给出一个概率，即概率分布。加入注意力机制的模型表现确实更好，但存在一定问题：attention mechanism通常和RNN结合使用，我们都知道RNN依赖t-1的历史信息来计算t时刻的信息，因此不能并行实现，计算效率比较低，特别是训练样本量非常大的时候。</p>
+<p>CNN+Attention: Abstractive Sentence Summarization with Attentive Recurrent Neural Networks, 2016NAACL<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bca7113e475bae14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>基于CNN的Seq2Seq+attention的优点：基于CNN的Seq2Seq模型具有基于RNN的Seq2Seq模型捕捉long distance dependency的能力，此外，最大的优点是可以并行化实现，效率比基于RNN的Seq2Seq模型高。缺点：计算量与观测序列X和输出序列Y的长度成正比。</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://upload-images.jianshu.io/upload_images/8636110-e18a7a0c36bf8da2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <h1 id="参考出处"><a href="#参考出处" class="headerlink" title="参考出处"></a>参考出处</h1><p><a href="https://blog.csdn.net/u013713117/article/details/56014634" target="_blank" rel="noopener">https://blog.csdn.net/u013713117/article/details/56014634</a></p>
 <p><a href="https://www.jianshu.com/p/3f2d4bc126e6" target="_blank" rel="noopener">https://www.jianshu.com/p/3f2d4bc126e6</a></p>
 
@@ -425,6 +430,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/09/deep-learningw3/" rel="prev" title="第三周-浅层神经网络">
+                第三周-浅层神经网络 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -578,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文需要掌握的基础知识"><span class="nav-number">1.</span> <span class="nav-text">本文需要掌握的基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创新点"><span class="nav-number">2.</span> <span class="nav-text">创新点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Attention"><span class="nav-number">4.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考出处"><span class="nav-number">5.</span> <span class="nav-text">参考出处</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文需要掌握的基础知识"><span class="nav-number">1.</span> <span class="nav-text">本文需要掌握的基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创新点"><span class="nav-number">2.</span> <span class="nav-text">创新点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">3.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Attention"><span class="nav-number">4.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformer"><span class="nav-number">5.</span> <span class="nav-text">Transformer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考出处"><span class="nav-number">6.</span> <span class="nav-text">参考出处</span></a></li></ol></div>
             
 
           </div>
