@@ -114,7 +114,20 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-3e53a9bda80463ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a15998e3aef2b7cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-38ecfcc88978ab40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-12T07:22:15.017Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b620859b7502897a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ec4d349d9efbcfad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a1c3c77880d41203.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-91b91c7f61140ea1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8db9fe9dc325e0bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-12733db941f0f44f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1f523947cb70ca6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b8ff7f5e486c6d33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1cf9df8abbc940c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4a2ffb823b61cb8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d9e550e711f9d0c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a429a52e392636b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-5ab0a9239083c607.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-12T11:44:35.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第5周-深度学习的实用层面">
 <meta name="twitter:description" content="训练/验证/测试集在实际构建和训练深层神经网络的时候，我们往往要确定一些超参数，如下： 在实际应用中，对数据集进行划分为训练集、验证集、测试集可以加速神经网络的集成，也可以更有效地衡量算法的偏差和方差，从而帮助我们更高效地选择合适的方法来优化算法。图中展示了在数据样本较少时，我们将其划分比例为70%-30%或60%-20%-20%；当大数据时，则验证集和测试集的比例往往会很小。  当然，我们有时候">
@@ -392,11 +405,51 @@
 <p>以Logistic回归为例，我们可以在图中看到L2-范数和L1-范数的写法，其中lambda为正则化参数，而L2-范数相比L1-范数而言更为常用。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-784b3faf89a9b5ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>对神经网络而言，我们不再称为L2-范数，而称为Frobenius Norm。因为这里其范数的计算方式为一个矩阵中所有元素的平方和。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-3e53a9bda80463ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>另外，我们可以注意到，由于我们的cost函数发生变化，则多了正则项，那么dW的计算方式也有了变化。具体计算公式如图所示，并且我们可以发现，加了正则化项后，我们的参数W也是往减少的趋势走，我们称其为”Weight Decay”。</p>
-<h1 id="为什么正则化可以减少过拟合"><a href="#为什么正则化可以减少过拟合" class="headerlink" title="为什么正则化可以减少过拟合"></a>为什么正则化可以减少过拟合</h1><p>这里吴老师给了两个比较直观的解释。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a15998e3aef2b7cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="为什么正则化可以减少过拟合"><a href="#为什么正则化可以减少过拟合" class="headerlink" title="为什么正则化可以减少过拟合"></a>为什么正则化可以减少过拟合</h2><p>这里吴老师给了两个比较直观的解释。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a15998e3aef2b7cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>如图，当我们将正则化参数lambda设置得足够大，那么W会接近0，从而使得很多隐藏单元的影响变小了，因此网络结构也变得简单，从而可以减少过拟合。</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/8636110-38ecfcc88978ab40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>又如上图，如果我们的lambda增大，那么W会较小，从而Z也会减小。如果Z的范围小，则tanh激活函数近似于线性函数，从而使得神经网络类似于线性神经网络，因此可以减小过拟合。</p>
-<h1 id="Dropout-Regularization"><a href="#Dropout-Regularization" class="headerlink" title="Dropout Regularization"></a>Dropout Regularization</h1>
+<h2 id="Dropout-Regularization"><a href="#Dropout-Regularization" class="headerlink" title="Dropout Regularization"></a>Dropout Regularization</h2><p>此部分参考总结：<a href="https://blog.csdn.net/u012328159/article/details/80210363" target="_blank" rel="noopener">https://blog.csdn.net/u012328159/article/details/80210363</a></p>
+<p>为了防止过拟合的问题，我们最常使用的手段就是L2正则化，即在代价函数后面加一个L2正则项。dropout正则化是Srivastava在2014年提出来的：Dropout: A Simple Way to Prevent Neural Networks from Overfitting。Dropout的思想其实非常简单粗暴：对于网络的每一层，随机的丢弃一些单元。如下图所示:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b620859b7502897a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如何实现正则化，吴老师举了Inverted dropout的例子来进行阐述：从技术实现方面来看下dropout正则项，这里最重要的一个参数就是keep_prob，称作保留概率（同样，1−keep_prob1−keep_prob则为丢弃概率），比如某一层的 keep_prob=0.8，则意味着某一层随机的保留80%的神经单元（也即有20%的单元被丢弃）。通常实现dropout regularization的技术称为 inverted dropout，假设对于第三层，则inverted dropout的具体实现为：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d3 = np.random.rand(a3.shape[<span class="number">0</span>],a3.shape[<span class="number">1</span>]) &lt; keep_prob</span><br><span class="line">a3 = np.multiply(a3, d3)</span><br><span class="line">a3 = a3 / keep_prob</span><br><span class="line">z4 = np.dot(w4, a3) + b4</span><br></pre></td></tr></table></figure></p>
+<p>对于上述第三行代码的解释：因为有1−keep_prob的单元失活了，这样a3的期望值也就减少了1−keep_prob，所以我们要用a3/keep_prob，这样a3的期望值不变。这就是inverted dropout。</p>
+<p>我们用两个动态图来演示下dropout的过程（素材来自ng的deep learning课）：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ec4d349d9efbcfad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-a1c3c77880d41203.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>另外要注意的是，我们在测试阶段的时候是不使用Dropout的。</p>
+<h2 id="理解Dropout"><a href="#理解Dropout" class="headerlink" title="理解Dropout"></a>理解Dropout</h2><p>为什么Dropout能够减小过拟合，吴老师给出了两个比较直观的解释：</p>
+<ul>
+<li>正是因为在每一层随机地丢弃了一些单元，所以相当于训练出来的网络要比原有的网络小得多，这在一定程度上解释了避免过拟合的问题。</li>
+<li>如下图所示的一个简单单层网络，因为每一个特征都有可能被丢弃，所以整个网络不会偏向于某一个特征（把某特征的权重的值赋的很大），会把每一个特征的权重都赋的很小，这就有点类似于L2正则化了，能够起到减轻过拟合的作用。 （压缩权重）</li>
+</ul>
+<p>另外，不同层的keep_prob可以设置得不同，这就有些类似于正则化中的参数lambda。</p>
+<p>简单总结：如果你担心某些层比其他层更容易发生过拟合，那么可以把某些层的keep_prob设置得低一些，而缺点是为了使用交叉验证，我们要搜索更多的超参数；另一种方案则是在一些层上应用dropout，而一些层则不用。dropout在计算机视觉领域用得很频繁，因为我们往往足够的数据，因此经常容易发生过拟合，那么dropout就是必然会使用的。另外需要记住，dropout是正则化中的一种方法，它可以帮助预防过拟合。不过，dropout的使用使得我们的cost function不再明确，因此我们的一个做法就是，先去掉dropout函数，画出cost function图确保是递减的，然后再使用dropout。</p>
+<h2 id="其他正则化方法"><a href="#其他正则化方法" class="headerlink" title="其他正则化方法"></a>其他正则化方法</h2><ol>
+<li>Data augmentation-数据增强</li>
+</ol>
+<p>如果我们无法获得更多的数据，以图片为例，我们可以增加其他方向不同的图片，或者随机翻转和裁剪图片，额外生成假数据。尽管这种做法不如增加一组新图片，因为存在一些冗余，但是这样做也节省了获取更多猫咪图片的花费；对于数字，我们也可以随机旋转或扭转数字来扩增数据。如以下例子：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-91b91c7f61140ea1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ol start="2">
+<li>Early stopping</li>
+</ol>
+<p>我们可以画出迭代过程中的训练误差和在验证集上的误差，通过观察验证误差，来提前结束迭代。这样子得到的参数W不至于过大，因此也减少了过拟合。但是early-stopping的一个主要缺点就是我们无法独立地处理优化cost function和防止过拟合这两个过程，因为提前停止梯度下降，我们实际上也停止了cost funciton的优化，因此我们实际上是用一种方法来同时解决两个问题。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-8db9fe9dc325e0bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>我们也可以选择不同的正则化参数lambda，但这意味着更多的训练和尝试，计算代价会很大。因此Early stopping就不需要尝试那么多的lambda。</p>
+<h1 id="标准化输入-Normalize-input"><a href="#标准化输入-Normalize-input" class="headerlink" title="标准化输入-Normalize input"></a>标准化输入-Normalize input</h1><p>训练神经网络时，提高训练速度的方法之一是对输入进行归一化。假设我们有一个训练集,它有两个输入特征,所以输入特征x是二维的,这是数据集的散点图。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-12733db941f0f44f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>归一化需要两个步骤：零均值化、归一化方差。</p>
+<p>第一步：零均值化。subtract out or to zero out the mean 计算出u即x(i)的均值。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1f523947cb70ca6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>随后x = x-u。即通过移动训练集，直到其为零均值化。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b8ff7f5e486c6d33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>第二步：归一化方差。</p>
+<p>如上图所示，特征1的方差比特征2的要大很多。计算出方差sigma^2，如下图：</p>
+<p>上一步我们已经完成了零均值化，接下来将所有数据都除以向量sigma^2.最后数据分布如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1cf9df8abbc940c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>最后注意，如果我们用了此种方法来对训练集的特征进行归一化，那么对于测试集也要使用同样的u和sigma做归一化，而不是在训练集和测试集上分别评估出不同的u和sigma。</p>
+<p><strong>疑惑</strong>：为什么是除以方差，而不是除以标准差？</p>
+<h2 id="为什么我们要对输入进行标准化"><a href="#为什么我们要对输入进行标准化" class="headerlink" title="为什么我们要对输入进行标准化"></a>为什么我们要对输入进行标准化</h2><p><img src="https://upload-images.jianshu.io/upload_images/8636110-4a2ffb823b61cb8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>标准化后，cost function更容易优化，更快达到迭代目标，即前提是特征的范围基本一致，而不是相差很大。</p>
+<h1 id="梯度消失与梯度爆炸-Vanishing-exploding-gradients"><a href="#梯度消失与梯度爆炸-Vanishing-exploding-gradients" class="headerlink" title="梯度消失与梯度爆炸-Vanishing/exploding gradients"></a>梯度消失与梯度爆炸-Vanishing/exploding gradients</h1><p>在本节中，周老师举了一个较为简单的例子来解释梯度爆炸和梯度消失的问题。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-d9e550e711f9d0c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>为了简单起见，每个隐藏层的结点数都为2，并且设置激活函数为线性激活函数，且b=0。在例子中可以看到，如果我们将W设置得稍微比I(全1矩阵)大一些，最后得到的预测结果y呈指数型增长，即出现指数爆炸；而若是W比I稍微小一些，得到的结果也是指数级下降，即出现梯度消失。这个问题长久以来都是深层神经网络发展的一个阻力。</p>
+<h1 id="深层神经网络的权重初始化"><a href="#深层神经网络的权重初始化" class="headerlink" title="深层神经网络的权重初始化"></a>深层神经网络的权重初始化</h1><p>我们想出了一个不完整的解决方案，有助于我们为神经网络更谨慎的选择随机初始化参数。</p>
+<p>一般而言，为了预防Z过大或过小，随着n越大，w_i应该越小，则最合理的方法是设置w_i = 1/n，其中n表示输入神经元的特征数。因此我们实际上一般写作：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a429a52e392636b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>其中n^{l-1}即为我们输入到第l层神经单元的数目。</p>
+<p>通常，relu激活函数的W_i应该设置为2/n比较合适，而tanh函数的见下图：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-5ab0a9239083c607.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+
       
     </div>
     
@@ -588,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#训练-验证-测试集"><span class="nav-number">1.</span> <span class="nav-text">训练/验证/测试集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#偏差-方差-Bias-Variance"><span class="nav-number">2.</span> <span class="nav-text">偏差/方差 - Bias/Variance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习基础-Basic-Recipie-for-ML"><span class="nav-number">3.</span> <span class="nav-text">机器学习基础 - Basic Recipie for ML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则化-Regularization"><span class="nav-number">4.</span> <span class="nav-text">正则化 - Regularization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么正则化可以减少过拟合"><span class="nav-number">5.</span> <span class="nav-text">为什么正则化可以减少过拟合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dropout-Regularization"><span class="nav-number">6.</span> <span class="nav-text">Dropout Regularization</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#训练-验证-测试集"><span class="nav-number">1.</span> <span class="nav-text">训练/验证/测试集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#偏差-方差-Bias-Variance"><span class="nav-number">2.</span> <span class="nav-text">偏差/方差 - Bias/Variance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习基础-Basic-Recipie-for-ML"><span class="nav-number">3.</span> <span class="nav-text">机器学习基础 - Basic Recipie for ML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则化-Regularization"><span class="nav-number">4.</span> <span class="nav-text">正则化 - Regularization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么正则化可以减少过拟合"><span class="nav-number">4.1.</span> <span class="nav-text">为什么正则化可以减少过拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dropout-Regularization"><span class="nav-number">4.2.</span> <span class="nav-text">Dropout Regularization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解Dropout"><span class="nav-number">4.3.</span> <span class="nav-text">理解Dropout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他正则化方法"><span class="nav-number">4.4.</span> <span class="nav-text">其他正则化方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标准化输入-Normalize-input"><span class="nav-number">5.</span> <span class="nav-text">标准化输入-Normalize input</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么我们要对输入进行标准化"><span class="nav-number">5.1.</span> <span class="nav-text">为什么我们要对输入进行标准化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#梯度消失与梯度爆炸-Vanishing-exploding-gradients"><span class="nav-number">6.</span> <span class="nav-text">梯度消失与梯度爆炸-Vanishing/exploding gradients</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深层神经网络的权重初始化"><span class="nav-number">7.</span> <span class="nav-text">深层神经网络的权重初始化</span></a></li></ol></div>
             
 
           </div>
