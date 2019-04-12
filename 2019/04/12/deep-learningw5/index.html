@@ -127,7 +127,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d9e550e711f9d0c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a429a52e392636b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-5ab0a9239083c607.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-12T11:44:35.489Z">
+<meta property="og:updated_time" content="2019-04-12T11:48:56.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第5周-深度学习的实用层面">
 <meta name="twitter:description" content="训练/验证/测试集在实际构建和训练深层神经网络的时候，我们往往要确定一些超参数，如下： 在实际应用中，对数据集进行划分为训练集、验证集、测试集可以加速神经网络的集成，也可以更有效地衡量算法的偏差和方差，从而帮助我们更高效地选择合适的方法来优化算法。图中展示了在数据样本较少时，我们将其划分比例为70%-30%或60%-20%-20%；当大数据时，则验证集和测试集的比例往往会很小。  当然，我们有时候">
@@ -449,6 +449,7 @@
 <h1 id="深层神经网络的权重初始化"><a href="#深层神经网络的权重初始化" class="headerlink" title="深层神经网络的权重初始化"></a>深层神经网络的权重初始化</h1><p>我们想出了一个不完整的解决方案，有助于我们为神经网络更谨慎的选择随机初始化参数。</p>
 <p>一般而言，为了预防Z过大或过小，随着n越大，w_i应该越小，则最合理的方法是设置w_i = 1/n，其中n表示输入神经元的特征数。因此我们实际上一般写作：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a429a52e392636b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>其中n^{l-1}即为我们输入到第l层神经单元的数目。</p>
 <p>通常，relu激活函数的W_i应该设置为2/n比较合适，而tanh函数的见下图：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-5ab0a9239083c607.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>我们可以给上述参数再增加一个乘法参数，但上述方差参数的调优优先级并不高。通过上述的方法，我们确实降低的梯度爆炸和梯度消失问题。</p>
 
       
     </div>
