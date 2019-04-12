@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-04-12T05:32:47.053Z</updated>
+  <updated>2019-04-12T07:18:26.475Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深度学习的实用层面</title>
+    <link href="https://github.com/DesmonDay/2019/04/12/deep-learningw5/"/>
+    <id>https://github.com/DesmonDay/2019/04/12/deep-learningw5/</id>
+    <published>2019-04-12T06:05:22.000Z</published>
+    <updated>2019-04-12T07:18:26.475Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="训练-验证-测试集"><a href="#训练-验证-测试集" class="headerlink" title="训练/验证/测试集"></a>训练/验证/测试集</h1><p>在实际构建和训练深层神经网络的时候，我们往往要确定一些超参数，如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-713247709c45087d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>在实际应用中，对数据集进行划分为训练集、验证集、测试集可以加速神经网络的集成，也可以更有效地衡量算法的偏差和方差，从而帮助我们更高效地选择合适的方法来优化算法。图中展示了在数据样本较少时，我们将其划分比例为70%-30%或60%-20%-20%；当大数据时，则验证集和测试集的比例往往会很小。</p><p><img src="https://upload-images.jianshu.io/upload_images/8636110-75b51a7281b1f656.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>当然，我们有时候会面临训练集和测试集分布不均衡的情况。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-efce84cda9a9e303.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>如上图举例，我们的训练集来自网页上的图片，可能都是很高清的，而测试集和验证集的图片都来自用户自己拍摄的，很显然图片的分布就不同。面对这种情况，我们需要遵循的一个准则就是：Make sure dev and test set come from same distribution.</p><p>另外，实际应用中也可以不需要测试集，只使用训练集和验证集（有些人可能就会称作训练集和测试集）。</p><h1 id="偏差-方差-Bias-Variance"><a href="#偏差-方差-Bias-Variance" class="headerlink" title="偏差/方差 - Bias/Variance"></a>偏差/方差 - Bias/Variance</h1><p>我们可以通过训练集和验证集上的误差来确定算法的偏差和方差的高低情况，再根据具体的情况，如高偏差高方差、低偏差高方差等来判断下一步应该如何进行算法的优化。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ba80c1f989a721b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>下图的猫分类的偏差方差衡量的前提有两个；1. 基本误差很小，即Optimal(Bayes) error很小；2. train和dev set的分布相同。然而，我们首先查看训练集误差，若误差大，说明高偏差，反之为低偏差；再看验证集误差，若误差大，则高方差，反之为低方差。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bb4f07d38e066e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>接着，吴老师又举了一个高偏差和高方差的具体例子：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f396c27fd87c080f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>我们可以看到，由于这个分类器基本是线性拟合，所以其拟合程度低，说明为高偏差；但同时，它也有着过拟合的部分，如图的两个曲折部分，因此也具有高方差。在高维数据分类中，这种情况非常常见：有些区域偏差高，有些区域方差高。</p><h1 id="机器学习基础-Basic-Recipie-for-ML"><a href="#机器学习基础-Basic-Recipie-for-ML" class="headerlink" title="机器学习基础 - Basic Recipie for ML"></a>机器学习基础 - Basic Recipie for ML</h1><p>一般，我们会先查看是否High bias(training set performance)? 如果是，则有以下方法来进行调整：训练更深更大的神经网络、训练更长时间、或者修改我们的神经网络结构。最后达到至少能够拟合训练数据的目的。</p><p>接着，我们查看是否Hign variance(dev set performance)? 如果是，则有以下方法：获得更多的数据、正则化、修改神经网络结构。</p><p>当偏差和方差都比较小时，则我们的工作也基本完成。在以前，我们会特别注重”Bias Variance trade-off”，但是如今的深度学习并不需要特别看重这个问题，因为我们其实可以再减少偏差的同时不损害方差（利用正则化之类的方法）。</p><h1 id="正则化-Regularization"><a href="#正则化-Regularization" class="headerlink" title="正则化 - Regularization"></a>正则化 - Regularization</h1><p>当我们出现过拟合的结果，则高方差，那么我们第一个想到的方法应该是正则化。另一个方法则是得到更多的数据，但这往往比较难。而正则化通常可以避免过拟合。</p><p>以Logistic回归为例，我们可以在图中看到L2-范数和L1-范数的写法，其中lambda为正则化参数，而L2-范数相比L1-范数而言更为常用。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-784b3faf89a9b5ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>对神经网络而言，我们不再称为L2-范数，而称为Frobenius Norm。因为这里其范数的计算方式为一个矩阵中所有元素的平方和。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-3e53a9bda80463ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>另外，我们可以注意到，由于我们的cost函数发生变化，则多了正则项，那么dW的计算方式也有了变化。具体计算公式如图所示，并且我们可以发现，加了正则化项后，我们的参数W也是往减少的趋势走，我们称其为”Weight Decay”。</p><h1 id="为什么正则化可以减少过拟合"><a href="#为什么正则化可以减少过拟合" class="headerlink" title="为什么正则化可以减少过拟合"></a>为什么正则化可以减少过拟合</h1><p>这里吴老师给了两个比较直观的解释。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a15998e3aef2b7cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>如图，当我们将正则化参数lambda设置得足够大，那么W会接近0，从而使得很多隐藏单元的影响变小了，因此网络结构也变得简单，从而可以减少过拟合。</p><p><img src="https://upload-images.jianshu.io/upload_images/8636110-38ecfcc88978ab40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>又如上图，如果我们的lambda增大，那么W会较小，从而Z也会减小。如果Z的范围小，则tanh激活函数近似于线性函数，从而使得神经网络类似于线性神经网络，因此可以减小过拟合。</p><h1 id="Dropout-Regularization"><a href="#Dropout-Regularization" class="headerlink" title="Dropout Regularization"></a>Dropout Regularization</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;训练-验证-测试集&quot;&gt;&lt;a href=&quot;#训练-验证-测试集&quot; class=&quot;headerlink&quot; title=&quot;训练/验证/测试集&quot;&gt;&lt;/a&gt;训练/验证/测试集&lt;/h1&gt;&lt;p&gt;在实际构建和训练深层神经网络的时候，我们往往要确定一些超参数，如下：&lt;br&gt;&lt;img
+      
+    
+    </summary>
+    
+      <category term="深度学习" scheme="https://github.com/DesmonDay/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="python" scheme="https://github.com/DesmonDay/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>深层神经网络</title>
@@ -482,29 +507,6 @@
       
       
         &lt;h1 id=&quot;什么是IP&quot;&gt;&lt;a href=&quot;#什么是IP&quot; class=&quot;headerlink&quot; title=&quot;什么是IP&quot;&gt;&lt;/a&gt;什么是IP&lt;/h1&gt;&lt;p&gt;互联网协议地址（英语：Internet Protocol Address，又译为网际协议地址），缩写为IP地址（英语
-      
-    
-    </summary>
-    
-    
-      <category term="python" scheme="https://github.com/DesmonDay/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python爬虫学习-day5-selenium</title>
-    <link href="https://github.com/DesmonDay/2019/03/05/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0-day5-selenium/"/>
-    <id>https://github.com/DesmonDay/2019/03/05/python爬虫学习-day5-selenium/</id>
-    <published>2019-03-05T13:25:03.000Z</published>
-    <updated>2019-03-05T14:15:27.164Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Selenium学习-待补充"><a href="#Selenium学习-待补充" class="headerlink" title="Selenium学习(待补充)"></a>Selenium学习(待补充)</h1><p>安装selenium并学习，使用该工具模拟登陆163邮箱。</p><p>首先需要下载GoogleDriver，需要与自己的Chrome版本对应。由于某些原因，官网<a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" target="_blank" rel="noopener">https://sites.google.com/a/chromium.org/chromedriver/downloads</a> 无法下载，于是我去国内镜像找，<a href="http://npm.taobao.org/mirrors/chromedriver/" target="_blank" rel="noopener">http://npm.taobao.org/mirrors/chromedriver/</a> ，然而没有找到与自己对应的版本（好奇怪。。）迫不得已，下了个当前版本后缀最新的一个。另外，要将下载后的exe放入Chrome安装目录，同时修改环境变量。</p><p>测试成功：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7b0d96ab09585c70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p><img src="https://upload-images.jianshu.io/upload_images/8636110-cad0b552a7d76251.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><h1 id="利用Selenium登录163邮箱"><a href="#利用Selenium登录163邮箱" class="headerlink" title="利用Selenium登录163邮箱"></a>利用Selenium登录163邮箱</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">bs = webdriver.Chrome()</span><br><span class="line">url = <span class="string">'http://mail.163.com'</span></span><br><span class="line">bs.maximize_window()</span><br><span class="line">bs.get(url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里需要注意，163邮箱账号密码区域的id是自动生成的，无法用于定位标签。</span></span><br><span class="line"><span class="comment"># 使用网上看来的方法：https://www.cnblogs.com/wxjly/p/7920391.html</span></span><br><span class="line"></span><br><span class="line">bs.switch_to.frame(<span class="number">0</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">bs.find_element_by_name(<span class="string">"email"</span>).send_keys(<span class="string">"***@163.com"</span>)<span class="comment">#输入邮箱</span></span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">bs.find_element_by_name(<span class="string">"password"</span>).send_keys(<span class="string">"***"</span>)<span class="comment">#输入密码</span></span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">bs.find_element_by_id(<span class="string">"dologin"</span>).click()</span><br></pre></td></tr></table></figure><p>成功！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Selenium学习-待补充&quot;&gt;&lt;a href=&quot;#Selenium学习-待补充&quot; class=&quot;headerlink&quot; title=&quot;Selenium学习(待补充)&quot;&gt;&lt;/a&gt;Selenium学习(待补充)&lt;/h1&gt;&lt;p&gt;安装selenium并学习，使用该工具模
       
     
     </summary>
