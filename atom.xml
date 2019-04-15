@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/DesmonDay/"/>
-  <updated>2019-04-15T08:17:19.876Z</updated>
+  <updated>2019-04-15T08:29:54.104Z</updated>
   <id>https://github.com/DesmonDay/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://github.com/DesmonDay/2019/04/15/NLP%E5%AD%A6%E4%B9%A01/"/>
     <id>https://github.com/DesmonDay/2019/04/15/NLP学习1/</id>
     <published>2019-04-15T07:26:13.000Z</published>
-    <updated>2019-04-15T08:17:19.876Z</updated>
+    <updated>2019-04-15T08:29:54.104Z</updated>
     
-    <content type="html"><![CDATA[<p>参考李理的免费书籍《深度学习理论与实战：提高篇》进行学习，这里记录一些比较重要的笔记。注：本博客记录仅用于个人学习。原博客地址：<a href="https://fancyerii.github.io/2019/03/14/dl-book/" target="_blank" rel="noopener">https://fancyerii.github.io/2019/03/14/dl-book/</a> </p><h1 id="词的表示方法"><a href="#词的表示方法" class="headerlink" title="词的表示方法"></a>词的表示方法</h1><p>不同于更底层的图像和声音信号，语言是高度抽象的离散符号系统。为了能够使用神经网络来解决NLP任务，几乎所有的深度学习模型都会在第一步把离散的符号变成向量。我们希望把一个词映射到“语义”空间的一个点，使得相似的词的距离较近而不相似的较远。为此，通常用向量来表示一个点，该向量称为词向量。</p><h1 id="one-hot向量"><a href="#one-hot向量" class="headerlink" title="one-hot向量"></a>one-hot向量</h1><p>最简单的表示方法为one-hot。假设我们的词典大小为4，即一共有4个词（实际上为成千上万）。则词典中的每个词对应一个下标，每个词都用长度为4的向量表示，只有对应的下标为1，其余为0。如下图，第一个词是[1,0,0,0]，而第三个词是[0,0,1,0]。</p><p><img src="https://upload-images.jianshu.io/upload_images/8636110-228b8c0619b4b24b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>然而，one-hot向量表示的问题是不满足我们的期望——相似的词的距离较近而不相似的较远。对于one-hot向量来说，相同的词距离是0，而不同的词距离是1，显然不正确。比如apple和pear的距离显然要比apple和cat的距离要近，但在one-hot表示里apple和其他所有词的距离都是1。</p><p>另外，one-hot也是一个高维的稀疏向量。而我们希望用一个低维的稠密向量来表示一个词，并且希望每一维都是表示某种语义，比如第一维代表水果（假设），那么apple和pear在这一维的值比较大，而cat的值比较小。这样apple和pear的距离就比cat和apple的距离要近。</p><h1 id="神经网络语言模型"><a href="#神经网络语言模型" class="headerlink" title="神经网络语言模型"></a>神经网络语言模型</h1><p>如何学习到比较好的词向量？最早的词向量可以追溯到神经网络语言模型。首先需要了解语言模型的概念和传统的基于统计得N-gram语言模型。</p><p>给定词序列$w_1,…,w_k$，语言模型会计算这个序列的概率，根据条件概率的定义，</p>]]></content>
+    <content type="html"><![CDATA[<p>参考李理的免费书籍《深度学习理论与实战：提高篇》进行学习，这里记录一些比较重要的笔记。注：本博客记录仅用于个人学习。原博客地址：<a href="https://fancyerii.github.io/2019/03/14/dl-book/" target="_blank" rel="noopener">https://fancyerii.github.io/2019/03/14/dl-book/</a> </p><h1 id="词的表示方法"><a href="#词的表示方法" class="headerlink" title="词的表示方法"></a>词的表示方法</h1><p>不同于更底层的图像和声音信号，语言是高度抽象的离散符号系统。为了能够使用神经网络来解决NLP任务，几乎所有的深度学习模型都会在第一步把离散的符号变成向量。我们希望把一个词映射到“语义”空间的一个点，使得相似的词的距离较近而不相似的较远。为此，通常用向量来表示一个点，该向量称为词向量。</p><h1 id="one-hot向量"><a href="#one-hot向量" class="headerlink" title="one-hot向量"></a>one-hot向量</h1><p>最简单的表示方法为one-hot。假设我们的词典大小为4，即一共有4个词（实际上为成千上万）。则词典中的每个词对应一个下标，每个词都用长度为4的向量表示，只有对应的下标为1，其余为0。如下图，第一个词是[1,0,0,0]，而第三个词是[0,0,1,0]。</p><p><img src="https://upload-images.jianshu.io/upload_images/8636110-228b8c0619b4b24b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p><p>然而，one-hot向量表示的问题是不满足我们的期望——相似的词的距离较近而不相似的较远。对于one-hot向量来说，相同的词距离是0，而不同的词距离是1，显然不正确。比如apple和pear的距离显然要比apple和cat的距离要近，但在one-hot表示里apple和其他所有词的距离都是1。</p><p>另外，one-hot也是一个高维的稀疏向量。而我们希望用一个低维的稠密向量来表示一个词，并且希望每一维都是表示某种语义，比如第一维代表水果（假设），那么apple和pear在这一维的值比较大，而cat的值比较小。这样apple和pear的距离就比cat和apple的距离要近。</p><h1 id="神经网络语言模型"><a href="#神经网络语言模型" class="headerlink" title="神经网络语言模型"></a>神经网络语言模型</h1><p>如何学习到比较好的词向量？最早的词向量可以追溯到神经网络语言模型。首先需要了解语言模型的概念和传统的基于统计得N-gram语言模型。</p><p>给定词序列<script type="math/tex">w_1,...,w_k</script>，语言模型会计算这个序列的概率，根据条件概率的定义，</p>]]></content>
     
     <summary type="html">
     
