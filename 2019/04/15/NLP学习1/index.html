@@ -105,7 +105,7 @@
 <meta property="og:description" content="参考李理的免费书籍《深度学习理论与实战：提高篇》进行学习，这里记录一些比较重要的笔记。注：本博客记录仅用于个人学习。原博客地址：https://fancyerii.github.io/2019/03/14/dl-book/  词的表示方法不同于更底层的图像和声音信号，语言是高度抽象的离散符号系统。为了能够使用神经网络来解决NLP任务，几乎所有的深度学习模型都会在第一步把离散的符号变成向量。我们希望">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-228b8c0619b4b24b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-15T08:29:54.104Z">
+<meta property="og:updated_time" content="2019-04-15T08:36:35.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word Embedding教程">
 <meta name="twitter:description" content="参考李理的免费书籍《深度学习理论与实战：提高篇》进行学习，这里记录一些比较重要的笔记。注：本博客记录仅用于个人学习。原博客地址：https://fancyerii.github.io/2019/03/14/dl-book/  词的表示方法不同于更底层的图像和声音信号，语言是高度抽象的离散符号系统。为了能够使用神经网络来解决NLP任务，几乎所有的深度学习模型都会在第一步把离散的符号变成向量。我们希望">
@@ -373,7 +373,7 @@
 <p>然而，one-hot向量表示的问题是不满足我们的期望——相似的词的距离较近而不相似的较远。对于one-hot向量来说，相同的词距离是0，而不同的词距离是1，显然不正确。比如apple和pear的距离显然要比apple和cat的距离要近，但在one-hot表示里apple和其他所有词的距离都是1。</p>
 <p>另外，one-hot也是一个高维的稀疏向量。而我们希望用一个低维的稠密向量来表示一个词，并且希望每一维都是表示某种语义，比如第一维代表水果（假设），那么apple和pear在这一维的值比较大，而cat的值比较小。这样apple和pear的距离就比cat和apple的距离要近。</p>
 <h1 id="神经网络语言模型"><a href="#神经网络语言模型" class="headerlink" title="神经网络语言模型"></a>神经网络语言模型</h1><p>如何学习到比较好的词向量？最早的词向量可以追溯到神经网络语言模型。首先需要了解语言模型的概念和传统的基于统计得N-gram语言模型。</p>
-<p>给定词序列<script type="math/tex">w_1,...,w_k</script>，语言模型会计算这个序列的概率，根据条件概率的定义，</p>
+<p>给定词序列$w_1,…,w_k$，语言模型会计算这个序列的概率，根据条件概率的定义，我们可以把联合概率分解为如下的条件概率：</p>
 
       
     </div>
@@ -701,24 +701,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
