@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -196,7 +196,7 @@
 
 
 
-  <title>第5周-深度学习的实用层面 | DesmonDay's Blog</title>
+  <title>第5周-深度学习的实用层面 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -221,7 +221,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -457,7 +457,7 @@
 <li>Data augmentation-数据增强</li>
 </ol>
 <p>如果我们无法获得更多的数据，以图片为例，我们可以增加其他方向不同的图片，或者随机翻转和裁剪图片，额外生成假数据。尽管这种做法不如增加一组新图片，因为存在一些冗余，但是这样做也节省了获取更多猫咪图片的花费；对于数字，我们也可以随机旋转或扭转数字来扩增数据。如以下例子：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-91b91c7f61140ea1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<ol start="2">
+<ol>
 <li>Early stopping</li>
 </ol>
 <p>我们可以画出迭代过程中的训练误差和在验证集上的误差，通过观察验证误差，来提前结束迭代。这样子得到的参数W不至于过大，因此也减少了过拟合。但是early-stopping的一个主要缺点就是我们无法独立地处理优化cost function和防止过拟合这两个过程，因为提前停止梯度下降，我们实际上也停止了cost funciton的优化，因此我们实际上是用一种方法来同时解决两个问题。</p>
@@ -558,13 +558,13 @@
 <p>You will first try a non-regularized model. Then you’ll learn how to regularize it and decide which model you will choose to solve the French Football Corporation’s problem. </p>
 <h3 id="1-Non-regularized-model"><a href="#1-Non-regularized-model" class="headerlink" title="1- Non-regularized model"></a>1- Non-regularized model</h3><p>You will use the following neural network (already implemented for you below). This model can be used: </p>
 <ul>
-<li>in <em>regularization mode</em> – by setting the <code>lambd</code> input to a non-zero value. We use “<code>lambd</code>“ instead of “<code>lambda</code>“ because “<code>lambda</code>“ is a reserved keyword in Python. </li>
-<li>in <em>dropout mode</em> – by setting the <code>keep_prob</code> to a value less than one</li>
+<li>in <em>regularization mode</em> — by setting the <code>lambd</code> input to a non-zero value. We use “<code>lambd</code>“ instead of “<code>lambda</code>“ because “<code>lambda</code>“ is a reserved keyword in Python. </li>
+<li>in <em>dropout mode</em> — by setting the <code>keep_prob</code> to a value less than one</li>
 </ul>
 <p>You will first try the model without any regularization. Then, you will implement:</p>
 <ul>
-<li><em>L2 regularization</em> – functions: “<code>compute_cost_with_regularization()</code>“ and “<code>backward_propagation_with_regularization()</code>“</li>
-<li><em>Dropout</em> – functions: “<code>forward_propagation_with_dropout()</code>“ and “<code>backward_propagation_with_dropout()</code>“</li>
+<li><em>L2 regularization</em> — functions: “<code>compute_cost_with_regularization()</code>“ and “<code>backward_propagation_with_regularization()</code>“</li>
+<li><em>Dropout</em> — functions: “<code>forward_propagation_with_dropout()</code>“ and “<code>backward_propagation_with_dropout()</code>“</li>
 </ul>
 <p>In each part, you will run this model with the correct inputs so that it calls the functions you’ve implemented. Take a look at the code below to familiarize yourself with the model.</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model</span><span class="params">(X, Y, learning_rate = <span class="number">0.3</span>, num_iterations = <span class="number">30000</span>, print_cost = True, lambd = <span class="number">0</span>, keep_prob = <span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Implements a three-layer neural network: LINEAR-&gt;RELU-&gt;LINEAR-&gt;RELU-&gt;LINEAR-&gt;SIGMOID.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    X -- input data, of shape (input size, number of examples)</span></span><br><span class="line"><span class="string">    Y -- true "label" vector (1 for blue dot / 0 for red dot), of shape (output size, number of examples)</span></span><br><span class="line"><span class="string">    learning_rate -- learning rate of the optimization</span></span><br><span class="line"><span class="string">    num_iterations -- number of iterations of the optimization loop</span></span><br><span class="line"><span class="string">    print_cost -- If True, print the cost every 10000 iterations</span></span><br><span class="line"><span class="string">    lambd -- regularization hyperparameter, scalar</span></span><br><span class="line"><span class="string">    keep_prob - probability of keeping a neuron active during drop-out, scalar.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    parameters -- parameters learned by the model. They can then be used to predict.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">        </span><br><span class="line">    grads = &#123;&#125;</span><br><span class="line">    costs = []                            <span class="comment"># to keep track of the cost</span></span><br><span class="line">    m = X.shape[<span class="number">1</span>]                        <span class="comment"># number of examples</span></span><br><span class="line">    layers_dims = [X.shape[<span class="number">0</span>], <span class="number">20</span>, <span class="number">3</span>, <span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Initialize parameters dictionary.</span></span><br><span class="line">    parameters = initialize_parameters(layers_dims)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Loop (gradient descent)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, num_iterations):</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Forward propagation: LINEAR -&gt; RELU -&gt; LINEAR -&gt; RELU -&gt; LINEAR -&gt; SIGMOID.</span></span><br><span class="line">        <span class="keyword">if</span> keep_prob == <span class="number">1</span>: <span class="comment"># 无dropout</span></span><br><span class="line">            a3, cache = forward_propagation(X, parameters)</span><br><span class="line">        <span class="keyword">elif</span> keep_prob &lt; <span class="number">1</span>:</span><br><span class="line">            a3, cache = forward_propagation_with_dropout(X, parameters, keep_prob)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Cost function</span></span><br><span class="line">        <span class="keyword">if</span> lambd == <span class="number">0</span>: <span class="comment"># 无L2正则</span></span><br><span class="line">            cost = compute_cost(a3, Y)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cost = compute_cost_with_regularization(a3, Y, parameters, lambd)</span><br><span class="line">            </span><br><span class="line">        <span class="comment"># Backward propagation.</span></span><br><span class="line">        <span class="keyword">assert</span>(lambd==<span class="number">0</span> <span class="keyword">or</span> keep_prob==<span class="number">1</span>)    <span class="comment"># it is possible to use both L2 regularization and dropout, </span></span><br><span class="line">                                            <span class="comment"># but this assignment will only explore one at a time</span></span><br><span class="line">        <span class="keyword">if</span> lambd == <span class="number">0</span> <span class="keyword">and</span> keep_prob == <span class="number">1</span>:</span><br><span class="line">            grads = backward_propagation(X, Y, cache)</span><br><span class="line">        <span class="keyword">elif</span> lambd != <span class="number">0</span>:</span><br><span class="line">            grads = backward_propagation_with_regularization(X, Y, cache, lambd)</span><br><span class="line">        <span class="keyword">elif</span> keep_prob &lt; <span class="number">1</span>:</span><br><span class="line">            grads = backward_propagation_with_dropout(X, Y, cache, keep_prob)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Update parameters.</span></span><br><span class="line">        parameters = update_parameters(parameters, grads, learning_rate)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Print the loss every 10000 iterations</span></span><br><span class="line">        <span class="keyword">if</span> print_cost <span class="keyword">and</span> i % <span class="number">10000</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"Cost after iteration &#123;&#125;: &#123;&#125;"</span>.format(i, cost))</span><br><span class="line">        <span class="keyword">if</span> print_cost <span class="keyword">and</span> i % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">            costs.append(cost)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># plot the cost</span></span><br><span class="line">    plt.plot(costs)</span><br><span class="line">    plt.ylabel(<span class="string">'cost'</span>)</span><br><span class="line">    plt.xlabel(<span class="string">'iterations (x1,000)'</span>)</span><br><span class="line">    plt.title(<span class="string">"Learning rate ="</span> + str(learning_rate))</span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> parameters</span><br></pre></td></tr></table></figure>
@@ -679,6 +679,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/04/14/deep-learningw6/" rel="prev" title="第6周-优化算法">
+                第6周-优化算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -754,7 +758,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -966,7 +970,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

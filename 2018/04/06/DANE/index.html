@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -149,7 +149,7 @@
 
 
 
-  <title>Reading report of Attributed Network Embedding for Learning in a Dynamic Environment | DesmonDay's Blog</title>
+  <title>Reading report of Attributed Network Embedding for Learning in a Dynamic Environment | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -174,7 +174,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -371,7 +371,7 @@
       
 
       
-        <h1 id="Remark"><a href="#Remark" class="headerlink" title="Remark"></a>Remark</h1><p>I first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete version, please contact me at <a href="mailto:908660116@qq.com" target="_blank" rel="noopener">908660116@qq.com</a>.</p>
+        <h1 id="Remark"><a href="#Remark" class="headerlink" title="Remark"></a>Remark</h1><p>I first write the latex version. But it is hard for markdown to edit the formula, therefore I directly paste the picture that I cut. Mostly have inline formula. If you want to get the complete version, please contact me at 908660116@qq.com.</p>
 <h1 id="Introduction-and-Contribution"><a href="#Introduction-and-Contribution" class="headerlink" title="Introduction and Contribution"></a>Introduction and Contribution</h1><p>Network structure often evolves over time with addition/deletion of links and nodes, which means the network is not static, but dynamic. It is valuable and necessary to learn about dynamic network embedding. But most of the existing famous network embedding approaches are limited to deal with plain networks. Therefore, we need to seek an effective embedding representation to capture network and attribute evolving patterns.</p>
 <p>In the paper, the authors propose a novel dynamic attributed network embedding framework – DANE, an unsupervised embedding algorithm, which can combine node attributes and network structure information at the same time in a dynamic environment. And they are the first one to tackle the following two challenges:<br>(1)the information in network might be noisy and incomplete, it necessitates a robust consensus representation to learn their characteristics; (2)the network embedding learning should be able to adapt to the change, which means to there should be an online pattern.</p>
 <h1 id="Main-Algorithm"><a href="#Main-Algorithm" class="headerlink" title="Main Algorithm"></a>Main Algorithm</h1><p>The algorithm contains two key steps:</p>
@@ -511,7 +511,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -723,7 +723,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

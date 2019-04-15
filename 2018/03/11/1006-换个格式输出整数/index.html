@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -142,7 +142,7 @@
 
 
 
-  <title>PAT乙1006.换个格式输出整数 | DesmonDay's Blog</title>
+  <title>PAT乙1006.换个格式输出整数 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -167,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -371,42 +371,40 @@
 <h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>题目很简单，然而我的做法再次的有些繁杂。因为题目不会超过3位，所以直接通过三个短式子就可以算出各个位上的数字了，而不需要使用while循环。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">string</span> result = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">while</span>(n / <span class="number">10</span> != <span class="number">0</span>)&#123;</span><br><span class="line">		cnt ++;</span><br><span class="line">		<span class="keyword">int</span> temp = n % <span class="number">10</span>;</span><br><span class="line">		n /= <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">if</span>(cnt == <span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(temp == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=temp; i++)&#123;</span><br><span class="line">					<span class="built_in">string</span> re;</span><br><span class="line">					<span class="built_in">stringstream</span> ss;</span><br><span class="line">					ss &lt;&lt; i;</span><br><span class="line">					ss &gt;&gt; re;</span><br><span class="line">					result = result + re;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cnt == <span class="number">2</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(temp == <span class="number">0</span>);</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=temp; i++)&#123;</span><br><span class="line">					result = <span class="string">"S"</span>+result;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(cnt == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)&#123;</span><br><span class="line">			<span class="built_in">string</span> re;</span><br><span class="line">			<span class="built_in">stringstream</span> ss;</span><br><span class="line">			ss &lt;&lt; i;</span><br><span class="line">			ss &gt;&gt; re;</span><br><span class="line">			result = result + re;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(cnt == <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)&#123;</span><br><span class="line">			result = <span class="string">"S"</span>+result;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)&#123;</span><br><span class="line">			result = <span class="string">"B"</span>+result;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; result &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>另外，这里有两个地方需要记住：<br>（1）与之前的一道题类似，如果输入的是个位数，那么就不会进入while循环，则cnt为0，因此需要额外判断；<br>（2）数字转字符串通用做法，要记住：</p>
-<pre><code class="cpp"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span>
-<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++){
-    <span class="built_in">string</span> re;
-    <span class="built_in">stringstream</span> ss;
+<pre><code class="lang-cpp">#include &lt;sstream&gt;
+for(int i=1; i&lt;=n; i++){
+    string re;
+    stringstream ss;
     ss &lt;&lt; i;
     ss &gt;&gt; re;
     result = result + re;
 }
 </code></pre>
 <p>这里贴一下别人的简单做法，本该想到的。。。</p>
-<pre><code class="cpp"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span>
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>
-<span class="function"></span>{
-    <span class="keyword">int</span> N;
-    <span class="keyword">int</span> num[<span class="number">3</span>] = {<span class="number">0</span>};
-    <span class="keyword">int</span> i = <span class="number">0</span>;
-    <span class="keyword">int</span> tmp = <span class="number">0</span>;
-    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);
-    num[<span class="number">2</span>] = N/<span class="number">100</span>; <span class="comment">//就是这里，明显地可以简化的，我傻了。</span>
-    num[<span class="number">1</span>] = N%<span class="number">100</span>/<span class="number">10</span>;
-    num[<span class="number">0</span>] = N%<span class="number">10</span>;
+<pre><code class="lang-cpp">#include&lt;stdio.h&gt;
+int main()
+{
+    int N;
+    int num[3] = {0};
+    int i = 0;
+    int tmp = 0;
+    scanf(&quot;%d&quot;, &amp;N);
+    num[2] = N/100; //就是这里，明显地可以简化的，我傻了。
+    num[1] = N%100/10;
+    num[0] = N%10;
 
-    <span class="keyword">for</span>(tmp = num[<span class="number">2</span>]; tmp &gt; <span class="number">0</span>; tmp--){
-        <span class="built_in">printf</span>(<span class="string">"B"</span>);
+    for(tmp = num[2]; tmp &gt; 0; tmp--){
+        printf(&quot;B&quot;);
     }
-    <span class="keyword">for</span>(tmp = num[<span class="number">1</span>]; tmp &gt; <span class="number">0</span>; tmp--){
-        <span class="built_in">printf</span>(<span class="string">"S"</span>);
+    for(tmp = num[1]; tmp &gt; 0; tmp--){
+        printf(&quot;S&quot;);
     }
-    <span class="keyword">for</span>(tmp = <span class="number">0</span>; tmp &lt; num[<span class="number">0</span>]; tmp++){
-        <span class="built_in">printf</span>(<span class="string">"%d"</span>, tmp+<span class="number">1</span>);
+    for(tmp = 0; tmp &lt; num[0]; tmp++){
+        printf(&quot;%d&quot;, tmp+1);
     }
-    <span class="built_in">printf</span>(<span class="string">"\n"</span>);
-    <span class="keyword">return</span> <span class="number">0</span>;
+    printf(&quot;\n&quot;);
+    return 0;
 }
-
-
 </code></pre>
 
       
@@ -527,7 +525,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -739,7 +737,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

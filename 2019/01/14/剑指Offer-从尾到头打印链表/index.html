@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -142,7 +142,7 @@
 
 
 
-  <title>剑指Offer-从尾到头打印链表 | DesmonDay's Blog</title>
+  <title>剑指Offer-从尾到头打印链表 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -167,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -366,32 +366,32 @@
       
         <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。</p>
 <h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>思路很简单，直接利用栈即可。比较坑的是，我在判断是否到达链表末尾那里出了点问题，因此总是导致段错误。以后就记住了，如果在while循环里不需要对p-&gt;next进行操作之类的，则直接循环条件为p!=next。</p>
-<pre><code class="cpp"><span class="comment">/**</span>
-<span class="comment">*  struct ListNode {</span>
-<span class="comment">*        int val;</span>
-<span class="comment">*        struct ListNode *next;</span>
-<span class="comment">*        ListNode(int x) :</span>
-<span class="comment">*              val(x), next(NULL) {</span>
-<span class="comment">*        }</span>
-<span class="comment">*  };</span>
-<span class="comment">*/</span>
-<span class="class"><span class="keyword">class</span> <span class="title">Solution</span> {</span>
-<span class="keyword">public</span>:
-    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; printListFromTailToHead(ListNode* head) {
-        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;
-        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s;
+<pre><code class="lang-cpp">/**
+*  struct ListNode {
+*        int val;
+*        struct ListNode *next;
+*        ListNode(int x) :
+*              val(x), next(NULL) {
+*        }
+*  };
+*/
+class Solution {
+public:
+    vector&lt;int&gt; printListFromTailToHead(ListNode* head) {
+        vector&lt;int&gt; v;
+        stack&lt;int&gt; s;
         ListNode *p = head;
-        <span class="keyword">while</span>(p != <span class="literal">NULL</span>){
+        while(p != NULL){
             s.push(p-&gt;val);
             p = p-&gt;next;
         }
-        <span class="keyword">int</span> temp;
-        <span class="keyword">while</span>(!s.empty()){
+        int temp;
+        while(!s.empty()){
             temp = s.top();
             s.pop();
             v.push_back(temp);
         }
-        <span class="keyword">return</span> v;
+        return v;
     }
 };
 </code></pre>
@@ -514,7 +514,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -726,7 +726,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

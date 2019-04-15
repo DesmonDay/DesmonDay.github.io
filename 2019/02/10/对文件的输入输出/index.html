@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -142,7 +142,7 @@
 
 
 
-  <title>对文件的输入输出(C语言) | DesmonDay's Blog</title>
+  <title>对文件的输入输出(C语言) | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -167,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -363,7 +363,7 @@
 <li>函数名：fgets，调用形式：fgets(str,n,fp)，功能：从fp指向的文件读入一个长度为n-1的字符串(最后会加上一个’\0’结束符)，存放到字符数组str中，返回值：读成功，返回地址str，失败则返回NULL。</li>
 </ol>
 <p>函数原型：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">fgets</span><span class="params">(<span class="keyword">char</span>* str, <span class="keyword">int</span> n, FILE* fp)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
+<ol>
 <li>函数名：fputs，调用形式：fputs(str,fp)，功能：把str所指向的字符串写到文件指针变量fp所指向的文件中，返回值：输出成功，返回0，否则返回非0值。</li>
 </ol>
 <p>函数原型：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">char</span> *str, FILE *fp)</span></span>;</span><br></pre></td></tr></table></figure></p>
@@ -512,7 +512,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -724,7 +724,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

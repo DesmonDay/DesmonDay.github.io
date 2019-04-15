@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -169,7 +169,7 @@
 
 
 
-  <title>Linux学习(3)——文件相关&命令介绍 | DesmonDay's Blog</title>
+  <title>Linux学习(3)——文件相关&命令介绍 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -194,7 +194,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -449,7 +449,7 @@
 <li>l表示连接文件(linux life)，例如软连接；<br><img src="http://upload-images.jianshu.io/upload_images/8636110-102707cdb8530809.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
 <li>b表示块设备文件，比如磁盘分区；<br><img src="http://upload-images.jianshu.io/upload_images/8636110-bf2b1ec537db30ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
 <li>c表示串行端口设备，例如键盘、鼠标；</li>
-<li>s表示套接字文件(socket)，用于进程间通信；<br>(2)后面9位，每三个为一组，均为rwx三个参数的组合。其中r代表可读，w代表可写，x代表可执行。前三位为所有者（user）的权限，中间三位为所属组（group）的权限，最后三位为其他非本群组（others）的权限。举例：<br>一个文件的属性为-rwxr-xr–，它代表的意思是，该文件为普通文件，文件所有者可读可写可执行，所属组可读不可写可执行，其他用户只可读。</li>
+<li>s表示套接字文件(socket)，用于进程间通信；<br>(2)后面9位，每三个为一组，均为rwx三个参数的组合。其中r代表可读，w代表可写，x代表可执行。前三位为所有者（user）的权限，中间三位为所属组（group）的权限，最后三位为其他非本群组（others）的权限。举例：<br>一个文件的属性为-rwxr-xr—，它代表的意思是，该文件为普通文件，文件所有者可读可写可执行，所属组可读不可写可执行，其他用户只可读。</li>
 </ul>
 <p>第2列，表示为连接占用的节点（inode），若为目录时，通常与该目录底下还有多少目录有关系。</p>
 <p>第3、4列分别表示文件所有者和所属组。</p>
@@ -459,12 +459,12 @@
 <h2 id="更改文件权限"><a href="#更改文件权限" class="headerlink" title="更改文件权限"></a>更改文件权限</h2><p>更改文件的权限，即更改所有者、所属组以及他们对应的读写执行权限。(应该root用户才可修改)</p>
 <h3 id="更改所属组chgrp"><a href="#更改所属组chgrp" class="headerlink" title="更改所属组chgrp"></a>更改所属组chgrp</h3><p>语法：chgrp [组名] [文件名]<br><img src="http://upload-images.jianshu.io/upload_images/8636110-413c2984eb166716.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <h3 id="更改所有者chown"><a href="#更改所有者chown" class="headerlink" title="更改所有者chown"></a>更改所有者chown</h3><p>语法：chown [-R] 账户名 文件名 or chown [-R] 账户名：组名 文件名<br>这里的-R选项只作用于目录，作用是级联更改，即不仅更改当前目录，连目录里的目录或者文件全部更改。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-19894f432671f2f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/8636110-59a27374269d7a6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="http://upload-images.jianshu.io/upload_images/8636110-e57653169117f59b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>聪明的你肯定知道了，原有的test文件夹是我在以desmon用户登录时创建的，因此其所有者和所属组都是desmon；而test2文件是root用户创建的，因此其所有者和所属组都是root；之后使用chown修改test文件夹，最后用-R选项级联修改到了test2。</p>
-<h3 id="改变读写执行权限chmod"><a href="#改变读写执行权限chmod" class="headerlink" title="改变读写执行权限chmod"></a>改变读写执行权限chmod</h3><p>在linux中为了方便更改这些权限，linux使用数字去代替rwx，具体规则为r: 4 w:2 x:1 -:0(二进制)。如，-rwxrwx—用数字表示就是770。</p>
+<h3 id="改变读写执行权限chmod"><a href="#改变读写执行权限chmod" class="headerlink" title="改变读写执行权限chmod"></a>改变读写执行权限chmod</h3><p>在linux中为了方便更改这些权限，linux使用数字去代替rwx，具体规则为r: 4 w:2 x:1 -:0(二进制)。如，-rwxrwx—-用数字表示就是770。</p>
 <p>chmod语法：chmod [-R] xyz 文件名（这里的xyz表示数字，-R表示级联修改）<br><img src="http://upload-images.jianshu.io/upload_images/8636110-aac581ade1691da3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>另外，chmod也可以支持显式的修改权限，基本上就九个属性分别是user/group/others三种，那么我们就可以用u/g/o来代表三种的属性。举例：<br><img src="http://upload-images.jianshu.io/upload_images/8636110-14cf9510d7cf9d3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>另外，其中的=也可以替换成+或-，表示增加或删除某个权限。</p>
 <h3 id="权限值限定"><a href="#权限值限定" class="headerlink" title="权限值限定"></a>权限值限定</h3><p>默认情况下，目录权限值为766，普通文件权限值为644。该值由umask限定。umask语法：umask xxx （这里的xxx代表三个数字），查看umask值只要输入umask然后回车。<br>root的umask预设是0022，含义规则如下：</p>
 <p>1）若用户建立为普通文件，则预设“没有可执行权限”，只有rw两个权限。最大为666（-rw-rw-rw-）<br>2）若用户建立为目录，则预设所有权限均开放，即777（drwxrwxrwx）</p>
-<p>umask数值代表的含义为，上边两条规则中的默认值（文件为666，目录为777）需要减掉的权限。所以目录的权限为(rwxrwxrwx) – (—-w–w-) = (rwxr-xr-x)，普通文件的权限为(rw-rw-rw-) – (—-w–w-) = (rw-r–r–)。</p>
+<p>umask数值代表的含义为，上边两条规则中的默认值（文件为666，目录为777）需要减掉的权限。所以目录的权限为(rwxrwxrwx) – (——w—w-) = (rwxr-xr-x)，普通文件的权限为(rw-rw-rw-) – (——w—w-) = (rw-r—r—)。</p>
 <p>umask的值可自定义修改，预设情况下，root的umask为022，而一般使用者则为002，因为可写的权限非常重要，因此预设会去掉写权限。</p>
 <h3 id="特殊属性相关指令"><a href="#特殊属性相关指令" class="headerlink" title="特殊属性相关指令"></a>特殊属性相关指令</h3><p>chattr：修改文件/目录的特殊属性<br>lsattr：列出文件/目录的特殊属性</p>
 <h2 id="linux下搜索文件"><a href="#linux下搜索文件" class="headerlink" title="linux下搜索文件"></a>linux下搜索文件</h2><p>which：用来查找可执行文件的绝对路径。需要注意的一点是，which只能用来查找PATH环境变量中出现的路径下的可执行文件。</p>
@@ -600,7 +600,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -812,7 +812,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

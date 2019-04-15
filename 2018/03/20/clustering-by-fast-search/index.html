@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -150,7 +150,7 @@
 
 
 
-  <title>Reading report of Clustering by fast search and find of density peaks | DesmonDay's Blog</title>
+  <title>Reading report of Clustering by fast search and find of density peaks | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -175,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -383,7 +383,7 @@
 <p>When applying approach on Olivetti Face Database, the authors use a Guassian kernal to calculate distance:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a70d9521a8a128f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>And we can see that the first one is discrete value, the second one is continuous value, which means the former one is more easy to conflict.</p>
 <h2 id="Calculating-distance-δ-i"><a href="#Calculating-distance-δ-i" class="headerlink" title="Calculating distance δ_i"></a>Calculating distance δ_i</h2><p>δ_i is measured by the minimum distance between point i and other points with higher local density.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-671fe4f645ffd5b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>For the point with highest density, take δ_i=maxj(dij). Here we may jump in such dilemma, maybe point i and point j has the same density, and they happen to be in the same cluster. If we using the following cluster procedure, we may choose both two point as cluster centers, and takes one cluster apart. </p>
-<p>When I search some relevant information online, I find a better understanding of δ_i, which defines as followed:<br>Suppose {q_i }_(i=1)^N represents the descending index order of {ρ<em>i }\</em>(i=1)^N, which mean it satisfies:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b39162471428cd08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>When I search some relevant information online, I find a better understanding of δ_i, which defines as followed:<br>Suppose {q_i }_(i=1)^N represents the descending index order of {ρ_i }_(i=1)^N, which mean it satisfies:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b39162471428cd08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <h2 id="Cluster-procedure"><a href="#Cluster-procedure" class="headerlink" title="Cluster procedure"></a>Cluster procedure</h2><p>In order to choose the cluster center, the authors find such observation: the points of high δ and relatively high ρ are the cluster centers. In order to better visualize the result, they create a decision graph, which shown as followed:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b7209009ad681c73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>From the figure, we can clearly see that point 1 and 10 are clusters. In the paper, the isolated points are 26,27,28. (But in the paper, the authors did not clearly propose an exact way to find out the outliers, which I think needed consideration.) But one thing we should mention is that we define the cluster center in a qualitative analysis but not a quantitative analysis, which would cause puzzles.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4399580d34e2186d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>When we see figure A, the number of cluster centers is not clear and some may think different points as cluster centers. So as to determine the number of cluster centers, the authors gave a metric value:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ea19feef45766ad7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>In figure B, γ is pointed out. We can see that the higher γ is morely like the cluster center. And there is a clear different between cluster center and other points: the latter is relatively smooth, and there is a clear jump between cluster center and other points. In this way, we can see there are nine center clusters in the above figure.</p>
@@ -510,7 +510,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -722,7 +722,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

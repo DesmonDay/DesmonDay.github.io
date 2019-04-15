@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -142,7 +142,7 @@
 
 
 
-  <title>剑指Offer-顺时针打印矩阵(难) | DesmonDay's Blog</title>
+  <title>剑指Offer-顺时针打印矩阵(难) | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -167,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -367,33 +367,33 @@
         <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.</p>
 <h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>这道题我没有一个正确的思路，因此想不出如何做。直接参考了《剑指Offer》一书。</p>
 <p>当我们遇到一个复杂问题的时候，可以用图形来帮助思考。由于是以从外圈到内圈的顺序依次打印的，所以我们可以把矩阵想象成若干个圈。我们可以用一个循环来打印矩阵，每次打印矩阵的一个圈。接着，我参考了 <a href="https://www.nowcoder.com/profile/6606749/codeBookDetail?submissionId=15814779" target="_blank" rel="noopener">https://www.nowcoder.com/profile/6606749/codeBookDetail?submissionId=15814779</a> 的写法。下面是对这道题解法的详细说明。感觉有点混乱啊！！！</p>
-<pre><code class="cpp"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>{</span>
-<span class="keyword">public</span>:
-    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; printMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; matrix) {
-        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; num;
-        <span class="keyword">int</span> rows = matrix.size();
-        <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].size();
-        <span class="keyword">int</span> circles = ((rows&lt;cols ?: rows:cols)<span class="number">-1</span>)/<span class="number">2</span>+<span class="number">1</span>; <span class="comment">//求打印圈数</span>
+<pre><code class="lang-cpp">class Solution{
+public:
+    vector&lt;int&gt; printMatrix(vector&lt;vector&lt;int&gt; &gt; matrix) {
+        vector&lt;int&gt; num;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        int circles = ((rows&lt;cols ?: rows:cols)-1)/2+1; //求打印圈数
 
-        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;circles; i++){
-            <span class="comment">// 从左往右打印</span>
-            <span class="keyword">for</span>(<span class="keyword">int</span> j=i; j&lt;cols-i; j++){
+        for (int i=0; i&lt;circles; i++){
+            // 从左往右打印
+            for(int j=i; j&lt;cols-i; j++){
                 num.push_back(matrix[i][j]);
             }
-            <span class="comment">// 从上往下打印</span>
-            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>; j&lt;rows-i; j++){ <span class="comment">//最后一行为rows-i-1</span>
-                num.push_back(matrix[j][cols-i<span class="number">-1</span>]);
+            // 从上往下打印
+            for(int j=i+1; j&lt;rows-i; j++){ //最后一行为rows-i-1
+                num.push_back(matrix[j][cols-i-1]);
             }
-            <span class="comment">// 从右往左打印，其中(rows-i-1!=i)避免重复打印</span>
-            <span class="keyword">for</span>(<span class="keyword">int</span> j=cols-i<span class="number">-2</span>; (j&gt;=i)&amp;&amp;(rows-i<span class="number">-1</span>!=i); j--){
-                num.push_back(matrix[rows-i<span class="number">-1</span>][j]);
+            // 从右往左打印，其中(rows-i-1!=i)避免重复打印
+            for(int j=cols-i-2; (j&gt;=i)&amp;&amp;(rows-i-1!=i); j--){
+                num.push_back(matrix[rows-i-1][j]);
             }
-            <span class="comment">// 从下往上打印</span>
-            <span class="keyword">for</span>(<span class="keyword">int</span> j=rows-i<span class="number">-2</span>; (j&gt;=i+<span class="number">1</span>)&amp;&amp;(i!=cols-i<span class="number">-1</span>); j--){
+            // 从下往上打印
+            for(int j=rows-i-2; (j&gt;=i+1)&amp;&amp;(i!=cols-i-1); j--){
                 num.push_back(matrix[j][i]);
             }
         }
-        <span class="keyword">return</span> num;
+        return num;
     }
 }
 </code></pre>
@@ -517,7 +517,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -729,7 +729,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

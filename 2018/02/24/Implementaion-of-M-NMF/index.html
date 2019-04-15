@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -155,7 +155,7 @@
 
 
 
-  <title>Implementation of M-NMF | DesmonDay's Blog</title>
+  <title>Implementation of M-NMF | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -180,7 +180,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -438,7 +438,7 @@ end
 <p>我们由之前的M-NMF已知有结点的表达矩阵U，再加上原有的gnd数据保存各结点的分类，那么就需要将上述矩阵划分为训练集和验证集，来进行训练和分类。为了在随机排列结点时能够保持U和gnd的对应关系不变，因此需要我将两部分矩阵连接起来，形成统一的data矩阵。</p>
 <p>虽然，选取前80%为训练集，后20%为验证集。由于libinear需要原始数据为稀疏矩阵，因此首先将其转换成sparse矩阵，再进行模型训练，部分代码如下：(参考博客：<a href="http://blog.csdn.net/zouxy09/article/details/10947411）" target="_blank" rel="noopener">http://blog.csdn.net/zouxy09/article/details/10947411）</a></p>
 <pre><code>sp = sparse(train_data);
-model = train(group, sp,&apos;-c 1&apos;)
+model = train(group, sp,&#39;-c 1&#39;)
 % group保存数据标签，sp为稀疏后的训练数据矩阵
 </code></pre><p>由上述两行代码即可训练得出对应模型，再结合代码进行预测即可：</p>
 <pre><code>[predict_label, accuracy, dec_values] = predict(label, test, model);
@@ -566,7 +566,7 @@ model = train(group, sp,&apos;-c 1&apos;)
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -778,7 +778,24 @@ model = train(group, sp,&apos;-c 1&apos;)
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

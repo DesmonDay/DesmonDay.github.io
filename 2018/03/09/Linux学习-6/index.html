@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -151,7 +151,7 @@
 
 
 
-  <title>Linux学习(6)——shell基础知识 | DesmonDay's Blog</title>
+  <title>Linux学习(6)——shell基础知识 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -176,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -391,8 +391,7 @@
 <h3 id="输入输出重定向"><a href="#输入输出重定向" class="headerlink" title="输入输出重定向"></a>输入输出重定向</h3><p>输入重定向用于改变命令的输入，输出重定向用于改变命令的输出。输出重定向更为常用，它经常用于将命令的结果输入到文件中，而不是屏幕上。输入重定向的命令是&lt;，输出重定向的命令是&gt;，另外还有错误重定向2&gt;，以及追加重定向&gt;&gt;。</p>
 <h3 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h3><p>|是管道符,把前面的命令执行结果输送到管道符后的命令作为参数执行。</p>
 <h3 id="作业控制"><a href="#作业控制" class="headerlink" title="作业控制"></a>作业控制</h3><p>当运行一个进程时，你可以使它暂停（ctrl+z），然后使用fg命令恢复它，利用bg命令使他到后台运行，你也可以使它终止（ctrl+c）。</p>
-<p>##变量</p>
-<h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>在前面的博文中，我们有接触过环境变量PATH，这个环境变量就是shell预设的一个变量，通常shell预设的变量都是大写的。变量，说简单点就是使用一个较简单的字符串来替代某些具有特殊意义的设定以及数据。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>在前面的博文中，我们有接触过环境变量PATH，这个环境变量就是shell预设的一个变量，通常shell预设的变量都是大写的。变量，说简单点就是使用一个较简单的字符串来替代某些具有特殊意义的设定以及数据。</p>
 <p>就拿PATH来讲，这个PATH就代替了所有常用命令的绝对路径的设定。因为有了PATH这个变量，所以我们运行某个命令时不再去输入全局路径，直接敲命令名即可。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-5422783955894691.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>使用env指令，可以列出系统预设的全部系统变量。不过登录的用户不同，这些环境变量的值也不一样。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-03a172e1e8f239d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>（后面还有好多）</p>
 <p>常见环境变量：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-cff9433124827d3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
@@ -412,12 +411,12 @@
 <li>如果变量内容中需要用到其他命令运行结果则可以使用反引号`；</li>
 <li>变量内容可以累加其他变量的内容，需要加双引号；<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b54b6e1991e36389.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
 </ul>
-<h2 id="系统环境变量与个人环境变量的配置文件"><a href="#系统环境变量与个人环境变量的配置文件" class="headerlink" title="系统环境变量与个人环境变量的配置文件"></a>系统环境变量与个人环境变量的配置文件</h2><p>/etc/profile: 这个文件预设了几个重要的变量，例如PATH, USER, LOGNAME, MAIL, INPUTRC, HOSTNAME, HISTSIZE, umas等等<br>/etc/bashrc: 这个文件主要预设umask以及PS1。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7b085bb394f21430.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>（并不懂，按照作者的意思，这里是\u就是用户，\h 主机名， \W 则是当前目录，\$就是那个’#’了，如果是普通用户则显示为’$’（即画红线部分），其他部分的字符我就不明白了。</p>
+<h2 id="系统环境变量与个人环境变量的配置文件"><a href="#系统环境变量与个人环境变量的配置文件" class="headerlink" title="系统环境变量与个人环境变量的配置文件"></a>系统环境变量与个人环境变量的配置文件</h2><p>/etc/profile: 这个文件预设了几个重要的变量，例如PATH, USER, LOGNAME, MAIL, INPUTRC, HOSTNAME, HISTSIZE, umas等等<br>/etc/bashrc: 这个文件主要预设umask以及PS1。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7b085bb394f21430.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>（并不懂，按照作者的意思，这里是\u就是用户，\h 主机名， \W 则是当前目录，$就是那个’#’了，如果是普通用户则显示为’$’（即画红线部分），其他部分的字符我就不明白了。</p>
 <p>除了两个系统级别的配置文件外，每个用户的主目录下还有几个这样的隐藏文件：<br>.bash_profile: 定义了用户的个人化路径与环境变量的文件名称。每个用户都可使用该文件输入用于自己使用的shell信息，当用户登录时，该文件仅执行一次。<br>.bashrc: 该文件包含专用于你的shell的bash信息，当登录时以及每次打开新的shell时,该文件被读取。例如你可以将用户自定义的alias或者自定义变量写到这个文件中。<br>.bash_history: 记录命令历史。<br>.bash_logout: 当退出shell时，会执行该文件。可以把清理工作放到这个文件中。</p>
 <h2 id="linux-shell中的特殊符号"><a href="#linux-shell中的特殊符号" class="headerlink" title="linux shell中的特殊符号"></a>linux shell中的特殊符号</h2><ol>
 <li>*：代表零个或多个字符或数字</li>
 <li>?：只代表一个任意的字符</li>
-<li>#：这个符号在linux中表示注释说明的意思，即”#”后面的内容linux忽略掉。(相当于注释啦)</li>
+<li><h1 id="：这个符号在linux中表示注释说明的意思，即”-”后面的内容linux忽略掉。-相当于注释啦"><a href="#：这个符号在linux中表示注释说明的意思，即”-”后面的内容linux忽略掉。-相当于注释啦" class="headerlink" title="：这个符号在linux中表示注释说明的意思，即”#”后面的内容linux忽略掉。(相当于注释啦)"></a>：这个符号在linux中表示注释说明的意思，即”#”后面的内容linux忽略掉。(相当于注释啦)</h1></li>
 <li>\：转义字符</li>
 <li>|：管道符。它的作用在于将符号前面命令的结果丢给符号后面的命令。</li>
 <li>$：用于变量前面的标识符。</li>
@@ -541,7 +540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -618,7 +617,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell脚本基础知识"><span class="nav-number">1.</span> <span class="nav-text">Shell脚本基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是shell"><span class="nav-number">1.1.</span> <span class="nav-text">什么是shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell在Linux中的存在形式"><span class="nav-number">1.2.</span> <span class="nav-text">shell在Linux中的存在形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell如何执行用户的指令"><span class="nav-number">1.3.</span> <span class="nav-text">shell如何执行用户的指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关前置知识"><span class="nav-number">1.4.</span> <span class="nav-text">相关前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录命令历史"><span class="nav-number">1.4.1.</span> <span class="nav-text">记录命令历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令和文件名补全"><span class="nav-number">1.4.2.</span> <span class="nav-text">指令和文件名补全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#别名"><span class="nav-number">1.4.3.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符"><span class="nav-number">1.4.4.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入输出重定向"><span class="nav-number">1.4.5.</span> <span class="nav-text">输入输出重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道符"><span class="nav-number">1.4.6.</span> <span class="nav-text">管道符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作业控制"><span class="nav-number">1.4.7.</span> <span class="nav-text">作业控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单介绍"><span class="nav-number">1.4.8.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux自定义变量规则"><span class="nav-number">1.4.9.</span> <span class="nav-text">Linux自定义变量规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统环境变量与个人环境变量的配置文件"><span class="nav-number">1.5.</span> <span class="nav-text">系统环境变量与个人环境变量的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-shell中的特殊符号"><span class="nav-number">1.6.</span> <span class="nav-text">linux shell中的特殊符号</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell脚本基础知识"><span class="nav-number">1.</span> <span class="nav-text">Shell脚本基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是shell"><span class="nav-number">1.1.</span> <span class="nav-text">什么是shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell在Linux中的存在形式"><span class="nav-number">1.2.</span> <span class="nav-text">shell在Linux中的存在形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell如何执行用户的指令"><span class="nav-number">1.3.</span> <span class="nav-text">shell如何执行用户的指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关前置知识"><span class="nav-number">1.4.</span> <span class="nav-text">相关前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录命令历史"><span class="nav-number">1.4.1.</span> <span class="nav-text">记录命令历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指令和文件名补全"><span class="nav-number">1.4.2.</span> <span class="nav-text">指令和文件名补全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#别名"><span class="nav-number">1.4.3.</span> <span class="nav-text">别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符"><span class="nav-number">1.4.4.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入输出重定向"><span class="nav-number">1.4.5.</span> <span class="nav-text">输入输出重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道符"><span class="nav-number">1.4.6.</span> <span class="nav-text">管道符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作业控制"><span class="nav-number">1.4.7.</span> <span class="nav-text">作业控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">1.5.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单介绍"><span class="nav-number">1.5.1.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux自定义变量规则"><span class="nav-number">1.5.2.</span> <span class="nav-text">Linux自定义变量规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统环境变量与个人环境变量的配置文件"><span class="nav-number">1.6.</span> <span class="nav-text">系统环境变量与个人环境变量的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-shell中的特殊符号"><span class="nav-number">1.7.</span> <span class="nav-text">linux shell中的特殊符号</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#：这个符号在linux中表示注释说明的意思，即”-”后面的内容linux忽略掉。-相当于注释啦"><span class="nav-number">2.</span> <span class="nav-text">：这个符号在linux中表示注释说明的意思，即”#”后面的内容linux忽略掉。(相当于注释啦)</span></a></li></ol></div>
             
 
           </div>
@@ -753,7 +752,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

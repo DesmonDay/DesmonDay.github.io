@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -151,7 +151,7 @@
 
 
 
-  <title>Linux学习(5)——文档压缩与打包 | DesmonDay's Blog</title>
+  <title>Linux学习(5)——文档压缩与打包 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -176,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -389,10 +389,10 @@
 <li>-c: 建立一个tar包或者压缩文件包</li>
 <li>-v: 可视化</li>
 <li>-f: 后面跟文件名，压缩时跟-f文件名(压缩后文件名为filename)；解压时跟-f文件名，意思是解压filename。（注意，如果有多个参数，-f写在最后面)</li>
-<li>–exclude filename: 在打包或者压缩时，不要将filename文件包含在内。</li>
+<li>—exclude filename: 在打包或者压缩时，不要将filename文件包含在内。</li>
 </ul>
 <p><img src="http://upload-images.jianshu.io/upload_images/8636110-5e23468a6d07e594.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>打包的同时使用gzip压缩<br><img src="http://upload-images.jianshu.io/upload_images/8636110-554a7bbd1b82979d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>-tf查看：<br><img src="http://upload-images.jianshu.io/upload_images/8636110-1bfdbca693014700.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>用tar -zxvf来解压tar.gz的压缩包；用tar -jxvf来解压.tar.bz2的压缩包。–exclude参数用来过滤文件，如果需要过滤多个，则需要使用多个–exclude filename。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-4d5d8addea533eb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>用tar -zxvf来解压tar.gz的压缩包；用tar -jxvf来解压.tar.bz2的压缩包。—exclude参数用来过滤文件，如果需要过滤多个，则需要使用多个—exclude filename。<br><img src="http://upload-images.jianshu.io/upload_images/8636110-4d5d8addea533eb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <h1 id="Linux软件安装包"><a href="#Linux软件安装包" class="headerlink" title="Linux软件安装包"></a>Linux软件安装包</h1><p>我们常用的Linux软件包为deb、rpm、tar.gz三种软件安装包。<br>rpm包-在红帽LINUX、SUSE、Fedora可以直接进行安装，但在Ubuntu中却无法识别；<br>deb包-是Ubuntu的专利，在Ubuntu中双击deb包就可以进入自动安装进程；<br>tar.gz包-在所有的Linux版本中都能使用，但安装过程也最麻烦。<br>（二水马的原话）</p>
 <p>此处软件包的安装就不详细讲了，需要的时候再百度谷歌即可。</p>
 <h2 id="安装源码包-tar-gz"><a href="#安装源码包-tar-gz" class="headerlink" title="安装源码包(.tar.gz)"></a>安装源码包(.tar.gz)</h2><p>这部分我直接摘抄学习。</p>
@@ -400,7 +400,7 @@
 <p>源码包的编译用到了linux系统里的编译器，常见的源码包一般都是用C语言开发的，这也是因为C语言为linux上最标准的程序语言。Linux上的C语言编译器叫做gcc，利用它就可以把C语言变成可执行的二进制文件。</p>
 <p>安装一个源码包，通常需要三个步骤：</p>
 <ol>
-<li><p>./config 在这一步可以定制功能，加上相应的选项即可，具有有什么选项可以通过”./config –help”命令来查看。在这一步会自动检测你的linux系统与相关的套件是否有编译该源码包时需要的库，因为一旦缺少某个库就不能完成编译。只有检测通过后才会生成一个Makefile文件。</p>
+<li><p>./config 在这一步可以定制功能，加上相应的选项即可，具有有什么选项可以通过”./config —help”命令来查看。在这一步会自动检测你的linux系统与相关的套件是否有编译该源码包时需要的库，因为一旦缺少某个库就不能完成编译。只有检测通过后才会生成一个Makefile文件。</p>
 </li>
 <li><p>make    使用这个命令会根据Makefile文件中预设的参数进行编译，这一步其实就是gcc在工作了。</p>
 </li>
@@ -413,12 +413,12 @@
 <p>（2）解压：tar zxvf http…(包名)</p>
 <p>（3）配置相关选项，并生成Makefile</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/8636110-0359730b4610fe56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>(很明显看到，缺少APR，配置失败，无法生成Makefile文件。)</p>
-<p>解压后进入对应目录，./config –help可以查看可用选项，一般常用的有”–prefix=PREFIX”，这个选项的意思是定义软件包安装到哪里。通常源码包都是安装在/usr/local/目录下的。比如，我们把apache安装在/usr/local/apache2下，那么这里就应该这样写”–prefix=/usr/local/apache2”。</p>
+<p>解压后进入对应目录，./config —help可以查看可用选项，一般常用的有”—prefix=PREFIX”，这个选项的意思是定义软件包安装到哪里。通常源码包都是安装在/usr/local/目录下的。比如，我们把apache安装在/usr/local/apache2下，那么这里就应该这样写”—prefix=/usr/local/apache2”。</p>
 <p>解决方法：Apache在安装时需要一些准备环境，这里需要安装另外一个东西 APR（Apache Portable Runtime）。同样需要下载和解压。过程如下：</p>
 <ol>
 <li>wget <a href="http://archive.apache.org/dist/apr/apr-1.6.3.tar.gz" target="_blank" rel="noopener">http://archive.apache.org/dist/apr/apr-1.6.3.tar.gz</a></li>
 <li>tar -zxvf apr-1.6.3.tar.gz</li>
-<li>编译：<br>./configure –prefix=/usr/local/apr<br>make<br>make install</li>
+<li>编译：<br>./configure —prefix=/usr/local/apr<br>make<br>make install</li>
 </ol>
 <p>完成之后，居然还差APR-util。。。疯了。后面Apache的安装过程与上面步骤类似，不再具体贴图了。现在只管安好它。。</p>
 <p>（4）除了查看有没有生成Makefile文件来判定有没有完成./config 的操作外，还可以通过这个命令”echo $?”来判定，如果是0，则表示上一步操作成功完成，否则就是没有成功。</p>
@@ -545,7 +545,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -757,7 +757,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

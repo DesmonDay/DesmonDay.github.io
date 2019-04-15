@@ -7,7 +7,7 @@
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -142,7 +142,7 @@
 
 
 
-  <title>Tensorflow综述 | DesmonDay's Blog</title>
+  <title>Tensorflow综述 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -167,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -401,7 +401,7 @@
 <ul>
 <li>“/cpu:0”: 机器的 CPU.</li>
 <li>“/gpu:0”: 机器的第一个 GPU, 如果有的话.</li>
-<li>“/gpu:1”: 机器的第二个 GPU, 以此类推.<br>阅读使用GPU章节(<a href="http://www.tensorfly.cn/tfdoc/how_tos/using_gpu.html)" target="_blank" rel="noopener">http://www.tensorfly.cn/tfdoc/how_tos/using_gpu.html)</a>, 了解 TensorFlow GPU 使用的更多信息.</li>
+<li>“/gpu:1”: 机器的第二个 GPU, 以此类推.<br>阅读使用GPU章节(<a href="http://www.tensorfly.cn/tfdoc/how_tos/using_gpu.html" target="_blank" rel="noopener">http://www.tensorfly.cn/tfdoc/how_tos/using_gpu.html</a>), 了解 TensorFlow GPU 使用的更多信息.</li>
 </ul>
 <h1 id="交互式使用"><a href="#交互式使用" class="headerlink" title="交互式使用"></a>交互式使用</h1><p>文档中的 Python 示例使用一个会话 Session 来 启动图, 并调用 Session.run() 方法执行操作.</p>
 <p>为了便于使用诸如 IPython 之类的 Python 交互环境, 可以使用 InteractiveSession 代替 Session 类, 使用 Tensor.eval() 和 Operation.run() 方法代替 Session.run(). 这样可以避免使用一个变量来持有会话. (自从命令行可以直接启动python，我就不想启动Ipython了，看着前面序号不习惯。这里就记录一下。)</p>
@@ -540,7 +540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -752,7 +752,24 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

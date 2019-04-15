@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="c++," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -96,18 +96,21 @@
 
 
 
-<meta name="description" content="题目Given three integers A, B and C in [-2^63, 2^63], you are supposed to tell whether A+B &amp;gt; C. Input Specification: The first line of the input gives the positive number of test cases, T (&amp;lt;=10).">
-<meta name="keywords" content="c++">
+<meta name="description" content="Mini-batch梯度下降如果针对整个数据集进行梯度下降，如果数据集很大，那么速度就会很慢。因此，我们可以对训练集中的一部分进行梯度下降。因此可以将训练集分为多个mini-batch，针对每个mini-batch进行梯度下降。从图中，我们看到Batch vs Mini-Batch，这里对比的就是我们原本的针对整个训练集进行梯度下降，以及选取mini-batch进行梯度下降的两种算法的对比。另外，">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PAT甲1065.A+B and C (64bit)">
-<meta property="og:url" content="https://github.com/DesmonDay/2018/03/24/A1065/index.html">
+<meta property="og:title" content="第6周-优化算法">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/04/14/deep-learningw6/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="题目Given three integers A, B and C in [-2^63, 2^63], you are supposed to tell whether A+B &amp;gt; C. Input Specification: The first line of the input gives the positive number of test cases, T (&amp;lt;=10).">
+<meta property="og:description" content="Mini-batch梯度下降如果针对整个数据集进行梯度下降，如果数据集很大，那么速度就会很慢。因此，我们可以对训练集中的一部分进行梯度下降。因此可以将训练集分为多个mini-batch，针对每个mini-batch进行梯度下降。从图中，我们看到Batch vs Mini-Batch，这里对比的就是我们原本的针对整个训练集进行梯度下降，以及选取mini-batch进行梯度下降的两种算法的对比。另外，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-24T15:39:22.390Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b90b350915d8f58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-48eeaa69726e431c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-14T08:58:40.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PAT甲1065.A+B and C (64bit)">
-<meta name="twitter:description" content="题目Given three integers A, B and C in [-2^63, 2^63], you are supposed to tell whether A+B &amp;gt; C. Input Specification: The first line of the input gives the positive number of test cases, T (&amp;lt;=10).">
+<meta name="twitter:title" content="第6周-优化算法">
+<meta name="twitter:description" content="Mini-batch梯度下降如果针对整个数据集进行梯度下降，如果数据集很大，那么速度就会很慢。因此，我们可以对训练集中的一部分进行梯度下降。因此可以将训练集分为多个mini-batch，针对每个mini-batch进行梯度下降。从图中，我们看到Batch vs Mini-Batch，这里对比的就是我们原本的针对整个训练集进行梯度下降，以及选取mini-batch进行梯度下降的两种算法的对比。另外，">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-b90b350915d8f58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -136,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2018/03/24/A1065/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/04/14/deep-learningw6/"/>
 
 
 
 
 
-  <title>PAT甲1065.A+B and C (64bit) | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>第6周-优化算法 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -275,7 +278,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2018/03/24/A1065/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/04/14/deep-learningw6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DesmonDay">
@@ -292,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PAT甲1065.A+B and C (64bit)</h1>
+          <h1 class="post-title" itemprop="name headline">第6周-优化算法</h1>
         
 
         <div class="post-meta">
@@ -304,8 +307,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-24T22:56:06+08:00">
-                2018-03-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T16:34:21+08:00">
+                2019-04-14
               </time>
             
 
@@ -327,8 +330,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/PAT甲/" itemprop="url" rel="index">
-                    <span itemprop="name">PAT甲</span>
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -364,20 +367,8 @@
       
 
       
-        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>Given three integers A, B and C in [-2^63, 2^63], you are supposed to tell whether A+B &gt; C.</p>
-<p>Input Specification:</p>
-<p>The first line of the input gives the positive number of test cases, T (&lt;=10). Then T test cases follow, each consists of a single line containing three integers A, B and C, separated by single spaces.</p>
-<p>Output Specification:</p>
-<p>For each test case, output in one line “Case #X: true” if A+B&gt;C, or “Case #X: false” otherwise, where X is the case number (starting from 1).</p>
-<p>Sample Input:<br>3<br>1 2 3<br>2 3 4<br>9223372036854775807 -9223372036854775808 0<br>Sample Output:<br>Case #1: false<br>Case #2: true<br>Case #3: false</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>之前我在乙题那里也做过类似的题，不过它是32位的，只要用long long就可以了。今天这道题我吸取了教训，然后就直接用double来存储数据，然而发现，结果不对？？是的，不管我怎么测试，感觉double的范围就是比long long大啊，但是结果都是错的。无奈之下，只能用long long加溢出判断了。</p>
-<p>特殊情况：</p>
-<ol>
-<li>当A+B&gt;=2^63，显然有A+B&gt;C成立。然而因为相加后溢出，导致相加后的结果为负，需要处理;</li>
-<li>与1相反，当A+B&lt;=-2^63时，显然不成立，但相加后溢出结果大于等于0，需要处理。</li>
-</ol>
-<p>依稀觉得这题很熟悉！！记住了！！不能忘记！！代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> a, b, c;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=t; i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld"</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">        <span class="keyword">if</span>(a+b&lt;<span class="number">0</span> &amp;&amp; a&gt;<span class="number">0</span> &amp;&amp; b&gt;<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: true\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a&lt;<span class="number">0</span> &amp;&amp; b&lt;<span class="number">0</span> &amp;&amp; a+b&gt;=<span class="number">0</span>)&#123; <span class="comment">//&gt;=</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: false\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a+b &gt; c)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: true\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a+b &lt;= c)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Case #%d: false\n"</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>以后还是乖乖按题目要求做题好了。</p>
+        <h1 id="Mini-batch梯度下降"><a href="#Mini-batch梯度下降" class="headerlink" title="Mini-batch梯度下降"></a>Mini-batch梯度下降</h1><p>如果针对整个数据集进行梯度下降，如果数据集很大，那么速度就会很慢。因此，我们可以对训练集中的一部分进行梯度下降。因此可以将训练集分为多个mini-batch，针对每个mini-batch进行梯度下降。从图中，我们看到Batch vs Mini-Batch，这里对比的就是我们原本的针对整个训练集进行梯度下降，以及选取mini-batch进行梯度下降的两种算法的对比。另外，针对每个mini-batch，其标记符号为X^{1}…X^{t}.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b90b350915d8f58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>Mini-batch梯度下降的实现过程：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-48eeaa69726e431c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>从图中可知，我们在一次for循环中遍历所有的mini-batch样本，每次的计算仅针对X^{t}和Y^{t}来进行，整个的for循环称为一次epoch。如果我们要进行多次epoch，可以再添加一个针对epoch的for循环。</p>
 
       
     </div>
@@ -395,7 +386,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a>
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           
         </div>
       
@@ -408,8 +399,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/24/A1042和1046/" rel="next" title="PAT甲1042和1046">
-                <i class="fa fa-chevron-left"></i> PAT甲1042和1046
+              <a href="/2019/04/14/deep-learningw5/" rel="next" title="第5周-深度学习的实用层面">
+                <i class="fa fa-chevron-left"></i> 第5周-深度学习的实用层面
               </a>
             
           </div>
@@ -418,8 +409,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/25/1028-人口普查/" rel="prev" title="PAT乙1028.人口普查">
-                PAT乙1028.人口普查 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/15/NLP学习1/" rel="prev" title="Word Embedding教程">
+                Word Embedding教程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -574,7 +565,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mini-batch梯度下降"><span class="nav-number">1.</span> <span class="nav-text">Mini-batch梯度下降</span></a></li></ol></div>
             
 
           </div>
