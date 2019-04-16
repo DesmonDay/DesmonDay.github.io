@@ -105,7 +105,19 @@
 <meta property="og:description" content="参考李理的免费书籍《深度学习理论与实战：提高篇》进行学习，这里记录一些比较重要的笔记。注：本博客记录仅用于个人学习。原博客地址：https://fancyerii.github.io/2019/03/14/dl-book/  词的表示方法不同于更底层的图像和声音信号，语言是高度抽象的离散符号系统。为了能够使用神经网络来解决NLP任务，几乎所有的深度学习模型都会在第一步把离散的符号变成向量。我们希望">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-228b8c0619b4b24b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-15T08:36:35.156Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4e42aec1a0f47495.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2e89b69d1f069aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2b6cbebe6bffad2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-0a55e734cde036d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e656b9ff23603a06.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-257a612981f9daf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-73141b42e44f8685.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-763777484ee23424.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-832759817fc69b74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-daa42fea9634ffc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e8c63668351c9f38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-56a32e835303f660.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-15T12:49:09.194Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word Embedding教程">
 <meta name="twitter:description" content="参考李理的免费书籍《深度学习理论与实战：提高篇》进行学习，这里记录一些比较重要的笔记。注：本博客记录仅用于个人学习。原博客地址：https://fancyerii.github.io/2019/03/14/dl-book/  词的表示方法不同于更底层的图像和声音信号，语言是高度抽象的离散符号系统。为了能够使用神经网络来解决NLP任务，几乎所有的深度学习模型都会在第一步把离散的符号变成向量。我们希望">
@@ -373,7 +385,27 @@
 <p>然而，one-hot向量表示的问题是不满足我们的期望——相似的词的距离较近而不相似的较远。对于one-hot向量来说，相同的词距离是0，而不同的词距离是1，显然不正确。比如apple和pear的距离显然要比apple和cat的距离要近，但在one-hot表示里apple和其他所有词的距离都是1。</p>
 <p>另外，one-hot也是一个高维的稀疏向量。而我们希望用一个低维的稠密向量来表示一个词，并且希望每一维都是表示某种语义，比如第一维代表水果（假设），那么apple和pear在这一维的值比较大，而cat的值比较小。这样apple和pear的距离就比cat和apple的距离要近。</p>
 <h1 id="神经网络语言模型"><a href="#神经网络语言模型" class="headerlink" title="神经网络语言模型"></a>神经网络语言模型</h1><p>如何学习到比较好的词向量？最早的词向量可以追溯到神经网络语言模型。首先需要了解语言模型的概念和传统的基于统计得N-gram语言模型。</p>
-<p>给定词序列$w_1,…,w_k$，语言模型会计算这个序列的概率，根据条件概率的定义，我们可以把联合概率分解为如下的条件概率：</p>
+<p>给定词序列$w_1,…,w_k$，语言模型会计算这个序列的概率，根据条件概率的定义，我们可以把联合概率分解为如下的条件概率：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4e42aec1a0f47495.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>实际的语言模型很难考虑特别长的历史，通常我们会限定当前词的概率值依赖于之前的N-1个词，这就是所谓的N-Gram语言模型：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2e89b69d1f069aa0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>在实际的应用中N的取值通常是2-5。</p>
+<p>我们通常用困惑度（Perplexity）来衡量语言模型的好坏，其基本思想是：给测试集的句子赋予较高的概率值的语言模型较好，当语言模型训练完之后，测试集中的句子都是正常的句子，那么训练好的模型就是在测试集上的概率越高越好，公式如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2b6cbebe6bffad2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>由公式可知，句子概率越大，语言模型越好，困惑度越小。</p>
+<p>而在语言模型的训练中，通常采用Perplexity的对数表达形式：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-0a55e734cde036d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>N-gram语言模型可以通过最大似然方法来估计参数，假设$C(w_{k-2}w_{k-1}w_k)$表示3个词$w_{k-2}w_{k-1}w_{k}$连续出现在一起的次数，类似的$C(w_{k-2}w_{k-1})$表示两个词$w_{k-2}w_{k-1}$连续出现在一起的次数，那么：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e656b9ff23603a06.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>最大似然估计的最大问题是数据的稀疏性，如果3个词没有在训练数据中一起出现过，那么概率为0，但不在训练数据里出现不代表它不是合理的句子。实际我们一般会使用Discount和Backoff等平滑方法来改进最大似然估计。Discount的意思就是把一些高频N-gram的概率分配给从没有出现过的N-gram，Backoff是指如果N-gram没有出现过，那我们就使用(N-1)-gram来估计。比如Katz平滑方法公式如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-257a612981f9daf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>其中，$d$是折扣系数，$\alpha (w_{k-1},w_{k-2})$是回退系数，而$C’$是一个阈值。当$C(w_{k-2}w_{k-1}w_k)$的出现频次高于阈值，则折扣系数为1；当其低于阈值时，则对其概率用$d$进行打折，而剩下的一部分概率则经过回退分配到那些没有在训练数据中出现过的$w_{k-2}w_{k-1}w_k$中。</p>
+<p>接下来参考(<a href="http://blog.pluskid.org/?p=361" target="_blank" rel="noopener">http://blog.pluskid.org/?p=361</a>) ：折扣系数$d$是由我们定的，在Katz平滑中是根据出现次数$r$来选择系数$d$的。对于$r\in [1,C’]$，令$d_r = \frac{(r+1)n_{r+1}}{rn_r}$，其中$n_r$表示出现次数为$r$的trigram的个数，$n_{r+1}$类推。</p>
+<p>而回退系数则要通过概率和等于1这样的一个等式来计算，具体来说，我们有<br><img src="https://upload-images.jianshu.io/upload_images/8636110-73141b42e44f8685.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>于是，<br><img src="https://upload-images.jianshu.io/upload_images/8636110-763777484ee23424.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>N-gram语言模型有两个比较大的问题：</p>
+<ol>
+<li>N不能太大，否则需要存储的N-gram太多，因此它无法考虑长距离的依赖。比如”I grew up in France… I speak fluent_”，我们想猜测fluent后面哪个词的可能性大。如果只看”speak fluent”，那么French, English和Chinese的概率都是一样大，但是通过前面的”I grew up in Frence”，我们可以知道French的概率要大得多。这个问题会通过之后的RNN/LSTM/GRU等模型来进行一定程度的解决。</li>
+<li>泛化能力差，因为它完全基于词的共现。比如训练数据中有“我在北京”，但没有“我在上海”，那么$p(上海|在)$的概率就会比$p(北京|在)$小很多。但实际上上海和北京作为地名，都可以出现在“在”的后面。这个问题和one-hot问题类似，原因在于我们把北京和上海当成了完全不同的东西，但我们希望它们是类似的。</li>
+</ol>
+<p>通常，把一个词表示成一个低维稠密的向量能够解决这个问题，通过上下文，模型能够知道北京和上海经常出现在相似的上下文里，因此模型能用相似的向量来表示这两个不同的词。神经网络表示如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-832759817fc69b74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>这个模型的输入是当前要预测的词，比如用前两个词预测当前词$w_t$。模型首先用lookup table把一个词变成一个向量，然后把这两个词的向量拼接成一个大的向量，输入神经网络，最后使用softmax输出预测每个词的概率。</p>
+<p>Lookup table等价于one-hot向量乘以Embedding矩阵。假设我们有3个词，词向量的维度是5维，那么Embedding矩阵就是(3, 5)的矩阵，比如：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-daa42fea9634ffc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>这个矩阵的每一行表示一个词的词向量，那么我们要获得第二个词的词向量，可用如下矩阵乘法来提取：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e8c63668351c9f38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>但是这样的实现并不高效，我们只需要”复制”第二行就可以了，因此大部分深度学习框架都提供了Lookup table的操作，用于从一个矩阵中提取某一行或者某一列。这个Embedding矩阵不是固定的，它也是神经网络的参数之一。通过语言模型的学习，我们就可以得到这个Embedding矩阵，从而得到词向量。</p>
+<h1 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h1><p>我们可以使用语言模型（或者其他任务比如机器翻译）来获得词向量，但是语言模型的训练很慢（机器翻译则更慢，而且还需要监督的标注数据），因此说词向量是这些任务的副产品。而Mikolov等人提出Word2Vec的方法，其就是直接用于训练词向量，而且速度更快。</p>
+<p>Word2Vec的基本思想就是分布假设(distributional hypothesis)：如果两个词的上下文相似，那么这两个词的语义就相似。上下文有很多粒度，比如文档的粒度，也就是一个词的上下文是所有与它出现在同一个文档中的词，或者是较细的粒度，比如当前词前后固定大小的窗口。如下图所示，written的上下文是前后两个词，即”Potter is by J.K.”这4个词。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-56a32e835303f660.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>除了我们即将介绍的Word2Vec，还有很多其它方法也可以利用上述假设学习词向量。所有通过Distributional假设学习到的(向量)表示都叫做Distributional表示(Representation)。</p>
+<p>注意，还有一个很像的属于叫分布表示(distributed representation)。它指的是用稠密的低维向量来表示一个词的语义，即把语义“分散”到不同的维度上。与之相对的是one-hot表示，它的语义集中在高维的稀疏的某一维上。</p>
+<p>这里省略Word2Vec的介绍，因为我有其他的补充材料可查看，就不多写了。</p>
 
       
     </div>
@@ -566,7 +598,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#词的表示方法"><span class="nav-number">1.</span> <span class="nav-text">词的表示方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#one-hot向量"><span class="nav-number">2.</span> <span class="nav-text">one-hot向量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络语言模型"><span class="nav-number">3.</span> <span class="nav-text">神经网络语言模型</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#词的表示方法"><span class="nav-number">1.</span> <span class="nav-text">词的表示方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#one-hot向量"><span class="nav-number">2.</span> <span class="nav-text">one-hot向量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络语言模型"><span class="nav-number">3.</span> <span class="nav-text">神经网络语言模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Word2Vec"><span class="nav-number">4.</span> <span class="nav-text">Word2Vec</span></a></li></ol></div>
             
 
           </div>
