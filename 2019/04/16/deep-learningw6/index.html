@@ -121,7 +121,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dbd732b1528e2151.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-172f808eac7f2cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2ff21025939023a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-16T00:46:45.487Z">
+<meta property="og:updated_time" content="2019-04-16T11:57:32.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第6周-优化算法">
 <meta name="twitter:description" content="Mini-batch梯度下降如果针对整个数据集进行梯度下降，如果数据集很大，那么速度就会很慢。因此，我们可以对训练集中的一部分进行梯度下降。因此可以将训练集分为多个mini-batch，针对每个mini-batch进行梯度下降。从图中，我们看到Batch vs Mini-Batch，这里对比的就是我们原本的针对整个训练集进行梯度下降，以及选取mini-batch进行梯度下降的两种算法的对比。另外，">
@@ -414,7 +414,7 @@
 <p>由上图算法步骤，我们可知超参数包括学习率$\alpha$和指数加权参数$\beta$，而$\beta$最常用的值为0.9（在梯度下降中则表示平均了前十次迭代的梯度，另外0.9是很棒的鲁棒数）。在实际中，我们在使用梯度下降或M<br>omentum的时候，通常不需要考虑偏差修正。另外，$db$和$dW$最开始初始化为零向量。另外，$v_{dW}=\beta v_{dw}+(1-\beta)dW$可以写成另一种算法$v_{dW}=\beta v_{dw}+dW$，即去掉了$1-\beta$。但大多数情况下，原有的表达形式更方便，效果也更好一点。</p>
 <h1 id="RMSprop-Root-Mean-Square-Prop"><a href="#RMSprop-Root-Mean-Square-Prop" class="headerlink" title="RMSprop - Root Mean Square Prop"></a>RMSprop - Root Mean Square Prop</h1><p>RMSprop也是可以加速梯度下降的一种优化算法。我们在上一节就看到了，普通的梯度下降在横轴方向推进，但在纵轴方向上则来回摆动。因此，我们会希望梯度的下降在纵轴的速度比较慢，而横轴则比较快。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-172f808eac7f2cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>这一部分与动量梯度下降有所不同。具体如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2ff21025939023a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>可以看到，在梯度更新部分，后半个式子乘的是$(dW)^2$（这也是叫做Square的原因）。随后，更新参数时减去的是学习率乘以$\frac{dW}{\sqrt(S_{dW})}$，因此有Root Mean Square的说法。</p>
+<p>可以看到，在梯度更新部分，后半个式子乘的是$(dW)^2$（这也是叫做Square的原因）。随后，更新参数时减去的是学习率乘以$\frac{dW}{\sqrt(S_{dW})}$，因此有Root Mean Square的说法。使用RMSprop进行更新，我们得到的梯度下降速度在纵轴方向上摆动较小，在横轴方向则持续推进。另外，我们也可以选取较大的学习率，并且也不会影响带</p>
 
       
     </div>
