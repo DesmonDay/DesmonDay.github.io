@@ -96,13 +96,13 @@
 
 
 
-<meta name="description" content="深层神经网络介绍 一些符号表示： 深层网络中的前向传播从计算可知，我们需要显式地使用一个for循环来计算每一层的前向传播输出。另外，右侧为向量化的表示方式。 核对矩阵中的维数这里总结了一下计算过程中我们的参数W和b的维数，以及Z和A的维数。 首先是参数的维数： 接着是Z和A的维数，这里指出的是向量化的结果，其中m为样本数目： 为什么要使用深层表示吴老师在这里举了三个例子来解释，分别是图像、语音和电">
+<meta name="description" content="接下来三周为改善深层神经网络：超参数调试、正则化以及优化。 深层神经网络介绍 一些符号表示： 深层网络中的前向传播从计算可知，我们需要显式地使用一个for循环来计算每一层的前向传播输出。另外，右侧为向量化的表示方式。 核对矩阵中的维数这里总结了一下计算过程中我们的参数W和b的维数，以及Z和A的维数。 首先是参数的维数： 接着是Z和A的维数，这里指出的是向量化的结果，其中m为样本数目： 为什么要使用">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第4周-深层神经网络">
 <meta property="og:url" content="https://github.com/DesmonDay/2019/04/10/deep-learningw4/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="深层神经网络介绍 一些符号表示： 深层网络中的前向传播从计算可知，我们需要显式地使用一个for循环来计算每一层的前向传播输出。另外，右侧为向量化的表示方式。 核对矩阵中的维数这里总结了一下计算过程中我们的参数W和b的维数，以及Z和A的维数。 首先是参数的维数： 接着是Z和A的维数，这里指出的是向量化的结果，其中m为样本数目： 为什么要使用深层表示吴老师在这里举了三个例子来解释，分别是图像、语音和电">
+<meta property="og:description" content="接下来三周为改善深层神经网络：超参数调试、正则化以及优化。 深层神经网络介绍 一些符号表示： 深层网络中的前向传播从计算可知，我们需要显式地使用一个for循环来计算每一层的前向传播输出。另外，右侧为向量化的表示方式。 核对矩阵中的维数这里总结了一下计算过程中我们的参数W和b的维数，以及Z和A的维数。 首先是参数的维数： 接着是Z和A的维数，这里指出的是向量化的结果，其中m为样本数目： 为什么要使用">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b259b31dc3bdd95a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-c0ce4005cfac8297.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -125,10 +125,10 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6a1485fb36d28b1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b7a1501a32fd62ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d929d0a3fb804874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-12T07:22:08.041Z">
+<meta property="og:updated_time" content="2019-04-17T05:07:07.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第4周-深层神经网络">
-<meta name="twitter:description" content="深层神经网络介绍 一些符号表示： 深层网络中的前向传播从计算可知，我们需要显式地使用一个for循环来计算每一层的前向传播输出。另外，右侧为向量化的表示方式。 核对矩阵中的维数这里总结了一下计算过程中我们的参数W和b的维数，以及Z和A的维数。 首先是参数的维数： 接着是Z和A的维数，这里指出的是向量化的结果，其中m为样本数目： 为什么要使用深层表示吴老师在这里举了三个例子来解释，分别是图像、语音和电">
+<meta name="twitter:description" content="接下来三周为改善深层神经网络：超参数调试、正则化以及优化。 深层神经网络介绍 一些符号表示： 深层网络中的前向传播从计算可知，我们需要显式地使用一个for循环来计算每一层的前向传播输出。另外，右侧为向量化的表示方式。 核对矩阵中的维数这里总结了一下计算过程中我们的参数W和b的维数，以及Z和A的维数。 首先是参数的维数： 接着是Z和A的维数，这里指出的是向量化的结果，其中m为样本数目： 为什么要使用">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-b259b31dc3bdd95a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -386,7 +386,8 @@
       
 
       
-        <h1 id="深层神经网络介绍"><a href="#深层神经网络介绍" class="headerlink" title="深层神经网络介绍"></a>深层神经网络介绍</h1><p><img src="https://upload-images.jianshu.io/upload_images/8636110-b259b31dc3bdd95a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+        <p>接下来三周为改善深层神经网络：超参数调试、正则化以及优化。</p>
+<h1 id="深层神经网络介绍"><a href="#深层神经网络介绍" class="headerlink" title="深层神经网络介绍"></a>深层神经网络介绍</h1><p><img src="https://upload-images.jianshu.io/upload_images/8636110-b259b31dc3bdd95a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>一些符号表示：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-c0ce4005cfac8297.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <h1 id="深层网络中的前向传播"><a href="#深层网络中的前向传播" class="headerlink" title="深层网络中的前向传播"></a>深层网络中的前向传播</h1><p>从计算可知，我们需要显式地使用一个for循环来计算每一层的前向传播输出。另外，右侧为向量化的表示方式。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2a85981119325313.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <h1 id="核对矩阵中的维数"><a href="#核对矩阵中的维数" class="headerlink" title="核对矩阵中的维数"></a>核对矩阵中的维数</h1><p>这里总结了一下计算过程中我们的参数W和b的维数，以及Z和A的维数。</p>
@@ -587,7 +588,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">100</span>
+                <span class="site-state-item-count">102</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
