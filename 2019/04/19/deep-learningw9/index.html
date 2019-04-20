@@ -122,7 +122,19 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-c60ffb7b9921f087.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8bb1cf8c2d14663b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e9c10274268d9c66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-20T08:37:49.138Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-f7d0feb15c87bfda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-48d7b9aaea951a7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ecae26faf18b065e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-10627ebe2a722670.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-67cca08106a794cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1be5178435b2445a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6d9fb8ff32662cb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-53641c212c796c66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-9161b2a38a34ab0d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-29dc6049430c326a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-9ede204ad6b600ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-121041c86d1c8ba2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-20T18:14:50.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第9周-机器学习ML策略(2)">
 <meta name="twitter:description" content="进行误差分析：Carrying out error analysis误差分析在我们实际进行机器学习项目中是非常重要的一步，它有利于提高我们的模型表现，使我们的算法逼近人类水平。 Look at dev examples to evaluate ideas假设我们有这样的一个例子，我们要做一个猫分类的分类器，但是其准确率只有90%，也就是错误率为10%。在分析了分类错误的例子后，发现图片将一些狗狗也">
@@ -487,7 +499,54 @@
 <li>You have a lot more data for Task A than Task B.</li>
 <li>Low level features from A coule be helpful for learning B.</li>
 </ul>
-<h1 id=""><a href="#" class="headerlink" title=" "></a> </h1>
+<h1 id="多任务学习：Multi-task-learning"><a href="#多任务学习：Multi-task-learning" class="headerlink" title="多任务学习：Multi-task learning"></a>多任务学习：Multi-task learning</h1><p>在迁移学习中，我们的学习步骤是串行的，我们从任务A中学习然后再迁移到任务B。在多任务学习中，我们同时开始学习，试图让神经网络同时做多个事情，然后希望这里的每个任务能够帮到其他所有任务。</p>
+<p>举一个例子。假设我们在研发无人驾驶车辆，那么我们的无人驾驶车可能需要同时检测不同的物体，比如检测行人、车辆、停车标志、交通灯等。如下图图像。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f7d0feb15c87bfda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>假设图像是输入，那么我们就要输出一个向量，检测的物体越多，向量的维数越大。简单假设为检测4个物品，如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-48d7b9aaea951a7f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果从整体来看训练集，那么整个训练集的输出则为(4,m)的矩阵。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ecae26faf18b065e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>因此接下来我们要做的就是训练一个神经网络来预测y值，从下图的神经网络输出层可以看到，4个结点分别对应了4个被检测的对象。当然，我们也需要设置cost function。可以看到，我们这里不仅要对所有的样本求和，还需要对4个维度的各自的loss求和，这是因为我们执行的是多任务学习，每个维度都有可能存在；与Softmax回归相比，Softmax回归只支持单标签，而多任务学习中一张图片可能有多个标签。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-10627ebe2a722670.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>另外，尽管有的时候一些图片所给出的标签不明确，如可能输出中含<code>?</code>：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-67cca08106a794cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>多任务学习仍然可以进行，这个时候我们在计算loss function的时候只要考虑输出为0或1的值即可。</p>
+<h2 id="When-multi-task-learning-makes-sense"><a href="#When-multi-task-learning-makes-sense" class="headerlink" title="When multi-task learning makes sense"></a>When multi-task learning makes sense</h2><ul>
+<li>Training on a set of tasks that could be benefit from having shared lower-level features.(共用低层次特征)</li>
+<li>Usually: Amount of data you have for each task is quite similar.(数据量)</li>
+<li>Can train a big enough neural network to do well on all the tasks.</li>
+</ul>
+<p>多任务学习的替代方法是为每个任务训练一个单独的神经网络。另外，多任务学习会降低性能的唯一情况，和训练单个神经网络相比性能更低的情况，就是我们的神经网络还不够大。如果可以训练一个足够大的神经网络，那么多任务学习肯定不会或者很少会降低性能，并且我们都希望它可以提升性能，至少比单独训练神经网络来单独完成各个任务的性能要好。</p>
+<p>在实践中，多任务学习的使用频率要低于迁移学习。大多数迁移学习的应用都是因为我们需要解决的问题所拥有的训练数据很少，因此我们会找到一个数据很多的相关问题来预先学习，再将知识迁移到这个新问题上。但是多任务学习则比较少见，可能计算机视觉是一个例外。在物体检测（最显著的例外情况）中，我们看到更多使用多任务学习的应用，即用一个神经网络来尝试检测很多物体，比分别训练不同的神经网络来检测物体更好。总的来说，目前迁移学习的使用频率更高，但两者都可以成为我们的强力工具。</p>
+<h1 id="什么是端到端的深度学习：end-to-end-deep-learning"><a href="#什么是端到端的深度学习：end-to-end-deep-learning" class="headerlink" title="什么是端到端的深度学习：end-to-end deep learning"></a>什么是端到端的深度学习：end-to-end deep learning</h1><p>深度学习中最令人振奋的动态之一就是端到端深度学习的兴起。简而言之，以前有一些数据处理系统或者学习系统，它们需要多个阶段的处理，而端到端深度学习就是忽略所有这些不同的阶段，用单个神经网络来代替它。</p>
+<p>举一个语音识别的例子：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1be5178435b2445a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>可以看到，传统的流水线方法包含多个阶段，包括人工提取特征、学习音位、构成单词等，而端到端深度学习只需要将数据集输入后，通过深层神经网络就可以得到我们的听写文本(transcripts)，因此优势很明显。然而，端到端深度学习的一个缺点是，训练的时候需要大量的数据，因此在具有大数据集的前提下，采用端到端的效果会很好；而当数据集较小时，传统流水线方法的效果也很好；当数据量适中时，可以采用中间件方法，即我们可能输入的是音频，跳过特征提取步骤，尝试从神经网络输出音位(phoneme)，这也算是向端到端学习迈出的一小步。</p>
+<p>再举一个人脸识别的例子，是一个人脸门禁系统。这个系统的输入应该是相机的照片，迄今为止最好的方法应该是多步的：首先要运行一个软件来检测人脸，放大图像的部分，并通过裁剪使人脸居中，再将图片作为神经网络的输入，来学习出该人的身份。（研究人员发现，比起一步到位，把这个问题分解成两个更简单的步骤表现得更好）<br><img src="https://upload-images.jianshu.io/upload_images/8636110-6d9fb8ff32662cb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>这里注意，训练第二步时，我们输入两张图片，然后神经网络所做的是将输入的两张图进行比较，判断是否是同一个人。即假设我们有10,000个员工，那么就将每个员工图片与进入者的图片进行比对即可。</p>
+<p>为什么这里两步法更好呢？</p>
+<ol>
+<li>我们要解决的两个问题，每个问题实际上很简单</li>
+<li>两个子任务的训练数据都很多。具体来说，有很多数据可以用于人脸识别训练，任务就是观察一张图，找出人脸所在的位置并框出来。对于任务二，业务领先的公司也拥有着数亿图像用于训练，通过观察两张图片，判断照片中认得身份来确定是否为同一个人。相比之下，如果我们想一步到位，即端到端学习，但是我们实际的数据对(x,y)的量要少得多，其中x是门禁系统拍摄的图像，y是人的身份，因为我们没有足够多的数据去解决这个端到端学习问题。</li>
+</ol>
+<p>再来看几个例子。以机器翻译为例，传统的机器翻译也有着一个复杂的流水线过程，而端到端深度学习在机器翻译的表现很好：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-53641c212c796c66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>从一个手的骨骼判断儿童的年龄：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-9161b2a38a34ab0d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>由于没有足够的数据来用端到端方式来训练词任务，因此相比之下，多步方法的效果更好。</p>
+<p><strong>总结</strong>：端到端深度学习系统是可行的，它的表现可以很好，可以简化系统架构，让我们不需要搭建那么多手工设计的单独组件，但这一方法并不是每次都能成功。</p>
+<h1 id="是否使用端到端学习"><a href="#是否使用端到端学习" class="headerlink" title="是否使用端到端学习"></a>是否使用端到端学习</h1><h2 id="Pros-and-cons-of-end-to-end-deep-learning"><a href="#Pros-and-cons-of-end-to-end-deep-learning" class="headerlink" title="Pros and cons of end-to-end deep learning"></a>Pros and cons of end-to-end deep learning</h2><p>Pros:</p>
+<ul>
+<li>Let the data speak. (Enough data)</li>
+<li>Less hand-designing of components needed.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>May need large amount of data.</li>
+<li>Excludes potentially useful hand-designed components.(数据来源：original data, hand-designed data在小数据集上很有用)</li>
+</ul>
+<h2 id="Applying-end-to-end-deep-learning"><a href="#Applying-end-to-end-deep-learning" class="headerlink" title="Applying end-to-end deep learning"></a>Applying end-to-end deep learning</h2><p>Key question: Do you have sufficient data to learn a function of the complexity needed to map x to y?</p>
+<p>举一个更复杂的例子：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-29dc6049430c326a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>可以看到，这不是一个端到端学习的例子，相反，它做到了以下两点：</p>
+<ol>
+<li>Use DL to learn individual components.</li>
+<li>Carefully choose X-&gt;Y depending on what tasks you can get data for.</li>
+</ol>
+<p>相反的，要通过观察图像直接判断方向盘转向，即端到端学习，我认为在自动驾驶领域里基本是不太可能的一件事。</p>
+<h1 id="本周作业"><a href="#本周作业" class="headerlink" title="本周作业"></a>本周作业</h1><p>下面粘贴做错的题：</p>
+<ol>
+<li>答案是C，而我选了AB。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-9ede204ad6b600ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ol>
+<ol>
+<li>答案是AD，而我选了A。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-121041c86d1c8ba2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ol>
+
       
     </div>
     
@@ -679,7 +738,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进行误差分析：Carrying-out-error-analysis"><span class="nav-number">1.</span> <span class="nav-text">进行误差分析：Carrying out error analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Look-at-dev-examples-to-evaluate-ideas"><span class="nav-number">1.1.</span> <span class="nav-text">Look at dev examples to evaluate ideas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluate-multiple-ideas-in-parallel"><span class="nav-number">1.2.</span> <span class="nav-text">Evaluate multiple ideas in parallel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#清楚标注错误的数据：Cleaning-up-incorrectly-labeled-data"><span class="nav-number">2.</span> <span class="nav-text">清楚标注错误的数据：Cleaning up incorrectly labeled data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速搭建你的第一个系统，并进行迭代"><span class="nav-number">3.</span> <span class="nav-text">快速搭建你的第一个系统，并进行迭代</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在不同的分布上进行训练和测试"><span class="nav-number">4.</span> <span class="nav-text">在不同的分布上进行训练和测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bias-and-Variance-with-mismatched-data-distributions"><span class="nav-number">5.</span> <span class="nav-text">Bias and Variance with mismatched data distributions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bias-variance-on-mismatched-training-and-dev-test-sets"><span class="nav-number">5.1.</span> <span class="nav-text">Bias/variance on mismatched training and dev/test sets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#More-general-formulation"><span class="nav-number">5.2.</span> <span class="nav-text">More general formulation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定位数据不匹配：Addressing-data-mismatch"><span class="nav-number">6.</span> <span class="nav-text">定位数据不匹配：Addressing data mismatch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Artificial-data-synthesis"><span class="nav-number">6.1.</span> <span class="nav-text">Artificial data synthesis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习：Transfer-learning"><span class="nav-number">7.</span> <span class="nav-text">迁移学习：Transfer learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#When-transfer-learning-makes-sense"><span class="nav-number">7.1.</span> <span class="nav-text">When transfer learning makes sense</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">8.</span> <span class="nav-text"> </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进行误差分析：Carrying-out-error-analysis"><span class="nav-number">1.</span> <span class="nav-text">进行误差分析：Carrying out error analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Look-at-dev-examples-to-evaluate-ideas"><span class="nav-number">1.1.</span> <span class="nav-text">Look at dev examples to evaluate ideas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluate-multiple-ideas-in-parallel"><span class="nav-number">1.2.</span> <span class="nav-text">Evaluate multiple ideas in parallel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#清楚标注错误的数据：Cleaning-up-incorrectly-labeled-data"><span class="nav-number">2.</span> <span class="nav-text">清楚标注错误的数据：Cleaning up incorrectly labeled data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速搭建你的第一个系统，并进行迭代"><span class="nav-number">3.</span> <span class="nav-text">快速搭建你的第一个系统，并进行迭代</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在不同的分布上进行训练和测试"><span class="nav-number">4.</span> <span class="nav-text">在不同的分布上进行训练和测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bias-and-Variance-with-mismatched-data-distributions"><span class="nav-number">5.</span> <span class="nav-text">Bias and Variance with mismatched data distributions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bias-variance-on-mismatched-training-and-dev-test-sets"><span class="nav-number">5.1.</span> <span class="nav-text">Bias/variance on mismatched training and dev/test sets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#More-general-formulation"><span class="nav-number">5.2.</span> <span class="nav-text">More general formulation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定位数据不匹配：Addressing-data-mismatch"><span class="nav-number">6.</span> <span class="nav-text">定位数据不匹配：Addressing data mismatch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Artificial-data-synthesis"><span class="nav-number">6.1.</span> <span class="nav-text">Artificial data synthesis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习：Transfer-learning"><span class="nav-number">7.</span> <span class="nav-text">迁移学习：Transfer learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#When-transfer-learning-makes-sense"><span class="nav-number">7.1.</span> <span class="nav-text">When transfer learning makes sense</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多任务学习：Multi-task-learning"><span class="nav-number">8.</span> <span class="nav-text">多任务学习：Multi-task learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#When-multi-task-learning-makes-sense"><span class="nav-number">8.1.</span> <span class="nav-text">When multi-task learning makes sense</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是端到端的深度学习：end-to-end-deep-learning"><span class="nav-number">9.</span> <span class="nav-text">什么是端到端的深度学习：end-to-end deep learning</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#是否使用端到端学习"><span class="nav-number">10.</span> <span class="nav-text">是否使用端到端学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pros-and-cons-of-end-to-end-deep-learning"><span class="nav-number">10.1.</span> <span class="nav-text">Pros and cons of end-to-end deep learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Applying-end-to-end-deep-learning"><span class="nav-number">10.2.</span> <span class="nav-text">Applying end-to-end deep learning</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本周作业"><span class="nav-number">11.</span> <span class="nav-text">本周作业</span></a></li></ol></div>
             
 
           </div>
