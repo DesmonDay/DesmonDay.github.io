@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="接下来的四周为计算机视觉——卷积神经网络的内容。 计算机视觉常见的计算机视觉问题包括图像分类、目标检测、神经网络实现的图片风格迁移等等。 在应用计算机视觉时，我们面临的一个挑战是数据的输入可能会非常大，以图片输入为例：可以看到，如果我们采用的是64x64的图片，那么输入大小为12288，但如果是相对高清的图片，输入的大小可以达到3million。如果按照我们之前所讲全连接的神经网络来做，所需要的参">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第10周-卷积神经网络">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/04/21/deep-learningw10/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="接下来的四周为计算机视觉——卷积神经网络的内容。 计算机视觉常见的计算机视觉问题包括图像分类、目标检测、神经网络实现的图片风格迁移等等。 在应用计算机视觉时，我们面临的一个挑战是数据的输入可能会非常大，以图片输入为例：可以看到，如果我们采用的是64x64的图片，那么输入大小为12288，但如果是相对高清的图片，输入的大小可以达到3million。如果按照我们之前所讲全连接的神经网络来做，所需要的参">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6da3b6dc31c4aac5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2132ecef254524fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-24c5a8a203e46666.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e5d257063b772320.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4d3c64a43489e39c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dc8899bc8d386eb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b8a90a6aa25f7d62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6bc7d0ef4bca22c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2fa4f586983b3583.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8f5daa4b3c5c6794.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-51dbad653021f2cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-45c74100fa75f632.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ebe1f304259697e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e7d237be92bbae53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8979cfce84796e30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-0022fc160f42e86e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d8b67dbf0004c314.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a17259e83c0465e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-84bdc3ef5cc59e88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8871e610b35fba21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e9601faf7c8e6030.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d66f4cdd25a87444.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-af5878b975293364.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-aff45991e5b60ae2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7c18e494b51a7d40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-3abb380561e76211.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4099faae498d0270.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a0ac14e4a54ed0e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-c27afbd37be9239b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d0b784321e478e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-280ea14a37187b24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-bfc3ed93735c4ff3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4fa87e9a9864a40a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-835c64616af3c9e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-22T05:23:31.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第10周-卷积神经网络">
+<meta name="twitter:description" content="接下来的四周为计算机视觉——卷积神经网络的内容。 计算机视觉常见的计算机视觉问题包括图像分类、目标检测、神经网络实现的图片风格迁移等等。 在应用计算机视觉时，我们面临的一个挑战是数据的输入可能会非常大，以图片输入为例：可以看到，如果我们采用的是64x64的图片，那么输入大小为12288，但如果是相对高清的图片，输入的大小可以达到3million。如果按照我们之前所讲全连接的神经网络来做，所需要的参">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-6da3b6dc31c4aac5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/04/21/deep-learningw10/"/>
+
+
+
+
+
+  <title>第10周-卷积神经网络 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/04/21/deep-learningw10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第10周-卷积神经网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-21T02:27:39+08:00">
+                2019-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>接下来的四周为计算机视觉——卷积神经网络的内容。</p>
+<h1 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h1><p>常见的计算机视觉问题包括图像分类、目标检测、神经网络实现的图片风格迁移等等。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-6da3b6dc31c4aac5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>在应用计算机视觉时，我们面临的一个挑战是数据的输入可能会非常大，以图片输入为例：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2132ecef254524fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>可以看到，如果我们采用的是64x64的图片，那么输入大小为12288，但如果是相对高清的图片，输入的大小可以达到3million。如果按照我们之前所讲全连接的神经网络来做，所需要的参数大小将会非常巨大，并且对内存的要求也很高。为了解决这种情况，我们使用的神经网络实际上为卷积神经网络。</p>
+<h1 id="卷积运算：边缘检测示例"><a href="#卷积运算：边缘检测示例" class="headerlink" title="卷积运算：边缘检测示例"></a>卷积运算：边缘检测示例</h1><p>卷积运算是卷积神经网络的最基本的组成部分，我们使用边缘检测作为入门样例，了解卷积是如何进行计算的。</p>
+<p>在进行图像识别的时候，我们会进行边缘检测，示例如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-24c5a8a203e46666.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如何在图像中检测这些边缘？下面举一个例子：我们给出一个6x6的灰度图像（因此只有一个颜色通道），也就是6x6x1的矩阵。为了检测图像中的垂直边缘，我们可以构造一个3x3的矩阵称为过滤器（又称卷积核，一般为3x3矩阵），再将图像矩阵与这个过滤矩阵做卷积运算。这个卷积运算的输出为4x4的矩阵。具体如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e5d257063b772320.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>可以看到，我们按顺序移动蓝色方块，再将方块中的数字与卷积核进行计算，计算的方法即对应元素相乘后再相加，得到的结果再写入结果矩阵对应的位置中。因此，在左上角的蓝色方块中，我们的计算为3x1+1x1+2x1+0x0+5x0+7x0+1x)-1+8x(-1)+2x(-1)=-5，其他结果也一样通过这种方式获得。</p>
+<p>卷积运算在python中为conv_forward，在tensorflow中为tf.nn.conv2d，在Keras框架中为Conv2D。几乎所有的编程框架都有提供一些函数来实现卷积运算。</p>
+<p>用简单例子解释为何这种运算可以这样计算：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4d3c64a43489e39c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>可以发现，我们的图像中间有着一个明显的垂直直线，这条垂直线是从黑到白的过滤线。当用一个3x3过滤器进行卷积运算时，这个3x3过滤器可视为左边有明亮像素，中间有过渡(0)，右边有深色像素的图例。通过卷积运算后，我们的矩阵对应的图像，在中间有段明亮的区域，这可以对应检查到这个6x6图像中间的垂直边缘。（这里的维数有些不正确，即检测到的边缘过粗，这是因为在此例中的图片过小，当我们使用的是1000x1000的图像，会发现其能很好地检测图像中的垂直边缘。）通过这种卷积运算，我们可以发现图像中的垂直边缘。</p>
+<h1 id="更多边缘检测内容"><a href="#更多边缘检测内容" class="headerlink" title="更多边缘检测内容"></a>更多边缘检测内容</h1><p>在本节中，我们会学习如何区分正边和负边（即由亮到暗与由暗到亮的区别），也就是边缘的过渡。我们也可以了解到其他类型的边缘检测以及如何实现这些算法。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-dc8899bc8d386eb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>对比发现，上图为由亮到暗的过渡，而下图为由暗到亮的过渡。也就是说，中间的这个3x3卷积核能够帮助我们区分正边和负边。</p>
+<h2 id="Vertical-and-Horizontal-Edge-Detection"><a href="#Vertical-and-Horizontal-Edge-Detection" class="headerlink" title="Vertical and Horizontal Edge Detection"></a>Vertical and Horizontal Edge Detection</h2><p><img src="https://upload-images.jianshu.io/upload_images/8636110-b8a90a6aa25f7d62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>左边的卷积核针对垂直边缘，而右边的卷积核针对水平边缘。另外，我们可以通过上图的一个例子来验证水平边缘的检测正确性。在右边用橙色框出来的10，表明其左边为亮，右边为暗，对应着原图像的上面过渡部分，其他的值也可以这么对应分析。</p>
+<p>总而言之，通过使用不同的滤波器，我们可以找出垂直的或者水平的边缘。但事实上，对于这个3x3的卷积核来说，我们只使用了其中一种数字组合。在计算机视觉的文献中，曾争论过怎样的数字组合猜是最好的。<br>1、Sobel过滤器，它的优点在于增加了中间一行元素的权重，这使得结果的鲁棒性会更高一些。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-6bc7d0ef4bca22c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>2、 Scharr过滤器，它有着和之前完全不同的特性，但实际上也是一钟垂直边缘检测，如果将其旋转90度，可以得到对应水平边缘检测。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2fa4f586983b3583.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>随着<strong>深度学习</strong>的发展，当我们真正想去检测出复杂图像的边缘，也许我们不需要使用研究者选择的数字，而是可以<strong>把这些数字当成参数</strong>，通过<strong>后向传播</strong>算法来得到对应值。相比垂直和水平边缘，这种方法也可以检验包括其他方向的边缘。将卷积核的所有数字设置为参数，通过数据反馈，让神经网络自动学习，我们会发现神经网络可以学习一些低级的特征，比如边缘的特征。构成这些计算的基础是卷积运算，因此使得反向传播算法能够让神经网络学习任何它所需要的3x3过滤器，并在整幅图片上应用它，输出它所检测的特征。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-8f5daa4b3c5c6794.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h1 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h1><p>在卷积神经网络中，一个基本的卷积操作就是padding。</p>
+<p>在之前我们在做卷积运算示例中，我们的输出矩阵为4x4维度，这是因为我们使用的过滤器在原图片上只可能有4x4种可能的位置。对应的，如果我们有nxn的图像，而过滤器为fxf，那么输出结果的维度为(n-f+1)x(n-f+1)。这样做有两个缺点，一是每次做卷积操作，我们的图像会缩小，比如从6x6到4x4，如果再多几次卷积运算，那么我们的图像就会变得很小了；二是如果我们注意到角落边的像素，这个像素点只被一个输出使用，因为它只位于一个3x3区域的一角，但如果是在中间的像素点，那么会有很多3x3区域重叠。因此那些在角落或者边缘区域的像素点在输出中采用较少，意味着我们丢掉了图像边缘位置的许多信息。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-51dbad653021f2cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>为了解决这两个问题，一是输出缩小，二是图像边缘的大部分信息丢失，我们可以在卷积操作之前对图像进行填充。例如，对上述图像进行填充，由6x6变为了8x8，那么我们得到的输出和原始图像一样，都是6x6的图像。通常，我们用进行填充。如果p是填充的数量，那么在本例中，p=padding=1，那么输出就变为了(n+2p-f+1)x(n+2p-f+1)。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-45c74100fa75f632.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>通过填充，位于角落或图像边缘的信息发挥作用较小的缺点就被削弱了。如果我们想再增加像素填充，则可以得到p=2之类的填充后的图像，如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ebe1f304259697e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Valid-and-Same-convolutions"><a href="#Valid-and-Same-convolutions" class="headerlink" title="Valid and Same convolutions"></a>Valid and Same convolutions</h2><p>至于填充多少像素，通常有两个选择，分别称为Valid卷积和Same卷积。Valid卷积意味着没有padding；而另一个Same卷积，这个方法意味着我们填充图像后，输出大小和原图像的大小是一样的，具体的计算过程见下图：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e7d237be92bbae53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>另外注意到，在计算机视觉的惯例中，<strong>f通常是奇数</strong>。原因一是奇数才可以保证对称的填充；二是计算机视觉通常需要一个中心位置，便于指出过滤器的位置。</p>
+<h1 id="卷积步长：Strided-convolutions"><a href="#卷积步长：Strided-convolutions" class="headerlink" title="卷积步长：Strided convolutions"></a>卷积步长：Strided convolutions</h1><p>卷积步长是另一个构建卷积神经网络的基本操作，下面我们举例解释卷积步长的含义。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-8979cfce84796e30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>在本例中，我们设置Stride=2。先计算第一个位置的输出：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-0022fc160f42e86e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>接下来，要计算下一个位置的输出。由于卷积步长为2，因此我们不像之前一样将3x3区域往右移动一位，而是移动两位进行计算，如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d8b67dbf0004c314.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>继续右移两个单位：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a17259e83c0465e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>当我们要移动到下一行的时候，我们的步长也是2，因此下一个位置如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-84bdc3ef5cc59e88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>等等等。最后得到的输出为：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-8871e610b35fba21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>因此输入输出的维度由以下公式决定：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e9601faf7c8e6030.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>注意到，如果商不是整数，在这种情况下我们可以向下取整。这个原则实现的方式是，你只在蓝框完全包括在图像或填充完的图像内部时，才对它进行运算。如果有的蓝框移动到了图像外部，那么我们不对其进行运算。也就是说，我们的3x3过滤器必须处于图像中或者填充之后的图像区域内，因此要向下取整。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d66f4cdd25a87444.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Summary-of-convolutions"><a href="#Summary-of-convolutions" class="headerlink" title="Summary of convolutions"></a>Summary of convolutions</h2><p><img src="https://upload-images.jianshu.io/upload_images/8636110-af5878b975293364.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Technical-note-on-cross-correlation-vs-convolution"><a href="#Technical-note-on-cross-correlation-vs-convolution" class="headerlink" title="Technical note on cross-correlation vs. convolution"></a>Technical note on cross-correlation vs. convolution</h2><p>这里讲解一个关于互相关和卷积的技术性建议，这不会影响到我们构建卷积神经网络的方式。如果我们看的是一本典型的数学教科书，那么卷积的定义是做元素乘积求和，实际上还有一个步骤是我们首先要做的，也就是在把这个6x6矩阵和3x3的过滤器卷积前，首先将3x3的过滤器沿水平和垂直轴翻转（先顺时针旋转90度，再水平翻转），用得到的矩阵来做元素相乘求和的操作。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-aff45991e5b60ae2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>从技术上讲，这个操作被称为互相关。在深度学习领域中，有很多人把它叫做卷积运算，但我们通常不需要用到翻转的步骤。事实证明在信号处理货某些数学分支中，卷积的定义包含翻转，使得卷积运算符拥有(A*B)*C=A*(B*C)的结合律性质。这对于一些信号处理应用来说很好，但对深度神经网络而言并不重要，因此我们忽略了这个双重镜像操作，从而简化代码。</p>
+<p>综上所述，我们学习了如何进行卷积、如何使用填充、如何在卷积中选择步长，但我们目前为止使用的是关于矩阵的卷积。接下来会讲解如何对立体进行卷积。</p>
+<h1 id="三维卷积：Convolutions-volumes"><a href="#三维卷积：Convolutions-volumes" class="headerlink" title="三维卷积：Convolutions volumes"></a>三维卷积：Convolutions volumes</h1><p>本节讲解如何在三维立体上进行卷积运算。假设我们想要检测RGB彩色图像的特征，即具有三个颜色通道。因此其维度为6x6x3，因此过滤器也需要是3x3x3的维度：（高、宽、通道个数）<br><img src="https://upload-images.jianshu.io/upload_images/8636110-7c18e494b51a7d40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>接下来研究背后的细节。其实实际的计算过程与二维的也很类似，我们将过滤器当做一个正方体，放置到原三维图像上，然后将这27个数字对应相乘和相加，填入输出的对应位置即可：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-3abb380561e76211.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>再将立方体往右移一个单位，得到下一位，等等等，直到到达最后一位。</p>
+<p>那么这个过滤器的作用是什么？举个例子，这个过滤器是3x3x3的，如果我们想检测图像红色通道的垂直边缘，而不关心其他通道，那么可以将三个过滤器分别设置如下后，再进行堆叠：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4099faae498d0270.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>当然，如果我们想检测所有通道的垂直边缘，则可以使用这样的过滤器。因此，参数的不同选择，可以得到不同的过滤器。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a0ac14e4a54ed0e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>按照计算机视觉的惯例，当你的输入有特定的高宽和通道数时，我们的过滤器可以有不同的高，不同的宽，但是通道数必须相同。现在，我们了解了如何对立方体卷积，那么，如果我们想要同时检测垂直边缘和水平边缘，以及其他方向的边缘应该怎么做？换句话说，想同时使用多个过滤器，应该怎么办？</p>
+<p>假设我们同时使用水平过滤器和垂直过滤器，过程如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-c27afbd37be9239b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>简单来说，我们得到的输出也成为了一个三维立体，这样就是同时两用了多个过滤器。</p>
+<p>下面对维度进行总结：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d0b784321e478e03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>即输入的彩色图像为nxnxn_c，过滤器为fxfxn_c，这里n_c为通道数目，那么输出的维度为(n-f+1)x(n-f+1)xn_c’，这里n_c’指所应用的过滤器数目，即输出的通道数等于我们要检测的特征数。比如对前面的同时使用水平过滤器和垂直过滤器来说，n_c’=2。另外，这个式子默认我们没有使用padding。</p>
+<p>对于这里的符号，n_c在学术文献中被称为通道(channel)或者深度(depth)，在视频中统一称为通道。</p>
+<h1 id="单层卷积网络：One-layer-of-a-convolutional-network"><a href="#单层卷积网络：One-layer-of-a-convolutional-network" class="headerlink" title="单层卷积网络：One layer of a convolutional network"></a>单层卷积网络：One layer of a convolutional network</h1><p>本节讲的是如何构建卷积神经网络的卷积层。下面看一个例子。</p>
+<p>这个例子与前面的使用多个过滤器例子相同。输入6x6x3的图像，再通过一个卷积核，我们将得到的输出加上参数b，再通过ReLu激活函数，同样得到4x4的矩阵。再将两个输出堆叠起来，从而得到4x4x2的输出，这便是卷积神经网络的一层。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-280ea14a37187b24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>将上述过程映射到标准神经网络中，可以解释为：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bfc3ed93735c4ff3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>即将原始输入图像当做z[0]，也就是X，而卷积核为W[1]那么卷积的操作类似于”W[1]a[0]”，之后我们的卷积加偏置值也类似原有的”W[1]a[0]+b”，即Z，最后应用非线性函数得到4x4矩阵。通过这个过程，我们可以得到卷积神经网络中的一层。因为我们有2个过滤器，因此我们得到了4x4x2的输出；如果有10个过滤器，那么得到的就是4x4x10的输出。</p>
+<p>接下来举例计算一层中的参数数目：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4fa87e9a9864a40a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>如图，对应的参数数目为10x(3x3x3+1)=280个参数。我们注意到，不论输入的图片有多大，无论是1000x1000，还是5000x5000，我们的参数仍然是280个，可以用这些过滤器来检测水平特征、垂直特征和其他特征。<strong>即使这些图片很大，参数却很少，这就是卷积神经网络的一个特征，叫做“避免过拟合(less prone to over fitting)”。</strong>现在我们知道了如何提取10个特征，将其应用到大图片上，而参数数量固定不变。</p>
+<h2 id="Summary-of-notation"><a href="#Summary-of-notation" class="headerlink" title="Summary of notation"></a>Summary of notation</h2><p><img src="https://upload-images.jianshu.io/upload_images/8636110-835c64616af3c9e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>注意，这个标记并没有在深度学习的文献中得到统一。上述标记的输入和输出对应一层卷积神经网络的输入输出，另外，输出的高和宽的计算方式也列在了右侧，即向下取整的那个式子。之后通过练习进行熟悉即可。</p>
+<h1 id="简单深层卷积神经网络示例"><a href="#简单深层卷积神经网络示例" class="headerlink" title="简单深层卷积神经网络示例"></a>简单深层卷积神经网络示例</h1><p>假设我们有一张图片，想要做图片识别，比如分类问题。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/19/deep-learningw9/" rel="next" title="第9周-机器学习ML策略(2)">
+                <i class="fa fa-chevron-left"></i> 第9周-机器学习ML策略(2)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">104</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机视觉"><span class="nav-number">1.</span> <span class="nav-text">计算机视觉</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积运算：边缘检测示例"><span class="nav-number">2.</span> <span class="nav-text">卷积运算：边缘检测示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多边缘检测内容"><span class="nav-number">3.</span> <span class="nav-text">更多边缘检测内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vertical-and-Horizontal-Edge-Detection"><span class="nav-number">3.1.</span> <span class="nav-text">Vertical and Horizontal Edge Detection</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Padding"><span class="nav-number">4.</span> <span class="nav-text">Padding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Valid-and-Same-convolutions"><span class="nav-number">4.1.</span> <span class="nav-text">Valid and Same convolutions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积步长：Strided-convolutions"><span class="nav-number">5.</span> <span class="nav-text">卷积步长：Strided convolutions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-of-convolutions"><span class="nav-number">5.1.</span> <span class="nav-text">Summary of convolutions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Technical-note-on-cross-correlation-vs-convolution"><span class="nav-number">5.2.</span> <span class="nav-text">Technical note on cross-correlation vs. convolution</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三维卷积：Convolutions-volumes"><span class="nav-number">6.</span> <span class="nav-text">三维卷积：Convolutions volumes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单层卷积网络：One-layer-of-a-convolutional-network"><span class="nav-number">7.</span> <span class="nav-text">单层卷积网络：One layer of a convolutional network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-of-notation"><span class="nav-number">7.1.</span> <span class="nav-text">Summary of notation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单深层卷积神经网络示例"><span class="nav-number">8.</span> <span class="nav-text">简单深层卷积神经网络示例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+
