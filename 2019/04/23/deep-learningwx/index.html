@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C++," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -96,18 +96,24 @@
 
 
 
-<meta name="description" content="题目描述输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 思路分析思路参考《剑指Offer》一书。 12345678struct TreeNode &amp;#123;    int val;    struct TreeNode *left;    struct TreeNode *right;    TreeNode(int x) :            v">
-<meta name="keywords" content="C++">
+<meta name="description" content="由于我主要是要了解CV，而不是深入学习。因此为了节省时间，不会再对幻灯片内容做详细的解释。未看完，占坑。 目标定位：Object Localization 下面对分类定位做详细解释：如果我们单纯的对图片分类，判断是否有行人、车之类的，可以直接通过Softmax层来输出结果；但如果我们还想要定位，比如定位车辆，那么可以让神经网络多输出几个单元，输出一个边框界(bx,by,bh,bw:被检测对象的边框">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指Offer-树的子结构(难)">
-<meta property="og:url" content="https://github.com/DesmonDay/2019/01/18/剑指Offer-树的子结构/index.html">
+<meta property="og:title" content="占坑-目标检测">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/04/23/deep-learningwx/index.html">
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
-<meta property="og:description" content="题目描述输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 思路分析思路参考《剑指Offer》一书。 12345678struct TreeNode &amp;#123;    int val;    struct TreeNode *left;    struct TreeNode *right;    TreeNode(int x) :            v">
+<meta property="og:description" content="由于我主要是要了解CV，而不是深入学习。因此为了节省时间，不会再对幻灯片内容做详细的解释。未看完，占坑。 目标定位：Object Localization 下面对分类定位做详细解释：如果我们单纯的对图片分类，判断是否有行人、车之类的，可以直接通过Softmax层来输出结果；但如果我们还想要定位，比如定位车辆，那么可以让神经网络多输出几个单元，输出一个边框界(bx,by,bh,bw:被检测对象的边框">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-18T14:54:52.555Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-450af11aa403610a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-c80a4fba678ec142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-fa12871a6a4d60a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-be113d141fe62a9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1fff519549149653.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-23T09:20:22.710Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剑指Offer-树的子结构(难)">
-<meta name="twitter:description" content="题目描述输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构） 思路分析思路参考《剑指Offer》一书。 12345678struct TreeNode &amp;#123;    int val;    struct TreeNode *left;    struct TreeNode *right;    TreeNode(int x) :            v">
+<meta name="twitter:title" content="占坑-目标检测">
+<meta name="twitter:description" content="由于我主要是要了解CV，而不是深入学习。因此为了节省时间，不会再对幻灯片内容做详细的解释。未看完，占坑。 目标定位：Object Localization 下面对分类定位做详细解释：如果我们单纯的对图片分类，判断是否有行人、车之类的，可以直接通过Softmax层来输出结果；但如果我们还想要定位，比如定位车辆，那么可以让神经网络多输出几个单元，输出一个边框界(bx,by,bh,bw:被检测对象的边框">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-450af11aa403610a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -136,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://github.com/DesmonDay/2019/01/18/剑指Offer-树的子结构/"/>
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/04/23/deep-learningwx/"/>
 
 
 
 
 
-  <title>剑指Offer-树的子结构(难) | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>占坑-目标检测 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -275,7 +281,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/01/18/剑指Offer-树的子结构/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/04/23/deep-learningwx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="DesmonDay">
@@ -292,7 +298,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">剑指Offer-树的子结构(难)</h1>
+          <h1 class="post-title" itemprop="name headline">占坑-目标检测</h1>
         
 
         <div class="post-meta">
@@ -304,8 +310,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T17:16:23+08:00">
-                2019-01-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T16:54:42+08:00">
+                2019-04-23
               </time>
             
 
@@ -327,8 +333,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/剑指Offer/" itemprop="url" rel="index">
-                    <span itemprop="name">剑指Offer</span>
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -364,18 +370,12 @@
       
 
       
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>思路参考《剑指Offer》一书。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">right</span>;</span></span><br><span class="line">    TreeNode(<span class="keyword">int</span> x) :</span><br><span class="line">            val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这道题，我不会，一点思路都没有，只能直接看答案了。。。 哎，还是要多多练练。要在树A中找到和树B的根节点的值一样的节点R；第二步，判断树A中以R为根节点的子树是不是包含和树B一样的结构。</p>
-<p>第一步在树A中查找与根节点的值一样的节点，实际上就是树的遍历，采用递归的方式，对应代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">HasSubtree</span><span class="params">(TreeNode* pRoot1, TreeNode* pRoot2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">bool</span> result = <span class="literal">false</span>; <span class="comment">//检查空指针</span></span><br><span class="line">        <span class="comment">// 第一步在在树A中查找与根节点的值一样的节点</span></span><br><span class="line">        <span class="keyword">if</span>(pRoot1 &amp;&amp; pRoot2)&#123; <span class="comment">//类似前序遍历</span></span><br><span class="line">            <span class="keyword">if</span>(pRoot1-&gt;val == pRoot2-&gt;val)&#123;</span><br><span class="line">                result = IsSubtree(pRoot1, pRoot2);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!result)&#123;</span><br><span class="line">                result = HasSubtree(pRoot1-&gt;left, pRoot2);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(!result)&#123;</span><br><span class="line">                result = HasSubtree(pRoot1-&gt;right, pRoot2);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>在面试的时候，一定要注意边界条件的检查，即检查空指针。当树A或树B为空的时候，定义相应的输出。如果没有检查并进行相应的处理，则程序非常容易崩溃，这是面试的大忌。</p>
-<p>在上述代码中，我们调用HasSubtree遍历二叉树A。如果发现某一节点的值和树B的头节点的值相同，则调用IsSubtree，进行第二步判断。</p>
-<p>第二步是判断树A中以R为根节点的子树是不是和树B具有相同的结构。同样，也可以用递归的思路考虑：如果节点R的值和树B的根节点不相同，则以R为根节点的子树和树B肯定不同；如果值相同，则递归地判断他们各自的左右节点的值是不是相同。递归的终止条件是我们到达了树A或者树B的节点。对应代码如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsSubtree</span><span class="params">(TreeNode* p1, TreeNode* p2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p2 == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(p1 == <span class="literal">NULL</span> &amp;&amp; p2) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(p1-&gt;val != p2-&gt;val) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> IsSubtree(p1-&gt;left, p2-&gt;left) &amp; IsSubtree(p1-&gt;right, p2-&gt;right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码有多处判断一个指针是不是空，这样做是为了避免试图访问空指针而造成陈旭崩溃，同时也设置了递归调用的退出条件。在写遍历树的代码时要高度警惕，在每一处需要访问地址的时候询问自己这个地址有没有可能是NULL，如果是该如何。</p>
-<p>若树的结构中val的类型是double，则不能用==直接判断相等，而要设置如下判断函数：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Equal</span><span class="params">(<span class="keyword">double</span> num1, <span class="keyword">double</span> num2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((num1-num2 &gt; <span class="number">-0.0000001</span>) &amp;&amp; (num1-num2 &lt; <span class="number">0.0000001</span>))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+        <p>由于我主要是要了解CV，而不是深入学习。因此为了节省时间，不会再对幻灯片内容做详细的解释。未看完，占坑。</p>
+<h1 id="目标定位：Object-Localization"><a href="#目标定位：Object-Localization" class="headerlink" title="目标定位：Object Localization"></a>目标定位：Object Localization</h1><p><img src="https://upload-images.jianshu.io/upload_images/8636110-450af11aa403610a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>下面对分类定位做详细解释：如果我们单纯的对图片分类，判断是否有行人、车之类的，可以直接通过Softmax层来输出结果；但如果我们还想要定位，比如定位车辆，那么可以让神经网络多输出几个单元，输出一个边框界(bx,by,bh,bw:被检测对象的边框化表示)。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-c80a4fba678ec142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>下面讲解如何确定目标标签y。如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-fa12871a6a4d60a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>其中，Pc表示图片中是否有我们要检测的对象，而bx/by/bh/bw指明对象位置，而C1/C2/C3告知我们对象的类型。举两个例子：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-be113d141fe62a9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>可以看到，左图车存在，所以Pc=1；而右图不存在车，因此Pc=0，剩下的数字皆不必理会。</p>
+<p>接下来定义训练神经网络的损失函数，我们用的是平方损失函数：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1fff519549149653.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>我们对Pc=y1进行分类讨论。另外，这里用平方误差简化了描述过程，在实际应用中，我们可以对c1/c2/c3和softmax激活函数应用对数损失函数并输出其中一个元素值，通常做法是对边界框坐标应用平方差，对Pc应用逻辑回归函数，甚至采用平方预测误差函数也可以。</p>
+<h1 id="特征点检测"><a href="#特征点检测" class="headerlink" title="特征点检测"></a>特征点检测</h1><h1 id="目标检测"><a href="#目标检测" class="headerlink" title="目标检测"></a>目标检测</h1><h1 id="卷积的滑动窗口实现"><a href="#卷积的滑动窗口实现" class="headerlink" title="卷积的滑动窗口实现"></a>卷积的滑动窗口实现</h1><h1 id="Bounding-Box预测"><a href="#Bounding-Box预测" class="headerlink" title="Bounding Box预测"></a>Bounding Box预测</h1><h1 id="交并比"><a href="#交并比" class="headerlink" title="交并比"></a>交并比</h1><h1 id="非极大值抑制"><a href="#非极大值抑制" class="headerlink" title="非极大值抑制"></a>非极大值抑制</h1><h1 id="Anchor-Boxes"><a href="#Anchor-Boxes" class="headerlink" title="Anchor Boxes"></a>Anchor Boxes</h1><h1 id="YOLO算法"><a href="#YOLO算法" class="headerlink" title="YOLO算法"></a>YOLO算法</h1><h1 id="RPN网络"><a href="#RPN网络" class="headerlink" title="RPN网络"></a>RPN网络</h1>
       
     </div>
     
@@ -392,7 +392,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           
         </div>
       
@@ -405,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/18/剑指Offer-合并两个排序的链表/" rel="next" title="剑指Offer-合并两个排序的链表">
-                <i class="fa fa-chevron-left"></i> 剑指Offer-合并两个排序的链表
+              <a href="/2019/04/22/deep-learningw11/" rel="next" title="第11周-深度卷积神经网络">
+                <i class="fa fa-chevron-left"></i> 第11周-深度卷积神经网络
               </a>
             
           </div>
@@ -415,8 +415,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/20/剑指Offer-二叉树的镜像/" rel="prev" title="剑指Offer-二叉树的镜像">
-                剑指Offer-二叉树的镜像 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/23/deep-learningw12/" rel="prev" title="第12周-循环神经网络(RNN)">
+                第12周-循环神经网络(RNN) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -571,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标定位：Object-Localization"><span class="nav-number">1.</span> <span class="nav-text">目标定位：Object Localization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征点检测"><span class="nav-number">2.</span> <span class="nav-text">特征点检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标检测"><span class="nav-number">3.</span> <span class="nav-text">目标检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积的滑动窗口实现"><span class="nav-number">4.</span> <span class="nav-text">卷积的滑动窗口实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bounding-Box预测"><span class="nav-number">5.</span> <span class="nav-text">Bounding Box预测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#交并比"><span class="nav-number">6.</span> <span class="nav-text">交并比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非极大值抑制"><span class="nav-number">7.</span> <span class="nav-text">非极大值抑制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Anchor-Boxes"><span class="nav-number">8.</span> <span class="nav-text">Anchor Boxes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YOLO算法"><span class="nav-number">9.</span> <span class="nav-text">YOLO算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPN网络"><span class="nav-number">10.</span> <span class="nav-text">RPN网络</span></a></li></ol></div>
             
 
           </div>
