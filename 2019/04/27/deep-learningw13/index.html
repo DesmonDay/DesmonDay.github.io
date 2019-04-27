@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="词嵌入: Word Embedding我们之前用的词向量表示法为one-hot向量，但这种表示方法存在很大的缺陷，我们用o_3455表示该向量。比如，苹果和梨具有相似性，但用one-hot向量表示的话，神经网络无法捕捉他们之间的相似性。这是因为两个不同one-hot向量的内积为0，即不同单词之间的距离相同。而很明显，苹果和梨的距离，是要小于苹果和国家的距离的。 因此我们考虑用特征化后的向量来表示词">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第13周-自然语言处理与词嵌入">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/04/27/deep-learningw13/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="词嵌入: Word Embedding我们之前用的词向量表示法为one-hot向量，但这种表示方法存在很大的缺陷，我们用o_3455表示该向量。比如，苹果和梨具有相似性，但用one-hot向量表示的话，神经网络无法捕捉他们之间的相似性。这是因为两个不同one-hot向量的内积为0，即不同单词之间的距离相同。而很明显，苹果和梨的距离，是要小于苹果和国家的距离的。 因此我们考虑用特征化后的向量来表示词">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b69751a957a9523b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dad888a611f8f1e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-72b76b6b8ad9cad1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-3fca17c45498af4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ce068fbd6d430d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4f6bfafe877960c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-676805ea293c9357.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dd85369ffbc4f0ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4de132349dfb7b1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ada21eecc44bdd3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b3958ee014798af9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-cef310702e888287.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-bebd48a7b239949a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-bccd935a4e58cc20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-54695b88b17d7d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6fa505f529777475.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ee88a2a23705f4a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-9b88697bbc563b43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-0e29831514e81939.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-bebd48a7b239949a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1d0c7b574085f460.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b7fdd6568e488ecc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b0b75a550cdb0e21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-708c9138ab4bf471.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-81e6db3c34f1e23c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-0ecb9a6fe27f1b58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d6754994b242345a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-aab282e606d3b427.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dd3925abbecc8c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ebbe984ad95ececd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ebd4600cd0ec5c0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ef901ebc6cf6b990.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-70c70df5fa9db494.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-105665c3bc9f3fd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4e8e1a43202079f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d77d210646ecbd19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-f71bba9251809c51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a347f55b5b01ff85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-055bea92b4d8f957.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-90897e106c8e4e4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d90327669786993e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b1729f55eb91a9bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-158cd369401bcab3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d7339d5c8b5fe9e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ac20abc1877f2d6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-681c53121600f01a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ac96125437c58c03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-5988832092fefe2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-477d8bda868724b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-74b3e105e731b29c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-22d4157616527d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-820057ddf5210855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-f62b12a091ddf0cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-9259a2dd421de22a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dcaf6e24664d4d8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-aee79f1c430ef952.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b4818af62aae12b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-27T14:01:12.978Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第13周-自然语言处理与词嵌入">
+<meta name="twitter:description" content="词嵌入: Word Embedding我们之前用的词向量表示法为one-hot向量，但这种表示方法存在很大的缺陷，我们用o_3455表示该向量。比如，苹果和梨具有相似性，但用one-hot向量表示的话，神经网络无法捕捉他们之间的相似性。这是因为两个不同one-hot向量的内积为0，即不同单词之间的距离相同。而很明显，苹果和梨的距离，是要小于苹果和国家的距离的。 因此我们考虑用特征化后的向量来表示词">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-b69751a957a9523b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/04/27/deep-learningw13/"/>
+
+
+
+
+
+  <title>第13周-自然语言处理与词嵌入 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/04/27/deep-learningw13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第13周-自然语言处理与词嵌入</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T20:47:25+08:00">
+                2019-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="词嵌入-Word-Embedding"><a href="#词嵌入-Word-Embedding" class="headerlink" title="词嵌入: Word Embedding"></a>词嵌入: Word Embedding</h1><p>我们之前用的词向量表示法为one-hot向量，但这种表示方法存在很大的缺陷，我们用o_3455表示该向量。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b69751a957a9523b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>比如，苹果和梨具有相似性，但用one-hot向量表示的话，神经网络无法捕捉他们之间的相似性。这是因为两个不同one-hot向量的内积为0，即不同单词之间的距离相同。而很明显，苹果和梨的距离，是要小于苹果和国家的距离的。</p>
+<p>因此我们考虑用特征化后的向量来表示词，举个简单例子，假设有很多不同的特征，使我们得到新的词嵌入表示。我们用e_5391来表示特征化后的向量，此时使用这种向量表示，苹果和橙子之间的距离就很接近了，且算法会发现苹果和橙子要比苹果和国家更相似。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-dad888a611f8f1e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>当然，实际上我们学习的特征向量是比较复杂的，而不是一个个具体的特征。如果我们学习到了300维的词嵌入，我们通常会把这300维向量嵌入到一个二维空间，从而实现可视化。通常我们用t-SNE算法来实现。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-72b76b6b8ad9cad1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="使用词嵌入：Using-word-embeddings"><a href="#使用词嵌入：Using-word-embeddings" class="headerlink" title="使用词嵌入：Using word embeddings"></a>使用词嵌入：Using word embeddings</h2><p>先举一个命名实体识别的例子。假设我们的训练集很小，甚至都不知道durian(榴莲)这个词。那么我们可以用事先训练出来的词向量。<br>学习词向量的算法会从大量的文本中学习，所以即使我们的训练集很小，如果我们使用已训练出来的词向量，那么结果也不会差。这也算是迁移学习的一种，即我们将从大量文本中学习到的词向量，应用到自己的任务上。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-3fca17c45498af4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>在本例中，我们可以通过后文的farmer来意识到前面的单词是人名，因此最好使用双向RNN模型。</p>
+<p>下面总结用词嵌入做迁移学习的步骤。</p>
+<ol>
+<li>Learn word embeddings from large text corpus.(1-100B words), or download pre-trained embedding online.</li>
+<li>Transfer embedding to new task with smaller training set.(say, 100k words.) 比如用一个300维的词嵌入来表示单词，这样的好处是可以用更低维度的特征向量来代替原来的10,000维的one-hot向量，相比之下低维向量会更加紧凑。</li>
+<li>Optional: Continue to finetune the word embeddings with new data. 这一步一般在我们的数据集比较大的时候才做。</li>
+</ol>
+<p>当我们的训练集相对较小时，词嵌入的作用最明显，因此其广泛用于NLP领域。比如它已经用在了命名实体识别、文本摘要、文本解析、指代消解里，这些都是很标准的NLP任务；词嵌入在语言模型、机器翻译领域用得少一些，尤其是我们做语言模型或者机器翻译任务时，这些任务我们有大量的数据。在其他的迁移学习场景下也一样，如果我们从某一任务A迁移到某一个任务B，只有A中有大量数据，B中数据少时，迁移才有用。</p>
+<p>这里还举了与人脸识别的不同。对于人脸识别，我们训练一个Siamese网络来学习不同人脸的128维表示，然后比较编码结果来判断两个图片是否为同一个人脸。只要输入一个人脸，就返回一个编码结果。两者对比，人脸编码可能涉及海量的图片，而自然语言处理有一个固定的词汇表，像没有出现的就标记为<unk>。</unk></p>
+<h2 id="词嵌入的特性"><a href="#词嵌入的特性" class="headerlink" title="词嵌入的特性"></a>词嵌入的特性</h2><p>词嵌入的一个特性是可以帮助实现类比推理。我们希望词嵌入可以捕捉单词的特征表示，假如我们提出一个问题，man对应woman，那么king对应什么？用词嵌入可以实现这种推导。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ce068fbd6d430d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>如图，通过e_man-e_woman和e_king-e_queen，我们发现他们的主要差异，通过向量表示，可以发现是gender(性别)上的差异。所以得出这种类比推理的结果方法是，当算法被问及man对应woman，那king对应什么时，算法所做的就是计算e_man-e_woman，然后找出一个向量，使得e_man-e_woman约等于e_king-e_?。也就是说，当这个新词为queen时，式子近似相等。这种思想帮助很多研究者对词嵌入领域建立了更深刻的理解。</p>
+<p>论文标题：Linguistic regularities in continuous space word representations, 2013.</p>
+<p>实现类比推理的方法即找到相似度最大的单词：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4f6bfafe877960c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>另外，注意到我们用t-SNE算法映射到的二维空间，不一定能够像左图那样呈现出一个平行四边形，因为这种映射是使用了一种很复杂的非线性映射。</p>
+<p>下面列举常用的相似度函数：</p>
+<ol>
+<li>余弦相似度（常用来衡量词嵌入之间的相似度）：<br> <img src="https://upload-images.jianshu.io/upload_images/8636110-676805ea293c9357.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+<li>欧式距离：<br> <img src="https://upload-images.jianshu.io/upload_images/8636110-dd85369ffbc4f0ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ol>
+<p>通过在大量的语料库上学习，词嵌入算法可以发现像下面这样的类比推理(analogy reasoning)模式：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4de132349dfb7b1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="词嵌入矩阵"><a href="#词嵌入矩阵" class="headerlink" title="词嵌入矩阵"></a>词嵌入矩阵</h2><p>将嵌入矩阵E与单词对应的one-hot矩阵相乘，我们可以得到对应单词的词向量，即E·O_j = E_j。但一般我们实际上是用专门的函数，即找出对应的列，来找到对应单词的词向量，这样更高效，比如Keras有个函数叫keras.layers.Embedding可以实现。我们在学习的时候，会随机初始化E矩阵，然后通过梯度下降方法来求出E。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ada21eecc44bdd3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="具体算法学习词嵌入"><a href="#具体算法学习词嵌入" class="headerlink" title="具体算法学习词嵌入"></a>具体算法学习词嵌入</h2><p>论文标题：A neural probabilistic language model, 2003.</p>
+<p>介绍一个早期最成功的用于学习嵌入矩阵E的NLP模型，比如假定给出四个单词，预测下一个单词会是什么。：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b3958ee014798af9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><strong>Other context/target pairs</strong>: </p>
+<p>在前面我们知道了算法预测出了某个单词juice，我们将其称为target words，它是通过前面的context(last 4 words)学到的。所以如果我们的目标是学习一个嵌入向量，研究人员已经尝试过很多不同类型的上下文，<strong>如果我们要构建一个语言模型，那么一般选取目标词之前的几个词作为上下文；但如果我们的目标不是学习语言模型本身，而是学习词嵌入，那么我们可以选择其他上下文。</strong></p>
+<p>比如，我们可以提出一个学习问题，而它的上下文是左边和右边的各四个词，即我们可以把target word左右两个的词作为上下文。因此我们的算法获得了a glass of orange和to go along with，然后要求预测出中间这个词。提出这样一个问题，这个问题需要将左边4个词和右边4个词的嵌入向量提供给神经网络，来预测中间的单词是什么。或者上下文只有前一个词的嵌入向量，然后用来预测下一个词。或者上下文可以是附近的一个词，比如glass，利用它来推导juice。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-cef310702e888287.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>而这种利用上下文前后两个单词的思想与Word2Vec中的skip gram模型一致，下文会介绍Word2Vec.</p>
+<h2 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h2><p>论文标题：Efficient estimation of word representations in vector space, 2013.</p>
+<p>假设给定一个句子：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bebd48a7b239949a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>在skip gram模型中，我们要做的是抽取上下文和目标词配对，来构造一个监督学习问题。而我们的上下文不一定总是在目标词之前离得最近的n个单词。我们会随机选一个词作为context word，如orange，然后我们要做的是随机在一定词距内(比如context word前后5个词或10个词内）选择目标词target word，比如juice。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-bccd935a4e58cc20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>因此我们构造一个监督学习问题，它给定context word，要求你预测在这个词正负10个词距或者5个词距内随机选择的某个目标词。而构造这个监督学习问题的目标并不是解决这个监督学习问题本身，而是我们想要用这个学习问题来学到一个好的词嵌入模型。</p>
+<h3 id="Skip-gram模型"><a href="#Skip-gram模型" class="headerlink" title="Skip gram模型"></a>Skip gram模型</h3><p>假设我们的单词总数量为10,000.那么给定一个context word作为输入，我们要求预测出target word。（这里之所以叫skip-gram，就是因为我们预测的是context word从左数或者右数的某个target word。）<br><img src="https://upload-images.jianshu.io/upload_images/8636110-54695b88b17d7d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>我们的网络结构是这样的：输入context word的one-hot向量，然后经过嵌入矩阵的相乘得到e_c，再通过一个Softmax单元得到目标词的one-hot表示。因此这里的参数有两个部分，一个是嵌入矩阵本身，一个是softmax单元本身的参数。所以我们的网络结构和具体Softmax函数如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-6fa505f529777475.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>而Softmax函数的损失函数如下，注意到y和y_hat都是one-hot向量：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ee88a2a23705f4a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>而Skip-gram模型实际上存在一些问题，尤其是在softmax模型中，每次我们想要计算概率时，我们需要对词汇表的所有词做求和运算，而这个词汇表可能会很大，那么分母的求和操作就会相当慢。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-9b88697bbc563b43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>解决方法有Hierachical softmax（分级的Softmax分类器），简单来说就是不是一开始就确定到底是属于哪一类，而是先告诉我们该词是属于哪一级别，相当于利用一个树形结构。我们使用的是霍夫曼树，相当于使用了二元分类，即二元逻辑回归的方法。在实践中，分级的Softmax分类器会被构造成常用词在顶部，而不常用词则在树的深部，即不对称的二叉树（不同的经验法则）。更具体的解释：<a href="https://www.cnblogs.com/pinard/p/7243513.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/7243513.html</a><br><img src="https://upload-images.jianshu.io/upload_images/8636110-0e29831514e81939.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>接下来我们需要理解，怎么对上下文C进行采样？一旦我们对上下文进行采样，那么目标词t就会在上下文前后词距比如10的单词中进行采样。一种选择是我们可以在语料库中随机均匀地采样，这样做我们会发现有一些词像the/a/of/and会频繁出现，而其他的apple/durian的词则很少出现，这是我们不希望的情况（很多时间更新频繁词）；因此我们通常采用一些启发式方法来平衡频繁词和普通词的采样。</p>
+<h3 id="CBOW模型-Continuous-Bag-of-Words"><a href="#CBOW模型-Continuous-Bag-of-Words" class="headerlink" title="CBOW模型(Continuous Bag-of-Words)"></a>CBOW模型(Continuous Bag-of-Words)</h3><p>CBOW模型通过获得中间词的上下文，然后用这些周围的词去预测中间的词。</p>
+<h3 id="负采样：Negative-Sampling"><a href="#负采样：Negative-Sampling" class="headerlink" title="负采样：Negative Sampling"></a>负采样：Negative Sampling</h3><p><img src="https://upload-images.jianshu.io/upload_images/8636110-bebd48a7b239949a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>负采样可以比较好的解决Skip gram模型的计算问题。我们在这个算法中要做的是构造一个新的监督学习问题，比如给定一对单词，如orange和juice，我们要去预测这是否是context-target pair？在这个例子中，orange和juice就是一个正样本，即为1。而比如orange和king，我们将其视为负样本，即为0。所以我们要做的是采样得到一个context word和target word，也就是表中的第一样，给出了一个正样本；接着我们再使用相同的上下文词，在词典中随机选取几个词（如果我们的词在上下文词的词距中也没关系），作为负样本。接着我们构造的监督问题就是输入这对词，然后去预测目标的标签，即预测输出y。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1d0c7b574085f460.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>我们的目的就是区分这两个词是通过对靠近的两个词采样，还是随机采样的。我们的目的就是区分两种不同的采样方式。</p>
+<p>所以这就是如何生成训练集的方法。而如何选择K呢？如果是小数据集，那么K从5到20比较好，但如果是大数据集，那么K为2-5。在本例中，我们选择K为4.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b7fdd6568e488ecc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>对应的模型：原本我们使用的是Softmax分类器，但是计算成本过高。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b0b75a550cdb0e21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>因此我们采用负采样的方法来进行训练。此时我们的负采样输入和输出分别为：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-708c9138ab4bf471.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>所以我们会使用<strong>二元逻辑回归分类器</strong>来判断是否为正样本还是负样本。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-81e6db3c34f1e23c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>因此整个的Skip gram模型优化后如下。（给定上下文词orange，通过与嵌入矩阵E相乘得到嵌入向量，然后我们会得到10,000个可能的logistic回归问题，其中一个将会是用来判断目标词是否是juice的分类器，而其他的可能用来预测king是否是目标词之类的。把他们看成10,000个二元分类器，但并不是每次迭代都训练全部的10,000个，即<strong>每次迭代我们只训练其他的K+1个分类器</strong>。这样每次迭代的成本要比Softmax小很多。）<br><img src="https://upload-images.jianshu.io/upload_images/8636110-0ecb9a6fe27f1b58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>这个算法还有一个细节，即如何选择负采样的样本？我们可以对候选的目标词进行采样，可以根据其在语料中的经验频率进行采样（会导致the,of,and等多次被采样），而另一个极端就是用1除以词汇表总词数，均匀且随机地抽取负样本。而论文的作者发现的一个经验方法是既不用经验频率，也不是均匀采样，而可以用介于他们之间的方法。他们做的是对词频的3/4次方除以整体的值进行采样。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d6754994b242345a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="GloVe词向量"><a href="#GloVe词向量" class="headerlink" title="GloVe词向量"></a>GloVe词向量</h2><p>论文标题：Global vector for word representation, 2014.</p>
+<p>在之前，我们曾通过挑选语料库中位置相近的两个词，列举出词对，即上下文和目标词，而GloVe算法做的是使其关系明确化。假设X_ij是单词i在单词j上下文中出现的次数，那么这里i和j的功能就和t和c的功能一样，所以我们可以认为X_ij等同于X_tc。根据上下文和目标词的定义，我们可以得出X_ij等于X_ji的结论。事实上，如果我们将上下文和目标词的范围定义为出现于左右各1词以内的话，就会有对称关系，但如果上下文总是目标词前一个词的话，那就不对称了。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-aab282e606d3b427.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>对于GloVe算法，我们可以定义上下文和目标词Wie任意两个位置相近的单词，假设是左右各10个词额距离，那么X_ij就是一个能够获取单词i和单词j出现位置相近时或者彼此接近的频率的计算器。</p>
+<p>Glove模型做的就是最小化他们之间的差距：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-dd3925abbecc8c53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>而公式中的点乘就是要告诉我们这两个单词之间有多少联系，t和c之间有多紧密，i和j之间联系程度如何，换句话说他们同时出现的频率是多少，这是由X_ij影响的。接着我们需要解决参数theta和e的问题，然后用梯度下降法来最小化上面的公式。需要补充的细节是，如果X_ij=0，那么log0是未定义的，所以我们添加了一个额外的加权项f(X_ij)(weighting term)。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ebbe984ad95ececd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>如果X_ij等于0，我们会约定0log0=0。因此这个求和公式表明，这个和仅是一个上下文和目标词关系里连续出现至少一次的词对的和。f(X_ij)的另一个作用是，有些词在英语里出现十分频繁，比如this,is,of,a等等，这些词称为”停止词”，在频繁词和不常用词之间也会有一个连续体(continumm: 相邻两者相似但起首与末尾截然不同的)。另外也有一些不常用词，比如durion，但我们还是想考虑在内，但又不像常用词那么频繁。因此，这个加权项f(X_ij)就可以是一个函数，给予这些出现频率不同的词不同的权重。（具体可以看GloVe算法的论文）</p>
+<p>最后一个关于此算法有趣的事是theta和e是完全堆成的。因此有一种训练算法的方法是一致地初始化theta和e，然后使用梯度下降来最小化输出。当每个词都处理完之后去平均值，所以给定一个词w，我们有：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ebd4600cd0ec5c0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="A-note-on-the-featurization-view-of-embeddings"><a href="#A-note-on-the-featurization-view-of-embeddings" class="headerlink" title="A note on the featurization view of embeddings"></a>A note on the featurization view of embeddings</h2><p>在前面讲词嵌入的时候，我们是用下面这样一个简单的例子来解释的。但是，实际上我们训练出来的词向量很难对每个维度有这样清楚的理解，即很难知道哪个轴代表gender之类的。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ef901ebc6cf6b990.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>例如，对于我们在前面学到的GloVe算法：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-70c70df5fa9db494.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>我们可以乘积项利用线性代数的知识表示为：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-105665c3bc9f3fd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>我们就知道，我们不能保证这些用来表示特征的轴能够等同于人类可能简单理解的轴。具体而言，第一个特征可能是gender/roya/age/foot/等的组合，它也许是名词或是一个行为动词和其他所有特征的组合，所以很难看出独立组成部分。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4e8e1a43202079f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>尽管有这种类型的线性变换，但是这个平行四边形映射也说明我们解决了这个问题。因此尽管存在特征量潜在的任意线性变换，我们最终还是能学习出解决类似问题的平行四边形映射。</p>
+<h1 id="情感分类：Sentiment-classification"><a href="#情感分类：Sentiment-classification" class="headerlink" title="情感分类：Sentiment classification"></a>情感分类：Sentiment classification</h1><p>问题阐述，一般是对评论进行分类：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d77d210646ecbd19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>情感分类的一个最大挑战是可能标记的训练集没有那么多。对于情感分类任务来说，训练集大小从10,000到100,000个单词都很常见，也可能小于10,000个单词，而使用词嵌入能够带来更好的效果，尤其是只有很小的训练集时。</p>
+<p>一个简单的情感分类的模型如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f71bba9251809c51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>注意到取平均的操作使得我们的模型可以适用于任意长短的评论。</p>
+<p>而这个算法的一个问题是没有考虑词序。尤其是，对于这样一个负面的评价”Completely lacking in good taste, good service, and good ambience.”，但由于good出现了很多次，那么仅仅平均或求和得到的嵌入向量可能会多次出现good的含义，因此我们的分类器可能会认为这是一个正面的评价。所以我们可以用一个RNN模型来做情感分类。</p>
+<h2 id="RNN-for-sentiment-classification"><a href="#RNN-for-sentiment-classification" class="headerlink" title="RNN for sentiment classification"></a>RNN for sentiment classification</h2><p>我们可以使用如下的RNN模型：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a347f55b5b01ff85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>这个模型就是我们之前所介绍过的many-to-one结构。有了这样的模型，考虑词的顺序，这样就会有更好的效果了。</p>
+<h1 id="词嵌入除偏：Debias-word-embedding"><a href="#词嵌入除偏：Debias-word-embedding" class="headerlink" title="词嵌入除偏：Debias word embedding"></a>词嵌入除偏：Debias word embedding</h1><p>论文标题：Man is computer programmer as woman is homemaker? Debiasing word embeddings 2016</p>
+<p>现在机器学习和人工智能算法正渐渐地被信任用以辅助或者指定极其重要的决策，因此我们想尽可能地确保它们不受<strong>非预期形式偏见</strong>影响，比如性别歧视(gender bias)、种族歧视(ethnic bias)等等。本节会展示词嵌入中一些有关减少或是消除这些形式的偏见的方法。</p>
+<p>常见词嵌入bias如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-055bea92b4d8f957.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>具体来说，word embeddings can reflect gender, ethnicity, age, sexual orientation, and other biases of the text used to train the model. 通常，这些偏见都和社会经济状态相关。</p>
+<p>假设下面这些词的嵌入画在平面图如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-90897e106c8e4e4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>第一步我们要做的是identify bias direction（定义步），比如采用取平均的方法：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d90327669786993e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>（实际上取平均的算法过于简单，原论文里不是这样做的，而是做了奇异值分解，从而确定了bias direction，也就是偏见的方向。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-b1729f55eb91a9bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>第二步是Neutralize（中和步）: For every word that is not definitional（定义不明确）, project to get rid of bias，比如图片上的babysitter、docter。对于这样的词，我们可以减小将它们在bias direction上进行处理，来减少或消除它们性别歧视趋势的成分。</p>
+<p>第三步是Equalize pairs(均衡步)。比如我们有这样的词对grandmother和grandfather，girl和boy，我们只希望这些词对的不同体现在性别上，确保和babysitter和docter之类的词有相似的距离。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-158cd369401bcab3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>所以论文作者所做的就是尝试训练一个分类器，来尝试解决哪些词是明确定义的，哪些词不是。结果表明大部分英文单词在性别方面是没有明确定义的，而只有一部分词不是性别中立的。</p>
+<h1 id="本周作业"><a href="#本周作业" class="headerlink" title="本周作业"></a>本周作业</h1><h2 id="Operations-on-word-vectors"><a href="#Operations-on-word-vectors" class="headerlink" title="Operations on word vectors"></a>Operations on word vectors</h2><h3 id="1-Cosine-similarity"><a href="#1-Cosine-similarity" class="headerlink" title="1- Cosine similarity"></a>1- Cosine similarity</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cosine_similarity</span><span class="params">(u, v)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Cosine similarity reflects the degree of similariy between u and v</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        u -- a word vector of shape (n,)          </span></span><br><span class="line"><span class="string">        v -- a word vector of shape (n,)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        cosine_similarity -- the cosine similarity between u and v defined by the formula above.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    distance = <span class="number">0.0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">### START CODE HERE ###</span></span><br><span class="line">    <span class="comment"># Compute the dot product between u and v (≈1 line)</span></span><br><span class="line">    dot = np.dot(u,v)</span><br><span class="line">    <span class="comment"># Compute the L2 norm of u (≈1 line)</span></span><br><span class="line">    norm_u = np.sqrt(np.sum(u*u))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Compute the L2 norm of v (≈1 line)</span></span><br><span class="line">    norm_v = np.sqrt(np.sum(v*v))</span><br><span class="line">    <span class="comment"># Compute the cosine similarity defined by formula (1) (≈1 line)</span></span><br><span class="line">    cosine_similarity = dot / (norm_u * norm_v)</span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> cosine_similarity</span><br></pre></td></tr></table></figure>
+<h3 id="2-Word-analogy-task"><a href="#2-Word-analogy-task" class="headerlink" title="2- Word analogy task"></a>2- Word analogy task</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">complete_analogy</span><span class="params">(word_a, word_b, word_c, word_to_vec_map)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Performs the word analogy task as explained above: a is to b as c is to ____. </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    word_a -- a word, string</span></span><br><span class="line"><span class="string">    word_b -- a word, string</span></span><br><span class="line"><span class="string">    word_c -- a word, string</span></span><br><span class="line"><span class="string">    word_to_vec_map -- dictionary that maps words to their corresponding vectors. </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    best_word --  the word such that v_b - v_a is close to v_best_word - v_c, as measured by cosine similarity</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># convert words to lower case</span></span><br><span class="line">    word_a, word_b, word_c = word_a.lower(), word_b.lower(), word_c.lower()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">### START CODE HERE ###</span></span><br><span class="line">    <span class="comment"># Get the word embeddings v_a, v_b and v_c (≈1-3 lines)</span></span><br><span class="line">    e_a, e_b, e_c = word_to_vec_map[word_a],word_to_vec_map[word_b],word_to_vec_map[word_c]</span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line">    </span><br><span class="line">    words = word_to_vec_map.keys()</span><br><span class="line">    max_cosine_sim = <span class="number">-100</span>              <span class="comment"># Initialize max_cosine_sim to a large negative number</span></span><br><span class="line">    best_word = <span class="keyword">None</span>                   <span class="comment"># Initialize best_word with None, it will help keep track of the word to output</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># loop over the whole word vector set</span></span><br><span class="line">    <span class="keyword">for</span> w <span class="keyword">in</span> words: <span class="comment"># w is string</span></span><br><span class="line">        <span class="comment"># to avoid best_word being one of the input words, pass on them.</span></span><br><span class="line">        <span class="keyword">if</span> w <span class="keyword">in</span> [word_a, word_b, word_c] :</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">### START CODE HERE ###</span></span><br><span class="line">        <span class="comment"># Compute cosine similarity between the combined_vector and the current word (≈1 line)</span></span><br><span class="line">        cosine_sim = cosine_similarity(e_b-e_a, word_to_vec_map[w]-e_c)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># If the cosine_sim is more than the max_cosine_sim seen so far,</span></span><br><span class="line">            <span class="comment"># then: set the new max_cosine_sim to the current cosine_sim and the best_word to the current word (≈3 lines)</span></span><br><span class="line">        <span class="keyword">if</span> cosine_sim &gt; max_cosine_sim:</span><br><span class="line">            max_cosine_sim = cosine_sim</span><br><span class="line">            best_word = w</span><br><span class="line">        <span class="comment">### END CODE HERE ###</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> best_word</span><br></pre></td></tr></table></figure>
+<h3 id="3-Debiasing-word-vectors-OPTIONAL-UNGRADED"><a href="#3-Debiasing-word-vectors-OPTIONAL-UNGRADED" class="headerlink" title="3- Debiasing word vectors (OPTIONAL/UNGRADED)"></a>3- Debiasing word vectors (OPTIONAL/UNGRADED)</h3><h4 id="3-1-Neutralize-bias-for-non-gender-specific-words"><a href="#3-1-Neutralize-bias-for-non-gender-specific-words" class="headerlink" title="3.1- Neutralize bias for non-gender specific words"></a>3.1- Neutralize bias for non-gender specific words</h4><p><img src="https://upload-images.jianshu.io/upload_images/8636110-d7339d5c8b5fe9e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-ac20abc1877f2d6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">neutralize</span><span class="params">(word, g, word_to_vec_map)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Removes the bias of "word" by projecting it on the space orthogonal to the bias axis. </span></span><br><span class="line"><span class="string">    This function ensures that gender neutral words are zero in the gender subspace.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">        word -- string indicating the word to debias</span></span><br><span class="line"><span class="string">        g -- numpy-array of shape (50,), corresponding to the bias axis (such as gender)</span></span><br><span class="line"><span class="string">        word_to_vec_map -- dictionary mapping words to their corresponding vectors.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        e_debiased -- neutralized word vector representation of the input "word"</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">### START CODE HERE ###</span></span><br><span class="line">    <span class="comment"># Select word vector representation of "word". Use word_to_vec_map. (≈ 1 line)</span></span><br><span class="line">    e = word_to_vec_map[word]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Compute e_biascomponent using the formula give above. (≈ 1 line)</span></span><br><span class="line">    </span><br><span class="line">    e_biascomponent = np.dot(e,g) / np.square(np.sqrt(np.sum(g**<span class="number">2</span>))) * g</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#e_biascomponent = np.dot(e, g) / np.square(np.linalg.norm(g)) * g</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment"># Neutralize e by substracting e_biascomponent from it </span></span><br><span class="line">    <span class="comment"># e_debiased should be equal to its orthogonal projection. (≈ 1 line)</span></span><br><span class="line">    e_debiased = e - e_biascomponent</span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> e_debiased</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-Equalization-algorithm-for-gender-specific-words"><a href="#3-2-Equalization-algorithm-for-gender-specific-words" class="headerlink" title="3.2- Equalization algorithm for gender-specific words"></a>3.2- Equalization algorithm for gender-specific words</h4><p>Next, lets see how debiasing can also be applied to word pairs such as “actress” and “actor.” Equalization is applied to pairs of words that you might want to have differ only through the gender property. As a concrete example, suppose that “actress” is closer to “babysit” than “actor.” By applying neutralizing to “babysit” we can reduce the gender-stereotype associated with babysitting. But this still does not guarantee that “actor” and “actress” are equidistant from “babysit.” The equalization algorithm takes care of this.</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-681c53121600f01a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>The derivation of the linear algebra to do this is a bit more complex. (See Bolukbasi et al., 2016 for details.) But the key equations are:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ac96125437c58c03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">equalize</span><span class="params">(pair, bias_axis, word_to_vec_map)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Debias gender specific words by following the equalize method described in the figure above.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    pair -- pair of strings of gender specific words to debias, e.g. ("actress", "actor") </span></span><br><span class="line"><span class="string">    bias_axis -- numpy-array of shape (50,), vector corresponding to the bias axis, e.g. gender</span></span><br><span class="line"><span class="string">    word_to_vec_map -- dictionary mapping words to their corresponding vectors</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns</span></span><br><span class="line"><span class="string">    e_1 -- word vector corresponding to the first word</span></span><br><span class="line"><span class="string">    e_2 -- word vector corresponding to the second word</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">### START CODE HERE ###</span></span><br><span class="line">    <span class="comment"># Step 1: Select word vector representation of "word". Use word_to_vec_map. (≈ 2 lines)</span></span><br><span class="line">    w1, w2 = pair</span><br><span class="line">    e_w1, e_w2 = word_to_vec_map[w1], word_to_vec_map[w2]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Step 2: Compute the mean of e_w1 and e_w2 (≈ 1 line)</span></span><br><span class="line">    mu = (e_w1 + e_w2) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Step 3: Compute the projections of mu over the bias axis and the orthogonal axis (≈ 2 lines)</span></span><br><span class="line">    mu_B = np.dot(mu, bias_axis) / np.sum(bias_axis**<span class="number">2</span>) * bias_axis</span><br><span class="line">    mu_orth = mu - mu_B</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Step 4: Set e1_orth and e2_orth to be equal to mu_orth (≈2 lines)</span></span><br><span class="line">    e_w1B = np.dot(e_w1, bias_axis) / np.sum(bias_axis**<span class="number">2</span>) * bias_axis</span><br><span class="line">    e_w2B = np.dot(e_w2, bias_axis) / np.sum(bias_axis**<span class="number">2</span>) * bias_axis</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># Step 5: Adjust the Bias part of u1 and u2 using the formulas given in the figure above (≈2 lines)</span></span><br><span class="line">    corrected_e_w1B = np.sqrt(np.abs(<span class="number">1</span>-np.sum(mu_orth**<span class="number">2</span>))) * ((e_w1B-mu_B)/np.linalg.norm(e_w1-mu_orth-mu_B))</span><br><span class="line">    corrected_e_w2B = np.sqrt(np.abs(<span class="number">1</span>-np.sum(mu_orth**<span class="number">2</span>))) * ((e_w2B-mu_B)/np.linalg.norm(e_w2-mu_orth-mu_B))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Step 6: Debias by equalizing u1 and u2 to the sum of their projections (≈2 lines)</span></span><br><span class="line">    e1 = corrected_e_w1B + mu_orth</span><br><span class="line">    e2 = corrected_e_w2B + mu_orth</span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> e1, e2</span><br></pre></td></tr></table></figure>
+<p>Please feel free to play with the input words in the cell above, to apply equalization to other pairs of words.</p>
+<p>These debiasing algorithms are very helpful for reducing bias, but are not perfect and do not eliminate all traces of bias. For example, one weakness of this implementation was that the bias direction g was defined using only the pair of words woman and man. As discussed earlier, if g were defined by computing g1=e_woman−e_man; g2=em_other−e_father; g3=e_girl−e_boy; and so on and averaging over them, you would obtain a better estimate of the “gender” dimension in the 50 dimensional word embedding space. Feel free to play with such variants as well.</p>
+<h2 id="Emojify"><a href="#Emojify" class="headerlink" title="Emojify!"></a>Emojify!</h2><h3 id="1-Baseline-model-Emojifier-V1"><a href="#1-Baseline-model-Emojifier-V1" class="headerlink" title="1- Baseline model: Emojifier-V1"></a>1- Baseline model: Emojifier-V1</h3><h4 id="1-1-Dataset-EMOJISET"><a href="#1-1-Dataset-EMOJISET" class="headerlink" title="1.1- Dataset EMOJISET"></a>1.1- Dataset EMOJISET</h4><p>Let’s start by building a simple baseline classifier. </p>
+<p>You have a tiny dataset (X, Y) where:</p>
+<ul>
+<li>X contains 127 sentences (strings)</li>
+<li>Y contains a integer label between 0 and 4 corresponding to an emoji for each sentence</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-5988832092fefe2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="1-2-Overview-of-the-Emojifier-V1"><a href="#1-2-Overview-of-the-Emojifier-V1" class="headerlink" title="1.2- Overview of the Emojifier-V1"></a>1.2- Overview of the Emojifier-V1</h4><p>In this part, you are going to implement a baseline model called “Emojifier-v1”.<br><img src="https://upload-images.jianshu.io/upload_images/8636110-477d8bda868724b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>To get our labels into a format suitable for training a softmax classifier, lets convert  YY  from its current shape current shape (m,1) into a “one-hot representation” (m,5), where each row is a one-hot vector giving the label of one example, You can do so using this next code snipper. Here, Y_oh stands for “Y-one-hot” in the variable names Y_oh_train and Y_oh_test:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Y_oh_train = convert_to_one_hot(Y_train, C = <span class="number">5</span>)</span><br><span class="line">Y_oh_test = convert_to_one_hot(Y_test, C = <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-Implementing-Emojifier-V1"><a href="#1-3-Implementing-Emojifier-V1" class="headerlink" title="1.3- Implementing Emojifier-V1"></a>1.3- Implementing Emojifier-V1</h4><p>As shown in Figure (2), the first step is to convert an input sentence into the word vector representation, which then get averaged together. Similar to the previous exercise, we will use pretrained 50-dimensional GloVe embeddings. Run the following cell to load the word_to_vec_map, which contains all the vector representations.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">word_to_index, index_to_word, word_to_vec_map = read_glove_vecs(<span class="string">'data/glove.6B.50d.txt'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>对词向量取平均：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sentence_to_avg</span><span class="params">(sentence, word_to_vec_map)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Converts a sentence (string) into a list of words (strings). Extracts the GloVe representation of each word</span></span><br><span class="line"><span class="string">    and averages its value into a single vector encoding the meaning of the sentence.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    sentence -- string, one training example from X</span></span><br><span class="line"><span class="string">    word_to_vec_map -- dictionary mapping every word in a vocabulary into its 50-dimensional vector representation</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    avg -- average vector encoding information about the sentence, numpy-array of shape (50,)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">### START CODE HERE ###</span></span><br><span class="line">    <span class="comment"># Step 1: Split sentence into list of lower case words (≈ 1 line) 小写</span></span><br><span class="line">    words = list(sentence.lower().split())</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Initialize the average word vector, should have the same shape as your word vectors.</span></span><br><span class="line">    avg = np.zeros((<span class="number">50</span>,))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Step 2: average the word vectors. You can loop over the words in the list "words".</span></span><br><span class="line">    <span class="keyword">for</span> w <span class="keyword">in</span> words:</span><br><span class="line">        avg += word_to_vec_map[w]</span><br><span class="line">    avg = avg / len(words)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> avg</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-74b3e105e731b29c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>模型：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">model</span><span class="params">(X, Y, word_to_vec_map, learning_rate = <span class="number">0.01</span>, num_iterations = <span class="number">400</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Model to train word vector representations in numpy.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    X -- input data, numpy array of sentences as strings, of shape (m, 1)</span></span><br><span class="line"><span class="string">    Y -- labels, numpy array of integers between 0 and 7, numpy-array of shape (m, 1)</span></span><br><span class="line"><span class="string">    word_to_vec_map -- dictionary mapping every word in a vocabulary into its 50-dimensional vector representation</span></span><br><span class="line"><span class="string">    learning_rate -- learning_rate for the stochastic gradient descent algorithm</span></span><br><span class="line"><span class="string">    num_iterations -- number of iterations</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    pred -- vector of predictions, numpy-array of shape (m, 1)</span></span><br><span class="line"><span class="string">    W -- weight matrix of the softmax layer, of shape (n_y, n_h)</span></span><br><span class="line"><span class="string">    b -- bias of the softmax layer, of shape (n_y,)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    np.random.seed(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Define number of training examples</span></span><br><span class="line">    m = Y.shape[<span class="number">0</span>]                          <span class="comment"># number of training examples</span></span><br><span class="line">    n_y = <span class="number">5</span>                                 <span class="comment"># number of classes  </span></span><br><span class="line">    n_h = <span class="number">50</span>                                <span class="comment"># dimensions of the GloVe vectors </span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Initialize parameters using Xavier initialization</span></span><br><span class="line">    W = np.random.randn(n_y, n_h) / np.sqrt(n_h)</span><br><span class="line">    b = np.zeros((n_y,))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Convert Y to Y_onehot with n_y classes</span></span><br><span class="line">    Y_oh = convert_to_one_hot(Y, C = n_y) </span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Optimization loop</span></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> range(num_iterations):                       <span class="comment"># Loop over the number of iterations</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):                                <span class="comment"># Loop over the training examples</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">### START CODE HERE ### (≈ 4 lines of code)</span></span><br><span class="line">            <span class="comment"># Average the word vectors of the words from the i'th training example</span></span><br><span class="line">            avg = sentence_to_avg(X[i], word_to_vec_map)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># Forward propagate the avg through the softmax layer</span></span><br><span class="line">            z = np.dot(W,avg)+b</span><br><span class="line">            a = softmax(z)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># Compute cost using the j'th training label's one hot representation and "A" (the output of the softmax)</span></span><br><span class="line">            cost = -np.sum(Y_oh[i]*np.log(a))</span><br><span class="line">            <span class="comment">### END CODE HERE ###</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Compute gradients </span></span><br><span class="line">            dz = a - Y_oh[i]</span><br><span class="line">            dW = np.dot(dz.reshape(n_y,<span class="number">1</span>), avg.reshape(<span class="number">1</span>, n_h))</span><br><span class="line">            db = dz</span><br><span class="line"></span><br><span class="line">            <span class="comment"># Update parameters with Stochastic Gradient Descent</span></span><br><span class="line">            W = W - learning_rate * dW</span><br><span class="line">            b = b - learning_rate * db</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> t % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"Epoch: "</span> + str(t) + <span class="string">" --- cost = "</span> + str(cost))</span><br><span class="line">            pred = predict(X, Y, W, b, word_to_vec_map)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> pred, W, b</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-4-Examining-test-set-performance"><a href="#1-4-Examining-test-set-performance" class="headerlink" title="1.4- Examining test set performance"></a>1.4- Examining test set performance</h4><p><img src="https://upload-images.jianshu.io/upload_images/8636110-22d4157616527d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-820057ddf5210855.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>Printing the confusion matrix can also help understand which classes are more difficult for your model. A confusion matrix shows how often an example whose label is one class (“actual” class) is mislabeled by the algorithm with a different class (“predicted” class).<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f62b12a091ddf0cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>What you should remember from this part:</p>
+<ul>
+<li>Even with a 127 training examples, you can get a reasonably good model for Emojifying. This is due to the generalization power word vectors gives you.</li>
+<li>Emojify-V1 will perform poorly on sentences such as “This movie is not good and not enjoyable” because it doesn’t understand combinations of words—it just averages all the words’ embedding vectors together, without paying attention to the ordering of words. You will build a better algorithm in the next part.</li>
+</ul>
+<h3 id="2-Emojifier-V2-Using-LSTMs-in-Keras"><a href="#2-Emojifier-V2-Using-LSTMs-in-Keras" class="headerlink" title="2- Emojifier-V2: Using LSTMs in Keras:"></a>2- Emojifier-V2: Using LSTMs in Keras:</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">np.random.seed(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Model</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense, Input, Dropout, LSTM, Activation</span><br><span class="line"><span class="keyword">from</span> keras.layers.embeddings <span class="keyword">import</span> Embedding</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing <span class="keyword">import</span> sequence</span><br><span class="line"><span class="keyword">from</span> keras.initializers <span class="keyword">import</span> glorot_uniform</span><br><span class="line">np.random.seed(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="2-1-Overview-of-the-model"><a href="#2-1-Overview-of-the-model" class="headerlink" title="2.1- Overview of the model"></a>2.1- Overview of the model</h4><p><img src="https://upload-images.jianshu.io/upload_images/8636110-9259a2dd421de22a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="2-2-Keras-and-mini-batching"><a href="#2-2-Keras-and-mini-batching" class="headerlink" title="2.2- Keras and mini-batching"></a>2.2- Keras and mini-batching</h4><p>In this exercise, we want to train Keras using mini-batches. However, most deep learning frameworks require that all sequences in the same mini-batch have the same length. This is what allows vectorization to work: If you had a 3-word sentence and a 4-word sentence, then the computations needed for them are different (one takes 3 steps of an LSTM, one takes 4 steps) so it’s just not possible to do them both at the same time.</p>
+<p>The common solution to this is to use <strong>padding</strong>. Specifically, set a maximum sequence length, and pad all sequences to the same length. For example, of the maximum sequence length is 20, we could pad every sentence with “0”s so that each input sentence is of length 20. Thus, a sentence “i love you” would be represented as (e_i,e_love,e_you,0⃗ ,0⃗ ,…,0⃗ ). In this example, any sentences longer than 20 words would have to be truncated. One simple way to choose the maximum sequence length is to just pick the length of the longest sentence in the training set.</p>
+<h4 id="2-3-The-Embedding-layer"><a href="#2-3-The-Embedding-layer" class="headerlink" title="2.3- The Embedding layer"></a>2.3- The Embedding layer</h4><p>In Keras, the embedding matrix is represented as a “layer”, and maps positive integers (indices corresponding to words) into dense vectors of fixed size (the embedding vectors). It can be trained or initialized with a pretrained embedding. In this part, you will learn how to create an Embedding() layer in Keras, initialize it with the GloVe 50-dimensional vectors loaded earlier in the notebook. Because our training set is quite small, we will not update the word embeddings but will instead leave their values fixed. But in the code below, we’ll show you how Keras allows you to either train or leave fixed this layer.</p>
+<p>The Embedding() layer takes an integer matrix of size (batch size, max input length) as input. This corresponds to sentences converted into lists of indices (integers), as shown in the figure below.</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-dcaf6e24664d4d8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>The largest integer (i.e. word index) in the input should be no larger than the vocabulary size. The layer outputs an array of shape (batch size, max input length, dimension of word vectors).</p>
+<p>The first step is to convert all your training sentences into lists of indices, and then zero-pad all these lists so that their length is the length of the longest sentence.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sentences_to_indices</span><span class="params">(X, word_to_index, max_len)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Converts an array of sentences (strings) into an array of indices corresponding to words in the sentences.</span></span><br><span class="line"><span class="string">    The output shape should be such that it can be given to `Embedding()` (described in Figure 4). </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    X -- array of sentences (strings), of shape (m, 1)</span></span><br><span class="line"><span class="string">    word_to_index -- a dictionary containing the each word mapped to its index</span></span><br><span class="line"><span class="string">    max_len -- maximum number of words in a sentence. You can assume every sentence in X is no longer than this. </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    X_indices -- array of indices corresponding to words in the sentences from X, of shape (m, max_len)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    </span><br><span class="line">    m = X.shape[<span class="number">0</span>]                                   <span class="comment"># number of training examples</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">### START CODE HERE ###</span></span><br><span class="line">    <span class="comment"># Initialize X_indices as a numpy matrix of zeros and the correct shape</span></span><br><span class="line">    X_indices = np.zeros((m,max_len))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):                               <span class="comment"># loop over training examples</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Convert the ith training sentence in lower case and split is into words. You should get a list of words.</span></span><br><span class="line">        sentence_words = list(X[i].lower().split())</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Initialize j to 0</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Loop over the words of sentence_words</span></span><br><span class="line">        <span class="keyword">for</span> w <span class="keyword">in</span> sentence_words:</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Set the (i,j)th entry of X_indices to the index of the correct word.</span></span><br><span class="line">            X_indices[i, j] = word_to_index[w]</span><br><span class="line">            <span class="comment"># Increment j to j + 1</span></span><br><span class="line">            j = j + <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> X_indices</span><br></pre></td></tr></table></figure>
+<p>Build the Embedding() layer in Keras, using pre-trained word vectors.<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pretrained_embedding_layer</span><span class="params">(word_to_vec_map,word_to_index)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Creates a Keras Embedding() layer and loads in pre-trained GloVe 50-dimensional vectors.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    word_to_vec_map -- dictionary mapping words to their GloVe vector representation.</span></span><br><span class="line"><span class="string">    word_to_index -- dictionary mapping from words to their indices in the vocabulary (400,001 words)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    embedding_layer -- pretrained layer Keras instance</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    vocab_len = len(word_to_index)+<span class="number">1</span></span><br><span class="line">    emb_dim = word_to_vec_map[<span class="string">"cucumber"</span>].shape[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Initialize the embedding matrix as a numpy array of zeros of shape (vocab_len, dimensions of word vectors = emb_dim)</span></span><br><span class="line">    emb_matrix = np.zeros((vocab_len, emb_dim)) <span class="comment">#所有单词的嵌入矩阵</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Set each row "index" of the embedding matrix to be the word vector representation of the "index"th word of the vocabulary</span></span><br><span class="line">    <span class="keyword">for</span> word, index <span class="keyword">in</span> word_to_index.items():</span><br><span class="line">        emb_matrix[index, :] = word_to_vec_map[word]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Define Keras embedding layer with the correct output/input sizes, make it trainable.</span></span><br><span class="line">    <span class="comment"># Use Embedding(...). Make sure to set trainable=False.</span></span><br><span class="line">    embedding_layer = Embedding(input_dim=vocab_len,output_dim=emb_dim,trainable=<span class="keyword">False</span>)</span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Build the embedding layer, it is required before setting the weights of the embedding layer. Do not modify the "None".</span></span><br><span class="line">    embedding_layer.build((<span class="keyword">None</span>,))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Set the weights of the embedding layer to the embedding matrix. Your layer is now pretrained.</span></span><br><span class="line">    embedding_layer.set_weights([emb_matrix])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> embedding_layer</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-3-Building-the-Emojifier-V2"><a href="#2-3-Building-the-Emojifier-V2" class="headerlink" title="2.3- Building the Emojifier-V2"></a>2.3- Building the Emojifier-V2</h3><p><img src="https://upload-images.jianshu.io/upload_images/8636110-aee79f1c430ef952.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>注意LSTM的参数设值，比如return_sequences。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Emojify_V2</span><span class="params">(input_shape,word_to_index,word_to_index)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Function creating the Emojify-v2 model's graph.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Arguments:</span></span><br><span class="line"><span class="string">    input_shape -- shape of the input, usually (max_len,)</span></span><br><span class="line"><span class="string">    word_to_vec_map -- dictionary mapping every word in a vocabulary into its 50-dimensional vector representation</span></span><br><span class="line"><span class="string">    word_to_index -- dictionary mapping from words to their indices in the vocabulary (400,001 words)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    model -- a model instance in Keras</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Define sentence_indices as the input of the graph, it should be of shape input_shape and dtype 'int32' (as it contains indices).</span></span><br><span class="line">    sentence_indices = Input(input_shape, dtype=<span class="string">'int32'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create the embedding layer pretrained with GloVe Vectors (≈1 line)</span></span><br><span class="line">    embedding_layer = pretrained_embedding_layer(word_to_vec_map, word_to_index)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Propagate sentence_indices through your embedding layer, you get back the embeddings</span></span><br><span class="line">    embeddings = embedding_layer(sentence_indices) <span class="comment">#注意这里！</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Propagate the embeddings through an LSTM layer with 128-dimensional hidden state</span></span><br><span class="line">    <span class="comment"># Be careful, the returned output should be a batch of sequences.</span></span><br><span class="line">    X = LSTM(units=<span class="number">128</span>,return_sequences=<span class="keyword">True</span>)(embeddings) <span class="comment"># 注意参数设置，要一个个认真检查</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Add dropout with a probability of 0.5</span></span><br><span class="line">    X = Dropout(rate=<span class="number">0.5</span>)(X)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Propagate X trough another LSTM layer with 128-dimensional hidden state</span></span><br><span class="line">    <span class="comment"># Be careful, the returned output should be a single hidden state, not a batch of sequences.</span></span><br><span class="line">    X = LSTM(units=<span class="number">128</span>,return_sequences=<span class="keyword">False</span>)(X)</span><br><span class="line">    <span class="comment"># Add dropout with a probability of 0.5</span></span><br><span class="line">    X = Dropout(rate=<span class="number">0.5</span>)(X)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Propagate X through a Dense layer with softmax activation to get back a batch of 5-dimensional vectors.</span></span><br><span class="line">    X = Dense(units=<span class="number">5</span>)(X)</span><br><span class="line">    <span class="comment"># Add a softmax activation</span></span><br><span class="line">    X = Activation(<span class="string">'softmax'</span>)(X)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create Model instance which converts sentence_indices into X.</span></span><br><span class="line">    model = Model(inputs=sentence_indices,outputs=X)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">### END CODE HERE ###</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-b4818af62aae12b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>接下来的步骤：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">model.compile(loss=<span class="string">'categorical_crossentropy'</span>, optimizer=<span class="string">'adam'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">X_train_indices = sentences_to_indices(X_train, word_to_index, maxLen)</span><br><span class="line">Y_train_oh = convert_to_one_hot(Y_train, C = <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练</span></span><br><span class="line">model.fit(X_train_indices, Y_train_oh, epochs = <span class="number">50</span>, batch_size = <span class="number">32</span>, shuffle=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">X_test_indices = sentences_to_indices(X_test, word_to_index, max_len = maxLen)</span><br><span class="line">Y_test_oh = convert_to_one_hot(Y_test, C = <span class="number">5</span>)</span><br><span class="line">loss, acc = model.evaluate(X_test_indices, Y_test_oh)</span><br><span class="line">print()</span><br><span class="line">print(<span class="string">"Test accuracy = "</span>, acc)</span><br></pre></td></tr></table></figure></p>
+<p><strong>What we should remember</strong>:</p>
+<ul>
+<li>If you have an NLP task where the training set is small, using word embeddings can help your algorithm significantly. Word embeddings allow your model to work on words in the test set that may not even have appeared in your training set.</li>
+<li>Training sequence models in Keras (and in most other deep learning frameworks) requires a few important details:<ul>
+<li>To use mini-batches, the sequences need to be <strong>padded</strong> so that all the examples in a mini-batch have the same length.</li>
+<li>An Embedding() layer can be initialized with pretrained values. These values can be either fixed or trained further on your dataset. If however your labeled dataset is small, it’s usually not worth trying to train a large pre-trained set of embeddings.</li>
+<li>LSTM() has a flag called return_sequences to decide if you would like to return every hidden states or only the last one.</li>
+<li>You can use Dropout() right after LSTM() to regularize your network.</li>
+</ul>
+</li>
+</ul>
+<p>总结：Keras使用还是不太熟练啊。另外，感觉自己缺乏编程能力，需要多练习，特别是针对深度学习框架。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/23/deep-learningw12/" rel="next" title="第12周-循环神经网络(RNN)">
+                <i class="fa fa-chevron-left"></i> 第12周-循环神经网络(RNN)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">108</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#词嵌入-Word-Embedding"><span class="nav-number">1.</span> <span class="nav-text">词嵌入: Word Embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用词嵌入：Using-word-embeddings"><span class="nav-number">1.1.</span> <span class="nav-text">使用词嵌入：Using word embeddings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词嵌入的特性"><span class="nav-number">1.2.</span> <span class="nav-text">词嵌入的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词嵌入矩阵"><span class="nav-number">1.3.</span> <span class="nav-text">词嵌入矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体算法学习词嵌入"><span class="nav-number">1.4.</span> <span class="nav-text">具体算法学习词嵌入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2Vec"><span class="nav-number">1.5.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Skip-gram模型"><span class="nav-number">1.5.1.</span> <span class="nav-text">Skip gram模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CBOW模型-Continuous-Bag-of-Words"><span class="nav-number">1.5.2.</span> <span class="nav-text">CBOW模型(Continuous Bag-of-Words)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负采样：Negative-Sampling"><span class="nav-number">1.5.3.</span> <span class="nav-text">负采样：Negative Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GloVe词向量"><span class="nav-number">1.6.</span> <span class="nav-text">GloVe词向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-note-on-the-featurization-view-of-embeddings"><span class="nav-number">1.7.</span> <span class="nav-text">A note on the featurization view of embeddings</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#情感分类：Sentiment-classification"><span class="nav-number">2.</span> <span class="nav-text">情感分类：Sentiment classification</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN-for-sentiment-classification"><span class="nav-number">2.1.</span> <span class="nav-text">RNN for sentiment classification</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#词嵌入除偏：Debias-word-embedding"><span class="nav-number">3.</span> <span class="nav-text">词嵌入除偏：Debias word embedding</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本周作业"><span class="nav-number">4.</span> <span class="nav-text">本周作业</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Operations-on-word-vectors"><span class="nav-number">4.1.</span> <span class="nav-text">Operations on word vectors</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Cosine-similarity"><span class="nav-number">4.1.1.</span> <span class="nav-text">1- Cosine similarity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Word-analogy-task"><span class="nav-number">4.1.2.</span> <span class="nav-text">2- Word analogy task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Debiasing-word-vectors-OPTIONAL-UNGRADED"><span class="nav-number">4.1.3.</span> <span class="nav-text">3- Debiasing word vectors (OPTIONAL/UNGRADED)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Neutralize-bias-for-non-gender-specific-words"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">3.1- Neutralize bias for non-gender specific words</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Equalization-algorithm-for-gender-specific-words"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">3.2- Equalization algorithm for gender-specific words</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Emojify"><span class="nav-number">4.2.</span> <span class="nav-text">Emojify!</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Baseline-model-Emojifier-V1"><span class="nav-number">4.2.1.</span> <span class="nav-text">1- Baseline model: Emojifier-V1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Dataset-EMOJISET"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">1.1- Dataset EMOJISET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Overview-of-the-Emojifier-V1"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">1.2- Overview of the Emojifier-V1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Implementing-Emojifier-V1"><span class="nav-number">4.2.1.3.</span> <span class="nav-text">1.3- Implementing Emojifier-V1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Examining-test-set-performance"><span class="nav-number">4.2.1.4.</span> <span class="nav-text">1.4- Examining test set performance</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Emojifier-V2-Using-LSTMs-in-Keras"><span class="nav-number">4.2.2.</span> <span class="nav-text">2- Emojifier-V2: Using LSTMs in Keras:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Overview-of-the-model"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">2.1- Overview of the model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Keras-and-mini-batching"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">2.2- Keras and mini-batching</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-The-Embedding-layer"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">2.3- The Embedding layer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Building-the-Emojifier-V2"><span class="nav-number">4.2.3.</span> <span class="nav-text">2.3- Building the Emojifier-V2</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+
