@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="基础模型Sequence to sequence model(encoder-decoder network)论文标题：  Sequence to sequence learning with neural networks, 2014 Learning phrase representations using RNN encoder-decoder for statistical machine">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第14周-序列模型和注意力机制">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/04/28/deep-learningw14/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="基础模型Sequence to sequence model(encoder-decoder network)论文标题：  Sequence to sequence learning with neural networks, 2014 Learning phrase representations using RNN encoder-decoder for statistical machine">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ba79ab26ed9d15e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-260763f4c22287ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-5b82df19496a649c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e11143623397661a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e966cf9e737be645.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-028837dd1aeb5362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6eaff6c73ec5c1c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dc75067c047e5cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-41c54e23bd9b6c05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-47f3012dd9af9f24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ef67140fe31da49b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a1897897502347e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1f24d333c8447e43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-93646929bb4c91fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-d6364f761df9c972.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-36f761c6dcd6b259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-a47eb4c0d493f4da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-88c2c2b2e3947490.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-c757813680bb6dfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-c1d4f41783d8b5dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-540574efd8bb8f9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-f40580d0e5bf2929.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6e1b1849b35f0bc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ea1cede76ed7b9dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-633005637a01cdda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-e800f8190cd7616a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-728349452f845fdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-057605270bee8438.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-28T11:49:48.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第14周-序列模型和注意力机制">
+<meta name="twitter:description" content="基础模型Sequence to sequence model(encoder-decoder network)论文标题：  Sequence to sequence learning with neural networks, 2014 Learning phrase representations using RNN encoder-decoder for statistical machine">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-ba79ab26ed9d15e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/04/28/deep-learningw14/"/>
+
+
+
+
+
+  <title>第14周-序列模型和注意力机制 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/04/28/deep-learningw14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第14周-序列模型和注意力机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-28T14:12:48+08:00">
+                2019-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基础模型"><a href="#基础模型" class="headerlink" title="基础模型"></a>基础模型</h1><h2 id="Sequence-to-sequence-model-encoder-decoder-network"><a href="#Sequence-to-sequence-model-encoder-decoder-network" class="headerlink" title="Sequence to sequence model(encoder-decoder network)"></a>Sequence to sequence model(encoder-decoder network)</h2><p>论文标题：</p>
+<ol>
+<li>Sequence to sequence learning with neural networks, 2014</li>
+<li>Learning phrase representations using RNN encoder-decoder for statistical machine translation, 2014</li>
+</ol>
+<p>假设我们要翻译以下句子（法语-&gt;英语）：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ba79ab26ed9d15e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>首先，我们需要建立一个网络，该网络称为<strong>encoder network</strong>(编码网络)，它是一个RNN网络，其中RNN的单元可以是GRU，也可以是LSTM。每次只向该网络中输入一个法语单词，将整个句子输入完毕后，RNN会输出一个向量来代表这个输入序列。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-260763f4c22287ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>在之后，我们需要建立一个<strong>decoder network</strong>(解码网络)，它以编码网络的输出作为输入，然后可以被训练为每次输出一个翻译后的单词。一直到它输出序列的结尾或者句子结尾标记，那么这个解码网络的工作就结束了。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-5b82df19496a649c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>在给出足够的法语和英语文本的情况下，如果我们训练这个模型，通过输入一个法语句子来输出对应的英语翻译，这个模型将会非常有效。</p>
+<h2 id="Image-captioning"><a href="#Image-captioning" class="headerlink" title="Image captioning"></a>Image captioning</h2><p>论文标题：</p>
+<ol>
+<li>Deep captioning with multimodal recurrent neural network, 2014</li>
+<li>Show and tell: Neural image caption generator, 2014</li>
+<li>Deep visual-semantic alignments for generating image descriptions, 2015</li>
+</ol>
+<p>还有一个非常类似的结构被用来做图像描述。</p>
+<p>比如给定一张图片，如这张猫的图片，我们希望网络能够自动地输出该图片的描述：一只猫坐在椅子上。方法如下：在之前的图像课程中我们知道了如何将图片输入到卷积神经网络中，比如一个预训练的AlexNet结构，然后让其学习图片的编码或者学习图片的一系列特征。如下，如果我们去掉最后的Softmax层，那么这个预训练的AlexNet结构会给我们一个4096维的特征向量，而向量表示的就是这只猫的图片。。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e11143623397661a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>因此，这个预训练网络可以是图像的编码网络(encoder network)，接着我们可以把输出的向量输入到RNN中，而RNN要做的就是生成图像的描述，这与我们之前所讲的英语法语翻译的结构很类似。事实证明这个方法在图像描述的领域中很有效，特别是当我们想生成的描述不是很长时。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e966cf9e737be645.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>现在我们知道了Seq2Seq模型和图像描述模型是怎样运作的，不过这两个模型的运作方式有一些不同，主要体现在如何用语言模型合成新的文本，并生成对应序列的方面。</p>
+<h1 id="Picking-the-most-likely-sentence"><a href="#Picking-the-most-likely-sentence" class="headerlink" title="Picking the most likely sentence"></a>Picking the most likely sentence</h1><p>在seq2seq机器翻译模型和我们在第一周课程里所用的语言模型之间有很多相似的地方，也有很多重要的区别。</p>
+<p>我们可以把机器翻译想成是建立一个条件语言模型。下图先给出我们在学习序列模型第一周语言模型时所给出的网络结构：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-028837dd1aeb5362.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>这个模型可以让我们估计句子的可能性，我们也可以用其生成一个新的句子。</p>
+<p>而机器翻译模型长得是下面这样，其中绿色表示encoder网络，而紫色表示decoder网络。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-6eaff6c73ec5c1c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>所以机器翻译模型与语言模型很相似，不同在于语言模型总是以零向量开始，而encoder网络会计算出一系列句子并将其输入到decoder网络中。因此我们称其为条件语言模型。相比语言模型是输出任意句子的概率，翻译模型会输出句子的英文翻译，这取决于输入的法语句子。也就是说，我们估计这句英文翻译的概率，比如”Jane is visiting Africa in September”，这句翻译取决于法语句子”Jane visited I’Afrique en septembre”，这就是英语句子相对于输入的法语句子的可能性，所以它是条件语言模型。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-dc75067c047e5cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>下面我们希望能够利用上面的模型实现法译英。通过输入的法语句子，模型会告诉我们各种英文翻译所对应的可能性（概率）。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-41c54e23bd9b6c05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>其中，x在这里是法语句子，而y这里对应不同英语句子翻译的概率。显然我们不希望它随机地进行输出，如果我们从这个分布中进行取样，我们可能会得到各种不同的翻译，可能有的糟糕，有的还可以：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-47f3012dd9af9f24.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>所以当我们使用这个模型来进行翻译时，我们并不是从得到的分布中进行随机采样，而是要找到一个英语句子y，使得条件概率最大化。所以在开发机器翻译系统时，我们需要做的一件事就是想出一个算法，用来找到合适的y值，使得该项最大化。而解决这个问题的算法称为Beam Search(束搜索)。</p>
+<h2 id="Why-not-a-greedy-search"><a href="#Why-not-a-greedy-search" class="headerlink" title="Why not a greedy search?"></a>Why not a greedy search?</h2><p>在下一节介绍束搜索前，我们需要了解为什么不使用贪心搜索。这是一种来自计算机科学的算法，在生成第一个词的分布之后，它会根据我们的条件语言模型挑选出最有可能的第一个词，放入机器翻译模型中，接着它会继续挑选出最有可能的其他词。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ef67140fe31da49b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>但是我们真正需要的是一次性挑选出整个单词序列，从y<1>、y<2>到y<ty>，来使得整体的概率最大化。所以这种贪心算法是先挑出最好的第一个词，在这之后再挑最好的第二个词，这样一直挑选下去，而这种方法其实并不管用。</ty></2></1></p>
+<p>为了证明整个观点，我们考虑下面两种翻译：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a1897897502347e2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>显然第一个翻译要好于第二个，所以我们希望机器翻译模型可以说第一个句子的p(y|x)比第二个句子高。但如果贪心算法挑选出了”Jane is”这两个词，而由于”is going”在英语中更加常见，所以对于法语句子来说”Jane is going”要比”Jane is visiting”会有更高的概率，所以很有可能如果我们仅仅根据前两个词来估计第三个词的可能性，我们最后得到的会是第二个句子，但这个句子显然比第一个差。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-1f24d333c8447e43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>当然，在英语中各种词汇的组合数量还有许多，所以如果我们的字典中有10,000个单词，并且我们的翻译可能有10个词长，那么可能的组合就是10,000^10那么多。所以可能的句子数量非常巨大，我们不可能计算每一种组合的可能性，所以此时最常用的办法是用一个近似的搜索算法，这个近似的搜索算法做的就是尽力挑选句子使得条件概率最大化。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-93646929bb4c91fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>尽管这不可能保证找到的句子是条件概率最大化，但这也足够了。</p>
+<p>因此接下来，我们需要一个合适的搜索算法。</p>
+<h1 id="集束搜索：Beam-Search"><a href="#集束搜索：Beam-Search" class="headerlink" title="集束搜索：Beam Search"></a>集束搜索：Beam Search</h1><h2 id="基本的Beam-Search"><a href="#基本的Beam-Search" class="headerlink" title="基本的Beam Search"></a>基本的Beam Search</h2><p>下面用我们之前所举的法语句子为例讲述beam search算法。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-d6364f761df9c972.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>首先我们用这个网络结构来评估第一个单词的概率值，而贪婪算法只会挑出最有可能的一个单词然后继续，而集束搜索则会考虑多个选择。因此集束搜索会有一个参数B，全称为<strong>Beam width</strong>，在本例中<strong>设置为3</strong>。这就意味着集束搜索会一次性考虑3个可能的选择。比如对于第一个单词有不同选择的可能，最后找到in、jane、september是最有可能的三个选项，那么集束搜索算法会把结果存到计算机内存中，以便后面尝试用这三个词。</p>
+<p>因此为了执行beam search的<strong>第一步</strong>，我们需要输入法语句子到编码网络，然后第一步，也就是解码网络的softmax层会输出10,000个概率值，在这10,000个输出的概率值取出前三个存起来。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-36f761c6dcd6b259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>在将in、jane、september作为第一个单词的三个可能选择后，beam search所做的第二步是针对每个选择，考虑第二个单词是什么。为了评估第二个词的概率值，我们会用下面这个神经网络。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-a47eb4c0d493f4da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>将y<1>（假设为in）的输出作为输入，从而可以评估第二个单词的概率。需要注意的是，在第二步里我们更关心的是找到最可能第一个和第二个单词对，而不是仅仅第二个单词具有最大概率。而具体的计算公式如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-88c2c2b2e3947490.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>因此对于第一个单词的三个候选选择，我们可以保存它们对应的概率值，然后再乘以第二个概率值，从而得到两个单词对的概率值。</1></p>
+<p>对应预测单词jane后的第二个单词，相似网络如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-c757813680bb6dfc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>同样的，对于september:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-c1d4f41783d8b5dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>那么我们通过上述的第二步，最后可以得到10,000*3种结果，也就是30,000个可能的结果，即集束宽乘以词汇表大小。而我们要做的就是评估这30,000个选择，然后<strong>选出前三个选择</strong>，假设选出来的是in september、jane is和jane visits。那么我们注意到，第一个单词的september已经没有可能了，但现在我们还是有3个选择。另外，由于我们的集束宽为3，因此我们会有三个网络副本，每个网络的第一个单词不同。</p>
+<p>接下来简要讲第三步，类似上面的网络：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-540574efd8bb8f9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>再继续同样的步骤，直到达到<eos>标记。注意到，如果B=1，那么集束搜索就相当于前面所讲的贪婪搜索。</eos></p>
+<h2 id="改进的集束搜索：Refinements-to-beam-search"><a href="#改进的集束搜索：Refinements-to-beam-search" class="headerlink" title="改进的集束搜索：Refinements to beam search"></a>改进的集束搜索：Refinements to beam search</h2><h3 id="Length-normalization"><a href="#Length-normalization" class="headerlink" title="Length normalization"></a>Length normalization</h3><p>我们知道束搜索所做的是最大化下面的乘积概率：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-f40580d0e5bf2929.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>如果计算这些概率值，而这些概率值通常是远小于1，将它们相乘最后会造成数值下溢。因此在实际操作时我们不会真的计算乘积，而是取log值。而最大化这个log求和的概率值，也相当于最大化上面的乘积，得到相同的结果。因此通过取log，我们会得到一个数值上更稳定的算法，不容易出现数值的舍入误差。因为对数函数是严格单调递增的函数，而我们要最大化P(y|x)，因此最大化logP(y|x)和最大化P(y|x)的结果一样。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-6e1b1849b35f0bc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>而这个目标函数有一个潜在的缺点，就是它会更偏向简短的翻译结果，因为短句子的概率是由更少的小于1的数字乘积得到的，对取log后的目标函数也是一样。因此我们对目标函数做另一个改变，即对这些数值做归一化，从而消除长短句的影响：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ea1cede76ed7b9dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>但通常上，我们不会直接除以Ty，而是会采取更加柔和的方法，即在Ty上加上指数alpha，alpha=0.7。如果取alpha=1，就是直接除以Ty；而如果alpha=0，那么便没有归一化。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-633005637a01cdda.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>需要明确的是，这个超参数alpha（可调整）的设置并没有理论验证，而是大家都发现在实践中效果很好，所以很多人会这么做。</p>
+<p>总结，在集束搜索中，我们会得到许多不同长度的句子，从1到可能最大设置为30之类的。然后我们针对这些所有的可能的输出句子，用上式对它们打分，取出概率最大的几个句子，再对这些束搜索得到的句子计算这个目标函数，最后从经过评估的这些句子中，挑选出在归一化的log概率目标函数上得分最高的一个。（A normalized log likelihood objective)</p>
+<h3 id="Beam-search-discusstion"><a href="#Beam-search-discusstion" class="headerlink" title="Beam search discusstion"></a>Beam search discusstion</h3><p>如何选择B呢？如果B选择大，那么我们的计算代价也会很大，因为我们要把更多的可能选择保存起来。因此这里总结一下关于如何选择beam width的想法。</p>
+<p>首先，我们知道B的大小会有以下影响：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e800f8190cd7616a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>对一般的产品系统而言，B一般选择为10；而对于科研而言，人们想压榨出全部的性能，也经常能够看到大家用束宽为1000或者3000。因此在实现我们的应用时，尝试不同的束宽值，当B很大的时候，性能提高会越来越小。因此对一般应用而言，我们可以从1到3到10这样调整。</p>
+<p>另外，与BFS和DFS进行对比：Unlike exact search algorithms like BFS(Breadth First Search) and DFS(Depth First Search), Beam Search runs faster but is not guaranteed to find exact maximum for argmax_y(y|x)。</p>
+<h2 id="集束搜索的误差分析：Error-analysis-on-beam-search"><a href="#集束搜索的误差分析：Error-analysis-on-beam-search" class="headerlink" title="集束搜索的误差分析：Error analysis on beam search"></a>集束搜索的误差分析：Error analysis on beam search</h2><p>集束搜索是一种近似搜索算法，也被称作启发式搜索算法。它不总是输出可能性最大的句子，而仅记录着B为前3或者10或是100种可能。如果束搜索算法出现错误，我们就可以用误差分析来发现问题的来源，看看是束搜索算法出现问题，还是我们的RNN模型出现问题。</p>
+<p>假设给定以下例子，其中y*为最标准答案，而y^则是我们算法预测的结果，很明显是糟糕的翻译，其改变了句子的原意。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-728349452f845fdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>而我们的模型有两部分，一个部分是RNN模型（即encoder-decoder模型），另一部分是束搜索算法。我们需要知道是哪一部分出现了问题。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-057605270bee8438.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/27/deep-learningw13/" rel="next" title="第13周-自然语言处理与词嵌入">
+                <i class="fa fa-chevron-left"></i> 第13周-自然语言处理与词嵌入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础模型"><span class="nav-number">1.</span> <span class="nav-text">基础模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sequence-to-sequence-model-encoder-decoder-network"><span class="nav-number">1.1.</span> <span class="nav-text">Sequence to sequence model(encoder-decoder network)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Image-captioning"><span class="nav-number">1.2.</span> <span class="nav-text">Image captioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.3.</span> <span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Picking-the-most-likely-sentence"><span class="nav-number">2.</span> <span class="nav-text">Picking the most likely sentence</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-not-a-greedy-search"><span class="nav-number">2.1.</span> <span class="nav-text">Why not a greedy search?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集束搜索：Beam-Search"><span class="nav-number">3.</span> <span class="nav-text">集束搜索：Beam Search</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的Beam-Search"><span class="nav-number">3.1.</span> <span class="nav-text">基本的Beam Search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进的集束搜索：Refinements-to-beam-search"><span class="nav-number">3.2.</span> <span class="nav-text">改进的集束搜索：Refinements to beam search</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Length-normalization"><span class="nav-number">3.2.1.</span> <span class="nav-text">Length normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beam-search-discusstion"><span class="nav-number">3.2.2.</span> <span class="nav-text">Beam search discusstion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集束搜索的误差分析：Error-analysis-on-beam-search"><span class="nav-number">3.3.</span> <span class="nav-text">集束搜索的误差分析：Error analysis on beam search</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+
