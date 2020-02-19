@@ -182,7 +182,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-3ae9380d4a619dbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-002ba438ea40c34b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-53b7e99a279cda10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-28T12:03:25.948Z">
+<meta property="og:updated_time" content="2019-05-01T15:47:53.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第12周-循环神经网络(RNN)">
 <meta name="twitter:description" content="为什么用序列模型：Why sequence models?首先，我们看几个序列数据的例子:所有的这些问题都可以作为使用标签数据(X,Y)作为训练集的监督学习。不过从上图，我们也可以知道这里的序列数据是非常不同的。有些输入输出都是序列，但长度不同；有的只有输入或输出才是序列，等等。 数学符号：NotationMotivation Example假设我们想要建立一个能够自动识别句中人名位置的序列模型。">
@@ -449,7 +449,7 @@
 <p>我们将用x<1>,x<2>,…,x<9>来索引句子中单词的位置，用x&lt;\t&gt;表示序列的中间位置。这里的t意味着它们是时序序列，输出同样的用y<1>,y<2>,…y<9>来索引位置。另外，我们用T_y表示句子的长度。为了表示训练样本i的序列中第t个单词(元素)，我们用X(i)&lt;\t&gt;来表示，再用Tx(i)表示第i个训练样本的输入序列长度，这种表示方法对输出序列也成立。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-12426e1eb0b70a16.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></9></2></1></9></2></1></p>
 <h2 id="Representing-words"><a href="#Representing-words" class="headerlink" title="Representing words"></a>Representing words</h2><p>接下来探讨怎样表示一个句子里单个的词。首先，我们可能会做一张词汇表，将我们要表示的词按字典顺序放入。比如，这里有个词汇量为10000的词汇表，这对自然处理语言应用来说是非常小规模的。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-53233244b3a9e6c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>接下来，我们可以用<strong>one-hot</strong>表示每个单词，这个每个单词用one-hot向量来表示：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-8fe77d39fca4e914.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>我们的目标是，用这样的表示方式表示X，用序列模型在X和目标输出Y之间学习建立一个映射，我们会把它当做监督学习的问题来做。</p>
-<p>另一个需要注意的问题是，如果我们遇到了一个不在单词表中的单词，我们就创建一个新的标记<strong>“<unk>“</unk></strong>，来表示这个单词不在词汇表中。</p>
+<p>另一个需要注意的问题是，如果我们遇到了一个不在单词表中的单词，我们就创建一个新的标记<code>&quot;&lt;UNK&gt;&quot;</code>，来表示这个单词不在词汇表中。</p>
 <h1 id="循环神经网络模型"><a href="#循环神经网络模型" class="headerlink" title="循环神经网络模型"></a>循环神经网络模型</h1><h2 id="Why-not-a-standard-network"><a href="#Why-not-a-standard-network" class="headerlink" title="Why not a standard network?"></a>Why not a standard network?</h2><p>A standard network:<br><img src="https://upload-images.jianshu.io/upload_images/8636110-2260330da984017d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>Problems:</p>
 <ul>
@@ -485,7 +485,7 @@
 <ol>
 <li>第一件事需要进行tokenize，分解文本流为词，或将其转化为序列（比如用one-hot向量表示每一个词）。</li>
 <li>另一件可能要做的事是定义句子的结尾，一般的做法是增加一个额外的标记，叫做<code>&quot;&lt;EOS&gt;&quot;</code>。这样能够让我们清楚一个句子什么时候结束。因此<code>EOS</code>标记可以添加到训练集中每一个句子的结尾。（注意句号可以去掉，或者当做一个单词也计入词典）</li>
-<li>另一件是如果我们的训练集里有一些词并不在词典里（这个词典可能是10,000个常见的英文单词），那么将不在里面的单词用<code>&quot;&lt;UNK&gt;&quot;</code>取代，即用”<unk>“代替未知词。我们只针对<code>&quot;&lt;UNK&gt;&quot;</code>来建立概率模型。</unk></li>
+<li>另一件是如果我们的训练集里有一些词并不在词典里（这个词典可能是10,000个常见的英文单词），那么将不在里面的单词用<code>&quot;&lt;UNK&gt;&quot;</code>取代，即用<code>&quot;&lt;UNK&gt;&quot;</code>代替未知词。我们只针对<code>&quot;&lt;UNK&gt;&quot;</code>来建立概率模型。</li>
 <li>下一步，我们要构建一个RNN来构建这些序列的概率模型。</li>
 </ol>
 <h2 id="RNN-model"><a href="#RNN-model" class="headerlink" title="RNN model"></a>RNN model</h2><p><img src="https://upload-images.jianshu.io/upload_images/8636110-a55c72fd35631fbe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><img src="https://upload-images.jianshu.io/upload_images/8636110-9266f437645d63ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
@@ -496,8 +496,8 @@
 <h2 id="Sampling-a-sequence-from-a-trained-RNN"><a href="#Sampling-a-sequence-from-a-trained-RNN" class="headerlink" title="Sampling a sequence from a trained RNN"></a>Sampling a sequence from a trained RNN</h2><p>我们记得一个序列模型模拟了任意特定单词序列的概率，而我们要做的是对这个概率分布进行采样，来生成一个新的单词序列。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-54e8c57ca8ba962a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>已知我们训练时所用的RNN模型如下：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-e7571e716d844f83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 <p>然而为了采样，我们会做一些不同的事情。第一步要做的是对我们想要模型生成的第一个词进行采样，于是我们输入x<1>=0,a<0>=0，因此现在我们的第一个时间步得到的是所有可能的输出，即经过Softmax层后得到的概率。然后根据这个Softmax的分布进行随机采样，使用numpy命令如np.random.choice来对第一个词进行采样；接下来我们进入第二个时间步，把刚刚采样的y<1>传递到下一个位置作为输入，接着Softmax层会预测第二个词；这样依次进行…</1></0></1></p>
-<p>什么时候一个句子算结束呢？一个方法是如果代表句子结尾的标识”<eos>“在词典中，那么我们可以一直进行采样直到<strong>得到”<eos>“</eos></strong>，这代表我们已经抵达结尾，可以停止随机采样；另一个方法是词典中没有这个标识，那么我们可以决定从20个或100个或其他词中进行采样，直到达到所<strong>设定的时间步</strong>。</eos></p>
-<p>这种方法可能会出现预测出”<unk>“的情况。如果我们想要避免这种情况，那么可以在”<unk>“出现时就继续在剩下的词中进行重采样，直到得到一个不是”<unk>“的单词；当然，如果我们不介意有未知标识的产生，也可以不理会。</unk></unk></unk></p>
+<p>什么时候一个句子算结束呢？一个方法是如果代表句子结尾的标识<code>&quot;&lt;EOS&gt;&quot;</code>在词典中，那么我们可以一直进行采样直到<strong>得到<code>&quot;&lt;EOS&gt;&quot;</code></strong>，这代表我们已经抵达结尾，可以停止随机采样；另一个方法是词典中没有这个标识，那么我们可以决定从20个或100个或其他词中进行采样，直到达到所<strong>设定的时间步</strong>。</p>
+<p>这种方法可能会出现预测出<code>&quot;&lt;UNK&gt;&quot;</code>的情况。如果我们想要避免这种情况，那么可以在<code>&quot;&lt;UNK&gt;&quot;</code>出现时就继续在剩下的词中进行重采样，直到得到一个不是<code>&quot;&lt;UNK&gt;&quot;</code>的单词；当然，如果我们不介意有未知标识的产生，也可以不理会。</p>
 <p>以上就是我们从RNN语言模型中生成一个随机选择的句子。</p>
 <h2 id="Character-level-language-model"><a href="#Character-level-language-model" class="headerlink" title="Character-level language model"></a>Character-level language model</h2><p>在之前我们所建立的都是基于词汇的RNN模型，也就是说，字典中的词都是英语单词。根据我们的实际应用，我们还可以构建一个基于字符的RNN模型。这时，我们的字典中不再是单词，而是常见字符。</p>
 <p>此时输入输出都是单个字符，而不再是单独的词汇。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-78b59a7d11dc5caa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
@@ -755,7 +755,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-count">110</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -777,7 +777,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -856,7 +856,7 @@
 <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

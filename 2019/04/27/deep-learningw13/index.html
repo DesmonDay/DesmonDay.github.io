@@ -161,7 +161,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-dcaf6e24664d4d8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-aee79f1c430ef952.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-b4818af62aae12b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-28T12:01:38.803Z">
+<meta property="og:updated_time" content="2019-05-01T15:46:05.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第13周-自然语言处理与词嵌入">
 <meta name="twitter:description" content="词嵌入: Word Embedding我们之前用的词向量表示法为one-hot向量，但这种表示方法存在很大的缺陷，我们用o_3455表示该向量。比如，苹果和梨具有相似性，但用one-hot向量表示的话，神经网络无法捕捉他们之间的相似性。这是因为两个不同one-hot向量的内积为0，即不同单词之间的距离相同。而很明显，苹果和梨的距离，是要小于苹果和国家的距离的。 因此我们考虑用特征化后的向量来表示词">
@@ -433,7 +433,7 @@
 <li>Optional: Continue to finetune the word embeddings with new data. 这一步一般在我们的数据集比较大的时候才做。</li>
 </ol>
 <p>当我们的训练集相对较小时，词嵌入的作用最明显，因此其广泛用于NLP领域。比如它已经用在了命名实体识别、文本摘要、文本解析、指代消解里，这些都是很标准的NLP任务；词嵌入在语言模型、机器翻译领域用得少一些，尤其是我们做语言模型或者机器翻译任务时，这些任务我们有大量的数据。在其他的迁移学习场景下也一样，如果我们从某一任务A迁移到某一个任务B，只有A中有大量数据，B中数据少时，迁移才有用。</p>
-<p>这里还举了与人脸识别的不同。对于人脸识别，我们训练一个Siamese网络来学习不同人脸的128维表示，然后比较编码结果来判断两个图片是否为同一个人脸。只要输入一个人脸，就返回一个编码结果。两者对比，人脸编码可能涉及海量的图片，而自然语言处理有一个固定的词汇表，像没有出现的就标记为”<unk>“。</unk></p>
+<p>这里还举了与人脸识别的不同。对于人脸识别，我们训练一个Siamese网络来学习不同人脸的128维表示，然后比较编码结果来判断两个图片是否为同一个人脸。只要输入一个人脸，就返回一个编码结果。两者对比，人脸编码可能涉及海量的图片，而自然语言处理有一个固定的词汇表，像没有出现的就标记为”\<unk\>“。</unk\></p>
 <h2 id="词嵌入的特性"><a href="#词嵌入的特性" class="headerlink" title="词嵌入的特性"></a>词嵌入的特性</h2><p>词嵌入的一个特性是可以帮助实现类比推理。我们希望词嵌入可以捕捉单词的特征表示，假如我们提出一个问题，man对应woman，那么king对应什么？用词嵌入可以实现这种推导。<br><img src="https://upload-images.jianshu.io/upload_images/8636110-ce068fbd6d430d76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>如图，通过e_man-e_woman和e_king-e_queen，我们发现他们的主要差异，通过向量表示，可以发现是gender(性别)上的差异。所以得出这种类比推理的结果方法是，当算法被问及man对应woman，那king对应什么时，算法所做的就是计算e_man-e_woman，然后找出一个向量，使得e_man-e_woman约等于e_king-e_?。也就是说，当这个新词为queen时，式子近似相等。这种思想帮助很多研究者对词嵌入领域建立了更深刻的理解。</p>
 <p>论文标题：Linguistic regularities in continuous space word representations, 2013.</p>
 <p>实现类比推理的方法即找到相似度最大的单词：<br><img src="https://upload-images.jianshu.io/upload_images/8636110-4f6bfafe877960c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>另外，注意到我们用t-SNE算法映射到的二维空间，不一定能够像左图那样呈现出一个平行四边形，因为这种映射是使用了一种很复杂的非线性映射。</p>
@@ -663,7 +663,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-count">110</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -685,7 +685,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -764,7 +764,7 @@
 <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
