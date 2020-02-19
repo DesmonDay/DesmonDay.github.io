@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
 <meta property="og:description" content="在深度学习中，选择合适的优化器不仅会加速整个神经网络训练过程，并且会避免在训练的过程中碰到鞍点。⽂中会结合自己的使⽤情况，对使⽤过的优化器提出⼀些自己的理解。参考二水马的笔记rebirth。 SGDSGD是非常常见的优化方法，每次迭代计算Mini-batch的梯度，再对参数进行更新。公式：  v_t = \mu \nabla_theta J(\theta) \\ \theta = \theta -">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-19T07:19:51.816Z">
+<meta property="og:updated_time" content="2020-02-19T07:23:09.242Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Optimizer的选择">
 <meta name="twitter:description" content="在深度学习中，选择合适的优化器不仅会加速整个神经网络训练过程，并且会避免在训练的过程中碰到鞍点。⽂中会结合自己的使⽤情况，对使⽤过的优化器提出⼀些自己的理解。参考二水马的笔记rebirth。 SGDSGD是非常常见的优化方法，每次迭代计算Mini-batch的梯度，再对参数进行更新。公式：  v_t = \mu \nabla_theta J(\theta) \\ \theta = \theta -">
@@ -396,7 +396,8 @@ v_t = \gamma * v_{t-1} + \mu * \nabla_{theta}[\frac{1}{m}L(f(x^{(i)};\theta+\gam
 修正一阶矩的偏差：\hat{s} = \frac{s}{1 - \rho_1^t}\\
 修正二阶矩的偏差：\hat{r} = \frac{r}{1 - \rho_2^t} \\
 计算更新：\nabla \theta = - \epsilon \frac{\hat{s}}{\sqrt{\hat{r}}+\delta}\\
-应用更新：\theta = \theta + \nabla\theta</script><p>Adam通常被认为对超参数的选择相当鲁棒，尽管学习率有时需要从建议的默认修改。</p>
+应用更新：\theta = \theta + \nabla\theta</script><p>其中，$\rho_1$和$\rho_2$为矩估计的指数衰减速率。</p>
+<p>Adam通常被认为对超参数的选择相当鲁棒，尽管学习率有时需要从建议的默认修改。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>通过实践证明，Adam 结合了Adagrad 善于处理稀疏梯度和Momentum 善于处理⾮平稳⽬标的优点，相较于其他⼏种优化器效果更好。同时，我们也注意到很多论⽂中都会引⽤SGD，Adagrad作为优化函数。但相较于其他⽅法，在实践中，SGD 需要更多的训练时间以及可能会被困到鞍点的<br>缺点，都制约了它在很多真实数据上的表现。</p>
 
       
