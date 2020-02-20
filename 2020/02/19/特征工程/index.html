@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="work," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本笔记参考二水马的rebirth。 1. 特征选择1.1 特征来源 业务已整理好的数据，需要找出适合问题的特征 高级特征，需要从业务特征中去寻找⾼级数据特征  1.2 选择合适的特征第⼀步是找到该领域懂业务的专家，让他们给⼀些建议，这些特征就是我们的特征的第⼀候选集。 在尝试降维之前，有必要用特征工程的方法选择出较重要的特征结合，这些方法不会用到领域知识，而仅是统计学的方法。 特征选择方法一般分为">
+<meta name="keywords" content="work">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征工程">
+<meta property="og:url" content="https://github.com/DesmonDay/2020/02/19/特征工程/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="本笔记参考二水马的rebirth。 1. 特征选择1.1 特征来源 业务已整理好的数据，需要找出适合问题的特征 高级特征，需要从业务特征中去寻找⾼级数据特征  1.2 选择合适的特征第⼀步是找到该领域懂业务的专家，让他们给⼀些建议，这些特征就是我们的特征的第⼀候选集。 在尝试降维之前，有必要用特征工程的方法选择出较重要的特征结合，这些方法不会用到领域知识，而仅是统计学的方法。 特征选择方法一般分为">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-110fb4b24415592a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-7f81a305f78c2195.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2020-02-19T13:55:09.773Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="特征工程">
+<meta name="twitter:description" content="本笔记参考二水马的rebirth。 1. 特征选择1.1 特征来源 业务已整理好的数据，需要找出适合问题的特征 高级特征，需要从业务特征中去寻找⾼级数据特征  1.2 选择合适的特征第⼀步是找到该领域懂业务的专家，让他们给⼀些建议，这些特征就是我们的特征的第⼀候选集。 在尝试降维之前，有必要用特征工程的方法选择出较重要的特征结合，这些方法不会用到领域知识，而仅是统计学的方法。 特征选择方法一般分为">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-110fb4b24415592a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2020/02/19/特征工程/"/>
+
+
+
+
+
+  <title>特征工程 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2020/02/19/特征工程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">特征工程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-19T21:20:53+08:00">
+                2020-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/找工作/" itemprop="url" rel="index">
+                    <span itemprop="name">找工作</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本笔记参考二水马的rebirth。</p>
+<h1 id="1-特征选择"><a href="#1-特征选择" class="headerlink" title="1. 特征选择"></a>1. 特征选择</h1><h2 id="1-1-特征来源"><a href="#1-1-特征来源" class="headerlink" title="1.1 特征来源"></a>1.1 特征来源</h2><ol>
+<li>业务已整理好的数据，需要找出适合问题的特征</li>
+<li>高级特征，需要从业务特征中去寻找⾼级数据特征</li>
+</ol>
+<h2 id="1-2-选择合适的特征"><a href="#1-2-选择合适的特征" class="headerlink" title="1.2 选择合适的特征"></a>1.2 选择合适的特征</h2><p>第⼀步是找到该领域懂业务的<strong>专家</strong>，让他们给⼀些建议，这些特征就是我们的特征的第⼀候选集。</p>
+<p>在尝试降维之前，有必要用特征工程的方法选择出较重要的特征结合，这些方法不会用到领域知识，而仅是统计学的方法。</p>
+<p>特征选择方法一般分为三类：</p>
+<ul>
+<li><p>过滤法选择特征</p>
+<ol>
+<li><strong>方差筛选</strong>：方差越大的特征，则认为是比较有用；若方差较小，如小于1，则该特征对算法作用没那么大。若某特征方差为0，则其所有样本的特征取值相同，应当舍弃该特征。实际应用中，应指定方差阈值，当方差小于该阈值特征则筛选掉。</li>
+<li><strong>相关系数</strong>：主要⽤于输出连续值的监督学习算法中。我们分别计算所有训练集中各个特征与输出值之间的相关系数，设定⼀个阈值，选择相关系数较⼤的部分特征。</li>
+<li>假设检验：如卡方检验。卡方检验可以检验某个特征分布和输出值分布之间的相关性。除此之外，还可以用F检验和t检验。</li>
+<li>互信息：从信息熵角度分析各个特征和输出值之间的关系评分。互信息值越大，说明该特征和输出值之间的相关性越⼤，越需要保留。</li>
+</ol>
+</li>
+<li><p>包装法选择特征</p>
+<p>思想是选择⼀个⽬标函数来⼀步步的筛选特征。最常⽤的包装法是递归消除特征法(recursive feature elimination, 以下简称RFE)。递归消除特征法使⽤⼀个机器学习模型来进⾏多轮训练，每轮训练后，消除若干权值系数的对应的特征，再基于新的特征集进⾏下⼀轮训练。</p>
+<p>经典方法：SVM-RFE方法。以⽀持向量机来做RFE 的机器学习模型选择特征，假设有n 个特征。</p>
+<ol>
+<li>它在第⼀轮训练的时候，会选择所有的特征来训练，得到分类的超平⾯$wx+b$；</li>
+<li>选择出$w$中分量的平⽅值$w_i^2$最小的那个序号$i$对应的特征，将其排除；</li>
+<li>对剩下的$n-1$个特征和输出值，重新训练SVM，直到剩下的特征数满足需求。</li>
+</ol>
+</li>
+<li><p>嵌入法选择特征</p>
+<ol>
+<li>使⽤全部特征，使⽤L1 正则化和L2 正则化来选择特征。正则化惩罚项越⼤，那么模型的系数就会越⼩。</li>
+<li>当正则化惩罚项⼤到⼀定的程度的时候，部分特征系数会变成0，当正则化惩罚项继续增⼤到⼀定程度时，所有的特征系数都会趋于0。⼀部分特征系数会更容易先变成0，这部分系数就是可以筛掉的。即选择特征系数较⼤的特征。</li>
+<li>⽤的L1 正则化和L2 正则化来选择特征的基学习器是逻辑回归，此外也可以使⽤决策树或者GBDT。</li>
+<li>可以得到特征系数coef或者得到特征重要度(feature importances)的算法才可以作为嵌入法的基学习器。</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-3-寻找高级特征（交叉特征）"><a href="#1-3-寻找高级特征（交叉特征）" class="headerlink" title="1.3 寻找高级特征（交叉特征）"></a>1.3 寻找高级特征（交叉特征）</h2><p>⽐如有车的路程特征和时间间隔特征，我们就可以得到车的平均速度这个⼆级特征。根据车的速度特征，我们就可以得到车的加速度这个三级特征，根据车的加速度特征，我们就可以得到车的加加<br>速度这个四级特征。也就是说，⾼级特征可以⼀直寻找下去。</p>
+<ol>
+<li>特征加和：计算累积</li>
+<li>特征之差：计算增量</li>
+<li>特征乘积：价格与销量得到营业额</li>
+<li>特征除商：销售额除以商品数量得到均价</li>
+</ol>
+<h2 id="1-4-特征选择小结"><a href="#1-4-特征选择小结" class="headerlink" title="1.4 特征选择小结"></a>1.4 特征选择小结</h2><p>特征选择是特征⼯程的第⼀步，它关系到机器学习算法的上限。因此原则是<strong>尽量不错过⼀个可能有⽤的特征，但是也不滥⽤太多的特征</strong>。</p>
+<h1 id="2-特征表达"><a href="#2-特征表达" class="headerlink" title="2. 特征表达"></a>2. 特征表达</h1><h2 id="2-1-缺失值处理"><a href="#2-1-缺失值处理" class="headerlink" title="2.1 缺失值处理"></a>2.1 缺失值处理</h2><p>连续值：均值填充、中位数填充</p>
+<p>离散值：选择所有有该特征值的样本中出现最频繁的类别值，填充缺失值。</p>
+<h2 id="2-2-特殊特征处理"><a href="#2-2-特殊特征处理" class="headerlink" title="2.2 特殊特征处理"></a>2.2 特殊特征处理</h2><ol>
+<li>日期时间<ul>
+<li><strong>时间差值法</strong>：计算出所有样本的时间到某⼀个未来时间（或过去时间）之间的数值差距，转换成<strong>连续值</strong>；</li>
+<li><strong>细分特征</strong>：年、⽉、⽇、周、时，将⼀个时间特征转化为若⼲个<strong>离散特征</strong>，这种⽅法在分析具有明显时间趋势的问题⽐较好⽤。</li>
+<li><strong>权重法</strong>：即根据时间的新旧得到⼀个权重值。⽐如对于商品，三个⽉前购买的设置⼀个较低的权重，最近三天购买的设置⼀个中等的权重，在三个⽉内但是三天前的设置⼀个较⼤的权重。还有其他的设置权重的⽅法，这个要根据要解决的问题来灵活确定。</li>
+</ul>
+</li>
+<li>地理位置<ul>
+<li>细分特征：城市、区县、街道</li>
+<li>经纬度：如果需要判断用户分布区域，一般处理成连续值比较好，这时可以将地址处理成经度和纬度的连续特征。</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-3-离散特征的连续化处理"><a href="#2-3-离散特征的连续化处理" class="headerlink" title="2.3 离散特征的连续化处理"></a>2.3 离散特征的连续化处理</h2><ol>
+<li>one-hot向量</li>
+<li>embedding</li>
+</ol>
+<h2 id="2-4-离散特征的离散化处理"><a href="#2-4-离散特征的离散化处理" class="headerlink" title="2.4 离散特征的离散化处理"></a>2.4 离散特征的离散化处理</h2><ol>
+<li>one-hot向量</li>
+<li>dummy coding</li>
+<li>根据背景知识划分：⽐如，商品的销量对应的特征，原始特征是季节春夏秋冬。可以将其转化为淡季和旺季这样的⼆值特征，⽅便建模。</li>
+</ol>
+<h2 id="2-5-连续特征的离散化处理"><a href="#2-5-连续特征的离散化处理" class="headerlink" title="2.5 连续特征的离散化处理"></a>2.5 连续特征的离散化处理</h2><ol>
+<li>等频分桶</li>
+<li>等值分桶</li>
+<li>GBDT+LR</li>
+</ol>
+<h1 id="3-数据归一化"><a href="#3-数据归一化" class="headerlink" title="3. 数据归一化"></a>3. 数据归一化</h1><h2 id="3-1-为什么需要数据归一化"><a href="#3-1-为什么需要数据归一化" class="headerlink" title="3.1 为什么需要数据归一化"></a>3.1 为什么需要数据归一化</h2><ol>
+<li>归⼀化后加快了梯度下降求最优解的速度</li>
+<li>归⼀化有可能提⾼精度</li>
+</ol>
+<h2 id="3-2-常见数据归一化方法"><a href="#3-2-常见数据归一化方法" class="headerlink" title="3.2 常见数据归一化方法"></a>3.2 常见数据归一化方法</h2><ol>
+<li><p>线性归一化：</p>
+<script type="math/tex; mode=display">
+x' = \frac{x-min}{max-min}</script><p>缺点：一旦测试集有特征小于min或大于max的数据，则会导致max和min发生变化，需要重新计算。</p>
+</li>
+<li><p>标准化：z-score标准化。</p>
+<script type="math/tex; mode=display">
+x' = \frac{x - mean}{std}</script></li>
+</ol>
+<ol>
+<li><p>非线性归一化：取指数、对数、正切、等频分桶、等值分桶</p>
+</li>
+<li><p>L1/L2范数标准化：如果只是为了统⼀量纲，那么可以通过L2 范数整体标准化。</p>
+</li>
+<li><p>中心化：PCA 降维时候的预处理，均值变为零，⽅差不变</p>
+<script type="math/tex; mode=display">
+x' = x-mean</script></li>
+</ol>
+<h3 id="3-3-PCA-主成分分析"><a href="#3-3-PCA-主成分分析" class="headerlink" title="3.3 PCA(主成分分析)"></a>3.3 PCA(主成分分析)</h3><p>两种推导：</p>
+<ol>
+<li>样本点到这个超平面的距离足够近</li>
+<li>样本点在这个超平面的投影能尽可能地分开</li>
+</ol>
+<p>PCA算法流程：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-110fb4b24415592a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png" style="zoom:67%;"></p>
+<p><strong>问题</strong>：能否用PCA 代替隐含层的降维操作</p>
+<p>假设我们有⼀个如下图所⽰的隐藏层。隐藏层在这个⽹络中起到了⼀定的降维作⽤。假如现在我们⽤另⼀种维度下降的⽅法，⽐如说主成分分析法(PCA) 来替代这个隐藏层。那么，这两者的输出效果是⼀样的吗？</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-7f81a305f78c2195.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>答：不一样。因为PCA 提取的是<strong>数据分布⽅差⽐较⼤</strong>的⽅向，隐藏层可以提取有预测能⼒的特征。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/work/" rel="tag"><i class="fa fa-tag"></i> work</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/19/实习复习过程/" rel="next" title="实习复习过程">
+                <i class="fa fa-chevron-left"></i> 实习复习过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/20/HMM-隐马尔可夫模型/" rel="prev" title="HMM-隐马尔可夫模型">
+                HMM-隐马尔可夫模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">114</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-特征选择"><span class="nav-number">1.</span> <span class="nav-text">1. 特征选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-特征来源"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 特征来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-选择合适的特征"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 选择合适的特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-寻找高级特征（交叉特征）"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 寻找高级特征（交叉特征）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-特征选择小结"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 特征选择小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-特征表达"><span class="nav-number">2.</span> <span class="nav-text">2. 特征表达</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-缺失值处理"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 缺失值处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-特殊特征处理"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 特殊特征处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-离散特征的连续化处理"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 离散特征的连续化处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-离散特征的离散化处理"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 离散特征的离散化处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-连续特征的离散化处理"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 连续特征的离散化处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-数据归一化"><span class="nav-number">3.</span> <span class="nav-text">3. 数据归一化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-为什么需要数据归一化"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 为什么需要数据归一化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-常见数据归一化方法"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 常见数据归一化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-PCA-主成分分析"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.3 PCA(主成分分析)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+
