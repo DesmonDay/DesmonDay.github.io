@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Attention用于NLP的小结基本转载susht师姐的知乎博文，真是优秀的师姐啊，向她学习！ https://zhuanlan.zhihu.com/p/35739040  定义：参考Attention is All You Need中的说法，假设当前时刻t下，我们有一个query向量，和一段key向量，这里query可以理解为一个包含比较多信息的全局向量，我们利用这个query对所有key向量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Attention机制-NLP领域小结">
+<meta property="og:url" content="https://github.com/DesmonDay/2020/02/20/Attention机制-NLP领域小结/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="Attention用于NLP的小结基本转载susht师姐的知乎博文，真是优秀的师姐啊，向她学习！ https://zhuanlan.zhihu.com/p/35739040  定义：参考Attention is All You Need中的说法，假设当前时刻t下，我们有一个query向量，和一段key向量，这里query可以理解为一个包含比较多信息的全局向量，我们利用这个query对所有key向量">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ef2e241114ab58a033e31f76b598a898_hd.jpg">
+<meta property="og:updated_time" content="2020-02-23T15:49:57.360Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Attention机制-NLP领域小结">
+<meta name="twitter:description" content="Attention用于NLP的小结基本转载susht师姐的知乎博文，真是优秀的师姐啊，向她学习！ https://zhuanlan.zhihu.com/p/35739040  定义：参考Attention is All You Need中的说法，假设当前时刻t下，我们有一个query向量，和一段key向量，这里query可以理解为一个包含比较多信息的全局向量，我们利用这个query对所有key向量">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-ef2e241114ab58a033e31f76b598a898_hd.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2020/02/20/Attention机制-NLP领域小结/"/>
+
+
+
+
+
+  <title>Attention机制-NLP领域小结 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2020/02/20/Attention机制-NLP领域小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Attention机制-NLP领域小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-20T23:42:25+08:00">
+                2020-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Attention用于NLP的小结"><a href="#Attention用于NLP的小结" class="headerlink" title="Attention用于NLP的小结"></a>Attention用于NLP的小结</h1><p>基本转载susht师姐的知乎博文，真是优秀的师姐啊，向她学习！</p>
+<p><a href="https://zhuanlan.zhihu.com/p/35739040" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35739040</a></p>
+<p><img src="https://pic1.zhimg.com/80/v2-ef2e241114ab58a033e31f76b598a898_hd.jpg" alt="img"></p>
+<p>定义：参考<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noopener">Attention is All You Need</a>中的说法，假设当前时刻t下，我们有一个query向量，和一段key向量，这里query可以理解为一个包含比较多信息的全局向量，我们利用这个query对所有key向量进行加权求和，学习到一个更合适的新向量去做分类或者预测等任务。</p>
+<p>假设$q_t$是时刻$t$下的query，$K$是key，$k_s$是其中一个key向量，$v$是value矩阵。我们先对$q_t$$和每个key进行相似度计算得到一个非归一化的score分数：</p>
+<script type="math/tex; mode=display">
+s(q_t,k_s)=\frac{<q_t,k_s>}{\sqrt{d_k}}</script><p>这里用到了点乘，分母则是为了调整内积结果，使得内积不那么大，避免softmax结果过于专一。然后对score进行softmax归一化，作为attention概率权重：</p>
+<script type="math/tex; mode=display">
+a(q_t,k_s) = \frac{exp(s(q_t,k_s))}{\sum_{i=1}^N exp(s(q_t,k_i))}​</script><p>最后我们对每个位置key所对应的权重和value进行加权求和，得到最终的输出向量：</p>
+<script type="math/tex; mode=display">
+Attention(q_t,K,V)=\sum_{s=1}^ma(q_t,k_s)v_s</script><p>对应到具体任务上可以理解更加清晰：</p>
+<ol>
+<li>在机器翻译任务中，query可以定义成decoder中某一步的hidden state，key是encoder中每一步的hidden state，我们用每一个query对所有key都做一个对齐，decoder每一步都会得到一个不一样的对齐向量。</li>
+<li>在文本分类任务中，query可以定义成一个可学的随机变量（参数），key就是输入文本每一步的hidden state，通过加权求和得到句向量，再进行分类。</li>
+</ol>
+<h2 id="根据Attention的计算区域"><a href="#根据Attention的计算区域" class="headerlink" title="根据Attention的计算区域"></a>根据Attention的计算区域</h2><ol>
+<li>Soft Attention: 这是比较常见的Attention方式，对所有key求权重概率，每个key都有一个对应的权重，是一种全局的计算方式（也可以叫Global Attention）</li>
+<li>Hard Attention: 这种方式是直接精准定位到某个key，其余key就都不管了，相当于这个key的概率是1，其余key的概率全部是0。因此这种对齐方式要求很高，要求一步到位，如果没有正确对齐，会带来很大的影响。另一方面，因为不可导，一般需要用强化学习的方法进行训练。（或者使用gumbel softmax之类的）</li>
+<li><strong>Local</strong> Attention，这种方式其实是以上两种方式的一个折中，对一个窗口区域进行计算。先用Hard方式定位到某个地方，以这个点为中心可以得到一个窗口区域，在这个小区域内用Soft方式来算Attention。</li>
+</ol>
+<h2 id="根据Attention的所用信息"><a href="#根据Attention的所用信息" class="headerlink" title="根据Attention的所用信息"></a>根据Attention的所用信息</h2><p>假设我们要对一段原文计算Attention，这里原文指的是我们要做attention的文本，那么所用信息包括内部信息和外部信息，内部信息指的是原文本身的信息，而外部信息指的是除原文以外的额外信息：</p>
+<ol>
+<li><strong>General</strong> Attention：这种方式利用到了外部信息，常用于需要构建两段文本关系的任务，query一般包含了额外信息，根据外部query对原文进行对齐。</li>
+<li><strong>Local</strong> Attention：这种方式只使用内部信息，key和value以及query只和输入原文有关，在<strong>self attention</strong>中，key=value=query。既然没有外部信息，那么在原文中的每个词可以跟该句子中的所有词进行Attention计算，相当于寻找原文内部的关系。</li>
+</ol>
+<h2 id="根据Attention的结构层次"><a href="#根据Attention的结构层次" class="headerlink" title="根据Attention的结构层次"></a>根据Attention的结构层次</h2><p>分为单层attention，多层attention和多头attention:</p>
+<ol>
+<li>单层Attention，这是比较普遍的做法，用一个query对一段原文进行一次attention。</li>
+<li>多层Attention，一般用于<strong>文本具有层次关系(比如包括多个句子的文档)</strong>的模型，假设我们把一个document划分成多个句子，在第一层，我们分别对每个句子使用attention计算出一个句向量（也就是单层attention）；在第二层，我们对所有句向量再做attention计算出一个文档向量（也是一个单层attention），最后再用这个文档向量去做任务。</li>
+<li>多头Attention，这是Attention is All You Need中提到的multi-head attention，用到了多个query对一段原文进行了多次attention，每个query都关注到原文的不同部分，相当于<strong>重复做多次单层attention</strong>。</li>
+</ol>
+<h2 id="从模型方面看"><a href="#从模型方面看" class="headerlink" title="从模型方面看"></a>从模型方面看</h2><p>Attention一般用在CNN和LSTM上，也可以直接进行纯Attention计算:</p>
+<ol>
+<li><p>CNN+Attention: </p>
+<p>CNN的卷积操作可以提取重要特征，也算是Attention的思想，但是CNN的卷积感受视野是局部的，需要通过<strong>叠加多层卷积区</strong>去扩大视野。另外，Max Pooling直接提取数值最大的特征，也像是<strong>hard attention</strong>的思想，直接选中某个特征。</p>
+<p>可以应用这几个方面：</p>
+<ul>
+<li>在卷积操作前做attention，比如Attention-Based BCNN-1，这个任务是文本蕴含任务需要处理两段文本，同时对两段输入的序列向量进行attention，计算出特征向量，再拼接到原始向量中，作为卷积层的输入。</li>
+<li>在卷积操作后做attention，比如Attention-Based BCNN-2，对两段文本的卷积层的输出做attention，作为pooling层的输入。</li>
+<li>在pooling层做attention，代替max pooling。比如<strong>Attention pooling</strong>，首先我们用LSTM学到一个比较好的句向量，作为query，然后用CNN先学习到一个特征矩阵作为key，再用query对key产生权重，进行attention，得到最后的句向量。</li>
+</ul>
+</li>
+<li><p>LSTM+Attention</p>
+<p>LSTM内部有Gate机制，其中input gate选择哪些当前信息进行输入，forget gate选择遗忘哪些过去信息，这算是一定程度的Attention了，而且号称可以解决长期依赖问题，实际上LSTM需要一步一步去捕捉序列信息，在长文本上的表现是会随着step增加而慢慢衰减，难以保留全部的有用信息。</p>
+<p>LSTM通常需要得到一个向量，再去做任务，常用的方式有：</p>
+<ul>
+<li>直接使用最后的hidden state(可能会损失一定的前文信息，难以表达全文)</li>
+<li>对所有step下的hidden state进行等权平均（对所有step一视同仁）</li>
+<li>Attention机制，对所有step的hidden state进行加权，把注意力集中到整段文本中比较重要的hidden state信息。性能比前面两种要好一点，而方便可视化观察哪些step是重要的，但是要小心过拟合，而且也增加了计算量。</li>
+</ul>
+</li>
+<li><p><strong>纯Attention</strong>: Attention is all you need，没有用到CNN/RNN，乍一听也是一股清流了，但是仔细一看，本质上还是一堆向量去计算attention。  </p>
+</li>
+</ol>
+<h2 id="相似度计算方式"><a href="#相似度计算方式" class="headerlink" title="相似度计算方式"></a>相似度计算方式</h2><p>做attention时，我们需要计算query和某个key的相似度（分数），常用的方法有：</p>
+<ol>
+<li>点乘：最简单的方法，$s(q,k) = q^Tk$</li>
+<li>矩阵相乘：$s(q,k)=q^TWk$</li>
+<li>cos相似度：$s(q,k)=\frac{q^Tk}{||q||\cdot||k||}$</li>
+<li>串联方式：把q,k拼接起来，$s(q,k)=W[q;k]$</li>
+<li>用多层感知机：$s(q,k)=v^T_atanh(Wq+Uk)$</li>
+</ol>
+<h2 id="Attention适合的任务"><a href="#Attention适合的任务" class="headerlink" title="Attention适合的任务"></a>Attention适合的任务</h2><ol>
+<li>长文本任务：document级别，因为长文本本身所携带的信息量比较大，可能会带来信息过载问题，很多任务可能只需要用到其中一些<strong>关键信息</strong>（比如文本分类），所以Attention机制用在这里正适合capture这些关键信息。</li>
+<li><strong>涉及到两段的相关文本</strong>，可能会需要对两段内容进行对齐，找到这两段文本之间的一些相关关系。比如机器翻译，将英文翻译成中文，英文和中文明显是有对齐关系的，Attention机制可以找出，在翻译到某个中文字的时候，需要对齐到哪个英文单词。又比如阅读理解，给出问题和文章，其实问题中也可以对齐到文章相关的描述，比如“什么时候”可以对齐到文章中相关的时间部分。</li>
+<li>任务很大部分取决于<strong>某些特征</strong>。我举个例子，比如在AI+法律领域，根据初步判决文书来预测所触犯的法律条款，在文书中可能会有一些罪名判定，而这种特征对任务是非常重要的，所以用Attention来capture到这种特征就比较有用。（CNN也可以）</li>
+</ol>
+<p>常见的task:</p>
+<ol>
+<li>机器翻译：encoder用于对原文建模，decoder用于生成译文，attention用于连接原文和译文，在每一步翻译的时候关注不同的原文信息。</li>
+<li>摘要生成：encoder用于对原文建模，decoder用于生成新文本，从形式上和机器翻译都是seq2seq任务，但是从任务特点上看，机器翻译可以具体对齐到某几个词，但这里是由长文本生成短文本，decoder可能需要capture到encoder更多的内容，进行总结。（对话系统也可）</li>
+<li>图文互搜：encoder对图片建模，decoder生成相关文本，在decoder生成每个词的时候，用attention机制来关注图片的不同部分。</li>
+<li>文本蕴含：判断前提和假设是否相关，attention机制用来对前提和假设进行对齐。</li>
+<li>阅读理解：可以对文本进行self attention，也可以对文章和问题进行对齐。</li>
+<li>文本分类：一般是对一段句子进行attention，得到一个句向量去做分类。</li>
+<li>序列标注：<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1712.01586" target="_blank" rel="noopener">Deep Semantic Role Labeling with Self-Attention</a>，这篇论文在softmax前用到了self attention，学习句子结构信息，和利用到标签依赖关系的CRF进行pk。</li>
+<li>关系抽取：也可以用到self attention</li>
+</ol>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>我这次参加了百度常规赛：知识驱动对话，也是利用了Attention作为decoder的一部分，比赛效果还可以。之后再写一篇文章作为总结。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/19/特征工程/" rel="next" title="特征工程">
+                <i class="fa fa-chevron-left"></i> 特征工程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/22/预训练语言模型/" rel="prev" title="预训练语言模型">
+                预训练语言模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">118</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Attention用于NLP的小结"><span class="nav-number">1.</span> <span class="nav-text">Attention用于NLP的小结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#根据Attention的计算区域"><span class="nav-number">1.1.</span> <span class="nav-text">根据Attention的计算区域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据Attention的所用信息"><span class="nav-number">1.2.</span> <span class="nav-text">根据Attention的所用信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据Attention的结构层次"><span class="nav-number">1.3.</span> <span class="nav-text">根据Attention的结构层次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从模型方面看"><span class="nav-number">1.4.</span> <span class="nav-text">从模型方面看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相似度计算方式"><span class="nav-number">1.5.</span> <span class="nav-text">相似度计算方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attention适合的任务"><span class="nav-number">1.6.</span> <span class="nav-text">Attention适合的任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">1.7.</span> <span class="nav-text">补充</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+
