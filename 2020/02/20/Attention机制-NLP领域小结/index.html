@@ -104,7 +104,7 @@
 <meta property="og:description" content="Attention用于NLP的小结基本转载susht师姐的知乎博文，真是优秀的师姐啊，向她学习！ https://zhuanlan.zhihu.com/p/35739040  定义：参考Attention is All You Need中的说法，假设当前时刻t下，我们有一个query向量，和一段key向量，这里query可以理解为一个包含比较多信息的全局向量，我们利用这个query对所有key向量">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-ef2e241114ab58a033e31f76b598a898_hd.jpg">
-<meta property="og:updated_time" content="2020-02-23T15:49:57.360Z">
+<meta property="og:updated_time" content="2020-02-23T16:09:27.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention机制-NLP领域小结">
 <meta name="twitter:description" content="Attention用于NLP的小结基本转载susht师姐的知乎博文，真是优秀的师姐啊，向她学习！ https://zhuanlan.zhihu.com/p/35739040  定义：参考Attention is All You Need中的说法，假设当前时刻t下，我们有一个query向量，和一段key向量，这里query可以理解为一个包含比较多信息的全局向量，我们利用这个query对所有key向量">
@@ -378,7 +378,7 @@ a(q_t,k_s) = \frac{exp(s(q_t,k_s))}{\sum_{i=1}^N exp(s(q_t,k_i))}​</script><p>
 Attention(q_t,K,V)=\sum_{s=1}^ma(q_t,k_s)v_s</script><p>对应到具体任务上可以理解更加清晰：</p>
 <ol>
 <li>在机器翻译任务中，query可以定义成decoder中某一步的hidden state，key是encoder中每一步的hidden state，我们用每一个query对所有key都做一个对齐，decoder每一步都会得到一个不一样的对齐向量。</li>
-<li>在文本分类任务中，query可以定义成一个可学的随机变量（参数），key就是输入文本每一步的hidden state，通过加权求和得到句向量，再进行分类。</li>
+<li>在文本分类任务中，query可以定义成一个可学的随机变量（参数），key就是输入文本每一步的hidden state，通过加权求和得到句向量，再进行分类。Attention机制用在文本分类中，我们可以看做是对句子进行加权，提高重要词语的注意力，减小其它词语的关注度。</li>
 </ol>
 <h2 id="根据Attention的计算区域"><a href="#根据Attention的计算区域" class="headerlink" title="根据Attention的计算区域"></a>根据Attention的计算区域</h2><ol>
 <li>Soft Attention: 这是比较常见的Attention方式，对所有key求权重概率，每个key都有一个对应的权重，是一种全局的计算方式（也可以叫Global Attention）</li>
