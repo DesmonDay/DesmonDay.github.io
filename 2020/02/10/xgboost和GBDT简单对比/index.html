@@ -104,7 +104,7 @@
 <meta property="og:description" content="参考https://www.cnblogs.com/pinard/p/11114748.html XGBoots和GBDT简单对比XGBoost作为GBDT的高效实现，在算法竞赛中很受欢迎。对比GBDT，XGBoost主要在三个方面做了优化：  算法本身的优化  在算法的弱学习器模型选择上，对比GBDT只支持决策树，还可以支持很多其他的弱学习器； 在算法的损失函数上，除了本身的损失，还加上了正则化">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2f948b702cd06344.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2020-02-26T07:38:06.636Z">
+<meta property="og:updated_time" content="2020-02-26T07:46:33.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XGBoosts和GBDT简单对比">
 <meta name="twitter:description" content="参考https://www.cnblogs.com/pinard/p/11114748.html XGBoots和GBDT简单对比XGBoost作为GBDT的高效实现，在算法竞赛中很受欢迎。对比GBDT，XGBoost主要在三个方面做了优化：  算法本身的优化  在算法的弱学习器模型选择上，对比GBDT只支持决策树，还可以支持很多其他的弱学习器； 在算法的损失函数上，除了本身的损失，还加上了正则化">
@@ -412,6 +412,7 @@
 <li>importance_type: 可以查询各个特征的重要性程度。可以选择“gain”, “weight”, “cover”, “total_gain” 或者 “total_cover”。最后可以通过调用booster的get_score方法获取对应的特征权重。“weight”通过特征被选中作为分裂特征的计数来计算重要性，“gain”和“total_gain”则通过分别计算特征被选中做分裂特征时带来的平均增益和总增益来计算重要性。“cover”和 “total_cover”通过计算特征被选中做分裂时的平均样本覆盖度和总体样本覆盖度来来计算重要性。</li>
 </ol>
 <p>我们可以通过验证集的准确率来判断我们前面网格搜索调参是否起到了效果。实际处理的时候需要反复搜索参数并验证。</p>
+<h2 id="lightGBM原理"><a href="#lightGBM原理" class="headerlink" title="lightGBM原理"></a>lightGBM原理</h2><p>参考推文：<a href="https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&amp;mid=2247485750&amp;idx=2&amp;sn=b9d024592a38daac5a8f88a5ce17b24f&amp;chksm=970c21e0a07ba8f6e0c4a8702d564adbca8ccc0580f3adec49e81292f85b8c80d3b6a7eb5885&amp;mpshare=1&amp;scene=1&amp;srcid=&amp;sharer_sharetime=1582702883906&amp;sharer_shareid=92ce7d436f5cb488a5c13e20e344e867&amp;key=5dcdf35eccaf36f7ecc5f253915dd66ef16aa5ef38be519e584990c97051929d494c82d05710ef1a4eab0b4d972e08a222289103576eb06ee12a69c849fb83d638912b4ed44e6454be8c3ced9e6de5c8&amp;ascene=1&amp;uin=MjQ2OTEwMDI0Mg%3D%3D&amp;devicetype=Windows+10&amp;version=62080079&amp;lang=zh_CN&amp;exportkey=AX3TDJHX%2B5g%2F%2F1hH6qMIgNU%3D&amp;pass_ticket=YOQR6c8AlwkTgL3wewLa8JhPutxWfxJQLmw1zPNKYnF07R8u5kuJEld%2BSBEBd3rq" target="_blank" rel="noopener">夕小瑶的卖萌屋</a></p>
 
       
     </div>
@@ -602,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#XGBoots和GBDT简单对比"><span class="nav-number">1.</span> <span class="nav-text">XGBoots和GBDT简单对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XGBoost类库参数"><span class="nav-number">2.</span> <span class="nav-text">XGBoost类库参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBoost框架参数"><span class="nav-number">2.1.</span> <span class="nav-text">XGBoost框架参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBoost弱学习器参数"><span class="nav-number">2.2.</span> <span class="nav-text">XGBoost弱学习器参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBoost其他参数"><span class="nav-number">2.3.</span> <span class="nav-text">XGBoost其他参数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#XGBoots和GBDT简单对比"><span class="nav-number">1.</span> <span class="nav-text">XGBoots和GBDT简单对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XGBoost类库参数"><span class="nav-number">2.</span> <span class="nav-text">XGBoost类库参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBoost框架参数"><span class="nav-number">2.1.</span> <span class="nav-text">XGBoost框架参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBoost弱学习器参数"><span class="nav-number">2.2.</span> <span class="nav-text">XGBoost弱学习器参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XGBoost其他参数"><span class="nav-number">2.3.</span> <span class="nav-text">XGBoost其他参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lightGBM原理"><span class="nav-number">3.</span> <span class="nav-text">lightGBM原理</span></a></li></ol></div>
             
 
           </div>
