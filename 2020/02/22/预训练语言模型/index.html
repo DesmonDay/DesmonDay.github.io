@@ -103,10 +103,26 @@
 <meta property="og:site_name" content="DesmonDay&#39;s Blog">
 <meta property="og:description" content="本文记录一些关于预训练语言模型讲解比较好的中文博客，有时间再补充自己的理解。 参考一：苏剑林（https://spaces.ac.cn/archives/6933）预训练方式传统的模型预训练手段就是语言模型，比如ELMo模型就是以BiLSTM为基础架构、用两个方向的语言模型分别预训练两个方向的LSTM的；后面的OpenAI的GPT、GPT-2也是用标准的、单向的语言模型来预训练。 之后还有更多的预">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-22T15:47:24.853Z">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ac881c5eee80e89020e2e001dfdf9722_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-8a4cbead57525234c6a33b23c96d18c6_720w.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=L_%7B1%7D%28U%29+%3D+%5Csum_%7Bi%7DlogP%28u_%7Bi%7D%7Cu_%7Bi-k%7D%2C+...%2C+u_%7Bi-1%7D%3B%5Ctheta%29+%5C%5C">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=h_%7B0%7D%3DUW_%7Be%7D%2BW_%7Bp%7D+%5C%5C">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=h_%7Bl%7D+%3D+transformer_block%28h_%7Bl-1%7D%29++%5C%5C">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=P%28u%29+%3D+softmax%28h_%7Bn%7DW_%7Be%7D%5E%7BT%7D%29+%5C%5C">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=P%28y%7Cx%5E%7B1%7D%2C...%2Cx%5E%7Bm%7D%29%3Dsoftmax%28h_%7Bl%7D%5E%7Bm%7DW_%7By%7D%29++%5C%5C">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=L_%7B2%7D%28C%29%3D+%5Csum_%7B%28x%2Cy%29%7DlogP%28y%7Cx%5E%7B1%7D...%2Cx%5E%7Bm%7D%29+%5C%5C">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=L_%7B3%7D%28C%29%3D+L_%7B2%7D%28C%29%2B%5Clambda+%2A+L_%7B1%7D%28C%29+%5C%5C">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-757fc68dcb577afacc6d8a7f635c12ee_720w.jpg">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190424144737769.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190424144811923.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d942b566bde7c44704b7d03a1b596c0c_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-11505b394299037e999d12997e9d1789_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b054e303cdafa0ce41ad761d5d0314e1_720w.jpg">
+<meta property="og:updated_time" content="2020-02-26T15:27:13.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="预训练语言模型">
 <meta name="twitter:description" content="本文记录一些关于预训练语言模型讲解比较好的中文博客，有时间再补充自己的理解。 参考一：苏剑林（https://spaces.ac.cn/archives/6933）预训练方式传统的模型预训练手段就是语言模型，比如ELMo模型就是以BiLSTM为基础架构、用两个方向的语言模型分别预训练两个方向的LSTM的；后面的OpenAI的GPT、GPT-2也是用标准的、单向的语言模型来预训练。 之后还有更多的预">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-ac881c5eee80e89020e2e001dfdf9722_720w.jpg">
 
 
 
@@ -366,6 +382,105 @@
         <p>本文记录一些关于预训练语言模型讲解比较好的中文博客，有时间再补充自己的理解。</p>
 <h2 id="参考一：苏剑林（https-spaces-ac-cn-archives-6933）"><a href="#参考一：苏剑林（https-spaces-ac-cn-archives-6933）" class="headerlink" title="参考一：苏剑林（https://spaces.ac.cn/archives/6933）"></a>参考一：苏剑林（<a href="https://spaces.ac.cn/archives/6933）" target="_blank" rel="noopener">https://spaces.ac.cn/archives/6933）</a></h2><h3 id="预训练方式"><a href="#预训练方式" class="headerlink" title="预训练方式"></a>预训练方式</h3><p>传统的模型预训练手段就是语言模型，比如<a href="https://arxiv.org/abs/1802.05365" target="_blank" rel="noopener">ELMo</a>模型就是以BiLSTM为基础架构、用两个方向的语言模型分别预训练两个方向的LSTM的；后面的OpenAI的GPT、<a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf" target="_blank" rel="noopener">GPT-2</a>也是用标准的、单向的语言模型来预训练。</p>
 <p>之后还有更多的预训练方式，比如BERT使用了称为”掩码语言模型(Masked Language Model)”的方式来预训练；而XLNet提出的为更彻底的”Permutation Language Modeling”，称为“乱序语言模型”；还有UNILM模型，直接用当个BERT架构做Seq2seq等等。</p>
+<h3 id="ELMO"><a href="#ELMO" class="headerlink" title="ELMO"></a>ELMO</h3><p><a href="https://zhuanlan.zhihu.com/p/88993965" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/88993965</a> 最大的优点是动态词向量，同一个词，出现在不同的语境中，会有不同的词向量。</p>
+<p>分开训练两个语言模型，即正向语言模型和反向语言模型，将对应字通过正向与反向语言模型得到的vector拼接。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-ac881c5eee80e89020e2e001dfdf9722_720w.jpg" alt="img"></p>
+<h3 id="OpenAI-GPT"><a href="#OpenAI-GPT" class="headerlink" title="OpenAI GPT"></a><strong>OpenAI GPT</strong></h3><p>OpenAI Transformer是一类可迁移到多种NLP任务的，基于Transformer的语言模型。它的基本思想同ULMFiT相同，都是在尽量不改变模型结构的情况下将预训练的语言模型应用到各种任务。不同的是，OpenAI Transformer主张用Transformer结构，而ULMFiT中使用的是基于RNN的语言模型。文中所用的网络结构如下：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-8a4cbead57525234c6a33b23c96d18c6_720w.jpg" alt="img"></p>
+<p>模型的训练过程分为两步：</p>
+<ol>
+<li><p>Unsupervised pre-training ：第一阶段的目标是预训练语言模型，给定tokens的语料，目标函数为最大化似然函数：</p>
+<p><img src="https://www.zhihu.com/equation?tex=L_%7B1%7D%28U%29+%3D+%5Csum_%7Bi%7DlogP%28u_%7Bi%7D%7Cu_%7Bi-k%7D%2C+...%2C+u_%7Bi-1%7D%3B%5Ctheta%29+%5C%5C" alt="[公式]"></p>
+<p>该模型中应用multi-head self-attention，并在之后增加position-wise的前向传播层，最后输出一个分布：</p>
+<p><img src="https://www.zhihu.com/equation?tex=h_%7B0%7D%3DUW_%7Be%7D%2BW_%7Bp%7D+%5C%5C" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=h_%7Bl%7D+%3D+transformer_block%28h_%7Bl-1%7D%29++%5C%5C" alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=P%28u%29+%3D+softmax%28h_%7Bn%7DW_%7Be%7D%5E%7BT%7D%29+%5C%5C" alt="[公式]"></p>
+</li>
+<li><p>Supervised fine-tuning ：有了预训练的语言模型之后，对于有标签的训练集，给定输入序列$x^1,x^2,…,x^m$和标签$y$，可以通过语言模型得到$h_l^m$，经过输出层后对$y$进行预测：</p>
+<p><img src="https://www.zhihu.com/equation?tex=P%28y%7Cx%5E%7B1%7D%2C...%2Cx%5E%7Bm%7D%29%3Dsoftmax%28h_%7Bl%7D%5E%7Bm%7DW_%7By%7D%29++%5C%5C" alt="[公式]"></p>
+<p>目标函数为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=L_%7B2%7D%28C%29%3D+%5Csum_%7B%28x%2Cy%29%7DlogP%28y%7Cx%5E%7B1%7D...%2Cx%5E%7Bm%7D%29+%5C%5C" alt="[公式]"></p>
+<p>则整个任务的目标函数为：</p>
+<p><img src="https://www.zhihu.com/equation?tex=L_%7B3%7D%28C%29%3D+L_%7B2%7D%28C%29%2B%5Clambda+%2A+L_%7B1%7D%28C%29+%5C%5C" alt="[公式]"></p>
+</li>
+</ol>
+<h3 id="fasttext"><a href="#fasttext" class="headerlink" title="fasttext"></a>fasttext</h3><p>与word2vec的区别：</p>
+<ul>
+<li>相似处：</li>
+</ul>
+<ol>
+<li>图模型结构很像，都是采用embedding向量的形式，得到word的隐向量表达。</li>
+<li>都采用很多相似的优化方法，比如使用Hierarchical softmax优化训练和预测中的打分速度。</li>
+</ol>
+<ul>
+<li>不同处：</li>
+</ul>
+<ol>
+<li>模型的输出层：word2vec的输出层，对应的是每一个term，计算某term的概率最大；而fasttext的输出层对应的是分类的label。不过不管输出层对应的是什么内容，其对应的vector都不会被保留和使用。</li>
+<li>模型的输入层：word2vec的输出层，是 context window 内的term；而fasttext 对应的整个sentence的内容，包括term，也包括 n-gram的内容。</li>
+</ol>
+<ul>
+<li>两者本质的不同，体现在 h-softmax的使用：</li>
+</ul>
+<ol>
+<li>Word2vec的目的是得到词向量，该词向量最终是在输入层得到，输出层对应的 h-softmax也会生成一系列的向量，但最终都被抛弃，不会使用。</li>
+<li>fastText则充分利用了h-softmax的分类功能，遍历分类树的所有叶节点，找到概率最大的label（一个或者N个）</li>
+</ol>
+<h3 id="ULMFiT-源码值得学习"><a href="#ULMFiT-源码值得学习" class="headerlink" title="ULMFiT 源码值得学习"></a>ULMFiT 源码值得学习</h3><p>ULMFiT是一种有效的NLP迁移学习方法，核心思想是通过精调预训练的语言模型完成其他NLP任务。文中所用的语言模型参考了<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1708.02182" target="_blank" rel="noopener">Merity et al. 2017a</a>的<strong>AWD-LSTM</strong>模型，即没有attention或shortcut的<strong>三层LSTM模型</strong>。</p>
+<p>ULMFit的过程分三步：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-757fc68dcb577afacc6d8a7f635c12ee_720w.jpg" alt="img"></p>
+<ol>
+<li><p>General-domain LM pre-train</p>
+<ul>
+<li><p>在Wikitext-103上进行语言模型的预训练。</p>
+</li>
+<li><p>预训练的语料要求：large &amp; capture general properties of language</p>
+</li>
+<li>预训练对小数据集十分有效，之后仅有少量样本就可以使模型泛化。</li>
+</ul>
+</li>
+<li><p>Target task LM fine-tuning</p>
+<ul>
+<li><p>Discriminative fine-tuning: 因为网络中不同层可以捕获不同类型的信息，因此在精调时也应该使用不同的learning rate。作者为每一层赋予一个学习率$\delta^l$，实验后发现，首先通过精调模型的最后一层L确定学习率$\delta^L$，递推地选择上一层学习率进行精调的效果最好，递推公式为$\delta^{l-1}=\delta^l / 2.6$</p>
+</li>
+<li><p>Slanted triangular learning rates(STLR)</p>
+<p>为了针对特定任务选择参数，理想情况下需要在训练开始时让参数快速收敛到一个合适的区域，之后进行精调。为了达到这种效果，作者提出STLR方法，即让LR在训练初期短暂递增，在之后下降。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190424144737769.png" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190424144811923.png" alt="img"></p>
+</li>
+<li><p><strong>Target task classifier fine-tuning</strong></p>
+<p>为了完成分类任务的精调，作者在最后一层添加了两个线性block，每个都有batch-norm和dropout，使用ReLU作为中间层激活函数，最后经过softmax输出分类的概率分布。</p>
+</li>
+</ul>
+<p>ULMFit适用领域：分类</p>
+</li>
+</ol>
+<h3 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h3><p><a href="https://zhuanlan.zhihu.com/p/46652512" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46652512</a></p>
+<h4 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h4><p><img src="https://pic1.zhimg.com/80/v2-d942b566bde7c44704b7d03a1b596c0c_720w.jpg" alt="img"></p>
+<p>对比OpenAI GPT(Generative pre-trained transformer)，BERT是双向的Transformer block连接；就像单向rnn和双向rnn的区别，直觉上来讲效果会好一些。</p>
+<p>对比ELMo，虽然都是“双向”，但目标函数其实是不同的。ELMO是实际上是以$P(w_i|w1,…,w_{i-1})$和$P(w_i|w_{i+1},…w_n)$作为目标函数，独立训练出两个representation然后拼接，而BERT则是以$P(w_i|w_1,…,w_{i-1},w_{i+1},…,w_n)$作为目标函数训练LM。</p>
+<h4 id="Embedding"><a href="#Embedding" class="headerlink" title="Embedding"></a>Embedding</h4><p>embedding是由三种embedding求和而成：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-11505b394299037e999d12997e9d1789_720w.jpg" alt="img"></p>
+<p>其中：</p>
+<ul>
+<li>Token Embeddings是词向量，第一个单词是<strong>CLS标志</strong>，可以用于之后的分类任务</li>
+<li><strong>Segment Embeddings</strong>用来区别两种句子，因为预训练不光做LM还要做以两个句子为输入的分类任务</li>
+<li><strong>Position Embeddings</strong>和之前文章中的Transformer不一样，不是三角函数而是<strong>学习出来</strong>的</li>
+</ul>
+<h4 id="预训练任务1-Masked-LM"><a href="#预训练任务1-Masked-LM" class="headerlink" title="预训练任务1-Masked LM"></a>预训练任务1-Masked LM</h4><p>第一步预训练的目标就是做语言模型，从上文模型结构中看到了这个模型的不同，即bidirectional。</p>
+<blockquote>
+<p>为什么要这样做bidirectional，作者的解释如下：</p>
+<p>如果使用预训练模型处理其他任务，那人们想要的肯定不止某个词左边的信息，而是左右两边的信息。而考虑到这点的模型ELMo只是将left-to-right和right-to-left分别训练拼接起来。直觉上来讲我们其实想要一个deeply bidirectional的模型，但是普通的LM又无法做到，因为在训练时可能会“穿越”。所以作者用了一个加mask的trick。</p>
+</blockquote>
+<p>在训练过程中作者<strong>随机mask 15%的token</strong>，而不是把像cbow一样把每个词都预测一遍。<strong>最终的损失函数只计算被mask掉那个token。</strong>Mask如何做也是有技巧的，如果一直用标记[MASK]代替（在实际预测时是碰不到这个标记的）会影响模型，所以随机mask的时候10%的单词会被替代成其他单词，10%的单词不替换，剩下80%才被替换为[MASK]。要注意的是Masked LM预训练阶段模型是不知道真正被mask的是哪个词，所以<strong>模型每个词都要关注</strong>。</p>
+<h4 id="预训练任务2-Next-Sentence-Prediction"><a href="#预训练任务2-Next-Sentence-Prediction" class="headerlink" title="预训练任务2-Next Sentence Prediction"></a>预训练任务2-Next Sentence Prediction</h4><p>因为涉及到QA和NLI之类的任务，增加了第二个预训练任务，目的是让模型理解两个句子之间的联系。训练的输入是句子A和B，B有一半的几率是A的下一句，输入这两个句子，<strong>模型预测B是不是A的下一句</strong>。</p>
+<blockquote>
+<p><strong>作者特意说了语料的选取很关键，要选用document-level的而不是sentence-level的，这样可以具备抽象连续长序列特征的能力。</strong></p>
+</blockquote>
+<h4 id="Fine-tunning"><a href="#Fine-tunning" class="headerlink" title="Fine-tunning"></a>Fine-tunning</h4><p>分类：对于sequence-level的分类任务，BERT直接取第一个[CLS]token的final hidden state $C\in \mathbb{R}H$，加一层权重$W$后softmax预测label proba:</p>
+<script type="math/tex; mode=display">
+P = softmax(CW^T)</script><p>与文本中已有的其它字/词相比，这个无明显语义信息的符号会<strong>更“公平”地融合文本中各个字/词的语义信息</strong>。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b054e303cdafa0ce41ad761d5d0314e1_720w.jpg" alt="img"></p>
 
       
     </div>
@@ -556,7 +671,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考一：苏剑林（https-spaces-ac-cn-archives-6933）"><span class="nav-number">1.</span> <span class="nav-text">参考一：苏剑林（https://spaces.ac.cn/archives/6933）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预训练方式"><span class="nav-number">1.1.</span> <span class="nav-text">预训练方式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考一：苏剑林（https-spaces-ac-cn-archives-6933）"><span class="nav-number">1.</span> <span class="nav-text">参考一：苏剑林（https://spaces.ac.cn/archives/6933）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预训练方式"><span class="nav-number">1.1.</span> <span class="nav-text">预训练方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ELMO"><span class="nav-number">1.2.</span> <span class="nav-text">ELMO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenAI-GPT"><span class="nav-number">1.3.</span> <span class="nav-text">OpenAI GPT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fasttext"><span class="nav-number">1.4.</span> <span class="nav-text">fasttext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ULMFiT-源码值得学习"><span class="nav-number">1.5.</span> <span class="nav-text">ULMFiT 源码值得学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BERT"><span class="nav-number">1.6.</span> <span class="nav-text">BERT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型结构"><span class="nav-number">1.6.1.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Embedding"><span class="nav-number">1.6.2.</span> <span class="nav-text">Embedding</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预训练任务1-Masked-LM"><span class="nav-number">1.6.3.</span> <span class="nav-text">预训练任务1-Masked LM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预训练任务2-Next-Sentence-Prediction"><span class="nav-number">1.6.4.</span> <span class="nav-text">预训练任务2-Next Sentence Prediction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fine-tunning"><span class="nav-number">1.6.5.</span> <span class="nav-text">Fine-tunning</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
