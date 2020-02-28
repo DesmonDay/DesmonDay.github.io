@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NLP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="PointerNet和CopyNet参考：https://cloud.tencent.com/developer/article/1537657 由于时间问题，这里只是简单做个记录，有机会再回来补充。这两个算法是比较经典的解决OOV问题的方法，之后也有很多基于此的工作。应对OOV的三个主要方法：  扩大词表：扩大词表后，可以将部分低频词纳入了词表，但是这些低频词由于缺乏足够数量的语料，训练出来的词">
+<meta name="keywords" content="NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PointerNet and CopyNet">
+<meta property="og:url" content="https://github.com/DesmonDay/2020/02/15/PointerNet-and-CopyNet/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="PointerNet和CopyNet参考：https://cloud.tencent.com/developer/article/1537657 由于时间问题，这里只是简单做个记录，有机会再回来补充。这两个算法是比较经典的解决OOV问题的方法，之后也有很多基于此的工作。应对OOV的三个主要方法：  扩大词表：扩大词表后，可以将部分低频词纳入了词表，但是这些低频词由于缺乏足够数量的语料，训练出来的词">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/6552462/5jvu97d12o.png?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/6552462/bqra6ml3ih.png?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/6552462/vjbnouaunr.png?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/6552462/2mpmuazlud.png?imageView2/2/w/1620">
+<meta property="og:image" content="c:/Users/90866/Desktop/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/6552462/4fnpg6jyyz.png?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/6552462/fhd0jn1hzh.png?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/6552462/ma1wsuo7zo.png?imageView2/2/w/1620">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190215101435790.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQyMjEyNjY=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-02-27T16:20:18.532Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PointerNet and CopyNet">
+<meta name="twitter:description" content="PointerNet和CopyNet参考：https://cloud.tencent.com/developer/article/1537657 由于时间问题，这里只是简单做个记录，有机会再回来补充。这两个算法是比较经典的解决OOV问题的方法，之后也有很多基于此的工作。应对OOV的三个主要方法：  扩大词表：扩大词表后，可以将部分低频词纳入了词表，但是这些低频词由于缺乏足够数量的语料，训练出来的词">
+<meta name="twitter:image" content="https://ask.qcloudimg.com/http-save/6552462/5jvu97d12o.png?imageView2/2/w/1620">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2020/02/15/PointerNet-and-CopyNet/"/>
+
+
+
+
+
+  <title>PointerNet and CopyNet | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2020/02/15/PointerNet-and-CopyNet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PointerNet and CopyNet</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-15T23:04:55+08:00">
+                2020-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="PointerNet和CopyNet"><a href="#PointerNet和CopyNet" class="headerlink" title="PointerNet和CopyNet"></a>PointerNet和CopyNet</h1><p>参考：<a href="https://cloud.tencent.com/developer/article/1537657" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1537657</a></p>
+<p>由于时间问题，这里只是简单做个记录，有机会再回来补充。这两个算法是比较经典的解决OOV问题的方法，之后也有很多基于此的工作。应对OOV的三个主要方法：</p>
+<ol>
+<li>扩大词表：扩大词表后，可以将部分低频词纳入了词表，但是这些低频词由于缺乏足够数量的语料，训练出来的词向量往往效果不佳，所以扩大词表在提升模型的效果方面，存在一定的瓶颈。</li>
+<li>指针拷贝网络</li>
+<li>字向量/n-gram：中文任务使用字向量（例如BERT），英文任务使用n-gram。</li>
+</ol>
+<p>这两个算法的思想基本都是利用了Attention机制里的对齐向量a。</p>
+<h2 id="Pointer-Networks"><a href="#Pointer-Networks" class="headerlink" title="Pointer Networks"></a>Pointer Networks</h2><p>论文提出了当前文本序列生成模型的三个问题，这三个问题都可以通过使用PtrNet解决：</p>
+<p>（1）目标序列的词表，和源序列的词语内容是<strong>强相关</strong>的。面对不同语言、不同应用场景的任务，往往需要重新构造词表。</p>
+<p>（2）词表的长度需要在模型构建之前作为超参数进行配置。如果需要变更词表的长度，就需要重新训练模型。</p>
+<p>（3）在部分任务场景里，不允许有OOV的存在</p>
+<p>本论文的思路，就是让decoder输出一个由目标序列指向源序列的指针序列。Pointer Networks利用了Attention模型的一个中间变量：对齐系数a。因为对齐系数a表示目标序列当前step和源序列所有step之间的相关性大小，所以我们可以<strong>通过选取对齐系数向量a（向量a长度为源序列的step长度）中数值最大的那个维度（每个维度指向源序列的一个step）</strong>，实现一个从目标序列step到源序列step的指针。最后，根据这个指针指向的源序列的词，直接提取这个词进行输出。</p>
+<h2 id="Pointing-the-Unknown-Words"><a href="#Pointing-the-Unknown-Words" class="headerlink" title="Pointing the Unknown Words"></a>Pointing the Unknown Words</h2><p>这篇论文将pointer networks在NLP领域的文本摘要任务和翻译任务上进行了落地实践（上一篇并没有）。</p>
+<p>论文提出的Pointer Softmax Network模型包含三个主要模块。用通俗的语言解释，如果传统模型效果好，就选择传统模型的输出值进行输出，如果PtrNet模型效果好，就选择PtrNet模型的输出值进行输出，然后需要有一个开关网络来判断，传统模型效果好还是PtrNet模型效果好。这三个模块的描述如下：</p>
+<ol>
+<li>Shortlist Softmax：这个模块由传统的Attention Mechanism实现，输出一个在词表里的词的条件概率。这个模块需要维护一个<strong>固定大小的词表</strong>。</li>
+<li>Location Softmax：这个模块利用了Attention Mechanism的对齐系数a。对齐系数a的向量长度是源序列的step长度，并且对齐系数a每个维度的值，表示decoder当前step输出源序列每个step的概率大小。我们就可以在对齐系数a的各个维度中，取出数值最大的那个维度，作为decoder当前step的指针，这个维度上的值就是其概率大小。</li>
+<li>Switching Network：前面两个模块的公式里的<em>p(z)</em>项，就是由SwitchingNetwork模块生成输出的。Switching Network模型通过<em>p(z)</em>选择是采纳ShortlistSoftmax输出的预测词，还是采纳Location Softmax输出的预测词。Switching Network由一个多层感知机MLP实现，并在最后接一个sigmoid激活函数。</li>
+</ol>
+<p><img src="https://ask.qcloudimg.com/http-save/6552462/5jvu97d12o.png?imageView2/2/w/1620" alt="img"></p>
+<p>额外说明的点：</p>
+<ol>
+<li>在decoder的公式中，每个step有且仅有一个softmax会生效并输出预测值。这个比较理想化，因为开关网络最后一层接的是sigmoid，不能完全保证输出的是0或者1。所以工程实践估计是采用0.5作为判决门限，来选择使用哪个softmax。</li>
+<li>虽然引入PtrNet机制会扩大网络规模，增加网络的参数，但是在模型训练环节，反而会让模型收敛得更快。这一点深有体会。</li>
+<li>要将PtrNet用于翻译任务，需要做一些额外的工作：遇到OOV词时，在使用Location Softmax模块前，会进行两个判定，一个是对OOV词进行查表（法语-英语字典）<strong>判断相应的词是否在target和source中同时出现</strong>，另一个是查找OOV词是否直接在target和source中同时出现，如果其中一个判定成功，则模型可以使用Location Softmax（逻辑上很麻烦对不对，特别是还要额外引入一个词典）。</li>
+</ol>
+<h2 id="Incorporating-Copying-Mechanism-in-Seq2Seq-Learning"><a href="#Incorporating-Copying-Mechanism-in-Seq2Seq-Learning" class="headerlink" title="Incorporating Copying Mechanism in Seq2Seq Learning"></a>Incorporating Copying Mechanism in Seq2Seq <strong>Learning</strong></h2><p>这篇论文提出的CopyNet模型包含两个具有创新点的模块（encoder模块不算在内）:</p>
+<ol>
+<li><p>Generate-Mode &amp; Copy-Mode</p>
+<p>Generate-Mode&amp; Copy-Mode模块会维护两个词表，一个是传统的词表（但是这个词表不包含UNK），一个是源序列中的词构成的词表。</p>
+</li>
+</ol>
+<ul>
+<li>对于传统词表中的词和UNK，模型采用Generate-Mode计算词语输出概率：</li>
+</ul>
+<p><img src="https://ask.qcloudimg.com/http-save/6552462/bqra6ml3ih.png?imageView2/2/w/1620" alt="img"></p>
+<p><img src="https://ask.qcloudimg.com/http-save/6552462/vjbnouaunr.png?imageView2/2/w/1620" alt="img"></p>
+<p>​    其中v是词的onehot表示，W是Generate-Mode的词向量表，s是decoder的状态。公式的意思也就是拿词向量乘以状态s，得到一个分数，再进行归一化，获得概率值。</p>
+<ul>
+<li>对于源序列词表中的词，模型采用Copy-Mode计算词语输出概率：</li>
+</ul>
+<p><img src="https://ask.qcloudimg.com/http-save/6552462/2mpmuazlud.png?imageView2/2/w/1620" alt="img"></p>
+<p><img src="C:\Users\90866\Desktop\1620" alt="img"></p>
+<p>​    其中h是encoder输出的output，w是待训练矩阵，s是decoder的状态。</p>
+<p>​    第一点是：这里词表的长度是源序列中的词<strong>去重</strong>后的数量，和[2]中源序列的长度不一样。</p>
+<p>​    第二点是：如果目标序列中的词y有在源序列词表中，那么Copy-Mode输出的概率就不为0。y在源序列的各个step中每出现一次，就要根据公式计算一次概率值，最后Copy-Mode输出的概率，等于源序列的所有step中有出现y的概率值之和。</p>
+<ul>
+<li>最后，模型会将Generate-Mode和Copy-Mode输出的词语概率进行相加汇总，得到最终的词语概率分布。</li>
+</ul>
+<p><img src="https://ask.qcloudimg.com/http-save/6552462/4fnpg6jyyz.png?imageView2/2/w/1620" alt="img"></p>
+<ol>
+<li>State Update</li>
+</ol>
+<p><img src="https://ask.qcloudimg.com/http-save/6552462/fhd0jn1hzh.png?imageView2/2/w/1620" alt="img"></p>
+<p><img src="https://ask.qcloudimg.com/http-save/6552462/ma1wsuo7zo.png?imageView2/2/w/1620" alt="img"></p>
+<p>t-1时刻的单词被用来更新t时刻的状态，但是copynet不仅用t-1时刻单词的word_embedding,也用t-1时刻的单词在M中隐藏层状态的具体位置有关。</p>
+<p>思路：</p>
+<blockquote>
+<p>（1）CopyNet模型融合了生成式（abstractive）摘要任务和抽取型（extractive）摘要任务的思想。decoder输出的大部分关键词来源于Copy-Mode，这体现了abstractive summarization。然后再由Generate-Mode把语句撸通顺，这体现了extractive summarization。</p>
+<p>（2）拷贝机制的本质是提取关键词，这个输出可以作为上游模块，和其它任务相结合，例如文本分类任务。</p>
+</blockquote>
+<h2 id="Get-To-The-Point-Summarization-with-Pointer-Generator-Networks"><a href="#Get-To-The-Point-Summarization-with-Pointer-Generator-Networks" class="headerlink" title="Get To The Point: Summarization with Pointer-Generator Networks"></a><strong>Get To The Point: Summarization with Pointer-Generator Networks</strong></h2><p><img src="https://img-blog.csdnimg.cn/20190215101435790.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTQyMjEyNjY=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>最好的一篇工作。<a href="https://blog.csdn.net/appleml/article/details/87105488" target="_blank" rel="noopener">https://blog.csdn.net/appleml/article/details/87105488</a></p>
+<p>模型结构包含以下几个部分：</p>
+<ol>
+<li><p>传统的带Attention机制的Generator Network:</p>
+<script type="math/tex; mode=display">
+e_i^t = v^Ttanh(W_hh_i+W_ss_t+b_{attn}) \\
+a^t = softmax(e^t) \\
+h^*_t = \sum_i a^t_ih_i \\
+P_{vocab}=softmax(V'(V[s_t,h_t^*]+b)+b')</script><p>计算公式和Bahdanau Attention基本一致，差异是：输出层P_vocab用了个两层的MLP。</p>
+</li>
+<li><p>用于从源序列拷贝词语的Pointer Network：</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+\sum_{}</script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/10/xgboost和GBDT简单对比/" rel="next" title="XGBoosts和GBDT简单对比">
+                <i class="fa fa-chevron-left"></i> XGBoosts和GBDT简单对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/19/实习复习过程/" rel="prev" title="实习复习过程">
+                实习复习过程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">121</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PointerNet和CopyNet"><span class="nav-number">1.</span> <span class="nav-text">PointerNet和CopyNet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointer-Networks"><span class="nav-number">1.1.</span> <span class="nav-text">Pointer Networks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointing-the-Unknown-Words"><span class="nav-number">1.2.</span> <span class="nav-text">Pointing the Unknown Words</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Incorporating-Copying-Mechanism-in-Seq2Seq-Learning"><span class="nav-number">1.3.</span> <span class="nav-text">Incorporating Copying Mechanism in Seq2Seq Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-To-The-Point-Summarization-with-Pointer-Generator-Networks"><span class="nav-number">1.4.</span> <span class="nav-text">Get To The Point: Summarization with Pointer-Generator Networks</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+

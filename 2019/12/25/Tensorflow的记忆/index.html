@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NLP," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一般，我们在参加某个比赛或者实现某种算法的时候，需要经历以下几个过程：  数据集收集、清洗 特征构建 模型实现 得到结果，再根据反馈在2-4进行多次想法的迭代  其中，在模型实现上，比如我主要方向是NLP，而NLP如今基本是深度学习时代（特别是预训练模型BERT出来后），因此多需要对深度学习框架有比较深的了解和使用经验。而Tensorflow和Pytorch两家经常被用来做对比。Tensorflo">
+<meta name="keywords" content="NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow的记忆">
+<meta property="og:url" content="https://github.com/DesmonDay/2019/12/25/Tensorflow的记忆/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="一般，我们在参加某个比赛或者实现某种算法的时候，需要经历以下几个过程：  数据集收集、清洗 特征构建 模型实现 得到结果，再根据反馈在2-4进行多次想法的迭代  其中，在模型实现上，比如我主要方向是NLP，而NLP如今基本是深度学习时代（特别是预训练模型BERT出来后），因此多需要对深度学习框架有比较深的了解和使用经验。而Tensorflow和Pytorch两家经常被用来做对比。Tensorflo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-28T04:18:44.420Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow的记忆">
+<meta name="twitter:description" content="一般，我们在参加某个比赛或者实现某种算法的时候，需要经历以下几个过程：  数据集收集、清洗 特征构建 模型实现 得到结果，再根据反馈在2-4进行多次想法的迭代  其中，在模型实现上，比如我主要方向是NLP，而NLP如今基本是深度学习时代（特别是预训练模型BERT出来后），因此多需要对深度学习框架有比较深的了解和使用经验。而Tensorflow和Pytorch两家经常被用来做对比。Tensorflo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2019/12/25/Tensorflow的记忆/"/>
+
+
+
+
+
+  <title>Tensorflow的记忆 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2019/12/25/Tensorflow的记忆/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tensorflow的记忆</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T14:40:52+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一般，我们在参加某个比赛或者实现某种算法的时候，需要经历以下几个过程：</p>
+<ol>
+<li>数据集收集、清洗</li>
+<li>特征构建</li>
+<li>模型实现</li>
+<li>得到结果，再根据反馈在2-4进行多次想法的迭代</li>
+</ol>
+<p>其中，在模型实现上，比如我主要方向是NLP，而NLP如今基本是深度学习时代（特别是预训练模型BERT出来后），因此多需要对深度学习框架有比较深的了解和使用经验。而Tensorflow和Pytorch两家经常被用来做对比。Tensorflow其实更适合用在工业界（静态图，TensorFlow的运行机制属于”定义”与”运行“相分离。），而Pytorch由于其方便性（动态图）而广泛流行于学术界。所以往往，实际操作时，我们通常会使用Pytorch快速实现模型，在对结果进行多次尝试找到最优参数后，再将使用Tensorflow进行复现。也就是说，Tensorflow很重要！！</p>
+<p>Tensorflow的概念：</p>
+<ol>
+<li>张量（tensor）：TensorFlow程序使用tensor数据结构来代表所有的数据，计算图中，操作间传递的数据都是tensor，你可以把TensorFlow tensor看做一个n维的数组或者列表。</li>
+<li>变量（variable）：常用于定义模型中的参数，是通过不断训练得到的值。比如权重和偏置。</li>
+<li>占位符（placeholder）：输入变量的载体。也可以理解成定义函数时的参数。</li>
+<li>图中的节点操作（op）：一个op获得0个或者多个Tensor，执行计算，产生0个或者多个Tensor<strong>。op是描述张量中的运算关系，是网络中真正结构。</strong></li>
+</ol>
+<p>一个TensorFlow图描述了计算的过程，为了进行计算，图必须在会话里启动，会话将图的op分发到诸如CPU或者GPU的设备上，同时提供执行op的方法，这些方法执行后，将产生的tensor返回，在python语言中，返回的tensor是numpy array对象，在C或者C++语言中，返回的tensor是tensorflow:Tensor实例。</p>
+<p>session与图的交互过程中定义了以下两种数据的流向机制：</p>
+<ul>
+<li>注入机制（feed）：通过占位符向模式中传入数据</li>
+<li>取回机制（fetch）：从模式中取得结果</li>
+</ul>
+<p>所以，这里就是记录一些，Tensorflow常用的函数之类的，也当做我的小小笔记本好了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NLP类Tensorflow常用导入包</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> tensorflow.contrib.seq2seq <span class="keyword">as</span> seq2seq</span><br></pre></td></tr></table></figure>
+<p>关于tensowflow中的会话相关操作，参考博客：<a href="https://www.cnblogs.com/zyly/p/8869763.html" target="_blank" rel="noopener">https://www.cnblogs.com/zyly/p/8869763.html</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set GPU fraction</span></span><br><span class="line">gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=args.gpu_fraction)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) <span class="keyword">as</span> sess:</span><br><span class="line">    <span class="comment"># build model or load model, 以我参加的一个比赛为例</span></span><br><span class="line">    model = Seq2SeqModel(args, word2id, embeddings)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 如果有训练好的模型，则导入</span></span><br><span class="line">    <span class="comment"># load checkpoint if exists</span></span><br><span class="line">    ckpt = tf.train.get_checkpoint_state(args.model_dir)</span><br><span class="line">    <span class="keyword">if</span> ckpt <span class="keyword">and</span> tf.train.checkpoint_exists(ckpt.model_checkpoint_path):</span><br><span class="line">        model.saver.restore(sess, ckpt.model_checkpoint_path)</span><br><span class="line">    <span class="keyword">else</span>: <span class="comment"># 如果没有模型，则初始化参数，进行训练</span></span><br><span class="line">        sess.run(tf.global_variables_initializer())</span><br></pre></td></tr></table></figure>
+<p>Tensorflow的summary用法参考博客：<a href="https://www.cnblogs.com/lyc-seu/p/8647792.html" target="_blank" rel="noopener">https://www.cnblogs.com/lyc-seu/p/8647792.html</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定一个文件用来保存图，之后可以使用tensorboard查看训练过程</span></span><br><span class="line">summary_writer = tf.summary.FileWriter(args.model_dir, sess=sess.graph)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 训练过程中</span></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> tqdm(batches, desc=<span class="string">'Training'</span>):</span><br><span class="line">    <span class="comment"># 如果我们需要记录某个step的图，则调用summary_writer</span></span><br><span class="line">    summary_writer.add_summary(summary, cur_step)</span><br></pre></td></tr></table></figure>
+<p>构建多层RNN</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_create_rnn_cell</span><span class="params">(self, hidden_size, rnn_type=<span class="string">'lstm'</span>)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Create multi-layer rnn with dropout layer, called by decoder</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">a_cell</span><span class="params">(hidden_size, rnn_type)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> rnn_type == <span class="string">'lstm'</span>:</span><br><span class="line">            single_cell = tf.contrib.rnn.LSTMCell(hidden_size)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            single_cell = tf.contrib.rnn.GRUCell(hidden_size)</span><br><span class="line">        cell = tf.contrib.rnn.DropoutWrapper(single_cell, output_keep_prob=self.keep_prob)</span><br><span class="line">                <span class="keyword">return</span> cell</span><br><span class="line"></span><br><span class="line">    rnn_cell = tf.contrib.rnn.MultiRNNCell([a_cell(hidden_size, rnn_type) <span class="keyword">for</span> _ <span class="keyword">in</span> range(self.num_layers)])</span><br><span class="line">    <span class="keyword">return</span> rnn_cell</span><br></pre></td></tr></table></figure>
+<p>创建模型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Seq2SeqModel</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, args)</span>:</span></span><br><span class="line">        self.num_layers = args.num_layers</span><br><span class="line">        <span class="comment"># 初始化参数...</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build_model</span><span class="params">(self, embedding)</span>:</span></span><br><span class="line">        <span class="comment">## 设置占位符（</span></span><br><span class="line">        self.keep_prob = tf.placeholder(tf.float32, [], name=<span class="string">'keep_prob'</span>)</span><br><span class="line">        self.src_enc_input = tf.placeholder(tf.int32, [<span class="keyword">None</span>, <span class="keyword">None</span>], name=<span class="string">'src_enc_input'</span>)</span><br><span class="line">        <span class="keyword">if</span> self.train_wordvec:</span><br><span class="line">            self.word_embed = tf.get_variable(<span class="string">'embedding'</span>, [self.vocab_size, self.emb_size], dtype=tf.float32)</span><br><span class="line">            self.word_embed.assign(embedding)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.word_embed = tf.get_variable(<span class="string">'embedding'</span>, [self.vocab_size, self.emb_size], trainable=<span class="keyword">False</span>, dtype=tf.float32)</span><br><span class="line">            self.word_embed.assign(embedding)</span><br><span class="line">            </span><br><span class="line">        <span class="comment">## embedding_lookup</span></span><br><span class="line">        self.src_enc_emb = tf.nn.embedding_lookup(self.word_embed, self.src_enc_input)</span><br><span class="line">        <span class="comment"># ...</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">##### encoder</span></span><br><span class="line">        src_enc_output, src_enc_state = self.cudnn_rnn(self.num_dirs, self.src_input_emb, self.src_enc_length, self.hidden_size, <span class="string">'src_enc'</span>, self.rnn_type)</span><br><span class="line">        <span class="comment"># ...</span></span><br><span class="line">        self.tgt_dec_input = tf.placeholder(tf.int32, [<span class="keyword">None</span>, <span class="keyword">None</span>], name=<span class="string">'tgt_dec_input'</span>)</span><br><span class="line">        self.tgt_dec_length = tf.placeholder(tf.int32, [<span class="keyword">None</span>], name=<span class="string">'tgt_dec_length'</span>)</span><br><span class="line">        self.max_target_length = tf.reduce_max(self.tgt_dec_length, name=<span class="string">'max_target_length'</span>)</span><br><span class="line">        <span class="comment"># 序列掩码，用于decoder部分</span></span><br><span class="line">        self.mask = tf.sequence_mask(self.tgt_dec_length, self.max_target_length, dtype=tf.float32, name=<span class="string">'mask'</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">##### decoder</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 优化器</span></span><br><span class="line">optimizer = tf.train.AdamOptimizer(self.learning_rate)</span><br><span class="line">trainable_params = tf.trainable_variables()</span><br><span class="line">gradients = tf.gradients(self.loss, trainable_params)</span><br><span class="line">clip_gradients, _ = tf.clip_by_global_norm(gradients, self.max_grad_norm)</span><br><span class="line">self.train_op = optimizer.apply_gradients(zip(clip_gradients, trainable_params))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/21/Transformer笔记/" rel="next" title="Transformer笔记">
+                <i class="fa fa-chevron-left"></i> Transformer笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/10/xgboost和GBDT简单对比/" rel="prev" title="XGBoosts和GBDT简单对比">
+                XGBoosts和GBDT简单对比 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">121</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+
