@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="之前总是半途而废，希望这次不会。只记录关键点。 week 1 - Introduction and Word Vectorsone-hot表示：1. 词汇量过大；2. 无法表示单词之间的相似性（正交） 想要获得相似性信息：1. 构建相似词表(如WordNet。耗费人力、单词不断更新)；2. 分布式表示 分布式表示：利用单词的不同上下文(context window)，可以理解它的不同语义。 词向量">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs224n-2020追剧笔记">
+<meta property="og:url" content="https://github.com/DesmonDay/2020/03/03/cs224n-2020追剧笔记/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="之前总是半途而废，希望这次不会。只记录关键点。 week 1 - Introduction and Word Vectorsone-hot表示：1. 词汇量过大；2. 无法表示单词之间的相似性（正交） 想要获得相似性信息：1. 构建相似词表(如WordNet。耗费人力、单词不断更新)；2. 分布式表示 分布式表示：利用单词的不同上下文(context window)，可以理解它的不同语义。 词向量">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-da993cce927f57b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-9d8e28dc4f095d68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2020-03-04T07:41:07.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cs224n-2020追剧笔记">
+<meta name="twitter:description" content="之前总是半途而废，希望这次不会。只记录关键点。 week 1 - Introduction and Word Vectorsone-hot表示：1. 词汇量过大；2. 无法表示单词之间的相似性（正交） 想要获得相似性信息：1. 构建相似词表(如WordNet。耗费人力、单词不断更新)；2. 分布式表示 分布式表示：利用单词的不同上下文(context window)，可以理解它的不同语义。 词向量">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8636110-da993cce927f57b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2020/03/03/cs224n-2020追剧笔记/"/>
+
+
+
+
+
+  <title>cs224n-2020追剧笔记 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2020/03/03/cs224n-2020追剧笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cs224n-2020追剧笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-03T18:08:05+08:00">
+                2020-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前总是半途而废，希望这次不会。只记录关键点。</p>
+<h1 id="week-1-Introduction-and-Word-Vectors"><a href="#week-1-Introduction-and-Word-Vectors" class="headerlink" title="week 1 - Introduction and Word Vectors"></a>week 1 - Introduction and Word Vectors</h1><p>one-hot表示：1. 词汇量过大；2. 无法表示单词之间的相似性（正交）</p>
+<p>想要获得相似性信息：1. 构建相似词表(如WordNet。耗费人力、单词不断更新)；2. 分布式表示</p>
+<p>分布式表示：利用单词的不同<strong>上下文</strong>(context window)，可以理解它的不同语义。</p>
+<p>词向量：word vectors  / word embeddings / word representation. 低纬度，每个维度代表不同的含义（虽然往往无法获知具体的含义）</p>
+<h2 id="Word2vec"><a href="#Word2vec" class="headerlink" title="Word2vec"></a>Word2vec</h2><p><em>思想</em>: </p>
+<ul>
+<li>我们有大量的训练语料</li>
+<li>在一个固定的词汇表里，每个单词都可以用一个向量来表示(初始化: random)</li>
+<li>text中的每个位置$t$，都有一个center word $c$和context words $o$</li>
+<li>使用词向量的相似性来计算给定c求o的概率（或者给定o求c的概率）</li>
+<li>不断训练调整词向量，使似然最大化</li>
+</ul>
+<p><em>似然</em>：</p>
+<script type="math/tex; mode=display">
+Likelihood = L(\theta) = \prod_{t=1}^T \prod_{-m\le j\le m, j \neq 0} P(w_{t+j} | w_t; \theta)</script><p>以负对数似然作为目标方程（最小化$J(\theta)$ cost / loss / objective function）：</p>
+<script type="math/tex; mode=display">
+min J(\theta) = -\frac{1}{T}\log L(\theta) = -\frac{1}{T}\sum_{t=1}^T \sum_{-m\le j \le m, j \neq 0} \log P(w_{t+j}|w_t; \theta)</script><p><em>如何计算$P(w_{t+j}|w_t; \theta)$</em>：</p>
+<p>​       使用每个单词$w$的两种向量：$v_w$($w$ is a center word); $u_w$($w$ is a context word). 我们有（给定中心词，预测其上下文词）：</p>
+<script type="math/tex; mode=display">
+P(o|c) = \frac{\exp(u_o^Tv_c)}{\sum_{w\in V}\exp(u^T_w v_c)}</script><p>上式其实是<strong>softmax function</strong>的一个例子。越相似，则分子越大，概率也越大。</p>
+<script type="math/tex; mode=display">
+softmax(x_i) = \frac{\exp(x_i)}{\sum_{j=1}^n \exp(x_j)} = p _i</script><p><em>优化</em>：（梯度下降）</p>
+<p>我们的参数是这些单词向量，对他们进行求导。</p>
+<script type="math/tex; mode=display">
+\frac{\partial}{\partial v_c} \log \frac{\exp(u_o^Tv_c)}{\sum_{w\in V}\exp(u^T_w v_c)} \\
+= \frac{\partial}{\partial v_c}\log exp(u_o^Tv_c) - \frac{\partial}{\partial v_c}\log \sum_{w=1}^T \exp(u_w^T v_c) \\
+= \frac{\partial}{\partial v_c} u_o^T v_c - \frac{1}{\sum_{w=1}^V \exp(u_w^T v_c)} \sum_{x=1}^V \frac{\partial}{\partial v_c}\exp(u_x^Tv_c) \\
+= u_o - \frac{\sum_{x=1}^V exp(u_x^Tv_c) u_w}{\sum_{w=1}^V \exp(u_w^T v_c)} \\
+= u_o - \sum_{x=1}^V p(x|c) u_x</script><p>含义：用我们观察到的context word减去模型认为的context word(<strong>期望</strong>)。</p>
+<p>我们可以利用Word2vec训练出来的词向量做相似性计算，或者说做“类比”。</p>
+<h1 id="Week-2"><a href="#Week-2" class="headerlink" title="Week 2"></a>Week 2</h1><h2 id="Word-Vectors-2-and-Word-Senses"><a href="#Word-Vectors-2-and-Word-Senses" class="headerlink" title="Word Vectors 2 and Word Senses"></a>Word Vectors 2 and Word Senses</h2><h3 id="回顾Word2vec"><a href="#回顾Word2vec" class="headerlink" title="回顾Word2vec"></a>回顾Word2vec</h3><ol>
+<li>iterate through each word of the whole corpus</li>
+<li>predict surrounding words using word vectors</li>
+</ol>
+<p>不过要注意的一点是，我们要注意文档中出现频率过高的词（比如英文中的the that，中文的“的”等等，这些其实是停用词）。</p>
+<p><em>梯度下降</em>：</p>
+<script type="math/tex; mode=display">
+\theta^{new} = \theta^{old} - \alpha \triangledown_{\theta}J(\theta)</script><p>随机梯度下降(SGD)：只选取一个样本进行梯度的更新，加快梯度下降。</p>
+<p>mini-batch: 选取一部分(batch，如64/256)样本进行梯度更新，相比较SGD而言更加稳定，另外也比批梯度下降的训练速度要快。</p>
+<p>问题是，我们通常在一个batch中更新的样本是比较少的，这就导致$\triangledown_{\theta}J(\theta)$会非常稀疏，而事实上我们只会更新真正”出现”的词向量。所以相对的，如果我们的词向量数量非常大，那么就没有必要进行gigantic updates。</p>
+<p><em>Word2Vec的两种模式</em>：</p>
+<ol>
+<li>Skip-grams：给定中心词，预测上下文词；</li>
+<li>CBOW：给定上下文词，预测中心词。</li>
+</ol>
+<p><em>Word2Vec的两种优化</em>:</p>
+<ol>
+<li><p>Negative Sampling(当目前为止，所讲的是naive softmax，即实现起来简单，但是其实训练效率非常低下)。</p>
+<p>主要思想：对true pair(中心词和其对应的上下文词)和noise pairs(中心词和随机选取的词作为负词)训练二元逻辑回归。</p>
+<p>特点：负采样对常见词有利，罕见词不利。（30分）</p>
+<p>skip-gram+负采样 原论文中的最大化目标方程：</p>
+<script type="math/tex; mode=display">
+J_t(\theta)=\log \sigma(u_o^Tv_c)+\sum_{i=1}^k\mathbb{E}_{j\sim P(w)[\log \sigma(-u_j^Tv_c)]}</script><p>课堂上所展示的最小化目标方程：</p>
+<script type="math/tex; mode=display">
+J_{neg-sample}(o,v_c,U)=-\log(\sigma(u_o^Tv_c)) - \sum_{k=1}^K\log(\sigma(-u_k^Tv_c))</script><p>在选取负样本的时候，$P(w)=U(w)^{3/4}/Z$(Z是归一化因子)。这个幂次方可以减少采样非常常见的单词的频率。</p>
+</li>
+<li><p>Hierarchical Softmax.</p>
+</li>
+</ol>
+<h3 id="GloVe"><a href="#GloVe" class="headerlink" title="GloVe"></a>GloVe</h3><p><em>单词共现矩阵</em></p>
+<p>存在的问题：词数量很大、高维（需要大量存储空间）、稀疏</p>
+<p>解决方法：使用低维向量，像word2vec.</p>
+<ol>
+<li>奇异值分解(Singular Value Decompose): $X \sim U\Sigma V^T$，去除较小的奇异值所在维度，从而达到降维。（潜在语义分析：Latent Semantic Analysis）<strong><em>Hacks to X</em></strong>：忽略高频词或者修改对应的词频、采样closer words、使用Pearson相关系数矩阵而不是counts矩阵等等。</li>
+<li>GloVe</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-da993cce927f57b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png" style="zoom:80%;"></p>
+<p>思想： 将两个流派的想法结合起来，<strong>在神经网络中使用计数矩阵</strong>。</p>
+<ol>
+<li><p>Encoding meaning in vector differences：<strong>Ratios of co-occurrence probabilities can encode</strong><br><strong>meaning components</strong>. </p>
+<p>如何在词向量空间中以线性meaning component的形式捕获共现概率比？</p>
+<p><em>log-bilinear模型</em>：$w_i\cdot w_j = \log P(i|j)$</p>
+<p>由此得到向量差异：$w_x\cdot (w_a-w_b)=\log\frac{P(x|a)}{P(x|b)}$</p>
+</li>
+<li><p>Combining the best of both Worlds(<strong>GloVe</strong>)对应公式：</p>
+<script type="math/tex; mode=display">
+w_i\cdot w_j = \log P(i|j) \\
+J=\sum_{i,j=1}^V f(X_{ij})(w_i^T\hat{w_j}+b_i+\hat{b}_j-\log X_{ij})^2</script><p>使用平方损失公式。另外是使用了f函数来限制高频词的作用。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-9d8e28dc4f095d68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>优点：训练快、可以扩展到大型语料库、对小型语料库和低纬度向量也适用。</p>
+</li>
+</ol>
+<h3 id="评价词向量"><a href="#评价词向量" class="headerlink" title="评价词向量"></a>评价词向量</h3><p>Intrinsic: 如类比(man-king,woman-?)或者相似性（使用余弦距离计算）。</p>
+<p>Extrinsic: 使用真实任务进行评价，如问答系统等。词向量其实是作为一个提升性能的工具。</p>
+<p>参数的设置：</p>
+<ol>
+<li>词向量维度：On the dimensionality of word embedding. 使用矩阵扰动理论进行研究。(即使维度很大，到了上万，词向量的作用也依然稳定)。</li>
+<li>训练时间：越多的训练时间也会有帮助。</li>
+<li>训练数据：越多的数据也有帮助，Wikipedia比news text更有效。</li>
+</ol>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><p>大部分的词有多种含义，而我们所使用的词向量能够表示多种含义呢？</p>
+<p>方法：</p>
+<ol>
+<li>根据词窗口进行聚类，区分词的不同簇，即不同含义。</li>
+<li>使用加权和-&gt;有效，因为单词的不同含义其实被<strong>稀疏编码</strong>了。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/01/刷题笔记/" rel="next" title="刷题笔记">
+                <i class="fa fa-chevron-left"></i> 刷题笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/05/linux相关命令/" rel="prev" title="linux相关命令">
+                linux相关命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">127</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#week-1-Introduction-and-Word-Vectors"><span class="nav-number">1.</span> <span class="nav-text">week 1 - Introduction and Word Vectors</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2vec"><span class="nav-number">1.1.</span> <span class="nav-text">Word2vec</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Week-2"><span class="nav-number">2.</span> <span class="nav-text">Week 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Word-Vectors-2-and-Word-Senses"><span class="nav-number">2.1.</span> <span class="nav-text">Word Vectors 2 and Word Senses</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾Word2vec"><span class="nav-number">2.1.1.</span> <span class="nav-text">回顾Word2vec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GloVe"><span class="nav-number">2.1.2.</span> <span class="nav-text">GloVe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评价词向量"><span class="nav-number">2.1.3.</span> <span class="nav-text">评价词向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存在问题"><span class="nav-number">2.1.4.</span> <span class="nav-text">存在问题</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+
