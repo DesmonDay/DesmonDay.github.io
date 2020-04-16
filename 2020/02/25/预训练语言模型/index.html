@@ -112,6 +112,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=P%28y%7Cx%5E%7B1%7D%2C...%2Cx%5E%7Bm%7D%29%3Dsoftmax%28h_%7Bl%7D%5E%7Bm%7DW_%7By%7D%29++%5C%5C">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=L_%7B2%7D%28C%29%3D+%5Csum_%7B%28x%2Cy%29%7DlogP%28y%7Cx%5E%7B1%7D...%2Cx%5E%7Bm%7D%29+%5C%5C">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=L_%7B3%7D%28C%29%3D+L_%7B2%7D%28C%29%2B%5Clambda+%2A+L_%7B1%7D%28C%29+%5C%5C">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/A5695F25596D4311835B2DA25AE8269B?method=download&shareKey=f97031192717a3d0c76c80f649a4344e">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-757fc68dcb577afacc6d8a7f635c12ee_720w.jpg">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190424144737769.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190424144811923.png">
@@ -120,7 +121,14 @@
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-b054e303cdafa0ce41ad761d5d0314e1_720w.jpg">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-4cbf76012c776bc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-2bb1a60af4fe2fa751647fdce48e337c_720w.jpg">
-<meta property="og:updated_time" content="2020-02-29T04:02:37.485Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-3247b61cea43bf2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-545f3007389343a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-ab53db66abbab24b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-8b177ea9b63c246f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2c625bc1afb89f31.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-2aff5b382101d278.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-734f9c6738cb6ed8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2020-04-16T10:10:05.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="预训练语言模型">
 <meta name="twitter:description" content="本文记录一些关于预训练语言模型讲解比较好的中文博客，有时间再补充自己的理解。 预训练方式传统的模型预训练手段就是语言模型，比如ELMo模型就是以BiLSTM为基础架构、用两个方向的语言模型分别预训练两个方向的LSTM的；后面的OpenAI的GPT、GPT-2也是用标准的、单向的语言模型来预训练。 之后还有更多的预训练方式，比如BERT使用了称为”掩码语言模型(Masked Language Mod">
@@ -387,7 +395,7 @@
 <h2 id="ELMO"><a href="#ELMO" class="headerlink" title="ELMO"></a>ELMO</h2><p><a href="https://zhuanlan.zhihu.com/p/88993965" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/88993965</a> 最大的优点是动态词向量，同一个词，出现在不同的语境中，会有不同的词向量。</p>
 <p>分开训练两个语言模型，即正向语言模型和反向语言模型，将对应字通过正向与反向语言模型得到的vector拼接。</p>
 <p><img src="https://pic3.zhimg.com/80/v2-ac881c5eee80e89020e2e001dfdf9722_720w.jpg" alt="img"></p>
-<h2 id="OpenAI-GPT"><a href="#OpenAI-GPT" class="headerlink" title="OpenAI GPT"></a>OpenAI GPT</h2><p>OpenAI Transformer是一类可迁移到多种NLP任务的，基于Transformer的语言模型。它的基本思想同ULMFiT相同，都是在尽量不改变模型结构的情况下将预训练的语言模型应用到各种任务。不同的是，OpenAI Transformer主张用Transformer结构，而ULMFiT中使用的是基于RNN的语言模型。文中所用的网络结构如下：</p>
+<h2 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h2><p>OpenAI Transformer是一类可迁移到多种NLP任务的，基于Transformer的语言模型。它的基本思想同ULMFiT相同，都是在尽量不改变模型结构的情况下将预训练的语言模型应用到各种任务。不同的是，OpenAI Transformer主张用Transformer结构，而ULMFiT中使用的是基于RNN的语言模型。文中所用的网络结构如下：</p>
 <p><img src="https://pic3.zhimg.com/80/v2-8a4cbead57525234c6a33b23c96d18c6_720w.jpg" alt="img"></p>
 <p>模型的训练过程分为两步：</p>
 <ol>
@@ -406,7 +414,13 @@
 <p><img src="https://www.zhihu.com/equation?tex=L_%7B3%7D%28C%29%3D+L_%7B2%7D%28C%29%2B%5Clambda+%2A+L_%7B1%7D%28C%29+%5C%5C" alt="[公式]"></p>
 </li>
 </ol>
-<h2 id="fasttext"><a href="#fasttext" class="headerlink" title="fasttext"></a>fasttext</h2><p>与word2vec的区别：</p>
+<h2 id="fasttext"><a href="#fasttext" class="headerlink" title="fasttext"></a>fasttext</h2><h3 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h3><p>其中$x_1,x_2,…,x_{N-1},x_N$表示一个文本中的n-gram向量，每个特征是词向量的平均值。这和前文中提到的cbow相似，cbow用上下文去预测中心词，而此处<strong>用全部的n-gram去预测指定类别</strong>。</p>
+<h3 id="层次softmax"><a href="#层次softmax" class="headerlink" title="层次softmax"></a>层次softmax</h3><p>对于有大量类别的数据集，fasttext使用了一个分层分类器。不同的类别被整合进树形结构中（想象下二叉树而非 list）。在某些文本分类任务中类别很多，计算线性分类器的复杂度高。为了改善运行时间，fastText 模型使用了层次 Softmax 技巧。层次 Softmax 技巧建立在哈弗曼编码的基础上，对标签进行编码，能够极大地缩小模型预测目标的数量。</p>
+<p>fastText 也利用了<strong>类别（class）不均衡</strong>这个事实（一些类别出现次数比其他的更多），通过使用 Huffman 算法建立用于表征类别的树形结构。因此，<strong>频繁出现类别的树形结构的深度要比不频繁出现类别的树形结构的深度要小</strong>，这也使得进一步的计算效率更高。</p>
+<p>fastText适合类别非常多的分类问题，如果类别比较少，容易过拟合。</p>
+<p>在fastText中，由于最终的输出是预测句子的标签，这是一个监督学习过程，所以在训练过程中已经知道了要计算哪一条路径的概率，这样在计算霍夫曼树的路径时只需要计算一条路径而不用计算全部路径，大大提高了计算效率，而在测试过程中，由于没有标签，不知道真实的路径，仍然需要将霍夫曼树的每一个叶节点对应的路径的概率算出来。</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/A5695F25596D4311835B2DA25AE8269B?method=download&amp;shareKey=f97031192717a3d0c76c80f649a4344e" alt="image"></p>
+<p>与word2vec的区别：</p>
 <ul>
 <li>相似处：</li>
 </ul>
@@ -427,6 +441,7 @@
 <ol>
 <li>Word2vec的目的是得到词向量，该词向量最终是在输入层得到，输出层对应的 h-softmax也会生成一系列的向量，但最终都被抛弃，不会使用。</li>
 <li>fastText则充分利用了h-softmax的分类功能，遍历分类树的所有叶节点，找到概率最大的label（一个或者N个）</li>
+<li>fastText是是一个文本分类算法，是一个<strong>有监督模型</strong>，有额外标注的标签；CBOW是一个训练词向量的算法，是一个无监督模型，没有额外的标签，其标准是语料本身，无需额外标注。</li>
 </ol>
 <h2 id="ULMFiT-源码值得学习"><a href="#ULMFiT-源码值得学习" class="headerlink" title="ULMFiT 源码值得学习"></a>ULMFiT 源码值得学习</h2><p>ULMFiT是一种有效的NLP迁移学习方法，核心思想是通过精调预训练的语言模型完成其他NLP任务。文中所用的语言模型参考了<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1708.02182" target="_blank" rel="noopener">Merity et al. 2017a</a>的<strong>AWD-LSTM</strong>模型，即没有attention或shortcut的<strong>三层LSTM模型</strong>。</p>
 <p>ULMFit的过程分三步：</p>
@@ -508,8 +523,8 @@ P = softmax(CW^T)</script><p>与文本中已有的其它字/词相比，这个�
 <p>XLNet这种改造，维持了表面看上去的自回归语言模型的从左向右的模式，这个Bert做不到，这个有明显的好处，就是对于<strong>生成类</strong>的任务，能够在维持表面从左向右的生成过程前提下，模型里隐含了上下文的信息。所以看上去，XLNet貌似应该对于生成类型的NLP任务，会比Bert有明显优势。另外，因为XLNet还引入了Transformer XL的机制，所以对于长文档输入类型的NLP任务，也会比Bert有明显优势。</p>
 </blockquote>
 <h3 id="XLNet起作用的三个因素"><a href="#XLNet起作用的三个因素" class="headerlink" title="XLNet起作用的三个因素"></a>XLNet起作用的三个因素</h3><ol>
-<li>新的预训练目标：Permutation Language Model。这个可以理解为在自回归LM模式下，如何采取具体手段，来融入双向语言模型。这个是XLNet在模型角度比较大的贡献，确实也打开了NLP中两阶段模式潮流的一个新思路。</li>
-<li>引入了Transformer-XL的主要思路：相对位置编码以及分段RNN机制。实践已经证明这两点对于长文档任务是很有帮助的；</li>
+<li>新的预训练目标：Permutation Language Model。这个可以理解为在自回归LM模式下，如何采取具体手段，来融入<strong>双向语言模型</strong>。这个是XLNet在模型角度比较大的贡献，确实也打开了NLP中两阶段模式潮流的一个新思路。</li>
+<li>引入了<strong>Transformer-XL</strong>的主要思路：<strong>相对位置编码以及分段RNN机制</strong>。实践已经证明这两点对于长文档任务是很有帮助的；</li>
 <li>加大增加了预训练阶段使用的数据规模；</li>
 </ol>
 <p>接下来摘抄一下张俊林老师的结论：</p>
@@ -528,7 +543,60 @@ P = softmax(CW^T)</script><p>与文本中已有的其它字/词相比，这个�
 <h4 id="移除dropout"><a href="#移除dropout" class="headerlink" title="移除dropout"></a>移除dropout</h4><p>ALBERT在训练了100w步之后，模型依旧没有过拟合，于是乎作者果断移除了dropout，没想到对下游任务的效果竟然有一定的提升。这也是业界第一次发现dropout对大规模的预训练模型会造成负面影响。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ALBERT实际上是通过参数共享的方式降低了内存，预测阶段还是需要和BERT一样的时间，如果采用了xxlarge版本的ALBERT，那实际上预测速度会更慢。</p>
 <p>ALBERT解决的是<strong>训练时候的速度提升</strong>，如果要真的做到总体运算量的减少，的确是一个复杂且艰巨的任务，毕竟鱼与熊掌不可兼得。不过话说回来，ALBERT也更加适合采用feature base或者模型蒸馏等方式来提升最终效果。</p>
-<h2 id="RoBERTa"><a href="#RoBERTa" class="headerlink" title="RoBERTa"></a>RoBERTa</h2>
+<h2 id="Transformer-XL"><a href="#Transformer-XL" class="headerlink" title="Transformer-XL"></a>Transformer-XL</h2><ol>
+<li>XL是”extra-long”的意思，即Transformer-XL做了长度延伸的工作；</li>
+<li><strong>Transformer</strong>规定输入大小为512，原始的输入需要进行裁剪或者填充，即将一个长的文本序列截断为几百个字符的固定长度片段，然后分别处理每个片段；这存在着文章跨片段依赖不能学习到的问题，也<strong>限制了长距离依赖</strong>。因此，提出Transformer-XL。</li>
+<li>Transformer-XL所做改进：<ul>
+<li>与Transformer的基本思路相同，Transformer-XL仍然是使用分段的方式进行建模，但其的本质不同时引入了段与段之间的循环机制，使得当前段在建模的时候能够利用之前段的信息来实现长期依赖性。（简略版：使用分段RNN且存储上一次处理的片段信息）</li>
+<li>为了适应分段的情况，提出了相对位置编码方案。</li>
+</ul>
+</li>
+</ol>
+<h2 id="ERNIE-百度"><a href="#ERNIE-百度" class="headerlink" title="ERNIE(百度)"></a>ERNIE(百度)</h2><p>主要改进是在mask的机制上做了改进，它的mask不是基本的word piece的mask，而是在pretraining阶段增加了外部的知识，由三种level的mask组成，分别是<code>basic-level masking(word piece)</code>+<code>phrase level masking(WWM style)</code> + <code>entity level masking</code>。在此基础上，借助百度在中文社区的强大能力，中文的ERNIE还使用了各种异质的数据集。另外为了适应多轮的贴吧数据，所以ERNIE引入了DLM(Dialogue Language Model)任务。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-3247b61cea43bf2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="Knowledge-masking"><a href="#Knowledge-masking" class="headerlink" title="Knowledge masking"></a>Knowledge masking</h3><p>ERNIE的mask的策略是通过三个阶段学习的，在第一个阶段，采用的是BERT的模式，用的是basic-level masking，然后加入词组的mask(phrase-level masking)，然后再加入实体级别(entity-level的mask)。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-545f3007389343a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="Heterogeneous-Corpus-Pre-training"><a href="#Heterogeneous-Corpus-Pre-training" class="headerlink" title="Heterogeneous Corpus Pre-training"></a>Heterogeneous Corpus Pre-training</h3><p>训练集包括：Chinese Wiki, Baidu Baike, Baidu news, Baidu Tieba.</p>
+<h3 id="DLM-Dialogue-Language-Model-task"><a href="#DLM-Dialogue-Language-Model-task" class="headerlink" title="DLM(Dialogue Language Model) task"></a>DLM(Dialogue Language Model) task</h3><p>对话的数据对语义表示很重要，因为对于相同回答的提问一般都是具有类似语义的，ERNIE修改BERT的输入形式，使之能够使用多轮对话的形式，采用的是三个句子的组合<code>[CLS]S1[SEP]S2[SEP]S3[SEP]</code>的格式。这种组合可以表示多轮对话，例如QRQ、QRR、QQR。为了表示dialogue的属性，句子添加了dialog embedding组合，这个和segment embedding很类似。</p>
+<ul>
+<li><img src="https://upload-images.jianshu.io/upload_images/8636110-ab53db66abbab24b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+<li>DLM还增加了任务来判断这个多轮对话是真的还是假的。</li>
+</ul>
+<h3 id="NSP-MLM"><a href="#NSP-MLM" class="headerlink" title="NSP+MLM"></a>NSP+MLM</h3><p>在贴吧外多轮对话数据外都采用普通的NSP+MLM的预训练任务。</p>
+<h2 id="ERNIE2-0"><a href="#ERNIE2-0" class="headerlink" title="ERNIE2.0"></a>ERNIE2.0</h2><p><code>动机</code>：在学习一个新语言的时候，我们需要很多之前的知识，在这些知识的基础上，我们可以获取对其他的任务的学习有<strong>迁移学习</strong>的效果。百度不满足于堆叠任务，而是提出了一个持续学习的框架。利用这个框架，模型可以持续添加任务但又不降低之前任务的精度，从而能够更好更有效地获得词法lexical、句法syntactic和语义semantic上的表达。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-8b177ea9b63c246f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>其在ERNIE1.0的基础上，利用大量数据和先验知识，提出了多个任务，用来做预训练，最后根据特定任务fine-tune。框架的提出是针对life-long learning，即终生学习，因为我们的任务叠加不是一次性进行的(multi-tasking learning)，而是持续学习(continual pretraining)。因此为避免模型在学了新的任务后忘记旧任务，即旧的任务上loss变高，因此百度提出了一个包含pretraining和fine-tuning的持续学习框架。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-2c625bc1afb89f31.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="Continual-pre-training"><a href="#Continual-pre-training" class="headerlink" title="Continual pre-training"></a>Continual pre-training</h3><ul>
+<li><p>任务的构建</p>
+<p>百度把语言模型的任务归为三大类，包括字层级的任务(word-aware pretraining)、句结构层级的任务(structure-aware pretraining task)和语义层级的任务(semantic-aware pretraining task)。</p>
+</li>
+<li><p>持续的多任务学习</p>
+<p>需要攻克两个难点：</p>
+<ol>
+<li>如何保证模型不忘记之前的任务：常规的持续学习框架采用的是一个任务接一个任务的训练，这样导致的后果是模型在最新的任务上得到了好效果但在之前的任务获得差效果(knowledge retention)。</li>
+<li>模型如何有效地训练：有人提出有新的任务进行，则从头开始训练一个新模型，但这样效率很低。</li>
+</ol>
+<p>百度提出的方案（sequential multi-task learning）：复用之前学到的模型的参数作为初始化，然后再训练。但这样似乎训练效率不够高，因为我们还是要每一轮都要同时训练多个任务。因此百度的解决方案是：框架自动在训练的过程中为每个任务安排训练N轮。</p>
+<ul>
+<li>初始化optimized initialization: 每次有新任务过来，持续学习的框架使用的之前学习到的模型参数作为初始化，然后将新的任务与旧的任务一起训练；</li>
+<li>训练任务安排task allocating: 对于多个任务，框架将自动地为每个任务在模型训练的不同阶段安排N个训练轮次，这样保证了有效率地学习到多任务。（部分任务的语义信息建模适合递进式，比如ernie1.0突破完形填空，ernie2.0突破选择题、句子排序题等，适合递进式的语音建模任务。）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Continual-Fine-tuning"><a href="#Continual-Fine-tuning" class="headerlink" title="Continual Fine-tuning"></a>Continual Fine-tuning</h3><p>在模型预训练完成后，可以根据特定任务进行fine-tuning，这个和BERT一样。</p>
+<h3 id="模型架构-1"><a href="#模型架构-1" class="headerlink" title="模型架构"></a>模型架构</h3><p><img src="https://upload-images.jianshu.io/upload_images/8636110-2aff5b382101d278.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>模型的结构和BERT一致，但在预训练的阶段，除了正常的position embedding、segment embedding，token embedding外，还增加了<code>task embedding</code>，用来区分训练的任务。但在fine-tuning阶段，可以使用任意值作为初始化。</p>
+<h3 id="Pre-training-tasks"><a href="#Pre-training-tasks" class="headerlink" title="Pre-training tasks"></a>Pre-training tasks</h3><ul>
+<li>词法级别任务：大小写预测(对NER有用)、词频关系</li>
+<li>语法级别任务：句子排序，让模型预测文章的句子属于哪种排序组合，就是多分类问题；句子距离预测：三分类问题（相邻，相同文章但不相邻，不同文章）</li>
+<li>语义级别任务：三分类问题，0代表提问和标题强相关，1代表弱相关，2代表不相关</li>
+<li>篇章句间关系任务：判断句子的语义关系，例如logical relationship。</li>
+<li>信息检索关系任务：三分类。同语义级别。</li>
+</ul>
+<p>模型输出：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8636110-734f9c6738cb6ed8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png" style="zoom:50%;"></p>
+
       
     </div>
     
@@ -641,7 +709,7 @@ P = softmax(CW^T)</script><p>与文本中已有的其它字/词相比，这个�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">127</span>
+                <span class="site-state-item-count">133</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -718,7 +786,7 @@ P = softmax(CW^T)</script><p>与文本中已有的其它字/词相比，这个�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预训练方式"><span class="nav-number">1.</span> <span class="nav-text">预训练方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELMO"><span class="nav-number">2.</span> <span class="nav-text">ELMO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenAI-GPT"><span class="nav-number">3.</span> <span class="nav-text">OpenAI GPT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fasttext"><span class="nav-number">4.</span> <span class="nav-text">fasttext</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ULMFiT-源码值得学习"><span class="nav-number">5.</span> <span class="nav-text">ULMFiT 源码值得学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BERT"><span class="nav-number">6.</span> <span class="nav-text">BERT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型结构"><span class="nav-number">6.1.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embedding"><span class="nav-number">6.2.</span> <span class="nav-text">Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预训练任务1-Masked-LM"><span class="nav-number">6.3.</span> <span class="nav-text">预训练任务1-Masked LM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预训练任务2-Next-Sentence-Prediction"><span class="nav-number">6.4.</span> <span class="nav-text">预训练任务2-Next Sentence Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fine-tunning"><span class="nav-number">6.5.</span> <span class="nav-text">Fine-tunning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BERT缺点"><span class="nav-number">6.6.</span> <span class="nav-text">BERT缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XLNet"><span class="nav-number">7.</span> <span class="nav-text">XLNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">7.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Permutation-Language-Model"><span class="nav-number">7.2.</span> <span class="nav-text">Permutation Language Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评论"><span class="nav-number">7.3.</span> <span class="nav-text">评论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与BERT的预训练过程的异同"><span class="nav-number">7.4.</span> <span class="nav-text">与BERT的预训练过程的异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XLNet起作用的三个因素"><span class="nav-number">7.5.</span> <span class="nav-text">XLNet起作用的三个因素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALBERT"><span class="nav-number">8.</span> <span class="nav-text">ALBERT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相对于BERT的改进"><span class="nav-number">8.1.</span> <span class="nav-text">相对于BERT的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对Embedding因式分解"><span class="nav-number">8.1.1.</span> <span class="nav-text">对Embedding因式分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跨层的参数共享（Cross-layer-parameters）"><span class="nav-number">8.1.2.</span> <span class="nav-text">跨层的参数共享（Cross-layer parameters）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#句间连贯（Inter-sentence-coherence-loss）"><span class="nav-number">8.1.3.</span> <span class="nav-text">句间连贯（Inter-sentence coherence loss）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除dropout"><span class="nav-number">8.1.4.</span> <span class="nav-text">移除dropout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RoBERTa"><span class="nav-number">9.</span> <span class="nav-text">RoBERTa</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预训练方式"><span class="nav-number">1.</span> <span class="nav-text">预训练方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELMO"><span class="nav-number">2.</span> <span class="nav-text">ELMO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT"><span class="nav-number">3.</span> <span class="nav-text">GPT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fasttext"><span class="nav-number">4.</span> <span class="nav-text">fasttext</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型架构"><span class="nav-number">4.1.</span> <span class="nav-text">模型架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#层次softmax"><span class="nav-number">4.2.</span> <span class="nav-text">层次softmax</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ULMFiT-源码值得学习"><span class="nav-number">5.</span> <span class="nav-text">ULMFiT 源码值得学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BERT"><span class="nav-number">6.</span> <span class="nav-text">BERT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型结构"><span class="nav-number">6.1.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embedding"><span class="nav-number">6.2.</span> <span class="nav-text">Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预训练任务1-Masked-LM"><span class="nav-number">6.3.</span> <span class="nav-text">预训练任务1-Masked LM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预训练任务2-Next-Sentence-Prediction"><span class="nav-number">6.4.</span> <span class="nav-text">预训练任务2-Next Sentence Prediction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fine-tunning"><span class="nav-number">6.5.</span> <span class="nav-text">Fine-tunning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BERT缺点"><span class="nav-number">6.6.</span> <span class="nav-text">BERT缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XLNet"><span class="nav-number">7.</span> <span class="nav-text">XLNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">7.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Permutation-Language-Model"><span class="nav-number">7.2.</span> <span class="nav-text">Permutation Language Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评论"><span class="nav-number">7.3.</span> <span class="nav-text">评论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与BERT的预训练过程的异同"><span class="nav-number">7.4.</span> <span class="nav-text">与BERT的预训练过程的异同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XLNet起作用的三个因素"><span class="nav-number">7.5.</span> <span class="nav-text">XLNet起作用的三个因素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALBERT"><span class="nav-number">8.</span> <span class="nav-text">ALBERT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相对于BERT的改进"><span class="nav-number">8.1.</span> <span class="nav-text">相对于BERT的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对Embedding因式分解"><span class="nav-number">8.1.1.</span> <span class="nav-text">对Embedding因式分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跨层的参数共享（Cross-layer-parameters）"><span class="nav-number">8.1.2.</span> <span class="nav-text">跨层的参数共享（Cross-layer parameters）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#句间连贯（Inter-sentence-coherence-loss）"><span class="nav-number">8.1.3.</span> <span class="nav-text">句间连贯（Inter-sentence coherence loss）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除dropout"><span class="nav-number">8.1.4.</span> <span class="nav-text">移除dropout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer-XL"><span class="nav-number">9.</span> <span class="nav-text">Transformer-XL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ERNIE-百度"><span class="nav-number">10.</span> <span class="nav-text">ERNIE(百度)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Knowledge-masking"><span class="nav-number">10.1.</span> <span class="nav-text">Knowledge masking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heterogeneous-Corpus-Pre-training"><span class="nav-number">10.2.</span> <span class="nav-text">Heterogeneous Corpus Pre-training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DLM-Dialogue-Language-Model-task"><span class="nav-number">10.3.</span> <span class="nav-text">DLM(Dialogue Language Model) task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSP-MLM"><span class="nav-number">10.4.</span> <span class="nav-text">NSP+MLM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ERNIE2-0"><span class="nav-number">11.</span> <span class="nav-text">ERNIE2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Continual-pre-training"><span class="nav-number">11.1.</span> <span class="nav-text">Continual pre-training</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Continual-Fine-tuning"><span class="nav-number">11.2.</span> <span class="nav-text">Continual Fine-tuning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型架构-1"><span class="nav-number">11.3.</span> <span class="nav-text">模型架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-training-tasks"><span class="nav-number">11.4.</span> <span class="nav-text">Pre-training tasks</span></a></li></ol></li></ol></div>
             
 
           </div>
