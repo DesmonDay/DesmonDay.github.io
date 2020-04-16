@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201804/1192699-20180405213955224-1791925244.png">
 <meta property="og:image" content="https://pic4.zhimg.com/v2-91307a71718b2ce805678a612625676f_r.jpg">
-<meta property="og:updated_time" content="2020-02-19T06:38:35.314Z">
+<meta property="og:updated_time" content="2020-04-16T09:50:53.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Batch Normalization">
 <meta name="twitter:description" content="使用BN的原因和BN的原理批归一化实际上是为了解决“Internal Covariate Shift”问题，即在深度神经网络在训练过程中使得每一层神经网络的输入保持相同分布。 其基本思想为：因为深度神经网络在做非线性变换前的激活输入值，在随着网络深度加深或者训练过程中，其分布逐渐发生偏移或者变动，这就导致”梯度消失“问题，从而训练收敛慢。 为什么会造成“梯度消失”问题？这是因为，变化的整体分布逐渐">
@@ -350,14 +350,14 @@
 <p>为什么会造成“梯度消失”问题？这是因为，变化的整体分布逐渐往非线性函数的取值区间的上下限两端靠近，我们可以观察sigmoid函数和tanh函数的图像，其上下限两端的梯度均接近0. 而接近上下限则会导致梯度接近0， 从而发生“梯度消失”现象。</p>
 <p>因此，BN所做的事就是通过一定的规范化手段，把每层神经网络任意神经元的输入值分布强行拉回到均值为0，方差为1的标准正态分布。其中，$\epsilon$是为了控制分母为正。</p>
 <script type="math/tex; mode=display">
-x_i' = \frac{x_i-\mu}{\sqrt{\sigma^2+\epsilon}}</script><p>然而，如果强行对数据进行缩放，可能会导致一些问题（毕竟强行改变了人家的分布），因此，BN增加了<em>scale</em>和<em>shift</em>的操作。其核心思想是找到一个线性和非线性的较好平衡点，既能享受非线性的较强表达能力的好处，又避免太靠非线性区两头使得网络收敛速度太慢。</p>
+x_i' = \frac{x_i-\mu}{\sqrt{\sigma^2+\epsilon}}</script><p>然而，如果强行对数据进行缩放，可能会导致一些问题（毕竟强行改变了人家的分布），因此，BN增加了<em>scale</em>和<em>shift</em>的操作。其核心思想是找到一个线性和非线性的较好平衡点，<strong>既能享受非线性的较强表达能力的好处，又避免太靠非线性区两头使得网络收敛速度太慢。</strong></p>
 <script type="math/tex; mode=display">
 y_i = scale * x_i' +shift</script><p>既然BN的名称为batch normalization，那其表现就会受到batch size的影响：</p>
 <ol>
 <li>size太小，算出的$\mu$和$\sigma$不准确，影响归一化，导致性能下降；</li>
 <li>size太小，则内存放不下。</li>
 </ol>
-<h2 id="BN放置的位置"><a href="#BN放置的位置" class="headerlink" title="BN放置的位置"></a>BN放置的位置</h2><p>许多人会纠结Batch Normalization操作放置的位置，这里做一个确定性的结论：通常位于X=WU+B激活输入值获得之后，非线性函数变换（激活函数）之前，图示如下：</p>
+<h2 id="BN放置的位置"><a href="#BN放置的位置" class="headerlink" title="BN放置的位置"></a>BN放置的位置</h2><p>许多人会纠结Batch Normalization操作放置的位置，这里做一个确定性的结论：<strong>通常位于X=WU+B激活输入值获得之后，非线性函数变换（激活函数）之前</strong>，图示如下：</p>
 <p><img src="https://images2018.cnblogs.com/blog/1192699/201804/1192699-20180405213955224-1791925244.png" alt="img"></p>
 <h2 id="其他归一化手段"><a href="#其他归一化手段" class="headerlink" title="其他归一化手段"></a>其他归一化手段</h2><p>除了BN，还有layer normalization、Group Normalization和Instance Normalization。</p>
 <p>我们参考susht师姐整理的内容进行总结：</p>
@@ -500,7 +500,7 @@ y_i = scale * x_i' +shift</script><p>既然BN的名称为batch normalization，�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">127</span>
+                <span class="site-state-item-count">133</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="DesmonDay's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="以下划线开头的标识符是有特殊意义的。以单下划线开头_foo的代表不能直接访问的类属性，需通过类提供的接口进行访问，不能用 from xxx import * 而导入。以双下划线开头的 __foo代表类的私有成员，以双下划线开头和结尾的__foo__代表 Python 里特殊方法专用的标识，如 __init__() 代表类的构造函数。  list是一种有序的集合，可以随时添加和删除其中的元素。要删">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python知识摘要">
+<meta property="og:url" content="https://github.com/DesmonDay/2020/03/10/python知识摘要/index.html">
+<meta property="og:site_name" content="DesmonDay&#39;s Blog">
+<meta property="og:description" content="以下划线开头的标识符是有特殊意义的。以单下划线开头_foo的代表不能直接访问的类属性，需通过类提供的接口进行访问，不能用 from xxx import * 而导入。以双下划线开头的 __foo代表类的私有成员，以双下划线开头和结尾的__foo__代表 Python 里特殊方法专用的标识，如 __init__() 代表类的构造函数。  list是一种有序的集合，可以随时添加和删除其中的元素。要删">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/90866/AppData/Roaming/Typora/typora-user-images/1583853580787.png">
+<meta property="og:updated_time" content="2020-04-08T15:54:28.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python知识摘要">
+<meta name="twitter:description" content="以下划线开头的标识符是有特殊意义的。以单下划线开头_foo的代表不能直接访问的类属性，需通过类提供的接口进行访问，不能用 from xxx import * 而导入。以双下划线开头的 __foo代表类的私有成员，以双下划线开头和结尾的__foo__代表 Python 里特殊方法专用的标识，如 __init__() 代表类的构造函数。  list是一种有序的集合，可以随时添加和删除其中的元素。要删">
+<meta name="twitter:image" content="c:/Users/90866/AppData/Roaming/Typora/typora-user-images/1583853580787.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/DesmonDay/2020/03/10/python知识摘要/"/>
+
+
+
+
+
+  <title>python知识摘要 | DesmonDay's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DesmonDay's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一只小辣鸡的自我拯救之路</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/DesmonDay/2020/03/10/python知识摘要/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="DesmonDay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DesmonDay's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python知识摘要</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-10T17:35:53+08:00">
+                2020-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li><p>以下划线开头的标识符是有特殊意义的。以单下划线开头<code>_foo</code>的代表不能直接访问的类属性，需通过类提供的接口进行访问，不能用 <strong>from xxx import *</strong> 而导入。以双下划线开头的 <code>__foo</code>代表类的私有成员，以双下划线开头和结尾的<code>__foo__</code>代表 Python 里特殊方法专用的标识，如 <strong>__init__()</strong> 代表类的构造函数。</p>
+</li>
+<li><p>list是一种有序的集合，可以随时添加和删除其中的元素。要删除指定位置的元素，用pop(i)，其中i是索引位置。</p>
+</li>
+<li><p>tuple也是有序列表，但一旦初始化就不能修改。初始化：t = (1,2) 另外，只有1个元素的tuple定义时必须加一个逗号<code>,</code>，来消除歧义。</p>
+</li>
+<li><p>python内置了字典dict，在其他语言中称为map，使用键-值（key-value）存储，具有极快的查找速度。要删除一个key，使用pop(key)。</p>
+</li>
+<li><p>set和dict类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在set中，没有重复的key。add(key), remove(key)。<strong>可以使用 {  }  或 set( ) 创建集合，但是创建一个空集合时，只能使用set( )</strong>。</p>
+</li>
+<li><p>str是不可变对象，而list是可变对象。对于不变对象来说，调用对象自身的任意方法，也不会改变该对象自身的内容。相反，这些方法会创建新的对象并返回，这样就保证了不可变对象本身永远是不可变的。</p>
+</li>
+<li><p>函数名其实是指向一个函数对象的引用，完全把函数名赋给一个变量，相当于给这个函数起了一个别名。</p>
+</li>
+<li><p>数据类型检查可以用内置函数isinstance()实现。</p>
+</li>
+<li><p>写函数时定义默认参数，需要牢记：<strong>默认参数必须指向不变对象</strong>。必选参数在前，默认参数在后。另外，python函数还可以定义<strong>可变参数</strong>，可变参数就是传入的参数个数是可变的。可变参数允许传入0个或任意个参数，这些可变参数在函数调用时自动组装为一个tuple。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc</span><span class="params">(*numbers)</span>:</span> <span class="comment"># 传入的numbers可以是list, tuple</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> numbers:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>关键字参数</strong>：关键字参数允许传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装成一个<strong>dict</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">person</span><span class="params">(name, age, **kw)</span>:</span></span><br><span class="line">    print(<span class="string">'name:'</span>,name,<span class="string">'age:'</span>,age,<span class="string">'other:'</span>,kw)</span><br><span class="line">person(<span class="string">'Michael'</span>,<span class="number">30</span>) <span class="comment"># 输出name: Michael age: 30 other: &#123;&#125;</span></span><br><span class="line">person(<span class="string">'Bob'</span>,<span class="number">35</span>,city=<span class="string">'Beijing'</span>) <span class="comment"># name: Bob age: 35 other: &#123;'city': 'Beijing'&#125;</span></span><br></pre></td></tr></table></figure>
+<p>关键字参数的作用：<strong>扩展函数的功能。</strong>比如我们在做一个用户注册的功能，除了用户名和年龄是必填项外，其他都是可选项。利用关键字参数来定义这个函数，就能满足注册的需求。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extra = &#123;<span class="string">'city'</span>:<span class="string">'Beijing'</span>, <span class="string">'job'</span>:<span class="string">'Engineer'</span>&#125;</span><br><span class="line">person(<span class="string">'Jack'</span>,<span class="number">24</span>,**extra) <span class="comment">#name: Jack age: 24 other: &#123;'city': 'Beijing', 'job': 'Engineer'&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>**extra</code>表示把extra这个dict的所有key-value用关键字参数传入到函数的<code>**kw</code>参数。</p>
+</li>
+<li><p>命名关键字参数：如果要限制关键字参数的名字，可以用命名关键字参数，比如只接受city和job作为关键字参数的定义函数如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">person</span><span class="params">(name, age, *, city, job)</span>:</span></span><br><span class="line">    <span class="comment"># 即需要一个特殊的</span></span><br><span class="line">    print(name, age, city, job)</span><br></pre></td></tr></table></figure>
+<p>命名关键字参数必须传入参数名，否则调用将报错。同时，可以有缺省值，从而简化调用。</p>
+</li>
+<li><p><strong>参数定义的顺序必须是</strong>：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。对于任意函数，都可以通过类似<code>func(*args, **kw)</code>的形式调用，无论它的参数是如何定义的。（因此，<code>*args</code>是可变参数，接受的是一个tuple；<code>**kw</code>是关键字参数，接受的是一个dict）</p>
+<p>可变参数既可以直接传入：<code>func(1, 2, 3)</code>，又可以先组装list或tuple，再通过<code>*args</code>传入：<code>func(*(1, 2, 3))</code>；</p>
+<p>关键字参数既可以直接传入：<code>func(a=1, b=2)</code>，又可以先组装dict，再通过<code>**kw</code>传入：<code>func(**{&#39;a&#39;: 1, &#39;b&#39;: 2})</code>。</p>
+<p>定义命名的关键字参数在没有可变参数的情况下不要忘了写分隔符<code>*</code>，否则定义的将是位置参数。</p>
+</li>
+<li><p>列表生成式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>) <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p>注意，我们不可以在最后的if加else。这是因为跟在for后面的if是一个筛选条件，不能带else。而如果我们把if写在for前面，则必须加else，否则报错。因此，在一个列表生成式中，<code>for</code>前面的<code>if ... else</code>是表达式，而<code>for</code>后面的<code>if</code>是过滤条件，不能带<code>else</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[exp1 <span class="keyword">if</span> condition <span class="keyword">else</span> exp2 <span class="keyword">for</span> x <span class="keyword">in</span> data]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>for循环遍历dict</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">    print(k, <span class="string">'='</span>, v)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>生成器</strong>：通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。而且，创建一个包含100万个元素的列表，不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了。在Python中，这种一边循环一边计算的机制，称为生成器：generator。</p>
+<p><strong>方法一：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g = (x * x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)) <span class="comment"># 和列表生成式比较，改成了括号</span></span><br></pre></td></tr></table></figure>
+<p>可以通过<code>next()</code>函数获得generator的下一个返回值。但我们通常用for循环来迭代它。</p>
+<p><strong>方法二：</strong></p>
+<p>另外，如果推算的算法比较复杂，用类似列表生成式的for循环无法实现，则可以用函数来实现。这是定义generator的另一种方法：如果一个函数定义中<strong>包含<code>yield</code>关键字</strong>，则其不是普通函数，而是generator。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib</span><span class="params">(max)</span>:</span></span><br><span class="line">    n, a, b = <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n &lt; max:</span><br><span class="line">        <span class="keyword">yield</span> b</span><br><span class="line">        a, b = b, a + b</span><br><span class="line">        n = n + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'done'</span></span><br><span class="line"></span><br><span class="line">g = fib(<span class="number">6</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        x = next(g)</span><br><span class="line">        print(<span class="string">'g:'</span>, x)</span><br><span class="line">    <span class="keyword">except</span> StopIteration <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">'Generator return value'</span>, e.value)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>要理解generator的工作原理，它是在<code>for</code>循环的过程中不断计算出下一个元素，并在适当的条件结束<code>for</code>循环。对于函数改成的generator来说，遇到<code>return</code>语句或者执行到函数体最后一行语句，就是结束generator的指令，<code>for</code>循环随之结束。</p>
+</li>
+<li><p>迭代器：<strong>可以直接作用于for循环的对象统称为可迭代对象（Iterable）</strong>。可以使用isinstance()判断一个对象是否是Iterable对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterable</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterator</span><br><span class="line">print(isinstance([], Iterable)) <span class="comment"># True</span></span><br><span class="line">print(isinstance([], Iterator)) <span class="comment"># False</span></span><br></pre></td></tr></table></figure>
+<p><strong>可以被next()函数调用并不断返回下一个值的对象称为迭代器(Iterator)</strong>。把list、dict、str等Iterable变成Iterator可以使用iter()函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isinstance(iter([]), Iterator) <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<p><code>Iterator</code>可以表示一个无限大的数据流，例如全体自然数。但是使用list是永远不可能存储完的。</p>
+</li>
+<li><p>函数式编程：其特点是允许把函数本身作为参数传入另一个函数，还允许返回一个函数。然而，纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。python对函数式编程提供部分支持，由于python允许使用变量，因此python不是纯函数式编程。</p>
+</li>
+<li><p><strong>变量可以指向函数</strong>：如我们有绝对值函数abs，而我们可以用f = abs；<strong>函数名也是变量</strong>。</p>
+</li>
+<li><p>传入函数：<strong>一个函数可以接受另一个函数作为参数</strong>，称之为高阶函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y, f)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> f(x) + f(y)</span><br><span class="line"><span class="comment"># 调用</span></span><br><span class="line">add(<span class="number">-5</span>, <span class="number">4</span>, abs) <span class="comment"># 9</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>map()函数</strong>：接收两个参数，一个是函数，一个是Iterable。map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x * x</span><br><span class="line">r = map(f, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]) <span class="comment"># r为Iterator</span></span><br><span class="line">list(r) <span class="comment"># [1,4,9,16,25]</span></span><br></pre></td></tr></table></figure>
+<p>由于r是一个<code>Iterator</code>，<code>Iterator</code>是一个惰性序列，因此通过<code>list()</code>函数让它把整个序列都计算出来并返回一个list。</p>
+</li>
+<li><p><strong>reduce()函数</strong>：reduce把一个函数作用在一个序列<code>[x1,x2,x3,...]</code>上，这个函数必须接收两个参数，<code>reduce</code>把结果继续和序列的下一个元素做<strong>累积计算</strong>，其效果就是：reduce(f,[x1,x2,x3,x4]) = f(f(f(x1,x2),x3),x4)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x * <span class="number">10</span> + y</span><br><span class="line">print(reduce(add, [<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>])) <span class="comment"># 输出13579</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>filter()函数</strong>：用于过滤序列（<strong>筛选函数</strong>）。和<code>map()</code>类似，filter()也接受一个函数和一个序列。和map()不同的是，filter()把传入的函数依次作用于每个元素，然后根据返回值是<code>True</code>还是<code>False</code>决定保留还是丢弃该元素。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line">list(filter(is_odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">15</span>]))</span><br><span class="line"><span class="comment"># 结果：[1,5,9,15]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sorted()函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sorted([<span class="number">36</span>,<span class="number">5</span>,<span class="number">-12</span>,<span class="number">9</span>,<span class="number">-21</span>], key=abs)</span><br><span class="line"><span class="comment"># 还有 reverse=True（降序）</span></span><br><span class="line"><span class="comment"># 输出[5, 9, -12, -21, 36]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>lambda</strong>匿名函数：为了减少单行函数的定义而存在。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list(map(<span class="keyword">lambda</span> x: x * x, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]))</span><br><span class="line"><span class="comment"># 输出 [1,4,9,16]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>装饰器(decorator)：一个返回函数的高阶函数。如果我们想在函数调用之前自动打印日志，但又不希望修改函数的定义，这种<strong>在代码运行期间动态增加功能的方式</strong>，称为装饰器。（比如经常使用的@timeit）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span> <span class="comment"># 接受任意参数的调用</span></span><br><span class="line">        print(<span class="string">'call %s():'</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@log </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'2020-03-10'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>now()</span><br><span class="line">call now():</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-10</span></span><br></pre></td></tr></table></figure>
+<p>其中，把<code>@log</code>放到<code>now()</code>函数的定义处，相当于执行了语句：now = log(now)</p>
+</li>
+</ol>
+<p>如果decorator本身需要传入参数，那就需要编写一个返回decorator的高阶函数。</p>
+<ol>
+<li><p>python内部使用<strong>引用计数</strong>，来保持追踪内存中的对象，Python内部记录了对象有多少个引用，即引用计数，当对象被创建时就创建了一个引用计数，当对象不再需要时，这个对象的引用计数为0时，它被垃圾回收。</p>
+<p>引用计算加1的情况：</p>
+<ul>
+<li>对象被创建：x = 4</li>
+<li>另外的别人创建：y =  x</li>
+<li>被作为参数传递给函数：foo(x)</li>
+<li>作为容器对象的一个元素：a = [1,x’33’]</li>
+</ul>
+<p>引用计算减少情况：</p>
+<ul>
+<li>一个本地引用离开了它的作用域。比如上面的foo(x)函数结束时，x指向的对象引用减1。</li>
+<li>对象的别名被显式的销毁：del x ；或者del y</li>
+<li>对象的一个别名被赋值给其他对象：x=789</li>
+<li>对象从一个窗口对象中移除：myList.remove(x)</li>
+<li>窗口对象本身被销毁：del myList，或者窗口对象本身离开了作用域。</li>
+</ul>
+</li>
+<li><p>垃圾回收(import gc)</p>
+<ul>
+<li>当内存中有不再使用的部分时，垃圾收集器就会把他们清理掉。它会去检查那些<strong>引用计数为0</strong>的对象，然后清除其在内存的空间。当然除了引用计数为0的会被清除，还有一种情况也会被垃圾收集器清掉：当两个对象相互引用时，他们本身其他的引用已经为0了.</li>
+<li>垃圾回收机制还有一个<strong>循环垃圾回收器</strong>, 确保释放循环引用对象(a引用b, b引用a, 导致其引用计数永远不为0)。</li>
+</ul>
+<p>python中，许多时候申请的内存都是小块的内存，这些小块内存在申请后，很快又会被释放。由于这些内存的申请并不是为了创建对象，所以并没有对象一级的内存池机制。这就意味着python在运行期间会<strong>大量地执行malloc和free的操作，频繁地在用户态和核心态之间进行切换</strong>，这将严重影响python的执行效率。为了加速python的执行效率，<strong>python引入了一个内存池机制，用于管理对小块内存的申请和释放</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gc</span><br><span class="line">gc.get_threshold() <span class="comment"># gc模块中查看阈值的方法</span></span><br><span class="line">gc.collect()       <span class="comment"># 手动启动垃圾回收</span></span><br></pre></td></tr></table></figure>
+<p>如果存在循环引用，则创建数量&gt;释放数量。当创建数量与释放数量的差值达到规定的阈值的时候，则有分代回收机制：python将所有的对象分为0,1,2三代：所有的新建对象是0代；当某一代对象经过垃圾回收后依然存活，则被归入下一代对象。</p>
+</li>
+<li><p>内存池机制：python提供了对内存的垃圾收集机制，但是它将不用的内存放到内存池而不是返回给操作系统。<strong>Python中所有小于256个字节的对象都使用pymalloc实现的分配器，而大的对象则使用系统的 malloc</strong>。另外Python对象，如整数，浮点数和List，都有其独立的私有内存池，对象间不共享他们的内存池。也就是说如果你分配又释放了大量的整数，用于缓存这些整数的内存就不能再分配给浮点数。（总结：<strong>大对象使用malloc进行分配，小对象使用内存池分配</strong>）</p>
+</li>
+<li><p>模块：</p>
+<p><img src="C:\Users\90866\AppData\Roaming\Typora\typora-user-images\1583853580787.png" alt="1583853580787"></p>
+<p>文件<code>www.py</code>的模块名就是<code>mycompany.web.www</code>，两个文件<code>utils.py</code>的模块名分别是<code>mycompany.utils</code>和<code>mycompany.web.utils</code>。</p>
+</li>
+<li><p>作用域：在一个模块中，我们可能会定义很多函数和变量，但有的函数和变量我们希望给别人使用，有的函数和变量我们希望仅仅在模块内部使用。在Python中，是通过<code>_</code>前缀来实现的。</p>
+<ul>
+<li>正常的函数和变量名是公开的（public），可以被直接引用，比如：<code>abc</code>，<code>x123</code>，<code>PI</code>等；</li>
+<li>类似<code>__xxx__</code>这样的变量是特殊变量，可以被直接引用，但是有特殊用途，比如上面的<code>__author__</code>，<code>__name__</code>就是特殊变量，<code>hello</code>模块定义的文档注释也可以用特殊变量<code>__doc__</code>访问，我们自己的变量一般不要用这种变量名；</li>
+<li>类似<code>_xxx</code>和<code>__xxx</code>这样的函数或变量就是非公开的（private），不应该被直接引用，比如<code>_abc</code>，<code>__abc</code>等；以单下划线开头<code>_foo</code>的代表不能直接访问的类属性，需通过类提供的接口进行访问，不能用 <strong>from xxx import *</strong> 而导入。以双下划线开头的 <code>__foo</code>代表类的私有成员。</li>
+</ul>
+</li>
+<li><p>面向对象的设计思想是抽象出Class，根据Class创建Instance。面向对象的抽象程度又比函数要高，因为一个Class既包含数据，又包含操作数据的方法。<strong>封装、继承和多态</strong>是面向对象的三大特点。</p>
+<p>面向对象最重要的概念就是类（Class）和实例（Instance），必须牢记类是抽象的模板，比如Student类，而实例是根据类创建出来的一个个具体的“对象”，每个对象都拥有相同的方法，但各自的数据可能不同。</p>
+</li>
+<li><p>在类定义中，如果要让内部属性不被外部访问，可以把属性的名称前加上两个下划线<code>__</code>，在Python中，实例的变量名如果以<code>__</code>开头，就变成了一个私有变量（private），只有内部可以访问，外部不能访问。在python中，变量名类似<code>__xxx__</code>的，也就是以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，所以，不能用<code>__name__</code>、<code>__score__</code>这样的变量名。</p>
+</li>
+<li><p>继承的好处：子类获得了父类的全部功能。当然，我们也可以对子类增加一些方法。当子类和父类都存在相同的<code>run()</code>方法时，我们说，子类的<code>run()</code>覆盖了父类的<code>run()</code>，在代码运行的时候，总是会调用子类的<code>run()</code>。这样，我们就获得了继承的另一个好处：多态。</p>
+</li>
+<li></li>
+</ol>
+<p>代码小记：</p>
+<ol>
+<li><p>一行完成变量值交换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b = b, a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按key或value对字典进行排序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 按key排序</span></span><br><span class="line">sorted(mydict.keys(), re0verse=<span class="keyword">True</span>) <span class="comment"># 降序</span></span><br><span class="line"><span class="comment"># 按value排序</span></span><br><span class="line">sorted(mydict.items(), key=<span class="keyword">lambda</span> item: item[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/09/Leetcode-42-接雨水/" rel="next" title="Leetcode 42*. 接雨水">
+                <i class="fa fa-chevron-left"></i> Leetcode 42*. 接雨水
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/17/C-知识/" rel="prev" title="C++知识">
+                C++知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="DesmonDay" />
+          <p class="site-author-name" itemprop="name">DesmonDay</p>
+           
+              <p class="site-description motion-element" itemprop="description">主攻方向：NLP</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">133</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DesmonDay" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DesmonDay</span>
+</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+

@@ -106,11 +106,12 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-f48e097dd1a9f711.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-1fc976e41c8264ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-c1ab7da0836e4108.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://img-blog.csdn.net/20180708134258973?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Byb2dyYW1fZGV2ZWxvcGVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1182656/201809/1182656-20180919171920103-1233770993.png">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1182656/201809/1182656-20180920144901341-139977476.png">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8636110-6ebc35177d0a0a14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/UnIETViboUMffyV0Q2kDawtBdqGtVezicjd2UPZ7Y3gaEZ04dV4VeERXgdUImvXztPxB0YuCwVs6bMIomiaIzhUbA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:updated_time" content="2020-02-29T04:00:50.986Z">
+<meta property="og:updated_time" content="2020-04-08T16:30:02.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些重要知识">
 <meta name="twitter:description" content="1x1卷积核https://zhuanlan.zhihu.com/p/40050371   1x1卷积核作用 降维/升维：改变通道大小   增加非线性 1*1卷积核，可以在保持feature map尺度不变的（即不损失分辨率）的前提下大幅增加非线性特性（利用后接的非线性激活函数），把网络做的很deep。 备注：一个filter对应卷积后得到一个feature map，不同的filter(不同的we">
@@ -386,11 +387,14 @@
 <p>例子：使用1x1卷积核，实现降维和升维的操作其实就是channel间信息的线性组合变化，3x3，64channels的卷积核后面添加一个1x1，28channels的卷积核，就变成了3x3，28channels的卷积核，原来的64个channels就可以理解为跨通道线性组合变成了28channels，这就是通道间的信息交互[7]。</p>
 </li>
 </ul>
+<h3 id="感受野计算"><a href="#感受野计算" class="headerlink" title="感受野计算"></a>感受野计算</h3><p>从底向上计算。</p>
+<p><img src="https://img-blog.csdn.net/20180708134258973?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Byb2dyYW1fZGV2ZWxvcGVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
+<p>在卷积神经网络中，感受野（Receptive Field）的定义是卷积神经网络每一层输出的特征图（feature map）上的像素点在输入图片上映射的区域大小。</p>
 <h2 id="beam-search"><a href="#beam-search" class="headerlink" title="beam search"></a>beam search</h2><p>对于seq2seq，我们实际上是在建模</p>
 <p>$p(Y|X)=p(Y_1|X)p(Y_2|X,Y_1)p(Y_3|X,Y_1,Y_2)p(Y_4|X,Y_1,Y_2,Y_3)…$</p>
 <p>在解码时，我们希望能找到最大概率的$Y$。</p>
 <ul>
-<li>贪心：如果我们在第一步p(Y_1|X)时，直接选择最大概率的（期望目标是$P$），然后代入第二步$p(Y_2|X,Y_1)$，再次选择最大概率$Y_2$，依次类推，每一步选择当前最大概率的输出，则称为<strong>贪心搜索</strong>，是一种最低成本的解码方案。但这种方案得到的结果未必是最优的，而假如第一步我们选择了概率不是最大的$Y_1$，代入第二步时也许会得到非常大的条件概率$p(Y_2|X,Y_1)$，从而两者乘积会超过逐位取最大的算法。</li>
+<li>贪心：如果我们在第一步$p(Y_1|X)$时，直接选择最大概率的（期望目标是$P$），然后代入第二步$p(Y_2|X,Y_1)$，再次选择最大概率$Y_2$，依次类推，每一步选择当前最大概率的输出，则称为<strong>贪心搜索</strong>，是一种最低成本的解码方案。但这种方案得到的结果未必是最优的，而假如第一步我们选择了概率不是最大的$Y_1$，代入第二步时也许会得到非常大的条件概率$p(Y_2|X,Y_1)$，从而两者乘积会超过逐位取最大的算法。</li>
 <li>beam search: 如果要枚举所有路径最优，其计算量是无法接受的。因此seq2seq使用了一种折中的方法：beam search。该方法的思想是：<strong>在每步计算时，只保留当前最优的topk个候选结果</strong>。比如取$topk=3$，则第一步时，只保留使得$p(Y_1|X)$最大的前三个$Y_1$，然后分别代入$p(Y_2|X,Y_1)$，然后各取前三个$Y_2$，这样就有了9个组合。这时候计算每一种组合的总概率，仍然只保留前三个，依次递归，直到出现第一个\<end>。普通贪心搜索相当于$topk=1$。</end></li>
 </ul>
 <h2 id="SVD分解原理"><a href="#SVD分解原理" class="headerlink" title="SVD分解原理"></a>SVD分解原理</h2><p>参考资料：<a href="https://www.cnblogs.com/pinard/p/6251584.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6251584.html</a></p>
@@ -416,6 +420,26 @@
 <h2 id="Word2vec"><a href="#Word2vec" class="headerlink" title="Word2vec"></a>Word2vec</h2><p><a href="https://www.cnblogs.com/pinard/p/7160330.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/7160330.html</a></p>
 <p><a href="https://www.jianshu.com/p/471d9bfbd72f" target="_blank" rel="noopener">https://www.jianshu.com/p/471d9bfbd72f</a> </p>
 <p><a href="https://zhuanlan.zhihu.com/p/35500923" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/35500923</a> (susht师姐讲得更好)</p>
+<h2 id="减少过拟合"><a href="#减少过拟合" class="headerlink" title="减少过拟合"></a>减少过拟合</h2><ol>
+<li>L1/L2正则化</li>
+<li>交叉验证</li>
+<li>dropout</li>
+<li>增大数据量</li>
+<li>降低模型复杂度</li>
+<li>Batch Norm</li>
+<li>early stop</li>
+<li>bagging</li>
+</ol>
+<h2 id="解决梯度消失"><a href="#解决梯度消失" class="headerlink" title="解决梯度消失"></a>解决梯度消失</h2><ol>
+<li>修改激活函数</li>
+<li>Batch Norm</li>
+<li>使用LSTM</li>
+<li>short cut 残差</li>
+</ol>
+<h2 id="数据不平衡"><a href="#数据不平衡" class="headerlink" title="数据不平衡"></a>数据不平衡</h2><ol>
+<li>欠采样：去除一些样例使得类别均衡；代表型算法是利用集成学习机制，将反例划分为若干各集合供不同学习器使用，这样看起来对每个学习器都进行了欠采样，但在全局不会丢失重要信息。</li>
+<li>过采样：生成合成数据的过程，试图学习少数类样本特征随机地生成新的少数类样本数据。最常见的技术为SMOTE算法，在少数类数据点的特征空间里，根据随机选择的一个K最近邻样本随机地合成新样本。</li>
+</ol>
 <h2 id="其他资料"><a href="#其他资料" class="headerlink" title="其他资料"></a>其他资料</h2><ol>
 <li><p><a href="https://spaces.ac.cn/archives/5861" target="_blank" rel="noopener">玩转Keras之seq2seq自动生成标题</a> - 特别的一点，这个任务具有先验知识：<strong>标题中的大部分字词都在文章中出现过</strong>（注：仅仅是出现过，并不一定是连续出现，更不能说标题包含在文章中，不然就成为一个普通的序列标注问题了）。因此，可以将文章中的词集作为一个先验分布，加到解码过程的分类模型中，使得模型在解码输出时更倾向选用文章中已有的字词。</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/8636110-6ebc35177d0a0a14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
@@ -450,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/20/Attention机制-NLP领域小结/" rel="next" title="Attention机制-NLP领域小结">
-                <i class="fa fa-chevron-left"></i> Attention机制-NLP领域小结
+              <a href="/2020/02/22/预训练语言模型/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -460,8 +484,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/02/25/预训练语言模型/" rel="prev" title="预训练语言模型">
-                预训练语言模型 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/02/29/对话系统相关知识与论文/" rel="prev" title="对话系统相关知识与论文">
+                对话系统相关知识与论文 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -539,7 +563,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">127</span>
+                <span class="site-state-item-count">133</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -616,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1x1卷积核"><span class="nav-number">1.</span> <span class="nav-text">1x1卷积核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1x1卷积核作用"><span class="nav-number">1.1.</span> <span class="nav-text">1x1卷积核作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#beam-search"><span class="nav-number">2.</span> <span class="nav-text">beam search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVD分解原理"><span class="nav-number">3.</span> <span class="nav-text">SVD分解原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本主题模型-潜在语义索引（LSI）"><span class="nav-number">4.</span> <span class="nav-text">文本主题模型-潜在语义索引（LSI）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非负矩阵分解"><span class="nav-number">5.</span> <span class="nav-text">非负矩阵分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDA模型"><span class="nav-number">6.</span> <span class="nav-text">LDA模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN-LSTM"><span class="nav-number">7.</span> <span class="nav-text">RNN, LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextCNN"><span class="nav-number">8.</span> <span class="nav-text">TextCNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2vec"><span class="nav-number">9.</span> <span class="nav-text">Word2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他资料"><span class="nav-number">10.</span> <span class="nav-text">其他资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1x1卷积核"><span class="nav-number">1.</span> <span class="nav-text">1x1卷积核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1x1卷积核作用"><span class="nav-number">1.1.</span> <span class="nav-text">1x1卷积核作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#感受野计算"><span class="nav-number">1.2.</span> <span class="nav-text">感受野计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#beam-search"><span class="nav-number">2.</span> <span class="nav-text">beam search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SVD分解原理"><span class="nav-number">3.</span> <span class="nav-text">SVD分解原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本主题模型-潜在语义索引（LSI）"><span class="nav-number">4.</span> <span class="nav-text">文本主题模型-潜在语义索引（LSI）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非负矩阵分解"><span class="nav-number">5.</span> <span class="nav-text">非负矩阵分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDA模型"><span class="nav-number">6.</span> <span class="nav-text">LDA模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN-LSTM"><span class="nav-number">7.</span> <span class="nav-text">RNN, LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TextCNN"><span class="nav-number">8.</span> <span class="nav-text">TextCNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2vec"><span class="nav-number">9.</span> <span class="nav-text">Word2vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少过拟合"><span class="nav-number">10.</span> <span class="nav-text">减少过拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决梯度消失"><span class="nav-number">11.</span> <span class="nav-text">解决梯度消失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据不平衡"><span class="nav-number">12.</span> <span class="nav-text">数据不平衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他资料"><span class="nav-number">13.</span> <span class="nav-text">其他资料</span></a></li></ol></div>
             
 
           </div>
